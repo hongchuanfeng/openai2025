@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>图片转为base64</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 1000px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.upload-area {
+			border: 2px dashed #ddd;
+			border-radius: 8px;
+			padding: 40px;
+			text-align: center;
+			margin-bottom: 20px;
+			cursor: pointer;
+			color: #666;
+		}
+		.upload-area:hover {
+			border-color: #4CAF50;
+			color: #4CAF50;
+		}
+		.clear-btn {
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 20px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			background: #fff;
+			cursor: pointer;
+			color: #666;
+		}
+		.clear-btn:hover {
+			background: #f5f5f5;
+		}
+		.result-section {
+			margin-bottom: 20px;
+		}
+		.result-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 10px;
+			background: #e8f5e9;
+			border-radius: 4px 4px 0 0;
+			margin-bottom: 1px;
+		}
+		.result-title {
+			color: #2e7d32;
+			font-weight: 500;
+		}
+		.copy-btn {
+			padding: 4px 8px;
+			background: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 12px;
+		}
+		.copy-btn:hover {
+			background: #43A047;
+		}
+		.result-content {
+			width: 100%;
+			min-height: 200px;
+			padding: 10px;
+			border: 1px solid #e0e0e0;
+			border-radius: 0 0 4px 4px;
+			resize: vertical;
+			font-family: monospace;
+			font-size: 14px;
+			line-height: 1.4;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+	<!-- 添加图片处理所需的库 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<div class="container">
+	<div class="upload-area" id="dropZone">
+		点击上传，或将图片拖拽到此处
+	</div>
+
+	<button class="clear-btn" id="clearBtn">清空数据</button>
+
+	<div class="result-section">
+		<div class="result-header">
+			<span class="result-title"># Base64</span>
+			<button class="copy-btn" data-target="base64Output">复制</button>
+		</div>
+		<textarea class="result-content" id="base64Output" readonly></textarea>
+	</div>
+
+	<div class="result-section">
+		<div class="result-header">
+			<span class="result-title"># HTML代码</span>
+			<button class="copy-btn" data-target="htmlOutput">复制</button>
+		</div>
+		<textarea class="result-content" id="htmlOutput" readonly></textarea>
+	</div>
+</div>
+
+<script>
+	const dropZone = document.getElementById('dropZone');
+	const clearBtn = document.getElementById('clearBtn');
+	const base64Output = document.getElementById('base64Output');
+	const htmlOutput = document.getElementById('htmlOutput');
+
+	// 处理拖放上传
+	dropZone.addEventListener('dragover', (e) => {
+		e.preventDefault();
+		dropZone.style.borderColor = '#4CAF50';
+	});
+
+	dropZone.addEventListener('dragleave', (e) => {
+		e.preventDefault();
+		dropZone.style.borderColor = '#ddd';
+	});
+
+	dropZone.addEventListener('drop', (e) => {
+		e.preventDefault();
+		dropZone.style.borderColor = '#ddd';
+		const file = e.dataTransfer.files[0];
+		handleFile(file);
+	});
+
+	// 处理点击上传
+	dropZone.addEventListener('click', () => {
+		const input = document.createElement('input');
+		input.type = 'file';
+		input.accept = 'image/*';
+		input.onchange = (e) => {
+			const file = e.target.files[0];
+			handleFile(file);
+		};
+		input.click();
+	});
+
+	// 处理文件
+	function handleFile(file) {
+		if (file && file.type.startsWith('image/')) {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				const base64String = e.target.result;
+				base64Output.value = base64String;
+				htmlOutput.value = `<img src="${base64String}" alt="Base64 Image">`;
+			};
+			reader.readAsDataURL(file);
+		}
+	}
+
+	// 清空数据
+	clearBtn.addEventListener('click', () => {
+		base64Output.value = '';
+		htmlOutput.value = '';
+	});
+
+	// 复制功能
+	document.querySelectorAll('.copy-btn').forEach(btn => {
+		btn.addEventListener('click', () => {
+			const targetId = btn.dataset.target;
+			const targetElement = document.getElementById(targetId);
+			targetElement.select();
+			document.execCommand('copy');
+
+			const originalText = btn.textContent;
+			btn.textContent = '已复制！';
+			setTimeout(() => {
+				btn.textContent = originalText;
+			}, 1500);
+		});
+	});
+</script>
+</body>
+
+
+
+
+
+</html>

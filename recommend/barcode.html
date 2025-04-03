@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>条形码生成器</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #2d3436;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 20px;
+		}
+		.settings {
+			background: white;
+			padding: 20px;
+			border-radius: 8px;
+		}
+		.preview {
+			background: white;
+			padding: 20px;
+			border-radius: 8px;
+			text-align: center;
+		}
+		.form-group {
+			margin-bottom: 15px;
+		}
+		.form-label {
+			display: block;
+			margin-bottom: 5px;
+			color: #666;
+			font-weight: bold;
+		}
+		.form-input {
+			width: 100%;
+			padding: 8px;
+			border: 2px solid #e9ecef;
+			border-radius: 4px;
+			font-size: 14px;
+		}
+		.form-input:focus {
+			border-color: #2196f3;
+			outline: none;
+		}
+		.radio-group {
+			display: flex;
+			gap: 20px;
+		}
+		.radio-item {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.color-picker {
+			width: 40px;
+			height: 40px;
+			padding: 0;
+			border: none;
+		}
+		.btn {
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 14px;
+			color: white;
+		}
+		.btn-primary {
+			background-color: #2196f3;
+		}
+		.btn-secondary {
+			background-color: #4CAF50;
+		}
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin-top: 20px;
+		}
+		.info-box {
+			background-color: #fff5f0;
+			border-radius: 8px;
+			padding: 20px;
+			margin-top: 20px;
+			grid-column: span 2;
+		}
+		#barcodeCanvas {
+			max-width: 100%;
+			height: auto;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<header class="header">
+	<div class="header-icon">📊</div>
+	<div class="header-title">
+		条形码生成器
+	</div>
+</header>
+
+<div class="container">
+	<div class="settings">
+		<div class="form-group">
+			<label class="form-label">条码内容</label>
+			<input type="text" class="form-input" id="content" value="https://openai2025.com/">
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">条码类型</label>
+			<input type="text" class="form-input" id="format" value="CODE128" readonly>
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">线条宽度</label>
+			<input type="number" class="form-input" id="width" value="2" min="1" max="10">
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">线条高度</label>
+			<input type="number" class="form-input" id="height" value="60" min="20" max="200">
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">显示文字</label>
+			<div class="radio-group">
+				<label class="radio-item">
+					<input type="radio" name="displayText" value="show" checked> 显示
+				</label>
+				<label class="radio-item">
+					<input type="radio" name="displayText" value="hide"> 隐藏
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">文字字号</label>
+			<input type="number" class="form-input" id="fontSize" value="20" min="10" max="40">
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">水平对齐</label>
+			<div class="radio-group">
+				<label class="radio-item">
+					<input type="radio" name="align" value="left"> 居左
+				</label>
+				<label class="radio-item">
+					<input type="radio" name="align" value="center" checked> 居中
+				</label>
+				<label class="radio-item">
+					<input type="radio" name="align" value="right"> 居右
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">文字位置</label>
+			<div class="radio-group">
+				<label class="radio-item">
+					<input type="radio" name="textPosition" value="bottom" checked> 条码之下
+				</label>
+				<label class="radio-item">
+					<input type="radio" name="textPosition" value="top"> 条码之上
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">背景颜色</label>
+			<input type="color" class="color-picker" id="backgroundColor" value="#FFFFFF">
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">前景颜色</label>
+			<input type="color" class="color-picker" id="lineColor" value="#000000">
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">白边距离</label>
+			<input type="number" class="form-input" id="margin" value="10" min="0" max="50">
+		</div>
+
+		<div class="btn-group">
+			<button class="btn btn-primary" onclick="generateBarcode()">开始生成</button>
+			<button class="btn btn-secondary" onclick="downloadBarcode()">下载条形码</button>
+		</div>
+	</div>
+
+	<div class="preview">
+		<svg id="barcodeCanvas"></svg>
+	</div>
+
+	<div class="info-box">
+		<h3>关于条形码生成器介绍：</h3>
+		<ol>
+			<li>条形码是一种自动识别技术，它使用一组规范不等的条和空来表示数字、字母或其他符号。</li>
+			<li>条形码中的数据可以通过扫描工具来采集，从而快速准确获取条形码中的内容。</li>
+			<li>条形码由以下元素组成：</li>
+			<ul>
+				<li>(1) 条形码符号：由黑白条纹和空白区域组成，条纹宽度表示不同数字或字符。</li>
+				<li>(2) 条形码起始符：位于条形码起始位置，用于指示条形码的开始。</li>
+				<li>(3) 条形码数据区：包含需要表示的数据，数据区可以分为多个字符。</li>
+				<li>(4) 条形码终止符：位于条形码结尾，用于指示条形码的结束位置。</li>
+				<li>(5) 条形码校验符：位于数据区下方，用于检查条形码数据的准确性。</li>
+			</ul>
+		</ol>
+	</div>
+</div>
+
+<script>
+	function generateBarcode() {
+		const content = document.getElementById('content').value;
+		const width = document.getElementById('width').value;
+		const height = document.getElementById('height').value;
+		const fontSize = document.getElementById('fontSize').value;
+		const displayText = document.querySelector('input[name="displayText"]:checked').value === 'show';
+		const textAlign = document.querySelector('input[name="align"]:checked').value;
+		const textPosition = document.querySelector('input[name="textPosition"]:checked').value;
+		const backgroundColor = document.getElementById('backgroundColor').value;
+		const lineColor = document.getElementById('lineColor').value;
+		const margin = document.getElementById('margin').value;
+
+		JsBarcode("#barcodeCanvas", content, {
+			format: "CODE128",
+			width: parseInt(width),
+			height: parseInt(height),
+			fontSize: parseInt(fontSize),
+			displayValue: displayText,
+			textAlign: textAlign,
+			textPosition: textPosition,
+			background: backgroundColor,
+			lineColor: lineColor,
+			margin: parseInt(margin)
+		});
+	}
+
+	function downloadBarcode() {
+		const svg = document.getElementById('barcodeCanvas');
+		const svgData = new XMLSerializer().serializeToString(svg);
+		const canvas = document.createElement('canvas');
+		const ctx = canvas.getContext('2d');
+		const img = new Image();
+
+		img.onload = function() {
+			canvas.width = img.width;
+			canvas.height = img.height;
+			ctx.drawImage(img, 0, 0);
+			const pngFile = canvas.toDataURL('image/png');
+			const downloadLink = document.createElement('a');
+			downloadLink.download = 'barcode.png';
+			downloadLink.href = pngFile;
+			downloadLink.click();
+		};
+
+		img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
+	}
+
+	// 页面加载时生成默认条形码
+	window.onload = generateBarcode;
+</script>
+</body>
+
+</html>

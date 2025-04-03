@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JWT</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 1000px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.input-section {
+			margin-bottom: 20px;
+		}
+		.input-header {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 10px;
+			color: #666;
+			font-size: 14px;
+		}
+		.input-area {
+			width: 100%;
+			height: 100px;
+			padding: 15px;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			resize: vertical;
+			font-family: monospace;
+			font-size: 14px;
+			line-height: 1.4;
+		}
+		.button-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+		}
+		.btn {
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 14px;
+			transition: background-color 0.3s;
+		}
+		.decode-btn {
+			background-color: #00c853;
+			color: white;
+		}
+		.decode-btn:hover {
+			background-color: #00b34a;
+		}
+		.clear-btn {
+			background-color: #ff5252;
+			color: white;
+		}
+		.clear-btn:hover {
+			background-color: #ff1744;
+		}
+		.result-section {
+			margin-top: 20px;
+		}
+		.result-header {
+			font-weight: 500;
+			margin-bottom: 10px;
+			color: #333;
+		}
+		.result-content {
+			background-color: #f8f9fa;
+			padding: 15px;
+			border-radius: 8px;
+			font-family: monospace;
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+		.info-box {
+			margin-top: 20px;
+			padding: 15px;
+			background: #fff5f0;
+			border-radius: 4px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 10px;
+		}
+		.info-list {
+			list-style: none;
+			color: #ff6b6b;
+			font-size: 14px;
+			line-height: 1.8;
+		}
+		.info-list li {
+			margin-bottom: 5px;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<div class="container">
+	<div class="input-section">
+		<div class="input-header">
+			<span>输入令牌</span>
+			<span>结果显示</span>
+		</div>
+		<textarea
+				class="input-area"
+				id="jwtInput"
+				placeholder="请输入JWT令牌..."></textarea>
+	</div>
+
+	<div class="button-group">
+		<button class="btn decode-btn" id="decodeBtn">开始解密</button>
+		<button class="btn clear-btn" id="clearBtn">清空</button>
+	</div>
+
+	<div class="result-section">
+		<div class="result-header">解密结果：</div>
+		<div class="result-content" id="headerResult">
+			<strong>Header (头部):</strong>
+			<pre id="headerContent"></pre>
+		</div>
+		<br>
+		<div class="result-content" id="payloadResult">
+			<strong>Payload (负载):</strong>
+			<pre id="payloadContent"></pre>
+		</div>
+		<br>
+		<div class="result-content" id="signatureResult">
+			<strong>Signature (签名):</strong>
+			<pre id="signatureContent"></pre>
+		</div>
+	</div>
+
+	<div class="info-box">
+		<div class="info-title">关于JWT介绍:</div>
+		<ul class="info-list">
+			<li>1. JWT(JSON Web Tokens)是一种开放标准，定义了一种紧凑且自包含的方式，用于JSON对象的安全传输。</li>
+			<li>2. JWT由Header(头部)、Payload(负载)、Signature(签名)，三部分组成。</li>
+			<li>3. JWT一般用于信息验证，数据传输等场景。</li>
+			<li>4. JWT具有自包含、紧凑、隐私性等优点。</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+	const jwtInput = document.getElementById('jwtInput');
+	const decodeBtn = document.getElementById('decodeBtn');
+	const clearBtn = document.getElementById('clearBtn');
+	const headerContent = document.getElementById('headerContent');
+	const payloadContent = document.getElementById('payloadContent');
+	const signatureContent = document.getElementById('signatureContent');
+
+	function decodeJWT(token) {
+		try {
+			const parts = token.split('.');
+			if (parts.length !== 3) {
+				throw new Error('Invalid JWT format');
+			}
+
+			const header = JSON.parse(atob(parts[0]));
+			const payload = JSON.parse(atob(parts[1]));
+			const signature = parts[2];
+
+			return {
+				header: header,
+				payload: payload,
+				signature: signature
+			};
+		} catch (error) {
+			throw new Error('JWT解析失败');
+		}
+	}
+
+	decodeBtn.addEventListener('click', () => {
+		const jwt = jwtInput.value.trim();
+		if (!jwt) {
+			alert('请输入JWT令牌');
+			return;
+		}
+
+		try {
+			const decoded = decodeJWT(jwt);
+			headerContent.textContent = JSON.stringify(decoded.header, null, 2);
+			payloadContent.textContent = JSON.stringify(decoded.payload, null, 2);
+			signatureContent.textContent = decoded.signature;
+		} catch (error) {
+			alert(error.message);
+		}
+	});
+
+	clearBtn.addEventListener('click', () => {
+		jwtInput.value = '';
+		headerContent.textContent = '';
+		payloadContent.textContent = '';
+		signatureContent.textContent = '';
+	});
+</script>
+
+</body>
+
+</html>

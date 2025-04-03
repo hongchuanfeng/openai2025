@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP地址归属地查询</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 20px;
+        }
+        .nav {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #deb887;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .heart-icon {
+            color: #ff4757;
+            cursor: pointer;
+        }
+        .rating {
+            display: flex;
+            gap: 5px;
+            color: #ffd700;
+        }
+        .share-icon {
+            margin-left: auto;
+            color: #666;
+            cursor: pointer;
+        }
+        .section-title {
+            color: #00b894;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .time-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        .country {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .city {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .timezone {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .date {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .time {
+            color: #00b894;
+            font-size: 16px;
+        }
+        .main-title {
+            text-align: center;
+            color: #2196f3;
+            font-size: 24px;
+            margin: 40px 0;
+        }
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+        .search-input:focus {
+            border-color: #2196f3;
+        }
+        .search-btn {
+            padding: 12px 30px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .search-btn:hover {
+            background-color: #1976d2;
+        }
+        .ip-info {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .info-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff5f0;
+            border-radius: 4px;
+            padding: 20px;
+        }
+        .info-title {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        .info-list {
+            list-style: none;
+            color: #666;
+        }
+        .info-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+    </style>
+    <script src="../static/js/jquery-3.6.2.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+    <a href="../index.html" class="nav-item">🔍 推荐工具</a>
+    <a href="../life.html" class="nav-item">🏠 生活工具</a>
+    <a href="../encry.html" class="nav-item">🔒 加密解密</a>
+    <a href="../code.html" class="nav-item">📝 编码解码</a>
+    <a href="../dev.html" class="nav-item">💻 开发工具</a>
+    <a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+    <a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<h1 class="main-title">IP归属地查询</h1>
+
+<div class="search-container">
+    <input type="text" class="search-input" placeholder="输入IP地址" id="ipInput">
+    <button class="search-btn" onclick="queryIP()">查询</button>
+</div>
+
+<div class="ip-info" id="queryResult">
+
+</div>
+
+<div class="info-box">
+    <h3 class="info-title">关于IP地址介绍：</h3>
+    <ul class="info-list">
+        <li>1、IP地址（Internet Protocol Address）是互联网上用于识别设备的数字地址。</li>
+        <li>2、IP地址定义了网络上的设备如何在数据包中寻址和通信。</li>
+        <li>3、IP地址通常分为两种类型：IPv4和IPv6。</li>
+        <li>4、本工具可以查询IP地址的归属地，查询结果仅供参考，不得用于商业用途。</li>
+    </ul>
+</div>
+
+
+</body>
+
+<script>
+    // 获取当前IP
+    async function getCurrentIP() {
+        try {
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            return data.ip;
+        } catch (error) {
+            console.error('获取IP失败:', error);
+            return null;
+        }
+    }
+
+    // 查询IP信息
+    async function queryIPInfo(ip) {
+        try {
+            const response = await fetch(`https://ipapi.co/${ip}/json/`);
+            const data = await response.json();
+            return {
+                ip: data.ip,
+                country: data.country_name,
+                region: data.region,
+                city: data.city,
+                org: data.org
+            };
+        } catch (error) {
+            console.error('查询IP信息失败:', error);
+            return null;
+        }
+    }
+
+    // 显示IP信息
+    function displayIPInfo(info, elementId) {
+        const element = document.getElementById(elementId);
+        if (!info) {
+            element.innerHTML = '获取信息失败，请稍后重试';
+            return;
+        }
+
+        let html = `IP：${info.ip}<br>`;
+        html += `来自：${info.country} - ${info.region} - ${info.city}<br>`;
+        html += `运营商：${info.org}`;
+
+        element.innerHTML = html;
+    }
+
+    // 查询按钮点击事件
+    async function queryIP() {
+        const ipInput = document.getElementById('ipInput');
+        const ip = ipInput.value.trim();
+        const resultBox = document.getElementById('resultBox');
+        const queryResult = document.getElementById('queryResult');
+
+        if (!ip) {
+            alert('请输入要查询的IP地址');
+            return;
+        }
+
+        // IP地址格式验证
+        const ipPattern = /^(\d{1,3}\.){3}\d{1,3}$/;
+        if (!ipPattern.test(ip)) {
+            alert('请输入正确的IP地址格式');
+            return;
+        }
+
+
+
+        const info = await queryIPInfo(ip);
+        displayIPInfo(info, 'queryResult');
+    }
+
+    // 页面加载时获取当前IP
+    window.onload = async function() {
+        const ip = await getCurrentIP();
+        if (ip) {
+            const info = await queryIPInfo(ip);
+            if (info) {
+                console.log(info);
+                $('.ip-info').html("本机IP："+info.ip+"    来自："+info.country+" - "+info.region);
+
+            }
+        }
+    };
+</script>
+
+
+</html>

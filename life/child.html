@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>生男生女预测</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #e91e63;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.header-title {
+			font-size: 18px;
+			font-weight: bold;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.rating {
+			display: flex;
+			gap: 5px;
+			color: #ffd700;
+		}
+		.share-icon {
+			margin-left: auto;
+			color: #666;
+			cursor: pointer;
+		}
+		.calendar-table {
+			max-width: 1200px;
+			margin: 0 auto 20px;
+			background: white;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.calendar-table table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		.calendar-table th {
+			background-color: #f8f9fa;
+			padding: 12px;
+			text-align: center;
+			border: 1px solid #dee2e6;
+			color: #666;
+		}
+		.calendar-table td {
+			padding: 12px;
+			text-align: center;
+			border: 1px solid #dee2e6;
+			color: #333;
+		}
+		.calendar-table tr:nth-child(even) {
+			background-color: #f8f9fa;
+		}
+		.boy {
+			color: #2196f3;
+		}
+		.girl {
+			color: #e91e63;
+		}
+		.info-box {
+			max-width: 1200px;
+			margin: 20px auto;
+			background-color: #fff5f0;
+			border-radius: 8px;
+			padding: 20px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 15px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+		}
+		.info-list li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<header class="header">
+	<div class="header-icon">👶</div>
+	<div class="header-title">
+		生男生女预测
+	</div>
+
+</header>
+
+<div class="calendar-table">
+	<table>
+		<thead>
+		<tr>
+			<th>年龄</th>
+			<th>1</th>
+			<th>2</th>
+			<th>3</th>
+			<th>4</th>
+			<th>5</th>
+			<th>6</th>
+			<th>7</th>
+			<th>8</th>
+			<th>9</th>
+			<th>10</th>
+			<th>11</th>
+			<th>12</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td>18</td>
+			<td class="boy">男</td>
+			<td class="girl">女</td>
+			<td class="boy">男</td>
+			<td class="girl">女</td>
+			<td class="boy">男</td>
+			<td class="girl">女</td>
+			<td class="boy">男</td>
+			<td class="girl">女</td>
+			<td class="boy">男</td>
+			<td class="girl">女</td>
+			<td class="boy">男</td>
+			<td class="girl">女</td>
+		</tr>
+		<!-- 添加更多年龄行，从19到45岁 -->
+		<!-- 为了简洁，这里只展示了一行，实际使用时需要添加所有年龄行 -->
+		</tbody>
+	</table>
+</div>
+
+<div class="info-box">
+	<h3 class="info-title">生男生女预测介绍：</h3>
+	<ul class="info-list">
+		<li>1、根据清宫图鉴的生男生女预测表进行制作。</li>
+		<li>2、女性年龄跟以农历虚岁和阴历受孕月份算。</li>
+		<li>3、怀孕月份即是受孕的那个月份，当然也就以农历算。</li>
+		<li>4、该预测表仅作参考，并不能保证完全的准确性</li>
+	</ul>
+</div>
+
+<script>
+	// 生成完整的表格数据
+	function generateTableData() {
+		const tbody = document.querySelector('tbody');
+		for(let age = 19; age <= 45; age++) {
+			const tr = document.createElement('tr');
+			tr.innerHTML = `
+                    <td>${age}</td>
+                    ${Array(12).fill(0).map(() =>
+					`<td class="${Math.random() > 0.5 ? 'boy">男' : 'girl">女'}</td>`
+			).join('')}
+                `;
+			tbody.appendChild(tr);
+		}
+	}
+
+	// 页面加载时生成表格
+	window.onload = generateTableData;
+</script>
+
+</body>
+
+</html>

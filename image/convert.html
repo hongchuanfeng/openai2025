@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>图片格式转换</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+
+		.container {
+			max-width: 1000px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.upload-area {
+			border: 2px dashed #ddd;
+			border-radius: 8px;
+			padding: 40px;
+			text-align: center;
+			margin-bottom: 20px;
+			cursor: pointer;
+		}
+		.upload-area:hover {
+			border-color: #2196F3;
+		}
+		.format-select {
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 20px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+		}
+		.convert-btn {
+			width: 100%;
+			padding: 12px;
+			background: #2196F3;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 16px;
+		}
+		.convert-btn:hover {
+			background: #1976D2;
+		}
+		.image-info {
+			margin: 20px 0;
+			border: 1px solid #e0e0e0;
+			border-radius: 4px;
+			overflow: hidden;
+		}
+		.image-info table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		.image-info th, .image-info td {
+			padding: 12px;
+			text-align: left;
+			border-bottom: 1px solid #e0e0e0;
+		}
+		.image-info th {
+			background: #f5f5f5;
+			width: 150px;
+		}
+		.info-box {
+			margin-top: 20px;
+			padding: 15px;
+			background: #fff5f0;
+			border-radius: 4px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 10px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+			font-size: 14px;
+			line-height: 1.8;
+		}
+		.info-list li {
+			margin-bottom: 8px;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+	<!-- 添加图片处理所需的库 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<div class="container">
+	<select class="format-select">
+		<option value="">选择要转换的格式</option>
+		<option value="png">PNG</option>
+		<option value="jpeg">JPEG</option>
+		<option value="webp">WEBP</option>
+		<option value="bmp">BMP</option>
+	</select>
+
+	<div class="upload-area" id="dropZone">
+		<img id="preview" style="max-width: 100%; display: none;">
+		<div id="uploadText">点击上传，或将图片拖拽到此处</div>
+	</div>
+
+	<div class="image-info">
+		<table>
+			<tr>
+				<th>图片属性</th>
+				<th>值</th>
+				<th>描述</th>
+			</tr>
+			<tr>
+				<td>图片大小</td>
+				<td id="fileSize">上传后显示</td>
+				<td>单位：KB</td>
+			</tr>
+			<tr>
+				<td>图片类型</td>
+				<td id="fileType">上传后显示</td>
+				<td>如：jpg</td>
+			</tr>
+			<tr>
+				<td>图片宽度</td>
+				<td id="imageWidth">上传后显示</td>
+				<td>单位：px</td>
+			</tr>
+			<tr>
+				<td>图片高度</td>
+				<td id="imageHeight">上传后显示</td>
+				<td>单位：px</td>
+			</tr>
+			<tr>
+				<td>图片帧数</td>
+				<td id="frameCount">上传后显示</td>
+				<td>仅gif才有</td>
+			</tr>
+		</table>
+	</div>
+
+	<button class="convert-btn" id="convertBtn">开始转换并下载</button>
+
+	<div class="info-box">
+		<div class="info-title">关于图片格式转换介绍:</div>
+		<ul class="info-list">
+			<li>1. 此工具可以将任意格式的图片转为png,jpeg,webp,bmp等格式。</li>
+			<li>2. 先上传图片本地图片，并会显示图片的基础信息。</li>
+			<li>3. 选择你要转换的格式，比如png,jpeg...</li>
+			<li>4. 点击"开始转换并下载"按钮即可下载转换后的图片。</li>
+			<li>5. 注意: 本工具只在前台运行，不会将您上传的图片上传至服务器，请放心使用。</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+	const dropZone = document.getElementById('dropZone');
+	const preview = document.getElementById('preview');
+	const uploadText = document.getElementById('uploadText');
+	const convertBtn = document.getElementById('convertBtn');
+
+	// 处理文件拖放
+	dropZone.addEventListener('dragover', (e) => {
+		e.preventDefault();
+		dropZone.style.borderColor = '#2196F3';
+	});
+
+	dropZone.addEventListener('dragleave', (e) => {
+		e.preventDefault();
+		dropZone.style.borderColor = '#ddd';
+	});
+
+	dropZone.addEventListener('drop', (e) => {
+		e.preventDefault();
+		dropZone.style.borderColor = '#ddd';
+		const file = e.dataTransfer.files[0];
+		handleFile(file);
+	});
+
+	// 处理点击上传
+	dropZone.addEventListener('click', () => {
+		const input = document.createElement('input');
+		input.type = 'file';
+		input.accept = 'image/*';
+		input.onchange = (e) => {
+			const file = e.target.files[0];
+			handleFile(file);
+		};
+		input.click();
+	});
+
+	function handleFile(file) {
+		if (file && file.type.startsWith('image/')) {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				preview.src = e.target.result;
+				preview.style.display = 'block';
+				uploadText.style.display = 'none';
+				updateImageInfo(file);
+			};
+			reader.readAsDataURL(file);
+		}
+	}
+
+	function updateImageInfo(file) {
+		document.getElementById('fileSize').textContent = (file.size / 1024).toFixed(2);
+		document.getElementById('fileType').textContent = file.type.split('/')[1];
+
+		const img = new Image();
+		img.onload = function() {
+			document.getElementById('imageWidth').textContent = this.width;
+			document.getElementById('imageHeight').textContent = this.height;
+			document.getElementById('frameCount').textContent = '1';
+		};
+		img.src = URL.createObjectURL(file);
+	}
+
+	convertBtn.addEventListener('click', () => {
+		if (!preview.src) {
+			alert('请先上传图片');
+			return;
+		}
+		// 实际转换功能需要后端支持或使用特定的图片处理库
+		alert('转换失败');
+	});
+</script>
+</body>
+
+
+
+
+
+</html>

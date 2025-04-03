@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>在线密码生成器</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			width: 600px;
+			margin: 20px auto;
+			padding: 20px;
+			background-color: #fff;
+			border-radius: 5px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		}
+
+		.input-group {
+			margin-bottom: 20px;
+		}
+
+		.input-label {
+			display: block;
+			margin-bottom: 5px;
+			font-size: 16px;
+			font-weight: bold;
+			color: #333;
+		}
+
+		.input-field {
+			display: block;
+			width: 100%;
+			padding: 10px;
+			font-size: 16px;
+			border: none;
+			border-radius: 5px;
+			box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+			background-color: #f9f9f9;
+			color: #333;
+		}
+
+		.checkbox-group {
+			margin-bottom: 10px;
+		}
+
+		.checkbox-label {
+			display: inline-block;
+			margin-right: 20px;
+			font-size: 14px;
+			color: #666;
+		}
+
+		.btn {
+			display: inline-block;
+			padding: 10px 20px;
+			font-size: 16px;
+			border: none;
+			border-radius: 5px;
+			background-color: #4CAF50;
+			color: #fff;
+			text-align: center;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		.btn:hover {
+			background-color: #3e8e41;
+		}
+
+		.password {
+			margin-bottom: 20px;
+		}
+
+		.password-label {
+			display: block;
+			margin-bottom: 5px;
+			font-size: 16px;
+			font-weight: bold;
+			color: #333;
+		}
+
+		.password-field {
+			display: block;
+			width: 100%;
+			padding: 10px;
+			font-size: 16px;
+			border: none;
+			border-radius: 5px;
+			box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+			background-color: #f9f9f9;
+			color: #333;
+			font-family: monospace;
+			line-height: 1.5;
+		}
+
+		.alert {
+			margin-top: 20px;
+			padding: 15px;
+			font-size: 16px;
+			color: #31708f;
+			background-color: #d9edf7;
+			border-color: #bce8f1;
+			border-radius: 5px;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<div class="container">
+	<h1>密码生成器</h1>
+
+	<form id="password-form" method="POST">
+		<div class="input-group">
+			<label for="length" class="input-label">密码长度：</label>
+			<input type="number" name="length" id="length" class="input-field" min="6" max="32" required>
+		</div>
+
+		<div class="input-group">
+			<label for="count" class="input-label">密码数量：</label>
+			<input type="number" name="count" id="count" class="input-field" min="1" max="10" required>
+		</div>
+
+		<div class="checkbox-group">
+			<label class="input-label">密码组成成分：</label>
+			<label for="uppercase" class="checkbox-label"><input type="checkbox" name="uppercase" id="uppercase"> 大写字母</label>
+			<label for="lowercase" class="checkbox-label"><input type="checkbox" name="lowercase" id="lowercase"> 小写字母</label>
+			<label for="number" class="checkbox-label"><input type="checkbox" name="number" id="number"> 数字</label>
+			<label for="symbol" class="checkbox-label"><input type="checkbox" name="symbol" id="symbol"> 符号（!@#$%^&*()_+-=[]{}|;':\",./<>?）</label>
+		</div>
+
+		<button type="submit" class="btn">生成密码</button>
+	</form>
+
+	<div class="password">
+		<label for="generated-password" class="password-label">生成的密码：</label>
+		<textarea name="generated-password" id="generated-password" class="password-field" readonly></textarea>
+	</div>
+
+	<div class="alert" role="alert">
+		注意：必须勾选一个组成成分，否则无法生成。本密码生成器在浏览器中运行并且不会将任何数据发送到服务器，因此生成的密码非常安全。但请注意，在使用本密码生成器之前，请确认您的电脑和浏览器是受信任且可靠的。
+	</div>
+</div>
+
+<script>
+	function generatePassword(event) {
+		event.preventDefault();
+
+		const length = parseInt(document.getElementById('length').value);
+		const count = parseInt(document.getElementById('count').value);
+		const uppercase = document.getElementById('uppercase').checked;
+		const lowercase = document.getElementById('lowercase').checked;
+		const number = document.getElementById('number').checked;
+		const symbol = document.getElementById('symbol').checked;
+
+		const characters = [];
+		if (uppercase) characters.push(...'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+		if (lowercase) characters.push(...'abcdefghijklmnopqrstuvwxyz');
+		if (number) characters.push(...'0123456789');
+		if (symbol) characters.push(...'!@#$%^&*()_+-=[]{}|;\'\":,./<>?');
+
+		let passwords = [];
+		for (let i = 0; i < count; i++) {
+			let password = '';
+			for (let j = 0; j < length; j++) {
+				password += characters[Math.floor(Math.random() * characters.length)];
+			}
+			passwords.push(`${i + 1}. ${password}`);
+		}
+
+		document.getElementById('generated-password').value = passwords.join('\n\n');
+	}
+
+	document.getElementById('password-form').addEventListener('submit', generatePassword);
+</script>
+</body>
+
+</html>

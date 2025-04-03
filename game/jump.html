@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>在线山鸡跳跳乐</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container{
+			margin: auto;
+			width: 500px;
+		}
+		header {
+			text-align: center;
+			padding: 20px 0;
+			background-color: #81c784;
+		}
+
+		h1 {
+			color: #fff;
+			font-size: 40px;
+			font-weight: bold;
+		}
+
+		main {
+			margin: 40px auto;
+			max-width: 600px;
+			text-align: center;
+		}
+
+		.game-area {
+			position: relative;
+			width: 400px;
+			height: 400px;
+			margin: 0 auto;
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+			overflow: hidden;
+		}
+
+		.chicken {
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			font-size: 40px;
+			line-height: 1;
+			cursor: pointer;
+			transition: bottom 0.3s;
+		}
+
+		.score {
+			margin-top: 20px;
+			font-size: 24px;
+			color: #81c784;
+			font-weight: bold;
+		}
+
+		.restart-button {
+			display: none;
+			margin-top: 20px;
+			padding: 10px 20px;
+			font-size: 20px;
+			background-color: #81c784;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+		}
+
+		.rule {
+			margin-top: 20px;
+			font-size: 16px;
+			text-align: center;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<div class="container">
+
+
+	<header>
+		<h1>山鸡跳跳乐</h1>
+	</header>
+
+	<main>
+		<div class="game-area">
+			<div class="chicken">🐔</div>
+		</div>
+		<div class="score">得分：0</div>
+		<button class="restart-button">重新开始</button>
+		<div class="rule">点击山鸡🐔，加一分！</div>
+		<div id="image-container"></div>
+	</main>
+
+	<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+	<script>
+		var chicken = document.querySelector('.chicken');
+		var scoreText = document.querySelector('.score');
+		var restartButton = document.querySelector('.restart-button');
+		var generateImageButton = document.querySelector('.generate-image-button');
+		var imageContainer = document.getElementById('image-container');
+		var score = 0;
+		var isJumping = false;
+
+		chicken.addEventListener('click', function () {
+			if (!isJumping) {
+				score++;
+				scoreText.textContent = '得分：' + score;
+				jump();
+			}
+		});
+
+		restartButton.addEventListener('click', function () {
+			resetGame();
+		});
+
+		generateImageButton.addEventListener('click', function () {
+			html2canvas(document.body).then(function (canvas) {
+				var generatedImage = document.createElement('img');
+				generatedImage.src = canvas.toDataURL();
+				generatedImage.style.width = '100%';
+				imageContainer.innerHTML = '';
+				imageContainer.appendChild(generatedImage);
+			});
+		});
+
+		function jump() {
+			isJumping = true;
+			chicken.style.bottom = '200px';
+			setTimeout(function () {
+				chicken.style.bottom = '0';
+				isJumping = false;
+				checkGameOver();
+			}, 500);
+		}
+
+		function checkGameOver() {
+			var gameArea = document.querySelector('.game-area');
+			var chickenPosition = chicken.getBoundingClientRect();
+			var gameAreaPosition = gameArea.getBoundingClientRect();
+
+			if (chickenPosition.bottom >= gameAreaPosition.bottom) {
+				gameOver();
+			}
+		}
+
+		function gameOver() {
+			chicken.style.pointerEvents = 'none';
+			restartButton.style.display = 'inline-block';
+		}
+
+		function resetGame() {
+			chicken.style.pointerEvents = 'auto';
+			restartButton.style.display = 'none';
+			score = 0;
+			scoreText.textContent = '得分：' + score;
+		}
+	</script>
+</div>
+
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>在线点击方块游戏</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container{
+			margin: auto;
+			width: 500px;
+		}
+		#game-area {
+			width: 400px;
+			height: 400px;
+			margin: 0 auto;
+			position: relative;
+			background-color: #eee;
+		}
+		.square {
+			width: 50px;
+			height: 50px;
+			background-color: blue;
+			position: absolute;
+			cursor: pointer;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<div class="container">
+
+
+	<h1>点击方块</h1>
+	<p>在20秒内尽可能多地点击蓝色方块</p>
+	<div id="game-area">
+		<!-- 方块会通过JavaScript动态生成 -->
+	</div>
+	<div id="countdown"></div>
+
+	<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+	<script>
+		// 游戏区域
+		const gameArea = document.getElementById('game-area');
+
+		// 定义变量
+		let score = 0;
+		let timeLeft = 20;
+
+		// 页面加载完毕后执行初始化操作
+		document.addEventListener("DOMContentLoaded", function() {
+			init();
+		});
+
+		// 初始化函数
+		function init() {
+			// 创建方块
+			createSquares();
+
+			// 开始倒计时
+			countDown(timeLeft);
+
+			// 监听所有方块的点击事件
+			gameArea.addEventListener('click', handleClick);
+		}
+
+		// 创建方块
+		function createSquares() {
+			for (let i = 0; i < 20; i++) {
+				let div = document.createElement('div');
+				div.className = 'square';
+				div.style.left = Math.floor(Math.random() * 350) + 'px';
+				div.style.top = Math.floor(Math.random() * 350) + 'px';
+				gameArea.appendChild(div);
+			}
+		}
+
+		// 处理方块的点击事件
+		function handleClick(e) {
+			if (e.target.classList.contains('square')) {
+				score++;
+				e.target.style.display = 'none';
+			}
+		}
+
+		// 倒计时函数
+		function countDown(timeLeft) {
+			let countdown = document.getElementById("countdown");
+			let timer = setInterval(function() {
+				countdown.innerHTML = "倒计时：" + timeLeft;
+				timeLeft--;
+				if (timeLeft === -1) {
+					clearInterval(timer);
+					countdown.innerHTML = "时间到！您的得分是：" + score;
+					let shareBtn = document.getElementById("share-btn");
+					shareBtn.style.display = 'block'; // 显示分享按钮
+					// 游戏结束后生成分享图片
+					html2canvas(gameArea).then(function(canvas) {
+						let imgSrc = canvas.toDataURL();
+						let link = document.createElement("a");
+						link.download = "点击方块得分-" + score + ".png";
+						link.href = imgSrc;
+						link.click();
+					});
+				}
+			}, 1000);
+		}
+
+		// 分享按钮点击事件
+		const shareBtn = document.getElementById("share-btn");
+		shareBtn.addEventListener('click', function() {
+			// 在这里添加分享内容和逻辑
+			alert('您成功分享了游戏结果！');
+		});
+	</script>
+</div>
+
+
+
+
+
+
+</body>
+
+</html>

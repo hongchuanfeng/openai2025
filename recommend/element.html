@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>化学元素周期表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 20px;
+        }
+        .nav {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        .periodic-table {
+            display: grid;
+            grid-template-columns: repeat(18, 1fr);
+            gap: 2px;
+            margin-bottom: 20px;
+        }
+        .element {
+            aspect-ratio: 1;
+            padding: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .element-number {
+            font-size: 10px;
+            align-self: flex-start;
+        }
+        .element-symbol {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .element-name {
+            font-size: 10px;
+        }
+        /* 元素类型颜色 */
+        .alkali-metal { background-color: #ff9800; }
+        .alkaline-earth { background-color: #ffd180; }
+        .transition-metal { background-color: #ff80ab; }
+        .post-transition { background-color: #80deea; }
+        .metalloid { background-color: #81c784; }
+        .nonmetal { background-color: #4caf50; }
+        .noble-gas { background-color: #80d8ff; }
+        .lanthanide { background-color: #ffcdd2; }
+        .actinide { background-color: #ffccbc; }
+
+        .info-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff5f0;
+            border-radius: 4px;
+        }
+        .info-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .info-content {
+            line-height: 1.6;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+<nav class="nav">
+    <a href="../index.html" class="nav-item">🔍 推荐工具</a>
+    <a href="../life.html" class="nav-item">🏠 生活工具</a>
+    <a href="../encry.html" class="nav-item">🔒 加密解密</a>
+    <a href="../code.html" class="nav-item">📝 编码解码</a>
+    <a href="../dev.html" class="nav-item">💻 开发工具</a>
+    <a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+    <a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<div class="container">
+    <h1 class="title">化学元素周期表</h1>
+    <div class="periodic-table">
+        <!-- 第一行 -->
+        <div class="element nonmetal">
+            <span class="element-number">1</span>
+            <span class="element-symbol">H</span>
+            <span class="element-name">氢</span>
+        </div>
+        <!-- 空白格子 -->
+        <div style="grid-column: 2/18;"></div>
+        <div class="element noble-gas">
+            <span class="element-number">2</span>
+            <span class="element-symbol">He</span>
+            <span class="element-name">氦</span>
+        </div>
+
+        <!-- 继续添加其他元素... -->
+    </div>
+
+    <div class="info-box">
+        <div class="info-title">元素周期表：</div>
+        <div class="info-content">
+            元素周期表是按照原子序数递增顺序排列的化学元素列表。<br>
+            它通过周期性形式直观展示了元素的周期性规律，是化学学科的一个基础而重要的工具。<br>
+            为了帮助用户更容易记住和识别这个不同的元素，有些通俗记忆方法工具应运而生，它们以像游戏7的方式来帮助了元素的排列规则，提供了学习周期表的直观视角。
+        </div>
+    </div>
+</div>
+</body>
+</html>

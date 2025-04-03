@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人民币转大写</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 20px;
+        }
+        .nav {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .header-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #ff6b6b;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .rating {
+            display: flex;
+            gap: 5px;
+            color: #ffd700;
+        }
+        .share-icon {
+            margin-left: auto;
+            color: #666;
+            cursor: pointer;
+        }
+        .converter {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+        .input-field:focus {
+            border-color: #2196f3;
+        }
+        .convert-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .convert-btn:hover {
+            background-color: #1976d2;
+        }
+        .result {
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            min-height: 50px;
+        }
+        .info-box {
+            margin-top: 20px;
+            background-color: #fff5f0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .info-title {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        .info-list {
+            list-style: none;
+            color: #666;
+        }
+        .info-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .number-map {
+            margin-top: 30px;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .map-title {
+            color: #2196f3;
+            margin-bottom: 20px;
+        }
+        .map-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+        .map-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .chinese-char {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .number-value {
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<nav class="nav">
+    <a href="../index.html" class="nav-item">🔍 推荐工具</a>
+    <a href="../life.html" class="nav-item">🏠 生活工具</a>
+    <a href="../encry.html" class="nav-item">🔒 加密解密</a>
+    <a href="../code.html" class="nav-item">📝 编码解码</a>
+    <a href="../dev.html" class="nav-item">💻 开发工具</a>
+    <a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+    <a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<header class="header">
+    <div class="header-icon">💰</div>
+    <div class="header-title">
+        人民币转大写
+    </div>
+</header>
+
+<div class="converter">
+    <div class="input-group">
+        <input type="text" class="input-field" id="amount" placeholder="输入人民币金额，如：19535.65">
+    </div>
+
+    <button class="convert-btn" onclick="convertToChinese()">开始转换</button>
+
+    <div class="result" id="result"></div>
+
+    <div class="info-box">
+        <h3 class="info-title">关于人民币转大写工具介绍：</h3>
+        <ul class="info-list">
+            <li>1、在一些特定的场合中，RMB的金额一般都会采用汉字写，譬：贰零贰叁年。</li>
+            <li>2、本工具可以将阿拉伯数字的数字金额转为汉字的形式。</li>
+            <li>3、输入要转换的阿拉伯数字金额，点击"开始转换"即可。</li>
+        </ul>
+    </div>
+
+    <div class="number-map">
+        <h3 class="map-title">数字与汉字单位对比</h3>
+        <div class="map-grid">
+            <div class="map-item">
+                <div class="chinese-char">零</div>
+                <div class="number-value">零 = 0</div>
+            </div>
+            <div class="map-item">
+                <div class="chinese-char">壹</div>
+                <div class="number-value">壹 = 1</div>
+            </div>
+            <!-- 其他数字映射 -->
+            <div class="map-item">
+                <div class="chinese-char">万</div>
+                <div class="number-value">万 = 万</div>
+            </div>
+            <div class="map-item">
+                <div class="chinese-char">亿</div>
+                <div class="number-value">亿 = 亿</div>
+            </div>
+            <div class="map-item">
+                <div class="chinese-char">元</div>
+                <div class="number-value">元 = 元(圆)</div>
+            </div>
+            <div class="map-item">
+                <div class="chinese-char">角</div>
+                <div class="number-value">角 = 角</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function convertToChinese() {
+        const amount = document.getElementById('amount').value.trim();
+        const result = document.getElementById('result');
+
+        // 验证输入
+        if (!/^\d+(\.\d{1,2})?$/.test(amount)) {
+            alert('请输入正确的金额格式！');
+            return;
+        }
+
+        const numbers = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+        const units = ['', '拾', '佰', '仟', '万', '拾', '佰', '仟', '亿'];
+
+        // 转换整数部分
+        const parts = amount.split('.');
+        let integer = parts[0];
+        let decimal = parts[1] || '';
+
+        let result_str = '';
+
+        // 处理整数部分
+        for (let i = 0; i < integer.length; i++) {
+            const num = parseInt(integer[i]);
+            const unit = units[integer.length - 1 - i];
+            if (num === 0) {
+                if (result_str[result_str.length - 1] !== '零' && i !== integer.length - 1) {
+                    result_str += '零';
+                }
+            } else {
+                result_str += numbers[num] + unit;
+            }
+        }
+
+        result_str += '元';
+
+        // 处理小数部分
+        if (decimal) {
+            if (decimal[0] !== '0') {
+                result_str += numbers[parseInt(decimal[0])] + '角';
+            }
+            if (decimal[1] && decimal[1] !== '0') {
+                result_str += numbers[parseInt(decimal[1])] + '分';
+            }
+        } else {
+            result_str += '整';
+        }
+
+        result.textContent = result_str;
+    }
+
+    // 限制输入只能是数字和小数点
+    document.getElementById('amount').addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^\d.]/g, '');
+        if (this.value.split('.').length > 2) {
+            this.value = this.value.replace(/\.+$/, '');
+        }
+    });
+</script>
+</body>
+</html>

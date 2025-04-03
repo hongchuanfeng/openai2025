@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>二维码解析</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #2d3436;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.header-title {
+			font-size: 18px;
+			font-weight: bold;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.rating {
+			display: flex;
+			gap: 5px;
+			color: #ffd700;
+		}
+		.share-icon {
+			margin-left: auto;
+			color: #666;
+			cursor: pointer;
+		}
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		.upload-area {
+			border: 2px dashed #ddd;
+			border-radius: 8px;
+			padding: 40px;
+			text-align: center;
+			background: white;
+			margin-bottom: 20px;
+			cursor: pointer;
+			position: relative;
+		}
+		.upload-area:hover {
+			border-color: #2196f3;
+		}
+		.upload-icon {
+			font-size: 48px;
+			color: #666;
+			margin-bottom: 10px;
+		}
+		.upload-text {
+			color: #666;
+		}
+		.url-input {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #e9ecef;
+			border-radius: 8px;
+			font-size: 16px;
+			margin-bottom: 20px;
+		}
+		.url-input:focus {
+			border-color: #2196f3;
+			outline: none;
+		}
+		.decode-btn {
+			width: 100%;
+			padding: 12px;
+			background-color: #2196f3;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			font-size: 16px;
+			cursor: pointer;
+			margin-bottom: 20px;
+		}
+		.decode-btn:hover {
+			background-color: #1976d2;
+		}
+		.result {
+			padding: 15px;
+			background: white;
+			border-radius: 8px;
+			margin-bottom: 20px;
+			display: none;
+		}
+		.info-box {
+			background-color: #fff5f0;
+			border-radius: 8px;
+			padding: 20px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 15px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+		}
+		.info-list li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+		#preview {
+			max-width: 100%;
+			display: none;
+			margin: 10px 0;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<header class="header">
+	<div class="header-icon">📱</div>
+	<div class="header-title">
+		二维码解析
+	</div>
+</header>
+
+<div class="container">
+	<div class="upload-area" id="dropArea" onclick="document.getElementById('fileInput').click()">
+		<input type="file" id="fileInput" hidden accept="image/*" onchange="handleFile(event)">
+		<div class="upload-icon">☁️</div>
+		<div class="upload-text">点击上传，或将图片拖拽到此处</div>
+		<img id="preview" alt="预览图">
+	</div>
+
+	<input type="text" class="url-input" id="urlInput" placeholder="输入远程图片URL">
+	<button class="decode-btn" onclick="decodeURL()">解码</button>
+
+	<div class="result" id="result"></div>
+
+	<div class="info-box">
+		<h3 class="info-title">关于二维码解析工具介绍：</h3>
+		<ul class="info-list">
+			<li>1、本工具可以将在线图片或本地图片中的二维码解析成文本。</li>
+			<li>2、远程图片可以用于各种网站上的图片，可下载后本地进行上传解析。</li>
+			<li>3、本工具全部在前端运行，你上传的图片不会上传到服务器，请放心使用。</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+	// 拖拽上传
+	const dropArea = document.getElementById('dropArea');
+
+	dropArea.addEventListener('dragover', (e) => {
+		e.preventDefault();
+		dropArea.style.borderColor = '#2196f3';
+	});
+
+	dropArea.addEventListener('dragleave', (e) => {
+		e.preventDefault();
+		dropArea.style.borderColor = '#ddd';
+	});
+
+	dropArea.addEventListener('drop', (e) => {
+		e.preventDefault();
+		dropArea.style.borderColor = '#ddd';
+		const file = e.dataTransfer.files[0];
+		if (file && file.type.startsWith('image/')) {
+			handleFileUpload(file);
+		}
+	});
+
+	function handleFile(event) {
+		const file = event.target.files[0];
+		if (file) {
+			handleFileUpload(file);
+		}
+	}
+
+	function handleFileUpload(file) {
+		const reader = new FileReader();
+		reader.onload = function(e) {
+			const preview = document.getElementById('preview');
+			preview.src = e.target.result;
+			preview.style.display = 'block';
+			decodeQR(e.target.result);
+		}
+		reader.readAsDataURL(file);
+	}
+
+	function decodeURL() {
+		const url = document.getElementById('urlInput').value.trim();
+		if (!url) {
+			alert('请输入图片URL！');
+			return;
+		}
+
+		// 创建图片对象
+		const img = new Image();
+		img.crossOrigin = 'Anonymous';
+		img.onload = function() {
+			const canvas = document.createElement('canvas');
+			canvas.width = img.width;
+			canvas.height = img.height;
+			const ctx = canvas.getContext('2d');
+			ctx.drawImage(img, 0, 0);
+			decodeQR(canvas.toDataURL());
+		};
+		img.onerror = function() {
+			alert('图片加载失败！');
+		};
+		img.src = url;
+	}
+
+	function decodeQR(imageData) {
+		const img = new Image();
+		img.onload = function() {
+			const canvas = document.createElement('canvas');
+			canvas.width = img.width;
+			canvas.height = img.height;
+			const ctx = canvas.getContext('2d');
+			ctx.drawImage(img, 0, 0);
+			const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+			const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+			const result = document.getElementById('result');
+			result.style.display = 'block';
+
+			if (code) {
+				result.innerHTML = `
+                        <h3 style="color: #00b894; margin-bottom: 10px;">解析结果：</h3>
+                        <p>${code.data}</p>
+                    `;
+			} else {
+				result.innerHTML = '未能识别二维码，请确保图片清晰且包含有效的二维码。';
+			}
+		};
+		img.src = imageData;
+	}
+</script>
+</body>
+
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中文繁简体转换</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 20px;
+        }
+        .nav {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .header-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #00b894;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .rating {
+            display: flex;
+            gap: 5px;
+            color: #ffd700;
+        }
+        .share-icon {
+            margin-left: auto;
+            color: #666;
+            cursor: pointer;
+        }
+        .converter {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .text-area {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            resize: vertical;
+        }
+        .text-area:focus {
+            border-color: #00b894;
+            outline: none;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .convert-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            color: white;
+        }
+        .to-traditional {
+            background-color: #00b894;
+        }
+        .to-simplified {
+            background-color: #2196f3;
+        }
+        .clear-btn {
+            background-color: #ff6b6b;
+        }
+        .info-box {
+            background-color: #fff5f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .info-title {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        .info-list {
+            list-style: none;
+            color: #666;
+        }
+        .info-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+<nav class="nav">
+    <a href="../index.html" class="nav-item">🔍 推荐工具</a>
+    <a href="../life.html" class="nav-item">🏠 生活工具</a>
+    <a href="../encry.html" class="nav-item">🔒 加密解密</a>
+    <a href="../code.html" class="nav-item">📝 编码解码</a>
+    <a href="../dev.html" class="nav-item">💻 开发工具</a>
+    <a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+    <a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<header class="header">
+    <div class="header-icon">📝</div>
+    <div class="header-title">
+        中文繁简体转换
+    </div>
+</header>
+
+<div class="converter">
+    <textarea class="text-area" id="inputText" placeholder="请输入要转换的文字..."></textarea>
+
+    <div class="button-group">
+        <button class="convert-btn to-traditional" onclick="convert('traditional')">转为繁体中文↓</button>
+        <button class="convert-btn to-simplified" onclick="convert('simplified')">转为简体中文↓</button>
+        <button class="convert-btn clear-btn" onclick="clearText()">清空</button>
+    </div>
+
+    <textarea class="text-area" id="outputText" placeholder="转换结果..." readonly></textarea>
+
+    <div class="info-box">
+        <h3 class="info-title">关于简体中文与繁体中文介绍：</h3>
+        <ul class="info-list">
+            <li>1、简体中文，也称为简化字或中文，是汉字字体行简化后的书写系统，它是中国大陆、新加坡以及马来西亚官方使用的书写系统之一。</li>
+            <li>2、繁体中文，又称为繁体字或传统文字，是汉字的一种书写形式，主要在中国台湾、香港、澳门以及海外华人社区中使用。</li>
+            <li>3、此工具可以将繁体中文转简体中文，也可以将简体中文转为繁体中文。</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    // 简繁体转换字典
+    const simplifiedToTraditional = {
+        '国': '國',
+        '东': '東',
+        '义': '義',
+        '产': '產',
+        '乐': '樂',
+        '习': '習',
+        '书': '書',
+        '买': '買',
+        '云': '雲',
+        '车': '車',
+        // ... 更多字符映射
+    };
+
+    const traditionalToSimplified = {};
+    for (let key in simplifiedToTraditional) {
+        traditionalToSimplified[simplifiedToTraditional[key]] = key;
+    }
+
+    function convert(type) {
+        const inputText = document.getElementById('inputText').value;
+        const outputText = document.getElementById('outputText');
+
+        if (!inputText) {
+            alert('请输入要转换的文字！');
+            return;
+        }
+
+        let result = '';
+        const dict = type === 'traditional' ? simplifiedToTraditional : traditionalToSimplified;
+
+        for (let char of inputText) {
+            result += dict[char] || char;
+        }
+
+        outputText.value = result;
+    }
+
+    function clearText() {
+        document.getElementById('inputText').value = '';
+        document.getElementById('outputText').value = '';
+    }
+
+    // 示例文本
+    document.getElementById('inputText').value = '少年强则国强，少年智则国智，少年富则国富，少年独立则国独立，少年自由则自由，少年进步则国进步...';
+</script>
+</body>
+</html>

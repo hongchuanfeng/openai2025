@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手机号归属地查询</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 20px;
+        }
+        .nav {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .header-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #4CAF50;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .heart-icon {
+            color: #ff4757;
+            cursor: pointer;
+        }
+        .rating {
+            display: flex;
+            gap: 5px;
+            color: #ffd700;
+        }
+        .share-icon {
+            margin-left: auto;
+            color: #666;
+            cursor: pointer;
+        }
+        .search-container {
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: center;
+        }
+        .search-title {
+            color: #2196f3;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        .search-box {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .search-input {
+            width: 300px;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+        .search-input:focus {
+            border-color: #2196f3;
+        }
+        .search-btn {
+            padding: 12px 30px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .search-btn:hover {
+            background-color: #1976d2;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            display: none;
+        }
+        .info-box {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff5f0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .info-title {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        .info-list {
+            list-style: none;
+            color: #666;
+        }
+        .info-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+<nav class="nav">
+    <a href="../index.html" class="nav-item">🔍 推荐工具</a>
+    <a href="../life.html" class="nav-item">🏠 生活工具</a>
+    <a href="../encry.html" class="nav-item">🔒 加密解密</a>
+    <a href="../code.html" class="nav-item">📝 编码解码</a>
+    <a href="../dev.html" class="nav-item">💻 开发工具</a>
+    <a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+    <a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<header class="header">
+    <div class="header-icon">📱</div>
+    <div class="header-title">
+        手机号归属地查询
+    </div>
+</header>
+
+<div class="search-container">
+    <h1 class="search-title">手机号归属地查询</h1>
+    <div class="search-box">
+        <input type="text" class="search-input" id="phoneNumber" placeholder="输入手机号" maxlength="11">
+        <button class="search-btn" onclick="searchPhone()">查询</button>
+    </div>
+    <div class="result" id="result"></div>
+</div>
+
+<div class="info-box">
+    <h3 class="info-title">关于手机号归属地查询工具介绍：</h3>
+    <ul class="info-list">
+        <li>1、本工具提供移动、联通、电信手机号码归属地查询。</li>
+        <li>2、本工具可查询手机号码归属地区、运营商、卡类型及所在城市信息等。</li>
+        <li>3、本工具数据来自网络，请注意甄别。</li>
+        <li>4、本工具不会保存您查询的手机号信息，可放心使用。</li>
+    </ul>
+</div>
+
+<script>
+    function searchPhone() {
+        const phoneNumber = document.getElementById('phoneNumber').value.trim();
+        const result = document.getElementById('result');
+
+        // 验证手机号格式
+        if (!/^1[3-9]\d{9}$/.test(phoneNumber)) {
+            alert('请输入正确的11位手机号码！');
+            return;
+        }
+
+        // 显示加载状态
+        result.style.display = 'block';
+        result.innerHTML = '查询中...';
+
+        // 调用手机号查询API
+        fetch(`https://api.apishop.net/common/mobile/get?apiKey=YOUR_API_KEY&mobile=${phoneNumber}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.result) {
+                    result.innerHTML = `
+                            <p><strong>手机号：</strong>${phoneNumber}</p>
+                            <p><strong>归属地：</strong>${data.result.province} ${data.result.city}</p>
+                            <p><strong>运营商：</strong>${data.result.carrier}</p>
+                            <p><strong>卡类型：</strong>${data.result.cardType}</p>
+                        `;
+                } else {
+                    result.innerHTML = '未查询到相关信息';
+                }
+            })
+            .catch(error => {
+                result.innerHTML = '查询失败，请稍后重试';
+                console.error('Error:', error);
+            });
+    }
+
+    // 输入框只允许输入数字
+    document.getElementById('phoneNumber').addEventListener('input', function(e) {
+        this.value = this.value.replace(/\D/g, '');
+    });
+</script>
+</body>
+</html>

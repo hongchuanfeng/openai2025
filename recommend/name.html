@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姓名生成器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 20px;
+        }
+        .nav {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .header-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #ff9f43;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .rating {
+            display: flex;
+            gap: 5px;
+            color: #ffd700;
+        }
+        .share-icon {
+            margin-left: auto;
+            color: #666;
+            cursor: pointer;
+        }
+        .generator {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .input-group {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .input-label {
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .radio-group {
+            display: flex;
+            gap: 20px;
+        }
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .radio-item input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #00b894;
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 4px;
+            font-size: 16px;
+            outline: none;
+        }
+        .input-field:focus {
+            border-color: #00b894;
+        }
+        .generate-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .generate-btn:hover {
+            background-color: #1976d2;
+        }
+        .result {
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            min-height: 50px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .info-box {
+            background-color: #fff5f0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .info-title {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        .info-list {
+            list-style: none;
+            color: #666;
+        }
+        .info-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+<nav class="nav">
+    <a href="../index.html" class="nav-item">🔍 推荐工具</a>
+    <a href="../life.html" class="nav-item">🏠 生活工具</a>
+    <a href="../encry.html" class="nav-item">🔒 加密解密</a>
+    <a href="../code.html" class="nav-item">📝 编码解码</a>
+    <a href="../dev.html" class="nav-item">💻 开发工具</a>
+    <a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+    <a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<header class="header">
+    <div class="header-icon">👤</div>
+    <div class="header-title">
+        姓名生成器
+    </div>
+</header>
+
+<div class="generator">
+    <div class="input-group">
+        <div class="input-label">选择性别</div>
+        <div class="radio-group">
+            <label class="radio-item">
+                <input type="radio" name="gender" value="male">
+                男
+            </label>
+            <label class="radio-item">
+                <input type="radio" name="gender" value="female">
+                女
+            </label>
+            <label class="radio-item">
+                <input type="radio" name="gender" value="all" checked>
+                全部
+            </label>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <div class="input-label">名字长度</div>
+        <input type="number" class="input-field" id="nameLength" value="3" min="2" max="4">
+    </div>
+
+    <div class="input-group">
+        <div class="input-label">生成数量</div>
+        <input type="number" class="input-field" id="generateCount" value="10" min="1" max="50">
+    </div>
+
+    <div class="input-group">
+        <div class="input-label">输入姓氏</div>
+        <input type="text" class="input-field" id="lastName" value="李">
+    </div>
+
+    <button class="generate-btn" onclick="generateNames()">开始生成</button>
+
+    <div class="result" id="result"></div>
+
+    <div class="info-box">
+        <h3 class="info-title">关于姓名生成器介绍：</h3>
+        <ul class="info-list">
+            <li>1、本工具可以随机生成多个名字供参考。</li>
+            <li>2、输入要生成的姓氏，支持单姓。</li>
+            <li>3、输入名字的长度，最短为2个字，最长为3个字，官方版本为建议3个字。</li>
+            <li>4、输入生成的数量，多以供选择多个供参考。</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    // 常用字库
+    const maleChars = '志明永浩宇航天翔鸿博俊杰华伟强军平';
+    const femaleChars = '芳娟秀英华美玲琳雅婷静怡雪';
+
+    function generateNames() {
+        const lastName = document.getElementById('lastName').value.trim();
+        const nameLength = parseInt(document.getElementById('nameLength').value);
+        const count = parseInt(document.getElementById('generateCount').value);
+        const gender = document.querySelector('input[name="gender"]:checked').value;
+        const result = document.getElementById('result');
+
+        if (!lastName) {
+            alert('请输入姓氏！');
+            return;
+        }
+
+        if (nameLength < 2 || nameLength > 4) {
+            alert('名字长度需要在2-4个字之间！');
+            return;
+        }
+
+        if (count < 1 || count > 50) {
+            alert('生成数量需要在1-50之间！');
+            return;
+        }
+
+        let chars = '';
+        if (gender === 'male') {
+            chars = maleChars;
+        } else if (gender === 'female') {
+            chars = femaleChars;
+        } else {
+            chars = maleChars + femaleChars;
+        }
+
+        let names = [];
+        for (let i = 0; i < count; i++) {
+            let name = lastName;
+            for (let j = 0; j < nameLength - 1; j++) {
+                name += chars[Math.floor(Math.random() * chars.length)];
+            }
+            names.push(name);
+        }
+
+        result.style.display = 'block';
+        result.innerHTML = `
+                <h3 style="color: #00b894; margin-bottom: 10px;">生成结果：</h3>
+                <div style="line-height: 2;">${names.join('、')}</div>
+            `;
+    }
+</script>
+</body>
+</html>

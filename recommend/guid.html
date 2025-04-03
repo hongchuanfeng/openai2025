@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GUID生成工具</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #ff9f43;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		.settings {
+			background: white;
+			padding: 20px;
+			border-radius: 8px;
+			margin-bottom: 20px;
+		}
+		.form-group {
+			margin-bottom: 15px;
+		}
+		.form-label {
+			display: block;
+			margin-bottom: 10px;
+			color: #666;
+		}
+		.radio-group {
+			display: flex;
+			gap: 20px;
+		}
+		.radio-item {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.input-number {
+			width: 100%;
+			padding: 8px;
+			border: 2px solid #e9ecef;
+			border-radius: 4px;
+			font-size: 14px;
+		}
+		.generate-btn {
+			width: 100%;
+			padding: 12px;
+			background-color: #2196f3;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			font-size: 16px;
+			cursor: pointer;
+			margin: 20px 0;
+		}
+		.result-table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+		}
+		.result-table th,
+		.result-table td {
+			padding: 12px;
+			text-align: left;
+			border: 1px solid #e9ecef;
+		}
+		.result-table th {
+			background-color: #f8f9fa;
+			color: #666;
+		}
+		.result-table tr:nth-child(even) {
+			background-color: #f8f9fa;
+		}
+		.info-box {
+			background-color: #fff5f0;
+			border-radius: 8px;
+			padding: 20px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 15px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+		}
+		.info-list li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<header class="header">
+	<div class="header-icon">🔑</div>
+	<div class="header-title">
+		GUID生成工具
+	</div>
+</header>
+
+<div class="container">
+	<div class="settings">
+		<div class="form-group">
+			<label class="form-label">生成数量</label>
+			<input type="number" class="input-number" id="count" value="5" min="1" max="100">
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">是否大写</label>
+			<div class="radio-group">
+				<label class="radio-item">
+					<input type="radio" name="case" value="lower" checked> 小写
+				</label>
+				<label class="radio-item">
+					<input type="radio" name="case" value="upper"> 大写
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">分隔符(-)</label>
+			<div class="radio-group">
+				<label class="radio-item">
+					<input type="radio" name="separator" value="true" checked> 开启
+				</label>
+				<label class="radio-item">
+					<input type="radio" name="separator" value="false"> 关闭
+				</label>
+			</div>
+		</div>
+
+		<button class="generate-btn" onclick="generateGUIDs()">开始生成</button>
+	</div>
+
+	<table class="result-table">
+		<thead>
+		<tr>
+			<th>序号</th>
+			<th>GUID</th>
+		</tr>
+		</thead>
+		<tbody id="resultTable"></tbody>
+	</table>
+
+	<div class="info-box">
+		<h3 class="info-title">关于GUID介绍：</h3>
+		<ul class="info-list">
+			<li>1、GUID是一种由算法生成的128位标识符，用于在分布式计算环境中唯一标识对象。</li>
+			<li>2、GUID的设计目的是保证在时间和空间上的唯一性。</li>
+			<li>3、GUID用于于建数据库的主注重、标识网上的设备、文件、应用程序等场景。</li>
+			<li>4、GUID通常以32位十六进制数的形式表示，每个GUID由5组8位的十六进制数组成，每组之间用连字符分隔。</li>
+			<li>5、GUID在多个网络通信和操作系统中都有广泛的支持，使用性比较广泛。</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+	function generateGUID() {
+		const useSeparator = document.querySelector('input[name="separator"]:checked').value === 'true';
+		const useUpperCase = document.querySelector('input[name="case"]:checked').value === 'upper';
+
+		let guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			const r = Math.random() * 16 | 0;
+			const v = c === 'x' ? r : (r & 0x3 | 0x8);
+			return v.toString(16);
+		});
+
+		if (!useSeparator) {
+			guid = guid.replace(/-/g, '');
+		}
+
+		return useUpperCase ? guid.toUpperCase() : guid;
+	}
+
+	function generateGUIDs() {
+		const count = parseInt(document.getElementById('count').value);
+		const resultTable = document.getElementById('resultTable');
+		resultTable.innerHTML = '';
+
+		for (let i = 0; i < count; i++) {
+			const guid = generateGUID();
+			const row = document.createElement('tr');
+			row.innerHTML = `
+                    <td>GUID_${i + 1}</td>
+                    <td>${guid}</td>
+                `;
+			resultTable.appendChild(row);
+		}
+	}
+
+	// 页面加载时生成默认的GUIDs
+	window.onload = generateGUIDs;
+</script>
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JS代码调试工具</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		#codeArea {
+			width: 100%;
+			height: 400px;
+			padding: 15px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			font-family: 'Courier New', monospace;
+			font-size: 14px;
+			line-height: 1.5;
+			margin: 20px 0;
+			background-color: #f8f9fa;
+			white-space: pre;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+		}
+
+		button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+		}
+
+		#debugBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+		}
+
+		#output {
+			padding: 15px;
+			border: 2px solid #ddd;
+			border-radius: 5px;
+			background-color: #f8f9fa;
+			min-height: 100px;
+			margin: 20px 0;
+			font-family: monospace;
+			white-space: pre-wrap;
+		}
+
+		.about-debug {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-debug li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+<div class="container">
+	<h1>JS代码调试工具</h1>
+
+	<textarea id="codeArea">console.log('您可以在这里输入要调试的JS代码，并点击下面的"开始调试"按钮');
+console.log("可以参考下面的代码:");
+
+function isUrl(url) {
+    const regex = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/;
+    return regex.test(url);
+}
+
+let url = 'https://openai2025.com';
+let res = 5 * 5;
+
+console.log(isUrl(url));
+console.log(url);
+console.log("欢迎您使用此工具");
+console.log('5 * 5 * 5 = ' + (5 * 5 * 5));
+
+function sayHello() {
+    console.log("Hello World");
+}
+
+sayHello();</textarea>
+
+	<div class="btn-group">
+		<button id="debugBtn" onclick="debugCode()">开始调试</button>
+		<button id="clearBtn" onclick="clearAll()">清空</button>
+	</div>
+
+	<div id="output"></div>
+
+	<div class="about-debug">
+		<h3>关于JS代码调试工具介绍：</h3>
+		<ul>
+			<li>输入要调试的JavaScript脚本代码，并输出运行结果</li>
+			<li>点击"开始调试"按钮即可运行JS代码，并查看运行结果</li>
+			<li>注意：对于复杂的JS代码，请使用专业的调试工具</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+	// 保存原始console.log方法
+	const originalConsoleLog = console.log;
+
+	function debugCode() {
+		try {
+			// 清空输出区域
+			document.getElementById('output').innerHTML = '';
+
+			// 重写console.log
+			console.log = function(...args) {
+				const outputDiv = document.getElementById('output');
+				outputDiv.innerHTML += args.join(' ') + '\n';
+			};
+
+			// 获取并执行代码
+			const code = document.getElementById('codeArea').value;
+			new Function(code)();
+
+		} catch (error) {
+			document.getElementById('output').innerHTML +=
+					`\n[错误] ${error.message}`;
+		} finally {
+			// 恢复原始console.log
+			console.log = originalConsoleLog;
+		}
+	}
+
+	function clearAll() {
+		document.getElementById('codeArea').value = '';
+		document.getElementById('output').innerHTML = '';
+	}
+</script>
+</body>
+
+</html>

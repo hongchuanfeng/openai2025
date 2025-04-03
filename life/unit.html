@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>在线单位转换</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.wrapper {
+			width: 90%;
+			max-width: 800px;
+			background-color: #fff;
+			border-radius: 10px;
+			padding: 30px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+			justify-content: center;
+			align-items: center;
+			margin: auto;
+		}
+
+		h1 {
+			text-align: center;
+			font-size: 36px;
+			margin-bottom: 20px;
+			color: #00a854;
+		}
+
+		form {
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		label {
+			font-size: 18px;
+			margin-right: 10px;
+		}
+
+		input[type=number] {
+			padding: 10px;
+			font-size: 18px;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			margin-right: 10px;
+			margin-bottom: 10px;
+		}
+
+		select {
+			padding: 10px;
+			font-size: 18px;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			margin-bottom: 10px;
+		}
+
+		button {
+			padding: 10px 20px;
+			font-size: 18px;
+			color: #fff;
+			background-color: #00a854;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-top: 10px;
+		}
+
+		button:hover {
+			background-color: #009645;
+		}
+
+		.result {
+			text-align: center;
+			font-size: 24px;
+			margin-top: 30px;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<div class="wrapper">
+	<h1>单位转换工具</h1>
+	<form>
+		<div>
+			<label for="speed">速度</label>
+			<input type="number" id="speed" placeholder="请输入数值">
+			<select id="speedFrom">
+				<option value="mps">米/秒(m/s)</option>
+				<option value="kph">千米/小时(km/h)</option>
+				<option value="mph">英里/小时(mph)</option>
+			</select>
+			<select id="speedTo">
+				<option value="mps">米/秒(m/s)</option>
+				<option value="kph">千米/小时(km/h)</option>
+				<option value="mph">英里/小时(mph)</option>
+			</select>
+		</div>
+		<div>
+			<label for="gravity">重力</label>
+			<input type="number" id="gravity" placeholder="请输入数值">
+			<select id="gravityFrom">
+				<option value="m/s2">米/秒²</option>
+				<option value="g">标准重力(g)</option>
+				<option value="ft/s2">英尺/秒²</option>
+			</select>
+			<select id="gravityTo">
+				<option value="m/s2">米/秒²</option>
+				<option value="g">标准重力(g)</option>
+				<option value="ft/s2">英尺/秒²</option>
+			</select>
+		</div>
+		<div>
+			<label for="volume">体积</label>
+			<input type="number" id="volume" placeholder="请输入数值">
+			<select id="volumeFrom">
+				<option value="m3">立方米(m³)</option>
+				<option value="L">升(L)</option>
+				<option value="gal">加仑(gal)</option>
+			</select>
+			<select id="volumeTo">
+				<option value="m3">立方米(m³)</option>
+				<option value="L">升(L)</option>
+				<option value="gal">加仑(gal)</option>
+			</select>
+		</div>
+		<div>
+			<label for="time">时间</label>
+			<input type="number" id="time" placeholder="请输入数值">
+			<select id="timeFrom">
+				<option value="s">秒(s)</option>
+				<option value="min">分钟(min)</option>
+				<option value="h">小时(h)</option>
+			</select>
+			<select id="timeTo">
+				<option value="s">秒(s)</option>
+				<option value="min">分钟(min)</option>
+				<option value="h">小时(h)</option>
+			</select>
+		</div>
+	</form>
+
+	<button onclick="convertUnits()">转换</button>
+
+	<div class="result" id="result"></div>
+</div>
+
+<script>
+	function convertUnits() {
+		var speed = document.getElementById("speed").value;
+		var speedFrom = document.getElementById("speedFrom").value;
+		var speedTo = document.getElementById("speedTo").value;
+		var gravity = document.getElementById("gravity").value;
+		var gravityFrom = document.getElementById("gravityFrom").value;
+		var gravityTo = document.getElementById("gravityTo").value;
+		var volume = document.getElementById("volume").value;
+		var volumeFrom = document.getElementById("volumeFrom").value;
+		var volumeTo = document.getElementById("volumeTo").value;
+		var time = document.getElementById("time").value;
+		var timeFrom = document.getElementById("timeFrom").value;
+		var timeTo = document.getElementById("timeTo").value;
+
+		// 速度单位转换
+		var speedResult;
+		if (speedFrom == "mps" && speedTo == "kph") {
+			speedResult = speed * 3.6;
+		} else if (speedFrom == "mps" && speedTo == "mph") {
+			speedResult = speed * 2.23694;
+		} else if (speedFrom == "kph" && speedTo == "mps") {
+			speedResult = speed / 3.6;
+		} else if (speedFrom == "kph" && speedTo == "mph") {
+			speedResult = speed / 1.609344;
+		} else if (speedFrom == "mph" && speedTo == "mps") {
+			speedResult = speed / 2.23694;
+		} else if (speedFrom == "mph" && speedTo == "kph") {
+			speedResult = speed * 1.609344;
+		}
+
+		// 重力单位转换
+		var gravityResult;
+		if (gravityFrom == "m/s2" && gravityTo == "g") {
+			gravityResult = gravity / 9.80665;
+		} else if (gravityFrom == "m/s2" && gravityTo == "ft/s2") {
+			gravityResult = gravity / 0.3048;
+		} else if (gravityFrom == "g" && gravityTo == "m/s2") {
+			gravityResult = gravity * 9.80665;
+		} else if (gravityFrom == "g" && gravityTo == "ft/s2") {
+			gravityResult = gravity * 32.174;
+		} else if (gravityFrom == "ft/s2" && gravityTo == "m/s2") {
+			gravityResult = gravity * 0.3048;
+		} else if (gravityFrom == "ft/s2" && gravityTo == "g") {
+			gravityResult = gravity / 32.174;
+		}
+
+		// 体积单位转换
+		var volumeResult;
+		if (volumeFrom == "m3" && volumeTo == "L") {
+			volumeResult = volume * 1000;
+		} else if (volumeFrom == "m3" && volumeTo == "gal") {
+			volumeResult = volume * 264.1720524;
+		} else if (volumeFrom == "L" && volumeTo == "m3") {
+			volumeResult = volume / 1000;
+		} else if (volumeFrom == "L" && volumeTo == "gal") {
+			volumeResult = volume * 0.2641720524;
+		} else if (volumeFrom == "gal" && volumeTo == "m3") {
+			volumeResult = volume / 264.1720524;
+		} else if (volumeFrom == "gal" && volumeTo == "L") {
+			volumeResult = volume / 0.2641720524;
+		}
+
+		// 时间单位转换
+		var timeResult;
+		if (timeFrom == "s" && timeTo == "min") {
+			timeResult = time / 60;
+		} else if (timeFrom == "s" && timeTo == "h") {
+			timeResult = time / 3600;
+		} else if (timeFrom == "min" && timeTo == "s") {
+			timeResult = time * 60;
+		} else if (timeFrom == "min" && timeTo == "h") {
+			timeResult = time / 60;
+		} else if (timeFrom == "h" && timeTo == "s") {
+			timeResult = time * 3600;
+		} else if (timeFrom == "h" && timeTo == "min") {
+			timeResult = time * 60;
+		}
+
+		// 显示转换结果
+		document.getElementById("result").innerHTML = "";
+		if (speed) {
+			var speedResultText = speed + " " + speedFrom + " = " + speedResult.toFixed(2) + " " + speedTo;
+			var speedResultNode = document.createElement("p");
+			speedResultNode.textContent = speedResultText;
+			document.getElementById("result").appendChild(speedResultNode);
+		}
+		if (gravity) {
+			var gravityResultText = gravity + " " + gravityFrom + " = " + gravityResult.toFixed(2) + " " + gravityTo;
+			var gravityResultNode = document.createElement("p");
+			gravityResultNode.textContent = gravityResultText;
+			document.getElementById("result").appendChild(gravityResultNode);
+		}
+		if (volume) {
+			var volumeResultText = volume + " " + volumeFrom + " = " + volumeResult.toFixed(2) + " " + volumeTo;
+			var volumeResultNode = document.createElement("p");
+			volumeResultNode.textContent = volumeResultText;
+			document.getElementById("result").appendChild(volumeResultNode);
+		}
+		if (time) {
+			var timeResultText = time + " " + timeFrom + " = " + timeResult.toFixed(2) + " " + timeTo;
+			var timeResultNode = document.createElement("p");
+			timeResultNode.textContent = timeResultText;
+			document.getElementById("result").appendChild(timeResultNode);
+		}
+	}
+</script>
+
+</body>
+
+</html>

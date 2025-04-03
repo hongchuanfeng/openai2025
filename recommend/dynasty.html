@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国历史朝代查询表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 20px;
+        }
+        .nav {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .header-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #4CAF50;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .dynasty-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .dynasty-table th,
+        .dynasty-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #e0e0e0;
+        }
+        .dynasty-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #333;
+        }
+        .dynasty-table tr:hover {
+            background-color: #f5f5f5;
+        }
+        .major-dynasty {
+            font-weight: bold;
+            background-color: #f1f8ff;
+        }
+        .sub-dynasty {
+            padding-left: 20px;
+            color: #666;
+        }
+        .info-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fff5f0;
+            border-radius: 8px;
+        }
+        .info-title {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        .info-list {
+            list-style: none;
+            color: #666;
+            line-height: 1.6;
+        }
+        .info-list li {
+            margin-bottom: 8px;
+        }
+        .note {
+            color: #999;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .star-rating {
+            color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+<nav class="nav">
+    <a href="../index.html" class="nav-item">🔍 推荐工具</a>
+    <a href="../life.html" class="nav-item">🏠 生活工具</a>
+    <a href="../encry.html" class="nav-item">🔒 加密解密</a>
+    <a href="../code.html" class="nav-item">📝 编码解码</a>
+    <a href="../dev.html" class="nav-item">💻 开发工具</a>
+    <a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+    <a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<header class="header">
+    <div class="header-icon">📚</div>
+    <div class="header-title">
+        中国历史朝代表
+    </div>
+</header>
+
+<div class="container">
+    <table class="dynasty-table">
+        <thead>
+        <tr>
+            <th colspan="2">朝代</th>
+            <th>纪年</th>
+            <th>都城</th>
+            <th>今地</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="major-dynasty">
+            <td colspan="2">夏</td>
+            <td>约前2146-1675年</td>
+            <td>安邑</td>
+            <td>山西夏县</td>
+        </tr>
+        <tr class="major-dynasty">
+            <td colspan="2">商</td>
+            <td>约前1675-1029年</td>
+            <td>殷</td>
+            <td>河南安阳</td>
+        </tr>
+        <tr class="major-dynasty">
+            <td rowspan="4" colspan="2">周</td>
+            <td>西周 约前1029-771年</td>
+            <td>镐京</td>
+            <td>陕西西安</td>
+        </tr>
+        <tr class="sub-dynasty">
+            <td>东周 前770-256年</td>
+            <td>洛邑</td>
+            <td>河南洛阳</td>
+        </tr>
+        <tr class="sub-dynasty">
+            <td>春秋 前770-476年</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr class="sub-dynasty">
+            <td>战国 前475-221年</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td colspan="2">秦</td>
+            <td>前221-207年</td>
+            <td>咸阳</td>
+            <td>陕西咸阳</td>
+        </tr>
+        <tr class="major-dynasty">
+            <td rowspan="2" colspan="2">汉</td>
+            <td>西汉 <span class="note">⊕</span><br>前206-公元25</td>
+            <td>长安</td>
+            <td>陕西西安</td>
+        </tr>
+        <tr>
+            <td>东汉<br>25-220</td>
+            <td>洛阳</td>
+            <td>河南洛阳</td>
+        </tr>
+        <tr class="major-dynasty">
+            <td rowspan="3" colspan="2">三国</td>
+            <td>魏<br>220-265</td>
+            <td>洛阳</td>
+            <td>河南洛阳</td>
+        </tr>
+        <tr>
+            <td>蜀<br>221-263</td>
+            <td>成都</td>
+            <td>四川成都</td>
+        </tr>
+        <tr>
+            <td>吴<br>222-280</td>
+            <td>建业</td>
+            <td>江苏南京</td>
+        </tr>
+        <tr class="major-dynasty">
+            <td colspan="2">西晋</td>
+            <td>265-317</td>
+            <td>洛阳</td>
+            <td>河南洛阳</td>
+        </tr>
+        <tr class="major-dynasty">
+            <td rowspan="2" colspan="2">东晋<br>十六国</td>
+            <td>东晋<br>317-420</td>
+            <td>建康</td>
+            <td>江苏南京</td>
+        </tr>
+        <tr>
+            <td>十六国 <span class="note">⊕</span><br>304-439</td>
+            <td>—</td>
+            <td>—</td>
+        </tr>
+        <tr class="major-dynasty">
+            <td rowspan="4" colspan="2">南朝</td>
+            <td>宋<br>420-479</td>
+            <td>建康</td>
+            <td>江苏南京</td>
+        </tr>
+        <tr>
+            <td>齐<br>479-502</td>
+            <td>建康</td>
+            <td>江苏南京</td>
+        </tr>
+        <tr>
+            <td>梁<br>502-557</td>
+            <td>建康</td>
+            <td>江苏南京</td>
+        </tr>
+        <tr>
+            <td>陈<br>557-589</td>
+            <td>建康</td>
+            <td>江苏南京</td>
+        </tr>
+
+
+        <tr class="major-dynasty">
+            <td rowspan="5">北朝</td>
+            <td>北魏</td>
+            <td>386-534</td>
+            <td>平城<br>洛阳</td>
+            <td>山西大同<br>河南洛阳</td>
+        </tr>
+        <tr>
+            <td>东魏</td>
+            <td>534-550</td>
+            <td>邺</td>
+            <td>河北临漳</td>
+        </tr>
+        <tr>
+            <td>北齐</td>
+            <td>550-577</td>
+            <td>邺</td>
+            <td>河北临漳</td>
+        </tr>
+        <tr>
+            <td>西魏</td>
+            <td>535-557</td>
+            <td>长安</td>
+            <td>陕西西安</td>
+        </tr>
+        <tr>
+            <td>北周</td>
+            <td>557-581</td>
+            <td>长安</td>
+            <td>陕西西安</td>
+        </tr>
+        <tr>
+            <td colspan="2" >隋</td>
+            <td>581-618</td>
+            <td>大兴</td>
+            <td>陕西西安</td>
+        </tr>
+        <tr>
+            <td colspan="2">唐</td>
+            <td>618-907</td>
+            <td>长安</td>
+            <td>陕西西安</td>
+        </tr>
+        <tr class="major-dynasty">
+            <td rowspan="6">五代<br>十国</td>
+            <td>后梁</td>
+            <td>907-923</td>
+            <td>汴</td>
+            <td>河南开封</td>
+        </tr>
+        <tr>
+            <td>后唐</td>
+            <td>923-936</td>
+            <td>洛阳</td>
+            <td>河南洛阳</td>
+        </tr>
+        <tr>
+            <td>后晋</td>
+            <td>936-946</td>
+            <td>汴</td>
+            <td>河南开封</td>
+        </tr>
+        <tr>
+            <td>后汉</td>
+            <td>947-950</td>
+            <td>汴</td>
+            <td>河南开封</td>
+        </tr>
+        <tr>
+            <td>后周</td>
+            <td>951-960</td>
+            <td>汴</td>
+            <td>河南开封</td>
+        </tr>
+        <tr>
+            <td>十国 <span class="note">⊕</span></td>
+            <td>902-979</td>
+            <td>—</td>
+            <td>—</td>
+        </tr>
+        <tr class="major-dynasty">
+            <td rowspan="2">宋</td>
+            <td>北宋</td>
+            <td>960-1127</td>
+            <td>开封</td>
+            <td>河南开封</td>
+        </tr>
+        <tr>
+            <td>南宋</td>
+            <td>1127-1279</td>
+            <td>临安</td>
+            <td>浙江杭州</td>
+        </tr>
+        <tr>
+            <td colspan="2">辽</td>
+            <td>907-1125</td>
+            <td>皇都<br><span class="city-note">(上京)</span></td>
+            <td>辽宁<br>巴林右旗</td>
+        </tr>
+        <tr>
+            <td colspan="2">西夏</td>
+            <td>1038-1227</td>
+            <td>兴庆府</td>
+            <td>宁夏银川</td>
+        </tr>
+
+
+        <tr class="major-dynasty">
+            <td colspan="2" rowspan="3">金</td>
+            <td rowspan="3">1115-1234</td>
+            <td>会宁	</td>
+            <td>阿城(黑龙江)</td>
+        </tr>
+        <tr>
+            <td>中都		</td>
+            <td>北京
+            </td>
+        </tr>
+        <tr>
+            <td>开封		</td>
+            <td>河南开封
+            </td>
+        </tr>
+        <tr class="major-dynasty">
+            <td colspan="2">明</td>
+            <td>1368-1644</td>
+            <td>北京</td>
+            <td>北京</td>
+        </tr>
+        <!-- 继续添加所有朝代数据... -->
+        <tr class="major-dynasty">
+            <td colspan="2">清</td>
+            <td>1616-1911</td>
+            <td>北京</td>
+            <td>北京</td>
+        </tr>
+        <tr>
+            <td colspan="2">中华民国</td>
+            <td>1912-1949</td>
+            <td>南京</td>
+            <td>江苏南京</td>
+        </tr>
+        <tr>
+            <td colspan="5">中华人民共和国1949年10月1日成立，首都北京。</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <div class="info-box">
+        <h3 class="info-title">中国朝代表说明：</h3>
+        <ul class="info-list">
+            <li>1. 约公元前2146年以前为传说时期，无确切纪年记载</li>
+            <li>2. 公元前后年份换算方法为：公元前年份加公元年份等于1</li>
+            <li>3. 部分朝代（如：五代十国、南北朝等）为分裂割据时期</li>
+            <li>4. 部分朝代（如：西汉、东汉、南宋、北宋等）因迁都而分前后期</li>
+            <li>5. 部分年份为历史研究推测，可能存在误差</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 为表格添加鼠标悬停效果
+        const rows = document.querySelectorAll('.dynasty-table tr');
+        rows.forEach(row => {
+            row.addEventListener('mouseover', function() {
+                this.style.backgroundColor = '#f0f7ff';
+            });
+            row.addEventListener('mouseout', function() {
+                if (this.classList.contains('major-dynasty')) {
+                    this.style.backgroundColor = '#f1f8ff';
+                } else {
+                    this.style.backgroundColor = '';
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

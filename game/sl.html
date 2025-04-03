@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>在线扫雷</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container{
+			margin: auto;
+			width: 800px;
+		}
+		.header-title {
+			align-items: center;
+
+		}
+		.board {
+			display: inline-block;
+			border: 1px solid black;
+		}
+		.cell {
+			width: 30px;
+			height: 30px;
+			border: 1px solid #ccc;
+			background-color: #eee;
+			text-align: center;
+			line-height: 30px;
+			cursor: pointer;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<div class="container">
+	<header class="header">
+		<h2 class="header-title">
+			在线扫雷
+		</h2>
+	</header>
+
+	<div class="board">
+		<table id="gameBoard"></table>
+	</div>
+	<button onclick="resetGame()">重新开始</button>
+	<br>
+	<div id="timer">时间：0秒</div>
+	<div id="score">分数：0</div>
+</div>
+
+
+
+
+
+<script>
+	const boardSize = 15; // 游戏棋盘大小
+	const mineCount = 30; // 地雷数量
+
+	let gameBoard = []; // 游戏棋盘，存储每个格子的内容和状态信息
+	let startTime;
+	let timerInterval;
+
+	function initGame() {
+		// 初始化游戏棋盘
+		for (let i = 0; i < boardSize; i++) {
+			let row = [];
+			for (let j = 0; j < boardSize; j++) {
+				row.push({ value: 0, revealed: false });
+			}
+			gameBoard.push(row);
+		}
+
+		// 随机布置地雷
+		let placedMines = 0;
+		while (placedMines < mineCount) {
+			let x = Math.floor(Math.random() * boardSize);
+			let y = Math.floor(Math.random() * boardSize);
+			if (gameBoard[x][y].value !== -1) {
+				gameBoard[x][y].value = -1;
+				placedMines++;
+			}
+		}
+
+		// 计算每个格子周围地雷的数量
+		for (let i = 0; i < boardSize; i++) {
+			for (let j = 0; j < boardSize; j++) {
+				if (gameBoard[i][j].value !== -1) {
+					let count = 0;
+					for (let xOffset = -1; xOffset <= 1; xOffset++) {
+						for (let yOffset = -1; yOffset <= 1; yOffset++) {
+							let newX = i + xOffset;
+							let newY = j + yOffset;
+							if (
+									newX >= 0 && newX < boardSize &&
+									newY >= 0 && newY < boardSize &&
+									gameBoard[newX][newY].value === -1
+							) {
+								count++;
+							}
+						}
+					}
+					gameBoard[i][j].value = count;
+				}
+			}
+		}
+	}
+
+	function revealCell(cell) {
+		let x = parseInt(cell.getAttribute('data-x'));
+		let y = parseInt(cell.getAttribute('data-y'));
+
+		if (gameBoard[x][y].revealed) {
+			return;
+		}
+
+		gameBoard[x][y].revealed = true;
+		cell.classList.add('revealed');
+
+		if (gameBoard[x][y].value === -1) {
+			// 点到地雷，游戏结束
+			cell.innerHTML = '&#128163;';
+			alert('你输了！游戏结束。');
+
+			// 停止计时器
+			stopTimer();
+
+			// 禁用所有格子的点击事件
+			let cells = document.getElementsByClassName('cell');
+			for (let i = 0; i < cells.length; i++) {
+				cells[i].removeEventListener('click', onCellClick);
+			}
+		} else {
+			cell.innerHTML = gameBoard[x][y].value;
+			cell.style.backgroundColor = '#ddd';
+
+			if (gameBoard[x][y].value === 0) {
+				// 展开周围的空白格子
+				for (let xOffset = -1; xOffset <= 1; xOffset++) {
+					for (let yOffset = -1; yOffset <= 1; yOffset++) {
+						let newX = x + xOffset;
+						let newY = y + yOffset;
+						if (
+								newX >= 0 && newX < boardSize &&
+								newY >= 0 && newY < boardSize
+						) {
+							let adjacentCell = document.querySelector(
+									`#gameBoard tr:nth-child(${newX + 1}) td:nth-child(${newY + 1})`
+							);
+							revealCell(adjacentCell);
+						}
+					}
+				}
+			}
+		}
+
+		// 检查是否已胜利
+		let win = true;
+		for (let i = 0; i < boardSize; i++) {
+			for (let j = 0; j < boardSize; j++) {
+				if (!gameBoard[i][j].revealed && gameBoard[i][j].value !== -1) {
+					win = false;
+					break;
+				}
+			}
+		}
+		if (win) {
+			alert('恭喜！你赢了！');
+
+			// 停止计时器
+			stopTimer();
+
+			// 禁用所有格子的点击事件
+			let cells = document.getElementsByClassName('cell');
+			for (let i = 0; i < cells.length; i++) {
+				cells[i].removeEventListener('click', onCellClick);
+			}
+		}
+
+		// 更新分数
+		let score = calculateScore();
+		let scoreElement = document.getElementById('score');
+		scoreElement.innerText = '分数：' + score;
+	}
+
+	function calculateScore() {
+		let revealedCount = 0;
+		for (let i = 0; i < boardSize; i++) {
+			for (let j = 0; j < boardSize; j++) {
+				if (gameBoard[i][j].revealed) {
+					revealedCount++;
+				}
+			}
+		}
+		let maxPossibleScore = boardSize * boardSize - mineCount;
+		return Math.floor((revealedCount / maxPossibleScore) * 100);
+	}
+
+	function updateTimer() {
+		let currentTime = new Date().getTime();
+		let elapsedTime = Math.floor((currentTime - startTime) / 1000);
+		let timerElement = document.getElementById('timer');
+		timerElement.innerText = '时间：' + elapsedTime + '秒';
+	}
+
+	function startTimer() {
+		timerInterval = setInterval(updateTimer, 1000);
+	}
+
+	function stopTimer() {
+		clearInterval(timerInterval);
+	}
+
+	function resetGame() {
+		gameBoard = [];
+
+		let table = document.getElementById('gameBoard');
+		table.innerHTML = '';
+
+		initGame();
+
+		for (let i = 0; i < boardSize; i++) {
+			let row = document.createElement('tr');
+			for (let j = 0; j < boardSize; j++) {
+				let cell = document.createElement('td');
+				cell.classList.add('cell');
+				cell.setAttribute('data-x', i);
+				cell.setAttribute('data-y', j);
+				cell.addEventListener('click', onCellClick);
+				row.appendChild(cell);
+			}
+			table.appendChild(row);
+		}
+
+		// 停止计时器
+		stopTimer();
+
+		// 重置时间和分数
+		startTime = new Date().getTime();
+		updateTimer();
+
+		let scoreElement = document.getElementById('score');
+		scoreElement.innerText = '分数：0';
+
+		// 启动计时器
+		startTimer();
+	}
+
+	function onCellClick() {
+		revealCell(this);
+	}
+
+	initGame();
+	resetGame();
+</script>
+</body>
+
+</html>

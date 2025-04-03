@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>生男生女预测</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #9c27b0;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.header-title {
+			font-size: 18px;
+			font-weight: bold;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.heart-icon {
+			color: #ff4757;
+			cursor: pointer;
+		}
+		.rating {
+			display: flex;
+			gap: 5px;
+			color: #ffd700;
+		}
+		.share-icon {
+			margin-left: auto;
+			color: #666;
+			cursor: pointer;
+		}
+		.calculator {
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		.input-group {
+			margin-bottom: 20px;
+			background: white;
+			padding: 15px;
+			border-radius: 8px;
+		}
+		.input-label {
+			color: #666;
+			margin-bottom: 10px;
+			font-weight: bold;
+		}
+		.radio-group {
+			display: flex;
+			gap: 20px;
+		}
+		.radio-item {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+			cursor: pointer;
+		}
+		.radio-item input[type="radio"] {
+			width: 16px;
+			height: 16px;
+			accent-color: #00b894;
+		}
+		.input-field {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #e9ecef;
+			border-radius: 8px;
+			font-size: 16px;
+			outline: none;
+		}
+		.input-field:focus {
+			border-color: #00b894;
+		}
+		.calculate-btn {
+			width: 100%;
+			padding: 12px;
+			background-color: #2196f3;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			font-size: 16px;
+			cursor: pointer;
+			margin-bottom: 20px;
+		}
+		.calculate-btn:hover {
+			background-color: #1976d2;
+		}
+		.result {
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			margin-top: 20px;
+			display: none;
+		}
+		.info-box {
+			margin-top: 20px;
+			background-color: #fff5f0;
+			border-radius: 8px;
+			padding: 20px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 15px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+		}
+		.info-list li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<header class="header">
+	<div class="header-icon">👶</div>
+	<div class="header-title">
+		孩子身高预测
+	</div>
+</header>
+
+<div class="calculator">
+	<div class="input-group">
+		<div class="input-label">选择方法</div>
+		<div class="radio-group">
+			<label class="radio-item">
+				<input type="radio" name="method" value="parent" checked>
+				父母身高法
+			</label>
+			<label class="radio-item">
+				<input type="radio" name="method" value="child">
+				孩子足长法
+			</label>
+		</div>
+	</div>
+
+	<div class="input-group">
+		<div class="input-label">孩子性别</div>
+		<div class="radio-group">
+			<label class="radio-item">
+				<input type="radio" name="gender" value="male" checked>
+				男
+			</label>
+			<label class="radio-item">
+				<input type="radio" name="gender" value="female">
+				女
+			</label>
+		</div>
+	</div>
+
+	<div class="input-group">
+		<div class="input-label">父亲身高</div>
+		<input type="number" class="input-field" id="fatherHeight" placeholder="输入父亲的身高(厘米/cm)">
+	</div>
+
+	<div class="input-group">
+		<div class="input-label">母亲身高</div>
+		<input type="number" class="input-field" id="motherHeight" placeholder="输入母亲的身高(厘米/cm)">
+	</div>
+
+	<button class="calculate-btn" onclick="calculate()">开始计算</button>
+
+	<div class="result" id="result"></div>
+
+	<div class="info-box">
+		<h3 class="info-title">关于孩子身高预测工具介绍：</h3>
+		<ul class="info-list">
+			<li>1、此工具根据人体标准身高预测公式(遗传法则)。</li>
+			<li>2、男孩身高 = (父亲身高 + 母亲身高) × 1.08÷2（厘米）</li>
+			<li>3、女孩身高 = (父亲身高×0.923 + 母亲身高)÷2（厘米）</li>
+			<li>4、孩子身高因个人体质受异差异极大，因此仅供参考。</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+	function calculate() {
+		const fatherHeight = parseFloat(document.getElementById('fatherHeight').value);
+		const motherHeight = parseFloat(document.getElementById('motherHeight').value);
+		const gender = document.querySelector('input[name="gender"]:checked').value;
+		const result = document.getElementById('result');
+
+		if (!fatherHeight || !motherHeight) {
+			alert('请输入父母身高！');
+			return;
+		}
+
+		let predictedHeight;
+		if (gender === 'male') {
+			predictedHeight = (fatherHeight + motherHeight) * 1.08 / 2;
+		} else {
+			predictedHeight = (fatherHeight * 0.923 + motherHeight) / 2;
+		}
+
+		result.style.display = 'block';
+		result.innerHTML = `
+                <h3 style="color: #00b894; margin-bottom: 10px;">预测结果</h3>
+                <p>预测身高：${predictedHeight.toFixed(1)} 厘米</p>
+            `;
+	}
+</script>
+
+</body>
+
+</html>

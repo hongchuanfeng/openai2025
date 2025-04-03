@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Favicon图标生成</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #c2185b;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.header-title {
+			font-size: 18px;
+			font-weight: bold;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.heart-icon {
+			color: #ff4757;
+			cursor: pointer;
+		}
+		.rating {
+			display: flex;
+			gap: 5px;
+			color: #ffd700;
+		}
+		.share-icon {
+			margin-left: auto;
+			color: #666;
+			cursor: pointer;
+		}
+		.upload-area {
+			max-width: 800px;
+			margin: 0 auto;
+			background-color: white;
+			border-radius: 8px;
+			padding: 40px;
+			text-align: center;
+			border: 2px dashed #ddd;
+			margin-bottom: 20px;
+			cursor: pointer;
+		}
+		.upload-icon {
+			font-size: 48px;
+			color: #999;
+			margin-bottom: 10px;
+		}
+		.upload-text {
+			color: #666;
+		}
+		.size-options {
+			max-width: 800px;
+			margin: 20px auto;
+			display: flex;
+			gap: 20px;
+			align-items: center;
+		}
+		.size-label {
+			color: #666;
+		}
+		.size-radio {
+			display: flex;
+			gap: 15px;
+		}
+		.radio-item {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.radio-item input[type="radio"] {
+			margin: 0;
+		}
+		.generate-btn {
+			display: block;
+			width: 800px;
+			margin: 20px auto;
+			padding: 12px;
+			background-color: #2196f3;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 16px;
+		}
+		.generate-btn:hover {
+			background-color: #1976d2;
+		}
+		.info-box {
+			max-width: 800px;
+			margin: 30px auto;
+			background-color: #fff5f0;
+			border-radius: 4px;
+			padding: 20px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 15px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+		}
+		.info-list li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+		.code-block {
+			background-color: #1e1e1e;
+			border-radius: 4px;
+			padding: 15px;
+			margin: 15px 0;
+			color: #d4d4d4;
+			font-family: monospace;
+			line-height: 1.5;
+		}
+		.code-block .line-number {
+			color: #858585;
+			margin-right: 10px;
+			user-select: none;
+		}
+		.code-block .code-content {
+			color: #d4d4d4;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+	<!-- 添加图片处理所需的库 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<header class="header">
+	<div class="header-icon">⭐</div>
+	<div class="header-title">
+		Favicon图标生成
+	</div>
+</header>
+
+<div class="upload-area" onclick="document.getElementById('fileInput').click()">
+	<input type="file" id="fileInput" style="display: none" accept="image/*">
+	<div class="upload-icon">☁️</div>
+	<div class="upload-text">点击上传，或将图片拖拽到此处</div>
+</div>
+
+<div class="size-options">
+	<span class="size-label">生成尺寸</span>
+	<div class="size-radio">
+		<label class="radio-item">
+			<input type="radio" name="size" value="16x16">
+			16x16
+		</label>
+		<label class="radio-item">
+			<input type="radio" name="size" value="32x32" checked>
+			32x32
+		</label>
+		<label class="radio-item">
+			<input type="radio" name="size" value="48x48">
+			48x48
+		</label>
+		<label class="radio-item">
+			<input type="radio" name="size" value="64x64">
+			64x64
+		</label>
+		<label class="radio-item">
+			<input type="radio" name="size" value="128x128">
+			128x128
+		</label>
+	</div>
+</div>
+
+<button class="generate-btn">开始生成并下载</button>
+
+<div class="info-box">
+	<h3 class="info-title">关于favicon.ico介绍</h3>
+	<ul class="info-list">
+		<li>1、favicon.ico是一个包含网站图标的文件，通常显示在浏览器的地址栏、标签页、书签列表以及历史记录中。</li>
+		<li>2、favicon.ico文件可以包含多个尺寸的图标，通常是16x16、32x32、48x48像素</li>
+		<li>3、favicon.ico文件放置在网站的根目录下，大多数浏览器会自动查找并显示它。</li>
+		<li>4、现代网站可能不再只使用.ico格式，而是使用PNG或SVG格式，因为它们支持透明度和更高的分辨率。</li>
+		<li>5、使用rel="icon"链接类型来指定不同尺寸的图标，浏览器会根据需要选择合适的尺寸</li>
+	</ul>
+	<div class="code-block">
+		<div><span class="line-number">01.</span><span class="code-content">&lt;link rel="icon" href="/favicon-16x16.png" sizes="16x16"&gt;</span></div>
+		<div><span class="line-number">02.</span><span class="code-content">&lt;link rel="icon" href="/favicon-32x32.png" sizes="32x32"&gt;</span></div>
+		<div><span class="line-number">03.</span><span class="code-content">&lt;link rel="icon" href="/favicon-48x48.png" sizes="48x48"&gt;</span></div>
+		<div><span class="line-number">04.</span><span class="code-content">&lt;link rel="icon" href="/favicon-64x64.png" sizes="64x64"&gt;</span></div>
+		<div><span class="line-number">05.</span><span class="code-content">&lt;link rel="icon" href="/favicon-128x128.png" sizes="128x128"&gt;</span></div>
+	</div>
+	<li>6、本工具不会将您上传的图片上传至服务器，请放心使用。</li>
+</div>
+
+<script>
+	let currentFile = null;
+	const uploadArea = document.querySelector('.upload-area');
+	const generateBtn = document.querySelector('.generate-btn');
+
+	// 处理文件拖放
+	uploadArea.addEventListener('dragover', (e) => {
+		e.preventDefault();
+		uploadArea.style.borderColor = '#2196f3';
+	});
+
+	uploadArea.addEventListener('dragleave', (e) => {
+		e.preventDefault();
+		uploadArea.style.borderColor = '#ddd';
+	});
+
+	uploadArea.addEventListener('drop', (e) => {
+		e.preventDefault();
+		uploadArea.style.borderColor = '#ddd';
+		const files = e.dataTransfer.files;
+		if (files.length > 0) {
+			handleFile(files[0]);
+		}
+	});
+
+	document.getElementById('fileInput').addEventListener('change', (e) => {
+		if (e.target.files.length > 0) {
+			handleFile(e.target.files[0]);
+		}
+	});
+
+	// 处理上传的文件
+	function handleFile(file) {
+		if (!file.type.startsWith('image/')) {
+			alert('请上传图片文件！');
+			return;
+		}
+		currentFile = file;
+
+		// 显示预览
+		const reader = new FileReader();
+		reader.onload = (e) => {
+			uploadArea.innerHTML = `
+                    <img src="${e.target.result}" style="max-width: 200px; max-height: 200px;">
+                    <div class="upload-text">点击或拖拽更换图片</div>
+                `;
+		};
+		reader.readAsDataURL(file);
+	}
+
+	// 生成指定尺寸的Canvas
+	function createResizedCanvas(img, size) {
+		const canvas = document.createElement('canvas');
+		canvas.width = size;
+		canvas.height = size;
+		const ctx = canvas.getContext('2d');
+		ctx.drawImage(img, 0, 0, size, size);
+		return canvas;
+	}
+
+	// 将Canvas数据转换为Blob
+	function canvasToBlob(canvas) {
+		return new Promise((resolve) => {
+			canvas.toBlob((blob) => {
+				resolve(blob);
+			}, 'image/png');
+		});
+	}
+
+	// 生成ICO文件
+	async function generateIco() {
+		if (!currentFile) {
+			alert('请先上传图片！');
+			return;
+		}
+
+		try {
+			// 获取选中的尺寸
+			const selectedSize = document.querySelector('input[name="size"]:checked').value;
+			const size = parseInt(selectedSize.split('x')[0]);
+
+			// 创建图片元素
+			const img = new Image();
+			img.src = URL.createObjectURL(currentFile);
+
+			await new Promise((resolve, reject) => {
+				img.onload = resolve;
+				img.onerror = reject;
+			});
+
+			// 创建调整大小后的canvas
+			const canvas = createResizedCanvas(img, size);
+
+			// 将canvas转换为blob
+			const blob = await canvasToBlob(canvas);
+
+			// 创建ICO文件头
+			const header = new Uint8Array([
+				0, 0,             // 保留，必须为0
+				1, 0,             // 图像类型，1=ICO
+				1, 0,             // 图像数量
+				size, size,       // 宽度和高度
+				0,                // 调色板大小
+				0,                // 保留，必须为0
+				1, 0,             // 颜色平面
+				32, 0,            // 位深度
+				blob.size & 0xFF, // 图像数据大小（低字节）
+				(blob.size >> 8) & 0xFF,
+				(blob.size >> 16) & 0xFF,
+				(blob.size >> 24) & 0xFF,
+				22, 0, 0, 0       // 图像数据偏移量
+			]);
+
+			// 合并头部和图像数据
+			const iconData = new Blob([header, blob], { type: 'image/x-icon' });
+
+			// 下载文件
+			saveAs(iconData, 'favicon.ico');
+
+		} catch (error) {
+			console.error('生成ICO文件失败:', error);
+			alert('生成ICO文件失败，请重试！');
+		}
+	}
+
+	// 绑定生成按钮事件
+	generateBtn.addEventListener('click', generateIco);
+
+	// 添加预览功能
+	function addPreview(file) {
+		const reader = new FileReader();
+		reader.onload = (e) => {
+			const preview = document.createElement('div');
+			preview.style.marginTop = '20px';
+			preview.style.textAlign = 'center';
+			preview.innerHTML = `
+                    <h4>预览效果：</h4>
+                    <img src="${e.target.result}" style="width: 16px; height: 16px; margin: 5px;">
+                    <img src="${e.target.result}" style="width: 32px; height: 32px; margin: 5px;">
+                    <img src="${e.target.result}" style="width: 48px; height: 48px; margin: 5px;">
+                `;
+
+			const existingPreview = document.querySelector('.preview');
+			if (existingPreview) {
+				existingPreview.remove();
+			}
+			preview.className = 'preview';
+			uploadArea.after(preview);
+		};
+		reader.readAsDataURL(file);
+	}
+
+	// 修改handleFile函数，添加预览功能
+	function handleFile(file) {
+		if (!file.type.startsWith('image/')) {
+			alert('请上传图片文件！');
+			return;
+		}
+		currentFile = file;
+
+		// 显示预览
+		const reader = new FileReader();
+		reader.onload = (e) => {
+			uploadArea.innerHTML = `
+                    <img src="${e.target.result}" style="max-width: 200px; max-height: 200px;">
+                    <div class="upload-text">点击或拖拽更换图片</div>
+                `;
+		};
+		reader.readAsDataURL(file);
+
+		// 添加不同尺寸的预览
+		addPreview(file);
+	}
+</script>
+</body>
+
+
+
+
+
+</html>

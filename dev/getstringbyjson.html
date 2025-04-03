@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JSON/GET请求字符串互转</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		textarea {
+			width: 100%;
+			height: 150px;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			font-family: Consolas, monospace;
+			font-size: 14px;
+			resize: vertical;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		button {
+			padding: 12px 25px;
+			background: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 200px;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about li {
+			margin: 10px 0;
+			line-height: 1.6;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<div class="container">
+	<h1>JSON/GET请求参数互转</h1>
+
+	<textarea id="inputArea" placeholder="输入JSON或GET请求参数...">{
+  "name": "xiaoming",
+  "age": "18"
+}</textarea>
+
+	<div class="btn-group">
+		<button onclick="jsonToGet()">JSON转GET请求参数 ↓</button>
+		<button onclick="getToJson()">GET请求参数转JSON ↑</button>
+	</div>
+
+	<textarea id="outputArea" placeholder="转换结果..." readonly></textarea>
+
+	<div class="btn-group">
+		<button onclick="copyResult()">复制结果</button>
+		<button onclick="clearAll()">清空</button>
+	</div>
+
+	<div class="about">
+		<h3>关于JSON/GET请求字符串互转介绍：</h3>
+		<ul>
+			<li>JSON是一种轻量级数据交换格式，基于JavaScript语法但独立于语言</li>
+			<li>GET请求字符串用于URL传参，以?开头，键值对用&amp;分隔</li>
+			<li>支持中文和特殊字符自动编码解码</li>
+			<li>转换结果可直接用于Web开发调试</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+	// JSON转GET参数
+	function jsonToGet() {
+		try {
+			const jsonInput = document.getElementById('inputArea').value;
+			const obj = JSON.parse(jsonInput);
+			let getParams = [];
+
+			for (const [key, value] of Object.entries(obj)) {
+				const encodedValue = encodeURIComponent(value);
+				getParams.push(`${key}=${encodedValue}`);
+			}
+
+			document.getElementById('outputArea').value = getParams.join('&');
+		} catch (error) {
+			alert(`JSON解析错误: ${error.message}`);
+		}
+	}
+
+	// GET参数转JSON
+	function getToJson() {
+		try {
+			const getInput = document.getElementById('inputArea').value;
+			const params = new URLSearchParams(getInput);
+			const result = {};
+
+			for (const [key, value] of params) {
+				result[key] = decodeURIComponent(value);
+			}
+
+			document.getElementById('outputArea').value = JSON.stringify(result, null, 2);
+		} catch (error) {
+			alert('GET参数解析错误，请检查格式');
+		}
+	}
+
+	// 复制结果
+	function copyResult() {
+		const output = document.getElementById('outputArea');
+		output.select();
+		document.execCommand('copy');
+		alert('内容已复制到剪贴板');
+	}
+
+	// 清空所有内容
+	function clearAll() {
+		document.getElementById('inputArea').value = '';
+		document.getElementById('outputArea').value = '';
+	}
+
+	// 自动去除URL前缀
+	document.getElementById('inputArea').addEventListener('input', function() {
+		const value = this.value.trim();
+		if (value.startsWith('?')) {
+			this.value = value.slice(1);
+		}
+	});
+</script>
+</body>
+
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>域名WHIOS查询</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #21759b;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		.search-container {
+			text-align: center;
+			margin: 40px 0;
+		}
+		.search-title {
+			font-size: 24px;
+			color: #2196f3;
+			margin-bottom: 20px;
+		}
+		.search-box {
+			display: flex;
+			max-width: 600px;
+			margin: 0 auto;
+		}
+		.search-input {
+			flex: 1;
+			padding: 12px 20px;
+			font-size: 16px;
+			border: 2px solid #e9ecef;
+			border-radius: 8px 0 0 8px;
+			border-right: none;
+		}
+		.search-input:focus {
+			outline: none;
+			border-color: #2196f3;
+		}
+		.search-btn {
+			padding: 12px 30px;
+			background-color: #2196f3;
+			color: white;
+			border: none;
+			border-radius: 0 8px 8px 0;
+			font-size: 16px;
+			cursor: pointer;
+		}
+		.search-btn:hover {
+			background-color: #1976d2;
+		}
+		.result-container {
+			background: white;
+			padding: 20px;
+			border-radius: 8px;
+			margin-top: 20px;
+			min-height: 200px;
+		}
+		.info-box {
+			background-color: #fff5f0;
+			border-radius: 8px;
+			padding: 20px;
+			margin-top: 30px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 15px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+		}
+		.info-list li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+		.sub-list {
+			margin-left: 20px;
+			margin-top: 10px;
+		}
+		.history-title {
+			color: #666;
+			margin: 20px 0 10px;
+			padding-left: 10px;
+			border-left: 4px solid #2196f3;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<header class="header">
+	<div class="header-icon">🌐</div>
+	<div class="header-title">
+		域名WHOIS查询
+	</div>
+</header>
+
+<div class="container">
+	<div class="search-container">
+		<h1 class="search-title">域名WHOIS查询</h1>
+		<div class="search-box">
+			<input type="text" class="search-input" id="domainInput" placeholder="输入网址">
+			<button class="search-btn" onclick="searchDomain()">查询</button>
+		</div>
+	</div>
+
+	<div class="result-container" id="resultContainer">
+		<!-- 查询结果将在这里显示 -->
+	</div>
+
+	<div class="info-box">
+		<h3 class="info-title">关于Whois查询介绍：</h3>
+		<ul class="info-list">
+			<li>1、本工具可以查询域名是否已被注册或过期，以及域名注册的详细信息。</li>
+			<li>2、关于域名到期时候的相应解决办法。</li>
+			<li>国际域名：</li>
+			<ul class="sub-list">
+				<li>(1) 到期后无法修改，如果在72小时未续费，则解除域名DNS指向广告页面（修改），域名到期后30-45天为域名保留期（不可注册商或第似注册用户不用）</li>
+				<li>(2) 过了保留期域名将进入赎回期间（REDEMPTIONPERIOD，为期30天）</li>
+				<li>(3) 过了赎回期域名将进入人为服务天左右的删除期，删除期过后域名开放，任何人可注。</li>
+			</ul>
+			<li>国内域名：</li>
+			<ul class="sub-list">
+				<li>(1) 到期后无法修改，如果在72小时未续费，则解除域名DNS指向广告页面（修改），35天内，可以自动续费。</li>
+				<li>(2) 过期后36～48天，将进入15天的高价赎回期，此期间域名无法查看。</li>
+				<li>(3) 过期后48天后仍未续费的，域名将随时被删除。</li>
+			</ul>
+		</ul>
+	</div>
+
+	<div class="history-container">
+		<h3 class="history-title">最近查询：</h3>
+		<div id="historyList"></div>
+	</div>
+</div>
+
+<script>
+	function searchDomain() {
+		const domain = document.getElementById('domainInput').value.trim();
+		const resultContainer = document.getElementById('resultContainer');
+
+		if (!domain) {
+			alert('请输入要查询的域名！');
+			return;
+		}
+
+		// 这里应该调用实际的WHOIS API
+		// 以下为模拟数据
+		resultContainer.innerHTML = `
+                <h3>查询结果：</h3>
+                <p>域名：${domain}</p>
+                <p>注册商：示例注册商</p>
+                <p>创建时间：2023-01-01</p>
+                <p>到期时间：2024-01-01</p>
+                <p>状态：已注册</p>
+            `;
+
+		// 添加到历史记录
+		addToHistory(domain);
+	}
+
+	function addToHistory(domain) {
+		const historyList = document.getElementById('historyList');
+		const historyItem = document.createElement('div');
+		historyItem.textContent = domain;
+		historyItem.style.padding = '10px';
+		historyItem.style.borderBottom = '1px solid #eee';
+		historyList.insertBefore(historyItem, historyList.firstChild);
+	}
+</script>
+</body>
+
+</html>

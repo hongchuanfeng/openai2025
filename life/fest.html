@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>世界节日查询</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #4285f4;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.header-title {
+			font-size: 18px;
+			font-weight: bold;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.heart-icon {
+			color: #ff4757;
+			cursor: pointer;
+		}
+		.rating {
+			display: flex;
+			gap: 5px;
+			color: #ffd700;
+		}
+		.share-icon {
+			margin-left: auto;
+			color: #666;
+			cursor: pointer;
+		}
+		.tabs {
+			max-width: 800px;
+			margin: 0 auto 20px;
+			display: flex;
+			gap: 10px;
+		}
+		.tab {
+			padding: 6px 16px;
+			border-radius: 20px;
+			cursor: pointer;
+			font-size: 14px;
+		}
+		.tab.active {
+			background-color: #00b894;
+			color: white;
+		}
+		.tab:not(.active) {
+			background-color: #e9ecef;
+			color: #666;
+		}
+		.festival-table {
+			max-width: 800px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.table-header {
+			display: grid;
+			grid-template-columns: 1fr 2fr;
+			background-color: #f8f9fa;
+			padding: 15px 20px;
+			font-weight: bold;
+			color: #666;
+		}
+		.festival-row {
+			display: grid;
+			grid-template-columns: 1fr 2fr;
+			padding: 15px 20px;
+			border-top: 1px solid #eee;
+		}
+		.festival-row:hover {
+			background-color: #f8f9fa;
+		}
+		.date {
+			color: #666;
+		}
+		.festival {
+			color: #333;
+		}
+		.festival-english {
+			color: #666;
+			font-size: 0.9em;
+			margin-left: 8px;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<header class="header">
+	<div class="header-icon">📅</div>
+	<div class="header-title">
+		世界节日查询
+	</div>
+</header>
+
+<div class="tabs">
+	<div class="tab active">阳历节日</div>
+	<div class="tab">农历节日</div>
+</div>
+
+<div class="festival-table">
+	<div class="table-header">
+		<div>日期</div>
+		<div>节日</div>
+	</div>
+	<div class="festival-row">
+		<div class="date">正月初一</div>
+		<div class="festival">春节<span class="festival-english">(the Spring Festival)</span></div>
+	</div>
+	<div class="festival-row">
+		<div class="date">正月十五</div>
+		<div class="festival">元宵节<span class="festival-english">(Lantern Festival)</span></div>
+	</div>
+	<div class="festival-row">
+		<div class="date">五月初五</div>
+		<div class="festival">端午节<span class="festival-english">(the Dragon-Boat Festival)</span></div>
+	</div>
+	<div class="festival-row">
+		<div class="date">七月初七</div>
+		<div class="festival">七夕节<span class="festival-english">(Double-Seventh Day)</span></div>
+	</div>
+	<div class="festival-row">
+		<div class="date">八月十五</div>
+		<div class="festival">中秋节<span class="festival-english">(the Mid-Autumn Festival)</span></div>
+	</div>
+	<div class="festival-row">
+		<div class="date">九月初九</div>
+		<div class="festival">重阳节<span class="festival-english">(the Double Ninth Festival)</span></div>
+	</div>
+	<div class="festival-row">
+		<div class="date">腊月初八</div>
+		<div class="festival">腊八节<span class="festival-english">(the laba Rice Porridge Festival)</span></div>
+	</div>
+	<div class="festival-row">
+		<div class="date">腊月二十四</div>
+		<div class="festival">传统扫房日</div>
+	</div>
+</div>
+
+<script>
+	// 标签切换功能
+	const tabs = document.querySelectorAll('.tab');
+	tabs.forEach(tab => {
+		tab.addEventListener('click', () => {
+			tabs.forEach(t => t.classList.remove('active'));
+			tab.classList.add('active');
+		});
+	});
+</script>
+
+</body>
+
+</html>

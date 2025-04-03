@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>随机IP地址生成器</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #e91e63;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			background: white;
+			padding: 20px;
+			border-radius: 8px;
+		}
+		.form-group {
+			margin-bottom: 20px;
+		}
+		.form-label {
+			display: block;
+			margin-bottom: 10px;
+			font-weight: bold;
+			color: #333;
+		}
+		.radio-group {
+			display: flex;
+			gap: 20px;
+		}
+		.radio-item {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.input-number {
+			width: 100px;
+			padding: 8px;
+			border: 2px solid #e9ecef;
+			border-radius: 4px;
+		}
+		.generate-btn {
+			width: 100%;
+			padding: 12px;
+			background-color: #2196f3;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			font-size: 16px;
+			cursor: pointer;
+			margin: 20px 0;
+		}
+		.result-container {
+			margin-top: 20px;
+			padding: 20px;
+			background: #f8f9fa;
+			border-radius: 8px;
+		}
+		.info-box {
+			margin-top: 30px;
+			padding: 20px;
+			background: #fff5f0;
+			border-radius: 8px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 15px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+			line-height: 1.6;
+		}
+		.info-list li {
+			margin-bottom: 8px;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<header class="header">
+	<div class="header-icon">🌐</div>
+	<div class="header-title">
+		随机IP地址生成器
+	</div>
+</header>
+
+<div class="container">
+	<div class="form-group">
+		<label class="form-label">选择类型</label>
+		<div class="radio-group">
+			<label class="radio-item">
+				<input type="radio" name="ipVersion" value="ipv4" checked> IPv4
+			</label>
+			<label class="radio-item">
+				<input type="radio" name="ipVersion" value="ipv6"> IPv6
+			</label>
+		</div>
+	</div>
+
+	<div class="form-group" id="ipv4ClassGroup">
+		<label class="form-label">IPv4类型</label>
+		<div class="radio-group">
+			<label class="radio-item">
+				<input type="radio" name="ipClass" value="any" checked> 不限制
+			</label>
+			<label class="radio-item">
+				<input type="radio" name="ipClass" value="a"> A类
+			</label>
+			<label class="radio-item">
+				<input type="radio" name="ipClass" value="b"> B类
+			</label>
+			<label class="radio-item">
+				<input type="radio" name="ipClass" value="c"> C类
+			</label>
+			<label class="radio-item">
+				<input type="radio" name="ipClass" value="d"> D类
+			</label>
+			<label class="radio-item">
+				<input type="radio" name="ipClass" value="e"> E类
+			</label>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="form-label">生成数量</label>
+		<input type="number" class="input-number" id="count" value="10" min="1" max="100">
+	</div>
+
+	<div class="form-group">
+		<label class="form-label">唯一性</label>
+		<div class="radio-group">
+			<label class="radio-item">
+				<input type="radio" name="unique" value="false" checked> 不限制
+			</label>
+			<label class="radio-item">
+				<input type="radio" name="unique" value="true"> 保证唯一
+			</label>
+		</div>
+	</div>
+
+	<button class="generate-btn" onclick="generateIPs()">开始生成</button>
+
+	<div class="result-container" id="resultContainer">
+		<!-- 生成的IP地址将显示在这里 -->
+	</div>
+
+	<div class="info-box">
+		<h3 class="info-title">关于随机IP地址生成器介绍：</h3>
+		<ul class="info-list">
+			<li>1、您可以使用本工具生成IPv4或IPv6地址。</li>
+			<li>2、IPv4可以分类型进行机制生成，比如A类地址，B类地址。</li>
+			<li>3、可以保证生成的多个IP中重复可以复复</li>
+			<li>4、IPv4 A类地址范围：0.0.0.0 到 127.255.255.255</li>
+			<li>5、IPv4 B类地址范围：128.0.0.0 到 191.255.255.255</li>
+			<li>6、IPv4 C类地址范围：192.0.0.0 到 223.255.255.255</li>
+			<li>7、IPv4 D类地址范围：224.0.0.0 到 239.255.255.255</li>
+			<li>8、IPv4 E类地址范围：240.0.0.0 到 255.255.255.255</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+	function generateRandomIPv4(ipClass) {
+		let first, second, third, fourth;
+
+		switch(ipClass) {
+			case 'a':
+				first = Math.floor(Math.random() * 127);
+				break;
+			case 'b':
+				first = Math.floor(Math.random() * 64) + 128;
+				break;
+			case 'c':
+				first = Math.floor(Math.random() * 32) + 192;
+				break;
+			case 'd':
+				first = Math.floor(Math.random() * 16) + 224;
+				break;
+			case 'e':
+				first = Math.floor(Math.random() * 16) + 240;
+				break;
+			default:
+				first = Math.floor(Math.random() * 256);
+		}
+
+		second = Math.floor(Math.random() * 256);
+		third = Math.floor(Math.random() * 256);
+		fourth = Math.floor(Math.random() * 256);
+
+		return `${first}.${second}.${third}.${fourth}`;
+	}
+
+	function generateRandomIPv6() {
+		let segments = [];
+		for(let i = 0; i < 8; i++) {
+			let segment = Math.floor(Math.random() * 65536).toString(16);
+			segments.push(segment.padStart(4, '0'));
+		}
+		return segments.join(':');
+	}
+
+	function generateIPs() {
+		const ipVersion = document.querySelector('input[name="ipVersion"]:checked').value;
+		const ipClass = document.querySelector('input[name="ipClass"]:checked').value;
+		const count = parseInt(document.getElementById('count').value);
+		const unique = document.querySelector('input[name="unique"]:checked').value === 'true';
+
+		let ips = new Set();
+		let results = [];
+
+		for(let i = 0; i < count; i++) {
+			let ip = ipVersion === 'ipv4' ? generateRandomIPv4(ipClass) : generateRandomIPv6();
+
+			if(unique) {
+				if(!ips.has(ip)) {
+					ips.add(ip);
+					results.push(ip);
+				} else {
+					i--; // 重试
+				}
+			} else {
+				results.push(ip);
+			}
+		}
+
+		const resultContainer = document.getElementById('resultContainer');
+		resultContainer.innerHTML = `
+                <h3>生成结果：</h3>
+                <div style="margin-top: 10px; line-height: 1.8;">
+                    ${results.join('<br>')}
+                </div>
+            `;
+	}
+
+	// 页面加载时生成默认IP
+	window.onload = generateIPs;
+</script>
+</body>
+
+</html>

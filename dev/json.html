@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JSON压缩/格式化工具</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		#jsonEditor {
+			width: 100%;
+			height: 400px;
+			padding: 15px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			font-family: Consolas, monospace;
+			font-size: 14px;
+			line-height: 1.5;
+			margin: 20px 0;
+			tab-size: 4;
+			white-space: pre;
+		}
+
+		.toolbar {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		button {
+			padding: 8px 16px;
+			background: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: 0.3s;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-1px);
+		}
+
+		.about {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about li {
+			margin: 10px 0;
+			line-height: 1.6;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+<div class="container">
+	<h1>JSON压缩/格式化工具</h1>
+
+	<textarea id="jsonEditor">{
+  "sites": {
+    "modern": [
+      {
+        "name": "xiaoning",
+        "age": 18
+      },
+      {
+        "name": "xiaohong",
+        "url": "https://example.com"
+      }
+    ]
+  }
+}</textarea>
+
+	<div class="toolbar">
+		<button onclick="formatJSON()">解压/格式化</button>
+		<button onclick="compressJSON()">压缩</button>
+		<button onclick="escapeJSON()">转义</button>
+		<button onclick="unescapeJSON()">取消转义</button>
+		<button onclick="copyJSON()">复制</button>
+		<button onclick="clearJSON()">清空</button>
+	</div>
+
+	<div class="about">
+		<h3>关于JSON压缩/格式化工具介绍：</h3>
+		<ul>
+			<li>此工具可以将JSON脚本代码进行压缩或格式化</li>
+			<li>带有JSON语法验证功能，错误时会提示具体位置</li>
+			<li>支持转义/取消转义特殊字符</li>
+			<li>所有操作均在本地完成，保障数据安全</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+	// JSON格式化
+	function formatJSON() {
+		try {
+			const jsonString = document.getElementById('jsonEditor').value;
+			const obj = JSON.parse(jsonString);
+			document.getElementById('jsonEditor').value = JSON.stringify(obj, null, 2);
+		} catch (error) {
+			showError(error);
+		}
+	}
+
+	// JSON压缩
+	function compressJSON() {
+		try {
+			const jsonString = document.getElementById('jsonEditor').value;
+			const obj = JSON.parse(jsonString);
+			document.getElementById('jsonEditor').value = JSON.stringify(obj);
+		} catch (error) {
+			showError(error);
+		}
+	}
+
+	// JSON转义
+	function escapeJSON() {
+		const jsonString = document.getElementById('jsonEditor').value;
+		const escaped = jsonString
+				.replace(/\\/g, '\\\\')
+				.replace(/"/g, '\\"')
+				.replace(/\n/g, '\\n');
+		document.getElementById('jsonEditor').value = escaped;
+	}
+
+	// 取消转义
+	function unescapeJSON() {
+		const jsonString = document.getElementById('jsonEditor').value;
+		const unescaped = jsonString
+				.replace(/\\\\/g, '\\')
+				.replace(/\\"/g, '"')
+				.replace(/\\n/g, '\n');
+		document.getElementById('jsonEditor').value = unescaped;
+	}
+
+	// 复制内容
+	function copyJSON() {
+		const editor = document.getElementById('jsonEditor');
+		editor.select();
+		document.execCommand('copy');
+		alert('内容已复制到剪贴板');
+	}
+
+	// 清空编辑器
+	function clearJSON() {
+		document.getElementById('jsonEditor').value = '';
+	}
+
+	// 错误处理
+	function showError(error) {
+		const message = `JSON语法错误：${error.message}\n第 ${getErrorPosition()} 行`;
+		alert(message);
+	}
+
+	// 获取错误位置
+	function getErrorPosition() {
+		const editor = document.getElementById('jsonEditor');
+		const pos = editor.selectionStart;
+		const text = editor.value.substring(0, pos);
+		return (text.match(/\n/g) || []).length + 1;
+	}
+
+	// 自动缩进支持
+	document.getElementById('jsonEditor').addEventListener('keydown', function(e) {
+		if (e.key === 'Tab') {
+			e.preventDefault();
+			const start = this.selectionStart;
+			const end = this.selectionEnd;
+			this.value = this.value.substring(0, start) + '  ' + this.value.substring(end);
+			this.selectionStart = this.selectionEnd = start + 2;
+		}
+	});
+</script>
+</body>
+
+</html>

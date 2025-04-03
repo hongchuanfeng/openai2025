@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>域名解析记录查询</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #4c6ef5;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		.search-container {
+			text-align: center;
+			margin: 40px 0;
+		}
+		.search-title {
+			font-size: 24px;
+			color: #4c6ef5;
+			margin-bottom: 20px;
+		}
+		.search-box {
+			display: flex;
+			max-width: 600px;
+			margin: 0 auto;
+		}
+		.search-input {
+			flex: 1;
+			padding: 12px 20px;
+			font-size: 16px;
+			border: 2px solid #e9ecef;
+			border-radius: 8px 0 0 8px;
+			border-right: none;
+		}
+		.search-input:focus {
+			outline: none;
+			border-color: #4c6ef5;
+		}
+		.search-btn {
+			padding: 12px 30px;
+			background-color: #4c6ef5;
+			color: white;
+			border: none;
+			border-radius: 0 8px 8px 0;
+			font-size: 16px;
+			cursor: pointer;
+		}
+		.search-btn:hover {
+			background-color: #364fc7;
+		}
+		.result-container {
+			background: white;
+			padding: 20px;
+			border-radius: 8px;
+			margin-top: 20px;
+			min-height: 200px;
+		}
+		.info-box {
+			background-color: #fff5f0;
+			border-radius: 8px;
+			padding: 20px;
+			margin-top: 30px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 15px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+		}
+		.info-list li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+		.history-container {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 8px;
+			margin-top: 20px;
+		}
+		.history-title {
+			color: #666;
+			margin-bottom: 10px;
+		}
+		.history-item {
+			background: white;
+			padding: 10px;
+			margin-bottom: 5px;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+		.history-item:hover {
+			background: #e9ecef;
+		}
+		.record-table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-top: 20px;
+		}
+		.record-table th,
+		.record-table td {
+			padding: 12px;
+			text-align: left;
+			border-bottom: 1px solid #e9ecef;
+		}
+		.record-table th {
+			background-color: #f8f9fa;
+			font-weight: bold;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<header class="header">
+	<div class="header-icon">🌐</div>
+	<div class="header-title">
+		域名解析记录查询
+	</div>
+</header>
+
+<div class="container">
+	<div class="search-container">
+		<h1 class="search-title">域名解析记录查询</h1>
+		<div class="search-box">
+			<input type="text" class="search-input" id="domainInput" placeholder="输入网址">
+			<button class="search-btn" onclick="searchDomain()">查询</button>
+		</div>
+	</div>
+
+	<div class="result-container" id="resultContainer">
+		<!-- 查询结果将在这里显示 -->
+	</div>
+
+	<div class="info-box">
+		<h3 class="info-title">关于域名解析介绍：</h3>
+		<ul class="info-list">
+			<li>1、域名解析是互联网上将域名转换为与之对应的IP地址的过程。</li>
+			<li>2、域名解析的类型：</li>
+			<ul style="margin-left: 20px;">
+				<li>(1)、A记录：将域名解析到一个IPv4地址。</li>
+				<li>(2)、AAAA记录：将域名解析到一个IPv6地址。</li>
+				<li>(3)、CNAME记录：将域名解析到另一个域名（通常用于子域名或负载均衡）。</li>
+				<li>(4)、MX记录：用于电子邮件，将域名解析到处理电子邮件的服务器地址。</li>
+				<li>(5)、TXT记录：用于在域名上存储文本信息，常用于验证域名所有权或配置邮件服务。</li>
+			</ul>
+		</ul>
+	</div>
+
+	<div class="history-container">
+		<h3 class="history-title">最近查询：</h3>
+		<div id="historyList">
+			<div class="history-item">openai2025.com</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	function searchDomain() {
+		const domain = document.getElementById('domainInput').value.trim();
+		const resultContainer = document.getElementById('resultContainer');
+
+		if (!domain) {
+			alert('请输入要查询的域名！');
+			return;
+		}
+
+		// 这里应该调用实际的DNS查询API
+		// 以下为模拟数据
+		resultContainer.innerHTML = `
+                <h3>查询结果：${domain}</h3>
+                <table class="record-table">
+                    <thead>
+                        <tr>
+                            <th>记录类型</th>
+                            <th>主机记录</th>
+                            <th>记录值</th>
+                            <th>TTL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A</td>
+                            <td>@</td>
+                            <td>192.168.1.1</td>
+                            <td>600</td>
+                        </tr>
+                        <tr>
+                            <td>CNAME</td>
+                            <td>www</td>
+                            <td>${domain}</td>
+                            <td>600</td>
+                        </tr>
+                        <tr>
+                            <td>MX</td>
+                            <td>@</td>
+                            <td>mail.${domain}</td>
+                            <td>3600</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+
+		// 添加到历史记录
+		addToHistory(domain);
+	}
+
+	function addToHistory(domain) {
+		const historyList = document.getElementById('historyList');
+		const historyItem = document.createElement('div');
+		historyItem.className = 'history-item';
+		historyItem.textContent = domain;
+		historyItem.onclick = () => {
+			document.getElementById('domainInput').value = domain;
+			searchDomain();
+		};
+		historyList.insertBefore(historyItem, historyList.firstChild);
+	}
+</script>
+</body>
+
+</html>

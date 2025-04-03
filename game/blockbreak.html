@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>在线撞击砖块游戏</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container{
+			margin: auto;
+			width: 1000px;
+		}
+		canvas {
+			border: 1px solid black;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<div class="container">
+
+
+	<canvas id="canvas" width="1000" height="400"></canvas>
+
+	<script>
+		const canvas = document.getElementById("canvas");
+		const context = canvas.getContext("2d");
+
+		const ballRadius = 10;
+		let x = canvas.width / 2;
+		let y = canvas.height - 30;
+		let dx = 3;
+		let dy = -3;
+
+		const paddleHeight = 10;
+		const paddleWidth = 275;
+		let paddleX = (canvas.width - paddleWidth) / 2;
+
+		let rightPressed = false;
+		let leftPressed = false;
+
+		const brickRowCount = 3;
+		const brickColumnCount = 5;
+		const brickWidth = 200;
+		const brickHeight = 30;
+		const brickPadding = 10;
+		const brickOffsetTop = 30;
+		const brickOffsetLeft = 30;
+		const bricks = [];
+
+		for (let c = 0; c < brickColumnCount; c++) {
+			bricks[c] = [];
+			for (let r = 0; r < brickRowCount; r++) {
+				bricks[c][r] = { x: 0, y: 0, status: 1 };
+			}
+		}
+
+		let score = 0;
+		let lives = 3;
+
+		function drawBall() {
+			context.beginPath();
+			context.arc(x, y, ballRadius, 0, Math.PI * 2);
+			context.fillStyle = "#0095DD";
+			context.fill();
+			context.closePath();
+		}
+
+		function drawPaddle() {
+			context.beginPath();
+			context.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+			context.fillStyle = "#0095DD";
+			context.fill();
+			context.closePath();
+		}
+
+		function drawBricks() {
+			for (let c = 0; c < brickColumnCount; c++) {
+				for (let r = 0; r < brickRowCount; r++) {
+					if (bricks[c][r].status == 1) {
+						const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
+						const brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
+						bricks[c][r].x = brickX;
+						bricks[c][r].y = brickY;
+						context.beginPath();
+						context.rect(brickX, brickY, brickWidth, brickHeight);
+						context.fillStyle = "#0095DD";
+						context.fill();
+						context.closePath();
+					}
+				}
+			}
+		}
+
+		function collisionDetection() {
+			for (let c = 0; c < brickColumnCount; c++) {
+				for (let r = 0; r < brickRowCount; r++) {
+					const b = bricks[c][r];
+					if (b.status == 1) {
+						if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
+							dy = -dy;
+							b.status = 0;
+							score++;
+							if (score == brickRowCount * brickColumnCount) {
+								alert("YOU WIN, CONGRATULATIONS!");
+								document.location.reload(); // 页面重新加载
+							}
+						}
+					}
+				}
+			}
+		}
+
+		function drawScore() {
+			context.font = "16px Arial";
+			context.fillStyle = "#0095DD";
+			context.fillText("Score: " + score, 8, 20);
+		}
+
+		function drawLives() {
+			context.font = "16px Arial";
+			context.fillStyle = "#0095DD";
+			context.fillText("Lives: " + lives, canvas.width - 65, 20);
+		}
+
+		function draw() {
+			context.clearRect(0, 0, canvas.width, canvas.height);
+			drawBricks();
+			drawBall();
+			drawPaddle();
+			drawScore();
+			drawLives();
+			collisionDetection();
+
+			if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+				dx = -dx;
+			}
+
+			if (y + dy < ballRadius) {
+				dy = -dy;
+			} else if (y + dy > canvas.height - ballRadius) {
+				if (x > paddleX && x < paddleX + paddleWidth) {
+					dy = -dy;
+				} else {
+					lives--;
+					if (!lives) {
+						alert("GAME OVER");
+						document.location.reload(); // 页面重新加载
+					} else {
+						x = canvas.width / 2;
+						y = canvas.height - 30;
+						dx = 3;
+						dy = -3;
+						paddleX = (canvas.width - paddleWidth) / 2;
+					}
+				}
+			}
+
+			if (rightPressed && paddleX < canvas.width - paddleWidth) {
+				paddleX += 7;
+			} else if (leftPressed && paddleX > 0) {
+				paddleX -= 7;
+			}
+
+			x += dx;
+			y += dy;
+
+			requestAnimationFrame(draw);
+		}
+
+		document.addEventListener("keydown", keyDownHandler);
+		document.addEventListener("keyup", keyUpHandler);
+
+		function keyDownHandler(e) {
+			if (e.keyCode == 39) {
+				rightPressed = true;
+			} else if (e.keyCode == 37) {
+				leftPressed = true;
+			}
+		}
+
+		function keyUpHandler(e) {
+			if (e.keyCode == 39) {
+				rightPressed = false;
+			} else if (e.keyCode == 37) {
+				leftPressed = false;
+			}
+		}
+
+		draw();
+	</script>
+</div>
+<div style="border: 2px solid orange; background-color: #ffe6cc; padding: 10px;width: 800px;margin: auto">
+	<h2 style="color: #ff6600">游戏规则：</h2>
+	<ul style="list-style-type:none">
+		<li>使用左右箭头键来移动挡板，确保小球不会碰到底部。</li>
+		<li>当小球撞击砖块时，砖块将被消除，您的得分也会相应增加。</li>
+		<li>消除全部砖块后获得胜利，失去三条生命则游戏结束。</li>
+	</ul>
+</div>
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>XML压缩/格式化工具</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		#xmlEditor {
+			width: 100%;
+			height: 400px;
+			padding: 15px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			font-family: 'Courier New', monospace;
+			font-size: 14px;
+			line-height: 1.5;
+			margin: 20px 0;
+			white-space: pre-wrap;
+			tab-size: 4;
+		}
+
+		.toolbar {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		button {
+			padding: 8px 15px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: 0.3s;
+			background: #4CAF50;
+			color: white;
+		}
+
+		#indentSelect {
+			padding: 6px 12px;
+			border: 1px solid #4CAF50;
+			border-radius: 4px;
+		}
+
+		button:hover {
+			opacity: 0.9;
+		}
+
+		.about-section {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-section li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<div class="container">
+	<h1>XML压缩/格式化工具</h1>
+
+	<textarea id="xmlEditor"><sites>
+  <site>
+    <name>xiaonia</name>
+    <age>18</age>
+  </site>
+  <site>
+    <name>xiaohong</name>
+    <age>18</age>
+  </site>
+</sites></textarea>
+
+	<div class="toolbar">
+		<button onclick="compressXML()">压缩</button>
+		<button onclick="formatXML()">解压/格式化</button>
+		<select id="indentSelect">
+			<option value="2">2个空格缩进</option>
+			<option value="4" selected>4个空格缩进</option>
+		</select>
+		<button onclick="uploadXML()">上传</button>
+		<button onclick="copyXML()">复制</button>
+		<button onclick="clearEditor()">清空</button>
+	</div>
+
+	<div class="about-section">
+		<h3>关于XML压缩/格式化工具介绍：</h3>
+		<ul>
+			<li>此工具可以将XML代码进行压缩或格式化</li>
+			<li>XML格式化时，可以设置缩进的方式（通过下拉菜单选择）</li>
+			<li>支持本地XML文件上传操作</li>
+			<li>所有操作均在浏览器本地完成，数据不会上传至服务器</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+	// XML格式化函数
+	function formatXML() {
+		const xmlString = document.getElementById('xmlEditor').value;
+		const indentSize = parseInt(document.getElementById('indentSelect').value);
+
+		try {
+			const formatted = format(xmlString, indentSize);
+			document.getElementById('xmlEditor').value = formatted;
+		} catch (error) {
+			alert('XML格式错误：' + error.message);
+		}
+	}
+
+	// XML压缩函数
+	function compressXML() {
+		const xmlString = document.getElementById('xmlEditor').value;
+		const compressed = xmlString
+				.replace(/\n/g, '')
+				.replace(/>\s+</g, '><')
+				.trim();
+		document.getElementById('xmlEditor').value = compressed;
+	}
+
+	// 文件上传处理
+	function uploadXML() {
+		const input = document.createElement('input');
+		input.type = 'file';
+		input.accept = '.xml';
+
+		input.onchange = e => {
+			const file = e.target.files[0];
+			const reader = new FileReader();
+
+			reader.onload = event => {
+				document.getElementById('xmlEditor').value = event.target.result;
+			};
+
+			reader.readAsText(file);
+		};
+
+		input.click();
+	}
+
+	// 复制功能
+	function copyXML() {
+		const editor = document.getElementById('xmlEditor');
+		editor.select();
+		document.execCommand('copy');
+		alert('内容已复制到剪贴板');
+	}
+
+	// 清空编辑器
+	function clearEditor() {
+		document.getElementById('xmlEditor').value = '';
+	}
+
+	// XML格式化核心函数
+	function format(xml, indent) {
+		let formatted = '';
+		let indentLevel = 0;
+		const tokens = xml.split(/(<[^>]+>)/g);
+
+		tokens.forEach(token => {
+			if (token.startsWith('</')) {
+				indentLevel = Math.max(indentLevel - 1, 0);
+				formatted += '\n' + ' '.repeat(indentLevel * indent);
+			} else if (token.startsWith('<')) {
+				formatted += '\n' + ' '.repeat(indentLevel * indent);
+				if (!token.startsWith('<?') && !token.startsWith('<!') && !token.endsWith('/>')) {
+					indentLevel++;
+				}
+			}
+			formatted += token;
+		});
+
+		return formatted.trim().replace(/\n\n/g, '\n');
+	}
+</script>
+</body>
+
+</html>

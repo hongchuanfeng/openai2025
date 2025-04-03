@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>图片颜色拾取器</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.upload-area {
+			flex: 1;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+			min-height: 400px;
+		}
+		.drop-zone {
+			border: 2px dashed #ddd;
+			border-radius: 8px;
+			min-height: 300px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			position: relative;
+		}
+		.drop-zone:hover {
+			border-color: #999;
+		}
+		.drop-zone img {
+			max-width: 100%;
+			max-height: 300px;
+			display: none;
+		}
+		.upload-icon {
+			width: 64px;
+			height: 64px;
+			margin-bottom: 16px;
+			color: #999;
+		}
+		.upload-text {
+			color: #666;
+			font-size: 14px;
+		}
+		.color-info {
+			width: 300px;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.color-preview {
+			width: 100%;
+			height: 100px;
+			border-radius: 4px;
+			margin-bottom: 16px;
+		}
+		.color-value {
+			background: #f5f5f5;
+			padding: 8px 12px;
+			border-radius: 4px;
+			margin-bottom: 8px;
+			font-family: monospace;
+		}
+		.info-box {
+			padding: 15px;
+			background: #fff5f0;
+			border-radius: 4px;
+			width: 1200px;
+			margin: auto;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 10px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+			font-size: 14px;
+			line-height: 1.6;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+	<!-- 添加图片处理所需的库 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<div class="container">
+	<div class="upload-area">
+		<div class="drop-zone" id="dropZone">
+			<svg class="upload-icon" viewBox="0 0 24 24">
+				<path fill="currentColor" d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+			</svg>
+			<div class="upload-text">点击上传，或将图片拖拽到此处</div>
+
+		</div>
+		<img id="preview" alt="预览图" width="80%" src="static/images/color.png">
+	</div>
+
+	<div class="color-info">
+		<div class="color-preview" id="colorPreview"></div>
+		<div class="color-value" id="rgbValue">RGB: </div>
+		<div class="color-value" id="hexValue">HEX: </div>
+	</div>
+</div>
+
+<div class="info-box">
+	<div class="info-title">关于图片颜色拾取器介绍:</div>
+	<ul class="info-list">
+		<li>1. 本工具可以选取图片上某个区域颜色。</li>
+		<li>2. 先上传一张要提取颜色的图片，鼠标左键按住拖动。</li>
+		<li>3. 利用鼠标选择图片上想要的颜色即可。</li>
+	</ul>
+</div>
+
+<script>
+	const dropZone = document.getElementById('dropZone');
+	const preview = document.getElementById('preview');
+	const colorPreview = document.getElementById('colorPreview');
+	const rgbValue = document.getElementById('rgbValue');
+	const hexValue = document.getElementById('hexValue');
+
+	// 处理文件拖放
+	dropZone.addEventListener('dragover', (e) => {
+		e.preventDefault();
+		dropZone.style.borderColor = '#999';
+	});
+
+	dropZone.addEventListener('dragleave', (e) => {
+		e.preventDefault();
+		dropZone.style.borderColor = '#ddd';
+	});
+
+	dropZone.addEventListener('drop', (e) => {
+		e.preventDefault();
+		dropZone.style.borderColor = '#ddd';
+		const file = e.dataTransfer.files[0];
+		handleFile(file);
+	});
+
+	// 处理点击上传
+	dropZone.addEventListener('click', () => {
+		const input = document.createElement('input');
+		input.type = 'file';
+		input.accept = 'image/*';
+		input.onchange = (e) => {
+			const file = e.target.files[0];
+			handleFile(file);
+		};
+		input.click();
+	});
+
+	// 处理文件
+	function handleFile(file) {
+		if (file && file.type.startsWith('image/')) {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				preview.src = e.target.result;
+				preview.style.display = 'block';
+				setupColorPicker();
+			};
+			reader.readAsDataURL(file);
+		}
+	}
+
+	// 设置颜色拾取器
+	function setupColorPicker() {
+		const canvas = document.createElement('canvas');
+		const ctx = canvas.getContext('2d');
+
+		preview.onload = () => {
+			canvas.width = preview.naturalWidth+200;
+			canvas.height = preview.naturalHeight+200;
+			ctx.drawImage(preview, 0, 0);
+
+			preview.onclick = (e) => {
+				const rect = preview.getBoundingClientRect();
+				const x = e.clientX - rect.left;
+				const y = e.clientY - rect.top;
+				const scaleX = preview.naturalWidth / preview.width;
+				const scaleY = preview.naturalHeight / preview.height;
+
+				const pixel = ctx.getImageData(x * scaleX, y * scaleY, 1, 1).data;
+				const rgb = `rgb(${pixel[0]}, ${pixel[1]}, ${pixel[2]})`;
+				const hex = `#${pixel[0].toString(16).padStart(2, '0')}${pixel[1].toString(16).padStart(2, '0')}${pixel[2].toString(16).padStart(2, '0')}`;
+
+				colorPreview.style.backgroundColor = rgb;
+				rgbValue.textContent = `RGB: ${rgb}`;
+				hexValue.textContent = `HEX: ${hex}`;
+			};
+		};
+	}
+</script>
+</body>
+
+
+
+
+
+</html>
