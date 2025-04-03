@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Keccak加密</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 1000px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.header {
+			color: #2ecc71;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			margin-bottom: 20px;
+		}
+
+		.title {
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.rating {
+			color: #f39c12;
+			font-size: 24px;
+		}
+
+		textarea {
+			width: 100%;
+			height: 100px;
+			padding: 10px;
+			margin: 10px 0;
+			border: 2px solid #2ecc71;
+			border-radius: 5px;
+		}
+
+		.button-group {
+			display: flex;
+			gap: 10px;
+			flex-wrap: wrap;
+			margin: 15px 0;
+		}
+
+		button {
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+		}
+
+		.encrypt-btn {
+			background: #2ecc71;
+			color: white;
+		}
+
+		.clear-btn {
+			background: #e74c3c;
+			color: white;
+		}
+
+		#result {
+			background: white;
+			padding: 15px;
+			border-radius: 5px;
+			margin: 20px 0;
+			min-height: 60px;
+			border: 1px solid #ddd;
+		}
+
+		.introduction {
+			background: #fff;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha3/0.9.0/sha3.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<div class="container">
+	<div class="header">
+		<div class="title">Keccak加密</div>
+	</div>
+
+	<textarea id="input" placeholder="加密的内容..."></textarea>
+
+	<div class="button-group">
+		<button class="encrypt-btn" onclick="encrypt(224)">keccak-224加密</button>
+		<button class="encrypt-btn" onclick="encrypt(256)">keccak-256加密</button>
+		<button class="encrypt-btn" onclick="encrypt(384)">keccak-384加密</button>
+		<button class="encrypt-btn" onclick="encrypt(512)">keccak-512加密</button>
+		<button class="clear-btn" onclick="clearAll()">清空</button>
+	</div>
+
+	<div id="result">处理结果展示区...</div>
+
+	<div class="introduction">
+		<h3>关于Keccak加密介绍：</h3>
+		<p>① Keccak是一种加密哈希函数，由Guido Bertoni，Joan Daemen等人共同设计。</p>
+		<p>② Keccak允许用户自定义哈希值的长度、容量和速率，使它可以适应多种不同的应用场景。</p>
+		<p>③ Keccak在多平台上都表现出良好的性能，特别是在硬件实现上。</p>
+		<p>④ Keccak可以轻松扩展或压缩输出长度，而不会影响其安全性。</p>
+		<p>⑤ Keccak适用于数据完整性校验、密码存储、数字签名方案、随机数量生成、加密协议。</p>
+	</div>
+
+	<script>
+		function encrypt(bits) {
+			const input = document.getElementById('input').value;
+			if (!input) {
+				alert('请输入要加密的内容');
+				return;
+			}
+
+			let hash;
+			switch(bits) {
+				case 224:
+					hash = sha3_224(input);
+					break;
+				case 256:
+					hash = sha3_256(input);
+					break;
+				case 384:
+					hash = sha3_384(input);
+					break;
+				case 512:
+					hash = sha3_512(input);
+					break;
+				default:
+					hash = '不支持的加密位数';
+			}
+
+			document.getElementById('result').innerHTML =
+					`keccak-${bits}加密结果：<br><strong>${hash}</strong>`;
+		}
+
+		function clearAll() {
+			document.getElementById('input').value = '';
+			document.getElementById('result').innerHTML = '处理结果展示区...';
+		}
+	</script>
+</div>
+
+
+
+</body>
+
+</html>

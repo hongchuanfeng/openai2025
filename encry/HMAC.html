@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HMAC哈希加密</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 1000px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			color: #2196F3;
+			margin-bottom: 20px;
+		}
+
+		.title {
+			font-size: 24px;
+			font-weight: bold;
+		}
+
+		.rating {
+			color: #FFC107;
+			font-size: 24px;
+		}
+
+		textarea {
+			width: 100%;
+			height: 100px;
+			padding: 10px;
+			margin: 10px 0;
+			border: 2px solid #ddd;
+			border-radius: 5px;
+			resize: vertical;
+		}
+
+		.button-group {
+			display: flex;
+			gap: 10px;
+			flex-wrap: wrap;
+			margin: 15px 0;
+		}
+
+		button {
+			padding: 8px 15px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: 0.3s;
+		}
+
+		.hmac-md5 { background: #00BCD4; color: white; }
+		.hmac-sha1 { background: #4CAF50; color: white; }
+		.hmac-sha224 { background: #2196F3; color: white; }
+		.hmac-sha256 { background: #673AB7; color: white; }
+		.hmac-sha384 { background: #9C27B0; color: white; }
+		.hmac-sha512 { background: #F44336; color: white; }
+		.hmac-ripemd160 { background: #FF9800; color: black; }
+		.clear-btn { background: #9E9E9E; color: white; }
+
+		.instruction {
+			margin-top: 25px;
+			padding: 15px;
+			background: #f8f9fa;
+			border-radius: 5px;
+		}
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<div class="container">
+	<div class="header">
+		<div class="title">HMAC哈希加密</div>
+	</div>
+
+	<textarea id="inputContent" placeholder="输入要加密的内容..."></textarea>
+
+	<div class="button-group">
+		<button class="hmac-md5" onclick="generateHMAC('MD5')">HmacMd5</button>
+		<button class="hmac-sha1" onclick="generateHMAC('SHA1')">HmacSha1</button>
+		<button class="hmac-sha224" onclick="generateHMAC('SHA224')">HmacSha224</button>
+		<button class="hmac-sha256" onclick="generateHMAC('SHA256')">HmacSha256</button>
+		<button class="hmac-sha384" onclick="generateHMAC('SHA384')">HmacSha384</button>
+		<button class="hmac-sha512" onclick="generateHMAC('SHA512')">HmacSha512</button>
+		<button class="hmac-ripemd160" onclick="generateHMAC('RIPEMD160')">HmacRipemd160</button>
+		<button class="clear-btn" onclick="clearAll()">清空</button>
+	</div>
+
+	<textarea id="outputResult" placeholder="加密结果输出..." readonly></textarea>
+
+	<div class="instruction">
+		<h3>关于HMAC工具介绍：</h3>
+		<p>1、HMAC（Hash-based Message Authentication Code）是一种基于哈希函数的消息认证码。</p>
+		<p>2、HMAC的设计基于哈希函数，它使用一个密钥和一个哈希函数来生成固定长度的摘要，用于验证消息的完整性和来源。</p>
+		<p>3、HMAC的安全性依赖于哈希函数的安全性和密钥的保密性，被认为是高度安全的认证机制。</p>
+		<p>4、HMAC适用于数据完整性校验、身份验证等安全场景。</p>
+	</div>
+
+	<script>
+		function generateHMAC(algorithm) {
+			const content = document.getElementById('inputContent').value;
+			if (!content) {
+				alert('请输入要加密的内容');
+				return;
+			}
+
+			const key = prompt('请输入加密密钥：');
+			if (!key) {
+				alert('必须输入密钥');
+				return;
+			}
+
+			try {
+				const hmac = CryptoJS.Hmac(algorithm, key, {
+					asBytes: true
+				}).finalize(content);
+
+				document.getElementById('outputResult').value = hmac.toString(CryptoJS.enc.Hex);
+			} catch (e) {
+				alert('加密失败：' + e.message);
+			}
+		}
+
+		function clearAll() {
+			document.getElementById('inputContent').value = '';
+			document.getElementById('outputResult').value = '';
+		}
+	</script>
+</div>
+
+
+
+</body>
+
+</html>

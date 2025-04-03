@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CRC32在线加密工具</title>
+
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 1000px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.header {
+			color: #4CAF50;
+			font-size: 24px;
+			margin-bottom: 20px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.rating {
+			color: #FF9800;
+			font-size: 24px;
+		}
+
+		textarea {
+			width: 100%;
+			height: 100px;
+			padding: 10px;
+			margin: 10px 0;
+			border: 2px solid #ddd;
+			border-radius: 5px;
+			resize: vertical;
+		}
+
+		.button-group {
+			display: flex;
+			gap: 15px;
+			margin: 15px 0;
+		}
+
+		button {
+			padding: 10px 25px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: 0.3s;
+		}
+
+		.encrypt-btn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		.clear-btn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#result {
+			font-weight: bold;
+			margin: 15px 0;
+			word-break: break-all;
+		}
+
+		.instruction {
+			margin-top: 25px;
+			padding: 15px;
+			background: #f8f9fa;
+			border-radius: 5px;
+			line-height: 1.6;
+		}
+	</style>
+	<script src="https://cdn.jsdelivr.net/npm/crc-32@1.2.2/crc32.min.js"></script>
+
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<div class="container">
+	<div class="header">
+		<div>CRC32在线加密工具</div>
+	</div>
+
+	<textarea id="inputContent" placeholder="输入要加密的内容..."></textarea>
+
+	<div class="button-group">
+		<button class="encrypt-btn" onclick="calculateCRC32()">开始加密</button>
+		<button class="clear-btn" onclick="clearAll()">清空</button>
+	</div>
+
+	<div id="result"></div>
+
+	<div class="instruction">
+		<h3>关于CRC32工具介绍：</h3>
+		<p>1、CRC32（循环冗余校验码）是一种广泛使用的错误检测校验和算法。</p>
+		<p>2、CRC32算法基于多项式除法，通过将数据看作是一个二进制数，然后进行模2除法来生成一个32位的校验和。</p>
+		<p>3、CRC32算法主要用于检测传输或存储过程中的错误，而不是用于加密或数据完整性验证。</p>
+		<p>4、CRC32适用于文件传输，磁盘存储，网络通信等场景。</p>
+	</div>
+
+	<script>
+		function calculateCRC32() {
+			const input = document.getElementById('inputContent').value;
+			if (!input) {
+				alert('请输入要加密的内容');
+				return;
+			}
+
+			// 计算CRC32校验和
+			const crcValue = CRC32.str(input);
+			// 转换为十六进制并补零到8位
+			const hexResult = (crcValue >>> 0).toString(16).padStart(8, '0');
+
+			document.getElementById('result').innerHTML =
+					`CRC32校验和：<span style="color:#2196F3">${hexResult.toUpperCase()}</span>`;
+		}
+
+		function clearAll() {
+			document.getElementById('inputContent').value = '';
+			document.getElementById('result').innerHTML = '';
+		}
+	</script>
+</div>
+
+
+
+</body>
+
+</html>
