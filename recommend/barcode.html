@@ -16,9 +16,10 @@
 			padding: 20px;
 		}
 		.nav {
-			margin-bottom: 20px;
 			display: flex;
 			gap: 20px;
+			max-width: 1200px;
+			margin: 0 auto;
 		}
 		.nav-item {
 			color: #666;
@@ -29,9 +30,10 @@
 			gap: 5px;
 		}
 		.header {
-			display: flex;
 			align-items: center;
-			margin-bottom: 30px;
+			margin: 0 auto;
+			max-width: 1200px;
+			text-align: center;
 		}
 		.header-icon {
 			width: 48px;
@@ -134,6 +136,9 @@
 </head>
 <body>
 <nav class="nav">
+	<a href="../index.html" class="nav-item">
+		<img src="../static/images/logo.png" width="100" style="margin-right: 60px"/>
+	</a>
 	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
 	<a href="../life.html" class="nav-item">🏠 生活工具</a>
 	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
@@ -144,12 +149,12 @@
 </nav>
 
 
-<header class="header">
-	<div class="header-icon">📊</div>
+<div class="header">
+
 	<div class="header-title">
-		条形码生成器
+		<h2>条形码生成器</h2>
 	</div>
-</header>
+</div>
 
 <div class="container">
 	<div class="settings">
