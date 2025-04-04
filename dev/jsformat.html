@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JS压缩/格式化工具</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		.header {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.stars {
+			color: #FFD700;
+			font-size: 24px;
+		}
+
+		#editor {
+			width: 100%;
+			height: 300px;
+			padding: 20px;
+			border: 2px solid #4CAF50;
+			border-radius: 8px;
+			font-family: Consolas, monospace;
+			font-size: 14px;
+			line-height: 1.5;
+			resize: vertical;
+			tab-size: 4;
+		}
+
+		.button-group {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+			gap: 10px;
+			margin: 15px 0;
+		}
+
+		button {
+			padding: 10px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			background-color: #4CAF50;
+			color: white;
+			transition: opacity 0.3s;
+		}
+
+		button:hover {
+			opacity: 0.8;
+		}
+
+		.instructions {
+			padding: 20px;
+			background-color: #fff3cd;
+			border-radius: 8px;
+			line-height: 1.6;
+			margin-top: 20px;
+		}
+	</style>
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+<!--	<script src="https://cdn.jsdelivr.net/npm/jquery.xml2json"></script>-->
+<!--	<script src="https://cdn.jsdelivr.net/npm/xml2json"></script>-->
+	<script src="https://cdn.jsdelivr.net/npm/xml2js@0.6.2/lib/xml2js.min.js"></script>
+
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+<div class="container">
+	<div class="header">
+		<h2>JS压缩/格式化</h2>
+	</div>
+
+	<textarea id="editor">function xc_tool() {
+    console.log("Hello World");
+}</textarea>
+
+	<div class="button-group">
+		<button onclick="compressJS()">压缩</button>
+		<button onclick="formatJS()">解压/格式化</button>
+		<button onclick="setIndent(4)">4个空格缩进</button>
+		<button onclick="uploadJS()">上传</button>
+		<button onclick="copyJS()">复制</button>
+		<button onclick="clearEditor()">清空</button>
+	</div>
+
+	<div class="instructions">
+		<h3>关于JS压缩/格式化工具介绍：</h3>
+		<ol>
+			<li>此工具可以将JS脚本代码进行压缩或格式化</li>
+			<li>JS格式化时，可以设置缩进的方式，比如2个空格缩进，4个空格缩进等</li>
+			<li>可以通过"上传"功能，将JS文件内容上传至工具进行操作</li>
+			<li>注：此工具的计算在前台进行，你上传的文件不会上传至服务器，请放心使用</li>
+		</ol>
+	</div>
+
+	<script>
+		const editor = document.getElementById('editor');
+		let currentIndent = 4;
+
+		// 压缩JS代码
+		function compressJS() {
+			try {
+				// 移除注释、换行和多余空格
+				const compressed = editor.value
+						.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '') // 删除注释
+						.replace(/\n/g, '')                      // 删除换行
+						.replace(/\s+/g, ' ')                    // 合并空格
+						.replace(/\s?([\{\}$$$$$$\+\-\*\/%=&|<>!,;:])\s?/g, '$1') // 优化操作符空格
+						.trim();
+
+				editor.value = compressed;
+			} catch (error) {
+				alert('压缩失败: ' + error.message);
+			}
+		}
+
+		// 格式化JS代码
+		function formatJS() {
+			try {
+				const formatted = js_beautify(editor.value, {
+					indent_size: currentIndent,
+					space_in_empty_paren: true
+				});
+				editor.value = formatted;
+			} catch (error) {
+				alert('格式化失败: ' + error.message);
+			}
+		}
+
+		// 设置缩进
+		function setIndent(spaces) {
+			currentIndent = spaces;
+			formatJS();
+		}
+
+		// 文件上传
+		function uploadJS() {
+			const input = document.createElement('input');
+			input.type = 'file';
+			input.accept = '.js';
+
+			input.onchange = e => {
+				const file = e.target.files[0];
+				const reader = new FileReader();
+
+				reader.onload = e => {
+					editor.value = e.target.result;
+					formatJS();
+				};
+
+				reader.readAsText(file);
+			};
+
+			input.click();
+		}
+
+		// 复制代码
+		function copyJS() {
+			navigator.clipboard.writeText(editor.value)
+					.then(() => alert('代码已复制!'))
+					.catch(() => alert('复制失败'));
+		}
+
+		// 清空编辑器
+		function clearEditor() {
+			editor.value = '';
+		}
+
+		// 初始化美化库
+		const js_beautify = (function() {
+			// 简化的美化函数实现
+			return function(code, options) {
+				let indent = ' '.repeat(options.indent_size);
+				let level = 0;
+				return code.split('\n').map(line => {
+					line = line.trim();
+					if (line.endsWith('}')) level--;
+					const result = indent.repeat(level) + line;
+					if (line.endsWith('{')) level++;
+					return result;
+				}).join('\n');
+			};
+		})();
+	</script>
+</div>
+</body>
+
+</html>

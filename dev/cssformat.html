@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CSS压缩/格式化工具</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		.header {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		#editor {
+			width: 100%;
+			height: 200px;
+			padding: 15px;
+			border: 2px solid #4CAF50;
+			border-radius: 8px;
+			font-family: Consolas, monospace;
+			font-size: 14px;
+			line-height: 1.5;
+			resize: vertical;
+			tab-size: 4;
+		}
+
+		.button-group {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+			gap: 10px;
+			margin: 15px 0;
+		}
+
+		button {
+			padding: 10px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			background-color: #4CAF50;
+			color: white;
+			transition: opacity 0.3s;
+		}
+
+		button:hover {
+			opacity: 0.8;
+		}
+
+		.instructions {
+			padding: 20px;
+			background-color: #f8f9fa;
+			border-radius: 8px;
+			line-height: 1.6;
+		}
+
+		.line-numbers {
+			position: absolute;
+			left: 10px;
+			color: #666;
+			user-select: none;
+		}
+
+		.editor-wrapper {
+			position: relative;
+		}
+	</style>
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+<!--	<script src="https://cdn.jsdelivr.net/npm/jquery.xml2json"></script>-->
+<!--	<script src="https://cdn.jsdelivr.net/npm/xml2json"></script>-->
+	<script src="https://cdn.jsdelivr.net/npm/xml2js@0.6.2/lib/xml2js.min.js"></script>
+
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+<div class="container">
+	<div class="header">
+		<h2>CSS压缩/格式化</h2>
+	</div>
+
+	<div class="editor-wrapper">
+		<div class="line-numbers" id="lineNumbers">1<br>2<br>3</div>
+		<textarea id="editor">a {
+    color: red;
+}</textarea>
+	</div>
+
+	<div class="button-group">
+		<button onclick="compressCSS()">压缩</button>
+		<button onclick="formatCSS()">解压/格式化</button>
+		<button onclick="setIndent(4)">4个空格缩进</button>
+		<button onclick="uploadCSS()">上传</button>
+		<button onclick="copyCSS()">复制</button>
+		<button onclick="clearEditor()">清空</button>
+	</div>
+
+	<div class="instructions">
+		<h3>关于CSS压缩/格式化工具介绍：</h3>
+		<ol>
+			<li>此工具可以将CSS样式代码进行压缩或格式化</li>
+			<li>CSS格式化时，可以设置缩进的方式，比如2个空格缩进，4个空格缩进等</li>
+			<li>可以通过"上传"功能，将CSS文件内容上传至工具进行操作</li>
+			<li>注：此工具的计算在前台进行，你上传的文件不会上传至服务器，请放心使用</li>
+		</ol>
+	</div>
+
+	<script>
+		const editor = document.getElementById('editor');
+		let currentIndent = 4;
+
+		// 压缩CSS
+		function compressCSS() {
+			try {
+				editor.value = editor.value
+						.replace(/\/\*[\s\S]*?\*\/|([^:])\/\/.*/g, '$1') // 删除注释
+						.replace(/\s+/g, ' ')                            // 合并空格
+						.replace(/{\s+/g, '{')                            // 删除左括号后空格
+						.replace(/}\s+/g, '}')                            // 删除右括号后空格
+						.replace(/;\s+/g, ';')                            // 删除分号后空格
+						.replace(/:\s+/g, ':')                            // 删除冒号后空格
+						.replace(/,\s+/g, ',')                            // 删除逗号后空格
+						.trim();
+			} catch (error) {
+				alert('压缩失败: ' + error.message);
+			}
+		}
+
+		// 格式化CSS
+		function formatCSS() {
+			try {
+				let indentLevel = 0;
+				let formatted = '';
+
+				editor.value.split(/[{;}]/).forEach(part => {
+					part = part.trim();
+					if (!part) return;
+
+					if (part.includes('{')) {
+						formatted += ' '.repeat(currentIndent * indentLevel) + part + ' {\n';
+						indentLevel++;
+					} else if (part.includes('}')) {
+						indentLevel--;
+						formatted += ' '.repeat(currentIndent * indentLevel) + '}\n';
+					} else {
+						formatted += ' '.repeat(currentIndent * indentLevel) + '    ' + part + ';\n';
+					}
+				});
+
+				editor.value = formatted.trim();
+			} catch (error) {
+				alert('格式化失败: ' + error.message);
+			}
+		}
+
+		// 设置缩进
+		function setIndent(spaces) {
+			currentIndent = spaces;
+			formatCSS();
+		}
+
+		// 文件上传
+		function uploadCSS() {
+			const input = document.createElement('input');
+			input.type = 'file';
+			input.accept = '.css';
+
+			input.onchange = e => {
+				const file = e.target.files[0];
+				const reader = new FileReader();
+
+				reader.onload = e => {
+					editor.value = e.target.result;
+					formatCSS();
+				};
+
+				reader.readAsText(file);
+			};
+
+			input.click();
+		}
+
+		// 复制内容
+		function copyCSS() {
+			navigator.clipboard.writeText(editor.value)
+					.then(() => alert('已复制到剪贴板'))
+					.catch(() => alert('复制失败'));
+		}
+
+		// 清空编辑器
+		function clearEditor() {
+			editor.value = '';
+		}
+
+		// 行号动态更新
+		editor.addEventListener('input', () => {
+			const lines = editor.value.split('\n').length;
+			document.getElementById('lineNumbers').innerHTML =
+					Array(lines).fill().map((_,i) => i+1).join('<br>');
+		});
+	</script>
+</div>
+</body>
+
+</html>

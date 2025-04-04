@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Base64/文件互转工具</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+
+		.header {
+			text-align: center;
+		}
+
+		.title {
+			font-size: 24px;
+			color: #333;
+			margin-bottom: 8px;
+		}
+
+		.stars {
+			color: #FFC107;
+			font-size: 20px;
+		}
+
+		.conversion-area {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 20px;
+			margin-top: 20px;
+		}
+
+		.upload-box {
+			border: 2px dashed #2196F3;
+			border-radius: 10px;
+			padding: 30px;
+			text-align: center;
+			cursor: pointer;
+			transition: all 0.3s;
+			background-color: #f8f9fa;
+		}
+
+		.upload-box:hover {
+			background-color: #e3f2fd;
+			transform: translateY(-2px);
+		}
+
+		.upload-icon {
+			font-size: 40px;
+			color: #2196F3;
+			margin-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			height: 150px;
+			padding: 12px;
+			border: 2px solid #ddd;
+			border-radius: 8px;
+			resize: vertical;
+			font-family: monospace;
+		}
+
+		.download-btn {
+			display: none;
+			margin-top: 15px;
+			padding: 12px 30px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 6px;
+			cursor: pointer;
+		}
+
+		.instructions {
+			margin-top: 30px;
+			padding: 20px;
+			background-color: #f8f9fa;
+			border-radius: 8px;
+			line-height: 1.8;
+		}
+
+		.highlight {
+			color: #2196F3;
+			font-weight: bold;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<div class="container">
+	<div class="header">
+		<h1 class="title">Base64/文件互转</h1>
+	</div>
+
+	<div class="conversion-area">
+		<div>
+			<h3>文件转Base64</h3>
+			<div class="upload-box" id="uploadBox"
+				 ondragover="handleDragOver(event)"
+				 ondragleave="handleDragLeave(event)"
+				 ondrop="handleDrop(event)">
+				<div class="upload-icon">↑</div>
+				<p>点击上传，或拖拽到此处</p>
+			</div>
+			<textarea id="base64Output" placeholder="Base64编码将显示在此处..." readonly></textarea>
+		</div>
+
+		<div>
+			<h3>Base64转文件</h3>
+			<textarea id="base64Input" placeholder="粘贴Base64编码内容..."></textarea>
+			<button class="download-btn" id="downloadBtn" onclick="convertToFile()">下载文件</button>
+		</div>
+	</div>
+
+	<div class="instructions">
+		<h3>关于本工具介绍：</h3>
+		<ol>
+			<li>本工具可以将<span class="highlight">文件转换为Base64编码格式</span>，安全快捷</li>
+			<li>支持将Base64编码文件<span class="highlight">还原为原始文件</span>并下载</li>
+			<li>转换后的文件<span class="highlight">不会预存</span>，可在本地自行修改后使用</li>
+			<li>本工具完全在<span class="highlight">前端浏览器</span>运行，不保存任何数据</li>
+		</ol>
+	</div>
+</div>
+
+<script>
+	// 文件转Base64功能
+	const uploadBox = document.getElementById('uploadBox');
+	const base64Output = document.getElementById('base64Output');
+
+	uploadBox.addEventListener('click', () => {
+		const fileInput = document.createElement('input');
+		fileInput.type = 'file';
+		fileInput.onchange = handleFileSelect;
+		fileInput.click();
+	});
+
+	function handleFileSelect(e) {
+		const file = e.target.files[0];
+		processFile(file);
+	}
+
+	function handleDragOver(e) {
+		e.preventDefault();
+		uploadBox.style.backgroundColor = '#e3f2fd';
+	}
+
+	function handleDragLeave(e) {
+		e.preventDefault();
+		uploadBox.style.backgroundColor = '#f8f9fa';
+	}
+
+	function handleDrop(e) {
+		e.preventDefault();
+		uploadBox.style.backgroundColor = '#f8f9fa';
+		const file = e.dataTransfer.files[0];
+		processFile(file);
+	}
+
+	function processFile(file) {
+		if (!file) return;
+
+		const reader = new FileReader();
+		reader.onload = (e) => {
+			base64Output.value = e.target.result.split(',')[1] || e.target.result;
+		};
+		reader.readAsDataURL(file);
+	}
+
+	// Base64转文件功能
+	const base64Input = document.getElementById('base64Input');
+	const downloadBtn = document.getElementById('downloadBtn');
+
+	base64Input.addEventListener('input', () => {
+		downloadBtn.style.display = base64Input.value.trim() ? 'inline-block' : 'none';
+	});
+
+	function convertToFile() {
+		try {
+			const base64Data = base64Input.value.trim();
+			const mimeType = detectMimeType(base64Data);
+			const byteCharacters = atob(base64Data);
+			const byteNumbers = new Array(byteCharacters.length);
+
+			for (let i = 0; i < byteCharacters.length; i++) {
+				byteNumbers[i] = byteCharacters.charCodeAt(i);
+			}
+
+			const byteArray = new Uint8Array(byteNumbers);
+			const blob = new Blob([byteArray], { type: mimeType });
+
+			const downloadLink = document.createElement('a');
+			downloadLink.href = URL.createObjectURL(blob);
+			downloadLink.download = `file_${Date.now()}`;
+			downloadLink.click();
+		} catch (error) {
+			alert('无效的Base64编码');
+		}
+	}
+
+	// MIME类型检测
+	function detectMimeType(base64) {
+		const signatures = {
+			JVBERi0: 'application/pdf',
+			R0lGODdh: 'image/gif',
+			R0lGODlh: 'image/gif',
+			iVBORw0KGgo: 'image/png',
+			'/9j/': 'image/jpeg'
+		};
+
+		for (const [signature, mime] of Object.entries(signatures)) {
+			if (base64.indexOf(signature) === 0) return mime;
+		}
+		return 'application/octet-stream';
+	}
+</script>
+
+
+</body>
+
+</html>

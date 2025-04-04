@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Punycode编码/解码工具</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+
+		h1 {
+			color: #333;
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		.input-group {
+			margin: 15px 0;
+			position: relative;
+		}
+
+		textarea {
+			width: 100%;
+			height: 100px;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 8px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.button-group {
+			display: flex;
+			gap: 10px;
+			justify-content: center;
+			margin: 20px 0;
+		}
+
+		button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 6px;
+			cursor: pointer;
+			font-weight: 500;
+			transition: all 0.3s ease;
+		}
+
+		.encode-btn {
+			background-color: #4CAF50;
+			color: white;
+		}
+
+		.decode-btn {
+			background-color: #2196F3;
+			color: white;
+		}
+
+		.clear-btn {
+			background-color: #9E9E9E;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.instructions {
+			margin-top: 30px;
+			padding: 20px;
+			background-color: #f8f9fa;
+			border-radius: 8px;
+			line-height: 1.8;
+		}
+
+		.error {
+			color: #f44336;
+			text-align: center;
+			display: none;
+			margin-top: 10px;
+		}
+
+		.punycode-label {
+			color: #4CAF50;
+			font-weight: bold;
+			margin: 10px 0;
+		}
+	</style>
+	<script src="https://cdn.jsdelivr.net/npm/punycode@2.1.0/punycode.js"></script>
+
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+<div class="container">
+	<h1>Punycode编码/解码工具</h1>
+
+	<div class="input-group">
+		<div class="punycode-label">原始内容：</div>
+		<textarea id="originalInput" placeholder="输入要编码的内容..."></textarea>
+	</div>
+
+	<div class="button-group">
+		<button class="encode-btn" onclick="encodePunycode()">Punycode 编码 ↓</button>
+		<button class="decode-btn" onclick="decodePunycode()">Punycode 解码 ↑</button>
+		<button class="clear-btn" onclick="clearAll()">清空</button>
+	</div>
+
+	<div class="input-group">
+		<div class="punycode-label">转换结果：</div>
+		<textarea id="resultOutput" placeholder="输入要解码的内容..."></textarea>
+	</div>
+
+	<div class="error" id="errorMsg"></div>
+
+	<div class="instructions">
+		<h3>关于Punycode介绍：</h3>
+		<ol>
+			<li>Punycode 是一种编码系统，主要用于将域名从Unicode格式转换为ASCII</li>
+			<li>编码后的字符串只包含ASCII字符，确保与现有系统的兼容性</li>
+			<li>编码过程是可逆的，通过解码可以还原原始的非ASCII字符串</li>
+			<li>包含安全机制，防止某些类型的编码攻击</li>
+			<li>域名系统(DNS)只支持ASCII字符，因此Punycode应运而生</li>
+		</ol>
+	</div>
+</div>
+
+<script>
+	// Punycode编码
+	function encodePunycode() {
+		try {
+			const input = document.getElementById('originalInput').value.trim();
+			if (!input) throw new Error('请输入要编码的内容');
+
+			const encoded = punycode.toASCII(input);
+			document.getElementById('resultOutput').value = encoded;
+			hideError();
+		} catch (error) {
+			showError('编码失败：' + error.message);
+		}
+	}
+
+	// Punycode解码
+	function decodePunycode() {
+		try {
+			const input = document.getElementById('resultOutput').value.trim();
+			if (!input) throw new Error('请输入要解码的内容');
+
+			const decoded = punycode.toUnicode(input);
+			document.getElementById('originalInput').value = decoded;
+			hideError();
+		} catch (error) {
+			showError('解码失败：' + error.message);
+		}
+	}
+
+	// 清空功能
+	function clearAll() {
+		document.getElementById('originalInput').value = '';
+		document.getElementById('resultOutput').value = '';
+		hideError();
+	}
+
+	// 错误处理
+	function showError(message) {
+		const errorElem = document.getElementById('errorMsg');
+		errorElem.textContent = message;
+		errorElem.style.display = 'block';
+	}
+
+	function hideError() {
+		document.getElementById('errorMsg').style.display = 'none';
+	}
+</script>
+</body>
+
+</html>

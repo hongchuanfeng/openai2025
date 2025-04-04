@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Unix时间戳转换</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		.header {
+			background-color: #4CAF50;
+			color: white;
+			padding: 20px;
+			border-radius: 8px;
+			margin-bottom: 20px;
+		}
+
+		.rating {
+			font-size: 24px;
+			margin: 10px 0;
+			color: #FFD700;
+		}
+
+		.converter {
+			background-color: white;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+
+		.input-group {
+			margin: 15px 0;
+		}
+
+		input {
+			width: 200px;
+			padding: 8px;
+			border: 2px solid #2196F3;
+			border-radius: 4px;
+			font-size: 16px;
+		}
+
+		button {
+			padding: 8px 16px;
+			background-color: #2196F3;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			margin-left: 10px;
+		}
+
+		.result {
+			margin: 20px 0;
+			padding: 15px;
+			background-color: #e3f2fd;
+			border-radius: 4px;
+		}
+
+		.instructions {
+			margin-top: 30px;
+			padding: 20px;
+			background-color: #fff3e0;
+			border-radius: 4px;
+		}
+	</style>
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+<!--	<script src="https://cdn.jsdelivr.net/npm/jquery.xml2json"></script>-->
+<!--	<script src="https://cdn.jsdelivr.net/npm/xml2json"></script>-->
+	<script src="https://cdn.jsdelivr.net/npm/xml2js@0.6.2/lib/xml2js.min.js"></script>
+
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+<div class="container">
+	<div class="header">
+		<h1>Unix时间戳转换</h1>
+	</div>
+
+	<div class="converter">
+		<div class="input-group">
+			<span>当前时间戳：</span>
+			<span id="currentTimestamp">1743763608</span>
+		</div>
+
+		<div class="input-group">
+			<input type="text" id="timestampInput" placeholder="输入时间戳" value="1743763570">
+			<button onclick="convertTimestamp()">转为北京时间</button>
+		</div>
+
+		<div class="result" id="beijingTimeResult">
+			2025-04-04 18:46:10
+		</div>
+
+		<div class="input-group">
+			<input type="datetime-local" id="datetimeInput">
+			<button onclick="convertToTimestamp()">转为时间戳（秒）</button>
+		</div>
+
+		<div class="result" id="timestampResult">
+			1743763570
+		</div>
+	</div>
+
+	<div class="instructions">
+		<h3>关于Unix时间概念说明：</h3>
+		<ol>
+			<li>Unix时间（Epoch时间）起始于1970年1月1日00:00 UTC</li>
+			<li>Unix时间戳广泛用于计算机系统中，表示从纪元开始经过的秒数</li>
+			<li>在32位系统中，时间戳最大值可表示到2038年（2038年问题）</li>
+			<li>64位系统可表示的时间范围足以覆盖可见的未来</li>
+		</ol>
+	</div>
+
+	<script>
+		// 更新当前时间戳
+		function updateCurrentTimestamp() {
+			const now = Math.floor(Date.now() / 1000);
+			document.getElementById('currentTimestamp').textContent = now;
+		}
+		setInterval(updateCurrentTimestamp, 1000);
+
+		// 时间戳转北京时间
+		function convertTimestamp() {
+			try {
+				const timestamp = document.getElementById('timestampInput').value;
+				const date = new Date(parseInt(timestamp) * 1000);
+
+				// 调整为UTC+8时区
+				const options = {
+					timeZone: 'Asia/Shanghai',
+					year: 'numeric',
+					month: '2-digit',
+					day: '2-digit',
+					hour: '2-digit',
+					minute: '2-digit',
+					second: '2-digit'
+				};
+
+				const formatter = new Intl.DateTimeFormat('zh-CN', options);
+				const formattedDate = formatter.format(date).replace(/(\d+)\/(\d+)\/(\d+),/, '$1-$2-$3');
+
+				document.getElementById('beijingTimeResult').textContent = formattedDate;
+			} catch(e) {
+				alert('无效的时间戳');
+			}
+		}
+
+		// 北京时间转时间戳
+		function convertToTimestamp() {
+			try {
+				const datetime = document.getElementById('datetimeInput').value;
+				const date = new Date(datetime);
+
+				// 转为UTC+8时区的时间戳
+				const timestamp = Math.floor((date.getTime() - (date.getTimezoneOffset() * 60000)) / 1000);
+				document.getElementById('timestampResult').textContent = timestamp;
+			} catch(e) {
+				alert('无效的日期时间');
+			}
+		}
+
+		// 初始化时间输入框
+		document.getElementById('datetimeInput').value = new Date().toISOString().slice(0,16);
+		updateCurrentTimestamp();
+	</script>
+</div>
+</body>
+
+</html>

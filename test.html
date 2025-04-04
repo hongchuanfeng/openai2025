@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>汉字转拼音工具</title>
+    <script src="https://cdn.jsdelivr.net/npm/pinyin/dist/pinyin.min.js"></script>
+</head>
+<body>
+<textarea id="input" placeholder="输入汉字" rows="5" cols="50"></textarea>
+<button onclick="convert()">转换拼音</button>
+<div id="result"></div>
+
+<!-- 引入基础库和拼音插件 -->
+<script src="https://fastly.jsdelivr.net/npm/cnchar/cnchar.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/cnchar-poly/cnchar.poly.min.js"></script>
+<script>
+    // 调用方法需通过 cnchar 对象
+    console.log(cnchar.spell('汉字')); // 输出拼音
+</script>
+</body>
+</html>

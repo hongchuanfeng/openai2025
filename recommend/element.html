@@ -31,67 +31,64 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
         }
-        .title {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 24px;
-        }
+
         .periodic-table {
             display: grid;
             grid-template-columns: repeat(18, 1fr);
             gap: 2px;
-            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+
         .element {
-            aspect-ratio: 1;
-            padding: 4px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            border-radius: 4px;
+            padding: 8px;
+            text-align: center;
+            border-radius: 3px;
+            min-width: 60px;
+            transition: transform 0.2s;
+        }
+
+        .element:hover {
+            transform: scale(1.1);
+            z-index: 1;
             cursor: pointer;
         }
-        .element-number {
-            font-size: 10px;
-            align-self: flex-start;
-        }
-        .element-symbol {
-            font-size: 16px;
-            font-weight: bold;
-        }
-        .element-name {
-            font-size: 10px;
-        }
-        /* 元素类型颜色 */
-        .alkali-metal { background-color: #ff9800; }
-        .alkaline-earth { background-color: #ffd180; }
-        .transition-metal { background-color: #ff80ab; }
-        .post-transition { background-color: #80deea; }
-        .metalloid { background-color: #81c784; }
-        .nonmetal { background-color: #4caf50; }
-        .noble-gas { background-color: #80d8ff; }
-        .lanthanide { background-color: #ffcdd2; }
-        .actinide { background-color: #ffccbc; }
 
-        .info-box {
+        .element-number {
+            font-size: 0.8em;
+            text-align: left;
+        }
+
+        .element-symbol {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin: 3px 0;
+        }
+
+        .element-name {
+            font-size: 0.7em;
+        }
+
+        /* 元素族颜色 */
+        .alkali-metal       { background-color: #FFB266; }  /* 碱金属 */
+        .alkaline-earth     { background-color: #FFE066; } /* 碱土金属 */
+        .transition-metal   { background-color: #FF99CC; } /* 过渡金属 */
+        .post-transition    { background-color: #99CCFF; } /* 后过渡金属 */
+        .metalloid          { background-color: #99FF99; }  /* 类金属 */
+        .nonmetal           { background-color: #99FFFF; }  /* 非金属 */
+        .noble-gas          { background-color: #CC99FF; }  /* 稀有气体 */
+        /* 添加镧系和锕系颜色 */
+        .lanthanide { background-color: #FFCC99; }  /* 镧系 */
+        .actinide    { background-color: #FF99CC; }  /* 锕系 */
+        .description {
             margin-top: 20px;
             padding: 15px;
-            background: #fff5f0;
-            border-radius: 4px;
-        }
-        .info-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .info-content {
+            background-color: #fff;
+            border-radius: 5px;
             line-height: 1.6;
-            color: #666;
         }
     </style>
 </head>
@@ -108,33 +105,149 @@
 
 
 <div class="container">
-    <h1 class="title">化学元素周期表</h1>
-    <div class="periodic-table">
-        <!-- 第一行 -->
-        <div class="element nonmetal">
-            <span class="element-number">1</span>
-            <span class="element-symbol">H</span>
-            <span class="element-name">氢</span>
-        </div>
-        <!-- 空白格子 -->
-        <div style="grid-column: 2/18;"></div>
-        <div class="element noble-gas">
-            <span class="element-number">2</span>
-            <span class="element-symbol">He</span>
-            <span class="element-name">氦</span>
-        </div>
-
-        <!-- 继续添加其他元素... -->
-    </div>
-
-    <div class="info-box">
-        <div class="info-title">元素周期表：</div>
-        <div class="info-content">
-            元素周期表是按照原子序数递增顺序排列的化学元素列表。<br>
-            它通过周期性形式直观展示了元素的周期性规律，是化学学科的一个基础而重要的工具。<br>
-            为了帮助用户更容易记住和识别这个不同的元素，有些通俗记忆方法工具应运而生，它们以像游戏7的方式来帮助了元素的排列规则，提供了学习周期表的直观视角。
-        </div>
+    <h1>化学元素周期表</h1>
+    <div class="periodic-table" id="periodicTable"></div>
+    <div class="description">
+        <h2>元素周期表说明</h2>
+        <p>元素周期表是化学元素按原子序数（原子数或质子数）排列的表格。当前标准周期表共有118个已确认的元素，分为7个周期、18个族。元素周期表能够清晰地展示元素性质的周期性规律，是化学研究的重要工具。</p>
     </div>
 </div>
+
+<script>
+    const elements = [
+        // 第1周期
+        { number: 1, symbol: 'H',  name: '氢', group: 'alkali-metal' },
+        { number: 2, symbol: 'He', name: '氦', group: 'noble-gas' },
+
+        // 第2周期
+        { number: 3,  symbol: 'Li', name: '锂', group: 'alkali-metal' },
+        { number: 4,  symbol: 'Be', name: '铍', group: 'alkaline-earth' },
+        { number: 5,  symbol: 'B',  name: '硼', group: 'metalloid' },
+        { number: 6,  symbol: 'C',  name: '碳', group: 'nonmetal' },
+        { number: 7,  symbol: 'N',  name: '氮', group: 'nonmetal' },
+        { number: 8,  symbol: 'O',  name: '氧', group: 'nonmetal' },
+        { number: 9,  symbol: 'F',  name: '氟', group: 'nonmetal' },
+        { number: 10, symbol: 'Ne', name: '氖', group: 'noble-gas' },
+
+        // 第3周期
+        { number: 11, symbol: 'Na', name: '钠', group: 'alkali-metal' },
+        { number: 12, symbol: 'Mg', name: '镁', group: 'alkaline-earth' },
+        { number: 13, symbol: 'Al', name: '铝', group: 'post-transition' },
+        { number: 14, symbol: 'Si', name: '硅', group: 'metalloid' },
+        { number: 15, symbol: 'P',  name: '磷', group: 'nonmetal' },
+        { number: 16, symbol: 'S',  name: '硫', group: 'nonmetal' },
+        { number: 17, symbol: 'Cl', name: '氯', group: 'nonmetal' },
+        { number: 18, symbol: 'Ar', name: '氩', group: 'noble-gas' },
+
+        // 第4周期（过渡金属开始）
+        { number: 19, symbol: 'K',  name: '钾', group: 'alkali-metal' },
+        { number: 20, symbol: 'Ca', name: '钙', group: 'alkaline-earth' },
+        { number: 21, symbol: 'Sc', name: '钪', group: 'transition-metal' },
+        { number: 22, symbol: 'Ti', name: '钛', group: 'transition-metal' },
+        { number: 23, symbol: 'V',  name: '钒', group: 'transition-metal' },
+        { number: 24, symbol: 'Cr', name: '铬', group: 'transition-metal' },
+        { number: 25, symbol: 'Mn', name: '锰', group: 'transition-metal' },
+        { number: 26, symbol: 'Fe', name: '铁', group: 'transition-metal' },
+        { number: 27, symbol: 'Co', name: '钴', group: 'transition-metal' },
+        { number: 28, symbol: 'Ni', name: '镍', group: 'transition-metal' },
+        { number: 29, symbol: 'Cu', name: '铜', group: 'transition-metal' },
+        { number: 30, symbol: 'Zn', name: '锌', group: 'transition-metal' },
+        { number: 31, symbol: 'Ga', name: '镓', group: 'post-transition' },
+        { number: 32, symbol: 'Ge', name: '锗', group: 'metalloid' },
+        { number: 33, symbol: 'As', name: '砷', group: 'metalloid' },
+        { number: 34, symbol: 'Se', name: '硒', group: 'nonmetal' },
+        { number: 35, symbol: 'Br', name: '溴', group: 'nonmetal' },
+        { number: 36, symbol: 'Kr', name: '氪', group: 'noble-gas' },
+
+        // 第5周期（补充至54号）
+        { number: 37, symbol: 'Rb', name: '铷', group: 'alkali-metal' },
+        { number: 38, symbol: 'Sr', name: '锶', group: 'alkaline-earth' },
+        { number: 39, symbol: 'Y',  name: '钇', group: 'transition-metal' },
+        { number: 40, symbol: 'Zr', name: '锆', group: 'transition-metal' },
+        { number: 41, symbol: 'Nb', name: '铌', group: 'transition-metal' },
+        { number: 42, symbol: 'Mo', name: '钼', group: 'transition-metal' },
+        { number: 43, symbol: 'Tc', name: '锝', group: 'transition-metal' },
+        { number: 44, symbol: 'Ru', name: '钌', group: 'transition-metal' },
+        { number: 45, symbol: 'Rh', name: '铑', group: 'transition-metal' },
+        { number: 46, symbol: 'Pd', name: '钯', group: 'transition-metal' },
+        { number: 47, symbol: 'Ag', name: '银', group: 'transition-metal' },
+        { number: 48, symbol: 'Cd', name: '镉', group: 'transition-metal' },
+        { number: 49, symbol: 'In', name: '铟', group: 'post-transition' },
+        { number: 50, symbol: 'Sn', name: '锡', group: 'post-transition' },
+        { number: 51, symbol: 'Sb', name: '锑', group: 'metalloid' },
+        { number: 52, symbol: 'Te', name: '碲', group: 'metalloid' },
+        { number: 53, symbol: 'I',  name: '碘', group: 'nonmetal' },
+        { number: 54, symbol: 'Xe', name: '氙', group: 'noble-gas' },
+
+        // 第6周期（含镧系元素）
+        { number: 55, symbol: 'Cs', name: '铯', group: 'alkali-metal' },
+        { number: 56, symbol: 'Ba', name: '钡', group: 'alkaline-earth' },
+        { number: 57, symbol: 'La', name: '镧', group: 'lanthanide' },
+        { number: 58, symbol: 'Ce', name: '铈', group: 'lanthanide' },
+        { number: 59, symbol: 'Pr', name: '镨', group: 'lanthanide' },
+        { number: 60, symbol: 'Nd', name: '钕', group: 'lanthanide' },
+        { number: 61, symbol: 'Pm', name: '钷', group: 'lanthanide' },
+        { number: 62, symbol: 'Sm', name: '钐', group: 'lanthanide' },
+        { number: 63, symbol: 'Eu', name: '铕', group: 'lanthanide' },
+        { number: 64, symbol: 'Gd', name: '钆', group: 'lanthanide' },
+        { number: 65, symbol: 'Tb', name: '铽', group: 'lanthanide' },
+        { number: 66, symbol: 'Dy', name: '镝', group: 'lanthanide' },
+        { number: 67, symbol: 'Ho', name: '钬', group: 'lanthanide' },
+        { number: 68, symbol: 'Er', name: '铒', group: 'lanthanide' },
+        { number: 69, symbol: 'Tm', name: '铥', group: 'lanthanide' },
+        { number: 70, symbol: 'Yb', name: '镱', group: 'lanthanide' },
+        { number: 71, symbol: 'Lu', name: '镥', group: 'lanthanide' },
+        // ...（过渡金属部分省略，需继续补充）
+
+        // 第7周期（含锕系元素）
+        { number: 87, symbol: 'Fr', name: '钫', group: 'alkali-metal' },
+        { number: 88, symbol: 'Ra', name: '镭', group: 'alkaline-earth' },
+        { number: 89, symbol: 'Ac', name: '锕', group: 'actinide' },
+        { number: 90, symbol: 'Th', name: '钍', group: 'actinide' },
+        { number: 91, symbol: 'Pa', name: '镤', group: 'actinide' },
+        { number: 92, symbol: 'U',  name: '铀', group: 'actinide' },
+        { number: 93, symbol: 'Np', name: '镎', group: 'actinide' },
+        { number: 94, symbol: 'Pu', name: '钚', group: 'actinide' },
+        { number: 95, symbol: 'Am', name: '镅', group: 'actinide' },
+        { number: 96, symbol: 'Cm', name: '锔', group: 'actinide' },
+        { number: 97, symbol: 'Bk', name: '锫', group: 'actinide' },
+        { number: 98, symbol: 'Cf', name: '锎', group: 'actinide' },
+        { number: 99, symbol: 'Es', name: '锿', group: 'actinide' },
+        { number: 100, symbol: 'Fm', name: '镄', group: 'actinide' },
+        { number: 101, symbol: 'Md', name: '钔', group: 'actinide' },
+        { number: 102, symbol: 'No', name: '锘', group: 'actinide' },
+        { number: 103, symbol: 'Lr', name: '铹', group: 'actinide' },
+        // ...（其他元素继续补充至118）
+
+        // 新增元素（需在CSS中添加对应颜色类）
+        { number: 113, symbol: 'Nh', name: '鿭', group: 'post-transition' },
+        { number: 115, symbol: 'Mc', name: '镆', group: 'post-transition' },
+        { number: 117, symbol: 'Ts', name: '鿬', group: 'nonmetal' },
+        { number: 118, symbol: 'Og', name: '鿫', group: 'noble-gas' }
+    ];
+
+    function createPeriodicTable() {
+        const container = document.getElementById('periodicTable');
+
+        elements.forEach(element => {
+            const div = document.createElement('div');
+            div.className = `element ${element.group}`;
+            div.innerHTML = `
+                    <div class="element-number">${element.number}</div>
+                    <div class="element-symbol">${element.symbol}</div>
+                    <div class="element-name">${element.name}</div>
+                `;
+
+            // 添加点击事件
+            div.addEventListener('click', () => {
+                alert(`元素名称：${element.name}\n原子序数：${element.number}\n元素符号：${element.symbol}`);
+            });
+
+            container.appendChild(div);
+        });
+    }
+
+    createPeriodicTable();
+</script>
 </body>
 </html>

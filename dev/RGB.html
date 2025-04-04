@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>RGB/HEX颜色转换工具</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+
+		.converter-box {
+			background-color: #f8f9fa;
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		}
+
+		.input-group {
+			margin: 15px 0;
+			display: flex;
+			align-items: center;
+			gap: 15px;
+		}
+
+		.color-input {
+			width: 120px;
+			padding: 8px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			font-size: 14px;
+		}
+
+		.color-label {
+			width: 60px;
+			color: #666;
+			font-size: 14px;
+		}
+
+		.hex-result {
+			display: flex;
+			align-items: center;
+			gap: 15px;
+			margin-top: 25px;
+		}
+
+		.color-preview {
+			width: 50px;
+			height: 50px;
+			border: 2px solid #ddd;
+			border-radius: 5px;
+		}
+
+		#hexValue {
+			font-family: Consolas, monospace;
+			font-size: 18px;
+			font-weight: bold;
+			color: #333;
+		}
+
+		.instructions {
+			margin-top: 30px;
+			padding: 20px;
+			background-color: #e8f5e9;
+			border-radius: 8px;
+			line-height: 1.6;
+		}
+	</style>
+
+
+
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+<div class="container">
+	<div class="converter-box">
+		<h2 style="color: #4CAF50; margin-bottom: 25px;">RGB/HEX颜色转换</h2>
+
+		<div class="input-group">
+			<span class="color-label">红(R 0-255)</span>
+			<input type="number" class="color-input" id="red" value="0" min="0" max="255">
+		</div>
+
+		<div class="input-group">
+			<span class="color-label">绿(G 0-255)</span>
+			<input type="number" class="color-input" id="green" value="178" min="0" max="255">
+		</div>
+
+		<div class="input-group">
+			<span class="color-label">蓝(B 0-255)</span>
+			<input type="number" class="color-input" id="blue" value="119" min="0" max="255">
+		</div>
+
+		<div class="hex-result">
+			<div class="color-preview" id="colorPreview"></div>
+			<div id="hexValue">#008277</div>
+		</div>
+	</div>
+
+	<div class="instructions">
+		<h3>关于颜色转换工具的说明：</h3>
+		<ol>
+			<li>RGB（红、绿、蓝）是一种加色模型，通过三原色的不同组合产生各种颜色</li>
+			<li>十六进制颜色值是一种数字颜色表示法，常用于网页设计和计算机图形</li>
+			<li>本工具支持RGB值与十六进制颜色代码之间的实时双向转换</li>
+		</ol>
+	</div>
+
+	<script>
+		// 获取DOM元素
+		const inputs = document.querySelectorAll('.color-input');
+		const colorPreview = document.getElementById('colorPreview');
+		const hexValue = document.getElementById('hexValue');
+
+		// 颜色转换函数
+		function rgbToHex(r, g, b) {
+			return '#' + [r, g, b].map(x => {
+				const hex = x.toString(16);
+				return hex.length === 1 ? '0' + hex : hex;
+			}).join('');
+		}
+
+		// 更新颜色显示
+		function updateColor() {
+			const r = Math.min(255, Math.max(0, parseInt(document.getElementById('red').value) || 0));
+			const g = Math.min(255, Math.max(0, parseInt(document.getElementById('green').value) || 0));
+			const b = Math.min(255, Math.max(0, parseInt(document.getElementById('blue').value) || 0));
+
+			const hex = rgbToHex(r, g, b);
+			colorPreview.style.backgroundColor = hex;
+			hexValue.textContent = hex.toUpperCase();
+		}
+
+		// 输入事件监听
+		inputs.forEach(input => {
+			input.addEventListener('input', () => {
+				// 强制数值在0-255之间
+				input.value = Math.min(255, Math.max(0, input.value || 0));
+				updateColor();
+			});
+		});
+
+		// 初始化显示
+		updateColor();
+	</script>
+</div>
+</body>
+
+</html>

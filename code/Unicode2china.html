@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Unicode与中文互转</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		.input-group {
+			margin: 15px 0;
+		}
+
+		textarea {
+			width: 100%;
+			height: 100px;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 8px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.button-group {
+			display: flex;
+			gap: 10px;
+			justify-content: center;
+			margin: 15px 0;
+		}
+
+		button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 6px;
+			cursor: pointer;
+			font-weight: 500;
+			transition: all 0.3s ease;
+		}
+
+		.primary-btn {
+			background-color: #4CAF50;
+			color: white;
+		}
+
+		.secondary-btn {
+			background-color: #2196F3;
+			color: white;
+		}
+
+		.clear-btn {
+			background-color: #9E9E9E;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.instructions {
+			margin-top: 30px;
+			padding: 20px;
+			background-color: #f8f9fa;
+			border-radius: 8px;
+			line-height: 1.8;
+		}
+
+		.error {
+			color: #f44336;
+			text-align: center;
+			display: none;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+<div class="container">
+	<h1>Unicode与中文互转</h1>
+
+	<div class="input-group">
+		<textarea id="chineseInput" placeholder="输入中文内容..."></textarea>
+	</div>
+
+	<div class="button-group">
+		<button class="primary-btn" onclick="chineseToUnicode()">中文转Unicode ↓</button>
+		<button class="secondary-btn" onclick="unicodeToChinese()">Unicode转中文 ↑</button>
+		<button class="clear-btn" onclick="clearAll()">清空</button>
+	</div>
+
+	<div class="input-group">
+		<textarea id="unicodeInput" placeholder="输入Unicode内容..."></textarea>
+	</div>
+
+	<div class="error" id="errorMsg"></div>
+
+	<div class="instructions">
+		<h3>关于Unicode介绍：</h3>
+		<ol>
+			<li>Unicode是一个字符集标准，旨在为世界上所有的书写系统提供一种统一的编码方案。</li>
+			<li>Unicode 的目标是为每一个字符分配一个唯一的代码点，无论该字符属于哪种语言、符号或表情符号</li>
+			<li>Unicode 使用代码点来表示每个字符，代码点的范围是从U+0000到U+10FFF，可以表示超过1,114,000个不同的字符。</li>
+			<li>代码点通常常用十六进制表示，并加上前缀U+。</li>
+			<li>在编程语言中， Unicode 字符可以通过转义序列来表示。</li>
+			<li>例如，在JavaScript中，可以使用 \uXXXX（其中 XXXX 是代码点上的十六进制值）来表示BMP中的字符。</li>
+		</ol>
+	</div>
+</div>
+
+<script>
+	// 中文转Unicode
+	function chineseToUnicode() {
+		try {
+			const input = document.getElementById('chineseInput').value;
+			const unicodeArray = Array.from(input).map(char =>
+					'\\u' + char.charCodeAt(0).toString(16).toUpperCase().padStart(4, '0')
+			);
+			document.getElementById('unicodeInput').value = unicodeArray.join('');
+			showError('');
+		} catch (error) {
+			showError('转换失败：' + error.message);
+		}
+	}
+
+	// Unicode转中文
+	function unicodeToChinese() {
+		try {
+			const input = document.getElementById('unicodeInput').value;
+			if (!/^(\\u[\da-fA-F]{4})+$/.test(input)) {
+				throw new Error('无效的Unicode格式');
+			}
+
+			const decoded = input.replace(/\\u([\da-fA-F]{4})/g, (match, grp) =>
+					String.fromCharCode(parseInt(grp, 16))
+			);
+			document.getElementById('chineseInput').value = decoded;
+			showError('');
+		} catch (error) {
+			showError('转换失败：' + error.message);
+		}
+	}
+
+	// 清空功能
+	function clearAll() {
+		document.getElementById('chineseInput').value = '';
+		document.getElementById('unicodeInput').value = '';
+		showError('');
+	}
+
+	// 错误提示
+	function showError(message) {
+		const errorElem = document.getElementById('errorMsg');
+		errorElem.textContent = message;
+		errorElem.style.display = message ? 'block' : 'none';
+	}
+</script>
+
+</body>
+
+</html>

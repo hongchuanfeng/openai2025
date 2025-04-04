@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>数据大小转换工具</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		.header {
+			background-color: #4CAF50;
+			color: white;
+			padding: 20px;
+			border-radius: 8px 8px 0 0;
+		}
+
+		.rating {
+			font-size: 24px;
+			margin-top: 10px;
+		}
+
+		.converter {
+			padding: 20px;
+			border: 2px solid #4CAF50;
+			border-radius: 0 0 8px 8px;
+		}
+
+		.input-group {
+			display: flex;
+			gap: 15px;
+			margin-bottom: 20px;
+		}
+
+		input, select, button {
+			padding: 8px;
+			border: 2px solid #4CAF50;
+			border-radius: 4px;
+			font-size: 16px;
+		}
+
+		button {
+			background-color: #4CAF50;
+			color: white;
+			cursor: pointer;
+		}
+
+		.result-list {
+			margin: 20px 0;
+			padding-left: 20px;
+		}
+
+		.unit-definition {
+			margin-top: 30px;
+			padding: 20px;
+			background-color: #f8f9fa;
+			border-radius: 8px;
+		}
+
+		.scientific {
+			font-family: Consolas, monospace;
+		}
+	</style>
+
+
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+<div class="container">
+	<div class="header">
+		<h1>数据大小转换</h1>
+		<div class="rating">★★★★★</div>
+	</div>
+
+	<div class="converter">
+		<div class="input-group">
+			<input type="number" id="inputValue" value="1" step="any">
+			<select id="unit">
+				<option value="0">比特 (bit)</option>
+				<option value="1">字节 (Bytes)</option>
+				<option value="2">千字节 (KB)</option>
+				<option value="3">兆字节 (MB)</option>
+				<option value="4">千兆字节 (GB)</option>
+				<option value="5">太字节 (TB)</option>
+			</select>
+			<button onclick="convert()">换算</button>
+		</div>
+
+		<div class="result-list" id="result">
+			<h3>换算结果：</h3>
+			<div>1 比特 (bit) 等于：</div>
+		</div>
+
+		<div class="unit-definition">
+			<h3>数据存储单位介绍：</h3>
+			<ol>
+				<li>位（bit）：最小的数据单位，表示二进制中的0或1</li>
+				<li>字节（Byte）：基本的数据单位，1 Byte = 8 bits</li>
+				<li>千字节（KB）：1 KB = 2<sup>10</sup> Bytes = 1,024 Bytes</li>
+				<li>兆字节（MB）：1 MB = 2<sup>20</sup> Bytes = 1,048,576 Bytes</li>
+				<li>吉字节（GB）：1 GB = 2<sup>30</sup> Bytes = 1,073,741,824 Bytes</li>
+				<li>太字节（TB）：1 TB = 2<sup>40</sup> Bytes = 1,099,511,627,776 Bytes</li>
+				<li>拍字节（PB）：1 PB = 2<sup>50</sup> Bytes = 1,125,899,906,842,624 Bytes</li>
+				<li>艾字节（EB）：1 EB = 2<sup>60</sup> Bytes = 1,152,921,504,606,846,976 Bytes</li>
+				<li>泽字节（ZB）：1 ZB = 2<sup>70</sup> Bytes = 1,180,591,620,717,411,303,424 Bytes</li>
+			</ol>
+		</div>
+	</div>
+
+	<script>
+		const units = [
+			{ name: "比特 (bit)", factor: 1 },
+			{ name: "字节 (Bytes)", factor: 1/8 },
+			{ name: "千字节 (KB)", factor: 1/(8 * 1024) },
+			{ name: "兆字节 (MB)", factor: 1/(8 * Math.pow(1024, 2)) },
+		{ name: "千兆字节 (GB)", factor: 1/(8 * Math.pow(1024, 3))},
+		{ name: "太字节 (TB)", factor: 1/(8 * Math.pow(1024, 4)) },
+		{ name: "拍字节 (PB)", factor: 1/(8 * Math.pow(1024, 5)) },
+		{ name: "艾字节 (EB)", factor: 1/(8 * Math.pow(1024, 6)) },
+		{ name: "泽字节 (ZB)", factor: 1/(8 * Math.pow(1024, 7)) }
+		];
+
+		function convert() {
+			const input = parseFloat(document.getElementById('inputValue').value);
+			const selectedUnit = parseInt(document.getElementById('unit').value);
+			const bits = input / units[selectedUnit].factor;
+
+			let resultHTML = `<h3>换算结果：</h3>
+                            <div>${input} ${units[selectedUnit].name} 等于：</div>`;
+
+			units.forEach(unit => {
+				const value = (bits * unit.factor).toExponential(5);
+				resultHTML += `
+                    <div>
+                        <span class="scientific">${value}</span>
+                        ${unit.name}
+                    </div>`;
+			});
+
+			document.getElementById('result').innerHTML = resultHTML;
+		}
+
+		// 初始化转换
+		convert();
+	</script>
+</div>
+</body>
+
+</html>

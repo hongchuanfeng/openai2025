@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>全进制转换工具</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			margin-bottom: 20px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		.converter {
+			max-width: 600px;
+			margin: 20px auto;
+			padding: 20px;
+			background: #f8f9fa;
+			border-radius: 8px;
+		}
+		.input-group {
+			margin: 15px 0;
+		}
+		input, select {
+			padding: 8px;
+			border: 2px solid #4CAF50;
+			border-radius: 4px;
+		}
+		button {
+			background: #2196F3;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+		.result {
+			margin-top: 20px;
+			padding: 15px;
+			background: white;
+			border: 1px solid #ddd;
+		}
+		.error {
+			color: red;
+			font-weight: bold;
+		}
+	</style>
+
+
+	<script src="https://fastly.jsdelivr.net/npm/cnchar/cnchar.min.js"></script>
+	<script src="https://fastly.jsdelivr.net/npm/cnchar-poly/cnchar.poly.min.js"></script>
+
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+<div class="container">
+	<div class="converter">
+		<div class="input-group">
+			<select id="base">
+				<option value="2">二进制</option>
+				<option value="8">八进制</option>
+				<option value="10" selected>十进制</option>
+				<option value="16">十六进制</option>
+			</select>
+			<input type="text" id="inputNum" placeholder="输入数字">
+			<button onclick="convert()">转换</button>
+		</div>
+		<div class="result" id="result"></div>
+	</div>
+
+	<script>
+		// 输入验证（支持2/8/10/16进制格式）[6,7](@ref)
+		function validateInput(num, base) {
+			const patterns = {
+				2: /^[01]+$/,
+				8: /^[0-7]+$/,
+				10: /^-?\d+$/,
+				16: /^[0-9A-Fa-f]+$/
+			};
+			return patterns[base].test(num);
+		}
+
+		// 核心转换逻辑[2,5](@ref)
+		function convert() {
+			const input = document.getElementById('inputNum').value.toUpperCase();
+			const base = parseInt(document.getElementById('base').value);
+			const resultDiv = document.getElementById('result');
+
+			if (!validateInput(input, base)) {
+				resultDiv.innerHTML = `<span class="error">错误：非${base}进制数字！</span>`;
+				return;
+			}
+
+			try {
+				const decimal = (base === 10) ? parseInt(input) : parseInt(input, base);
+
+				// 生成转换结果[1,4](@ref)
+				const results = {
+					'2': decimal.toString(2).padStart(8, '0'),
+					'8': decimal.toString(8),
+					'10': decimal.toString(),
+					'16': decimal.toString(16).toUpperCase()
+				};
+
+				resultDiv.innerHTML = `
+                    转换结果：<br>
+                    <b>二进制</b>: ${results[2]}<br>
+                    <b>八进制</b>: 0${results[8]}<br>
+                    <b>十进制</b>: ${results[10]}<br>
+                    <b>十六进制</b>: 0x${results[16]}
+                `;
+			} catch(e) {
+				resultDiv.innerHTML = `<span class="error">转换失败：${e.message}</span>`;
+			}
+		}
+	</script>
+</div>
+</body>
+
+</html>
