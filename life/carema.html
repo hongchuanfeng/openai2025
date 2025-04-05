@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>摄像头测试-传道软件</title>
+	<meta name="keywords" content="在线软件工具集合、传道软件">
+	<meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
+	<link rel="canonical" href="https://chdaoai.com/">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background-color: white;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+			border-radius: 4px;
+			overflow: hidden;
+			width: 600px;
+			max-width: 100%;
+			margin: auto;
+			padding: 50px;
+		}
+
+		#cameraBtn {
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			padding: 1.5rem 3rem;
+			border-radius: 50px;
+			font-size: 1.2rem;
+			cursor: pointer;
+			transition: background-color 0.3s;
+			margin: 2rem 0;
+			display: inline-flex;
+			align-items: center;
+			gap: 0.8rem;
+		}
+
+		#cameraBtn:hover {
+			background-color: #45a049;
+		}
+
+		.instructions {
+			text-align: left;
+			max-width: 600px;
+			margin: 2rem auto;
+			color: #666;
+			line-height: 1.6;
+		}
+
+		#videoPreview {
+			width: 100%;
+			max-width: 640px;
+			height: auto;
+			border-radius: 8px;
+			display: none;
+			margin: 1rem auto;
+		}
+
+		.test-image {
+			display: none;
+			max-width: 300px;
+			margin: 2rem auto;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">
+		<img src="../static/images/logo.png" width="100" style="margin-right: 60px"/>
+	</a>
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<div class="container">
+	<h1>摄像头测试</h1>
+
+	<button id="cameraBtn">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+			<path d="M12 2c-2.65 0-5 1.35-6 3.4L4 6H2v12h2l2 2h12l2-2h2V6h-2l-2-2.6C17 3.35 14.65 2 12 2zm0 2c1.5 0 2.85.75 3.6 2H8.4C9.15 4.75 10.5 4 12 4zm6 4v10H6V8h12zM12 10c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z"/>
+		</svg>
+		点击测试摄像头
+	</button>
+
+	<div class="instructions">
+		<h3>摄像头测试说明：</h3>
+		<ol>
+			<li>点击测试后，浏览器将请求摄像头访问权限</li>
+			<li>如果拒绝使用摄像头，将显示测试图像</li>
+			<li>测试全程在本地进行，不会保存任何数据到服务器</li>
+			<li>支持使用浏览器开发者工具进行调试</li>
+		</ol>
+	</div>
+
+	<video id="videoPreview" autoplay playsinline></video>
+	<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjQwIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPjxsaW5lIHgxPSIzMCIgeTE9IjUwIiB4Mj0iNzAiIHkyPSI1MCIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4="
+		 class="test-image" alt="测试图像">
+</div>
+
+<script>
+	const cameraBtn = document.getElementById('cameraBtn');
+	const video = document.getElementById('videoPreview');
+	const testImage = document.querySelector('.test-image');
+
+	// 摄像头测试功能
+	async function testCamera() {
+		try {
+			const stream = await navigator.mediaDevices.getUserMedia({
+				video: { facingMode: "user" }
+			});
+
+			video.style.display = 'block';
+			testImage.style.display = 'none';
+			video.srcObject = stream;
+
+			cameraBtn.textContent = '摄像头已启用';
+			cameraBtn.disabled = true;
+
+		} catch (error) {
+			console.error('摄像头访问失败:', error);
+			video.style.display = 'none';
+			testImage.style.display = 'block';
+			alert('摄像头访问被拒绝，已显示测试图像');
+		}
+	}
+
+	// 按钮点击事件
+	cameraBtn.addEventListener('click', () => {
+		if (video.srcObject) {
+			stopCamera();
+			cameraBtn.innerHTML = `
+                    <svg...> <!-- 保持SVG代码不变 -->
+			</svg>
+			点击测试摄像头
+			`;
+                return;
+            }
+            testCamera();
+        });
+
+        // 停止摄像头
+        function stopCamera() {
+            if (video.srcObject) {
+                video.srcObject.getTracks().forEach(track => track.stop());
+                video.srcObject = null;
+                video.style.display = 'none';
+            }
+            cameraBtn.disabled = false;
+        }
+
+        // 页面离开时停止摄像头
+        window.addEventListener('beforeunload', stopCamera);
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线图片水印工具-传道软件</title>
+    <meta name="keywords" content="在线软件工具集合、传道软件">
+    <meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
+    <link rel="canonical" href="https://chdaoai.com/">
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.16.13/antd.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/antd/4.16.13/antd.min.js" defer></script>
+    <script src="https://cdn.tailwindcss.com" ></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 20px;
+        }
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .input-area {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: vertical;
+            font-family: monospace;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .convert-btn {
+            background-color: #00c853;
+            color: white;
+        }
+        .convert-btn:hover {
+            background-color: #00b34a;
+        }
+        .clear-btn {
+            background-color: #ff5252;
+            color: white;
+        }
+        .clear-btn:hover {
+            background-color: #ff1744;
+        }
+        .result-area {
+            width: 100%;
+            min-height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .result-area img {
+            max-width: 100%;
+            max-height: 500px;
+        }
+        .info-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff5f0;
+            border-radius: 4px;
+        }
+        .info-title {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+        .info-list {
+            list-style: none;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .info-list li {
+            margin-bottom: 5px;
+            color: #ff6b6b;
+        }
+    </style>
+    <script src="../static/js/jquery-3.6.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <!-- 添加图片处理所需的库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8NMLH22Y6G');
+    </script>
+</head>
+<body>
+<nav class="nav">
+    <a href="../../index.html" class="nav-item">
+        <img src="../../static/images/logo.png" width="100" style="margin-right: 60px"/>
+    </a>
+    <a href="../../index.html" class="nav-item">🔍 推荐工具</a>
+    <a href="../../life.html" class="nav-item">🏠 生活工具</a>
+    <a href="../../encry.html" class="nav-item">🔒 加密解密</a>
+    <a href="../../code.html" class="nav-item">📝 编码解码</a>
+    <a href="../../dev.html" class="nav-item">💻 开发工具</a>
+    <a href="../../image.html" class="nav-item">🖼️ 图片处理</a>
+    <a href="../../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<h1 style="text-align: center;font-size: 30px;font-weight: bolder">在线图片水印工具</h1>
+<div class="container">
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <div class="border-4 border-dashed border-gray-200 rounded-lg h-48 md:h-96 mb-4 relative">
+                <div id="dropzone" class="w-full h-full flex items-center justify-center cursor-pointer absolute inset-0">
+                    <div class="text-center">
+                        <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
+                        <p class="text-gray-500">在此处单击或拖放图像</p>
+                        <p class="dropzone-info">支持JPG/PNG格式，最大5MB</p>
+                        <input type="file" id="imageInput" accept="image/jpeg,image/png" class="hidden" />
+                    </div>
+                </div>
+                <canvas id="imageCanvas" class="hidden w-full h-full object-contain"></canvas>
+                <button id="changeImageButton" class="hidden absolute bottom-2 right-2 text-sm text-gray-500 underline">替换图像</button>
+            </div>
+            <div id="feedback" class="fixed bottom-4 right-4 hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded shadow-lg" role="alert">
+                <span class="block sm:inline" id="feedbackMessage"></span>
+            </div>
+            <div class="mt-5 md:mt-0 md:col-span-2">
+                <form class="ant-form ant-form-horizontal ant-form-default form-container">
+                    <div class="form-row grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="form-item col-span-1 lg:col-span-4">
+                            <label for="watermarkText">水印文本</label>
+                            <input type="text" name="watermarkText" id="watermarkText" class="ant-input" value="我爱你" title="请输入水印文字">
+                        </div>
+                        <div class="form-item col-span-1 lg:col-span-2">
+                            <label for="watermarkColor">水印颜色</label>
+                            <div class="flex items-center">
+                                <input type="color" name="watermarkColor" id="watermarkColor" value="#FFFFFF" class="color-picker" title="选择水印颜色">
+                                <input type="text" name="watermarkColorText" id="watermarkColorText" class="ant-input ml-2" value="#FFFFFF" title="输入水印颜色代码">
+                            </div>
+                        </div>
+                        <div class="form-item col-span-1 lg:col-span-2">
+                            <label for="watermarkStyle">水印样式</label>
+                            <div class="flex items-center">
+                                <div class="mr-4">
+                                    <input type="radio" id="striped" name="watermarkStyle" value="STRIPED" checked>
+                                    <label for="striped" title="斜向重复">斜向重复</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="central" name="watermarkStyle" value="CENTRAL">
+                                    <label for="central" title="居中">居中</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-item col-span-1 lg:col-span-1">
+                            <label for="watermarkAngle">水印旋转角度</label>
+                            <div class="flex items-center">
+                                <input type="range" name="watermarkAngle" id="watermarkAngle" min="0" max="360" value="335" class="ant-slider" title="调整水印的旋转角度">
+                                <span id="angleValue" class="text-sm text-gray-500">335°</span>
+                            </div>
+                        </div>
+                        <div class="form-item col-span-1 lg:col-span-1">
+                            <label for="watermarkOpacity">水印透明度</label>
+                            <div class="flex items-center">
+                                <input type="range" name="watermarkOpacity" id="watermarkOpacity" min="0" max="1" step="0.1" value="0.2" class="ant-slider" title="调整水印的透明度">
+                                <span id="opacityValue" class="text-sm text-gray-500">0.2</span>
+                            </div>
+                        </div>
+                        <div class="form-item col-span-1 lg:col-span-1">
+                            <label for="watermarkSize">水印字体大小</label>
+                            <div class="flex items-center">
+                                <input type="range" name="watermarkSize" id="watermarkSize" min="10" max="100" value="16" class="ant-slider" title="调整水印的字体大小">
+                                <span id="sizeValue" class="text-sm text-gray-500">16</span>
+                            </div>
+                        </div>
+                        <div class="form-item col-span-1 lg:col-span-1">
+                            <label for="watermarkSpace">水印间距</label>
+                            <div class="flex items-center">
+                                <input type="range" name="watermarkSpace" id="watermarkSpace" min="0" max="100" value="24" class="ant-slider" title="调整水印的间距">
+                                <span id="spaceValue" class="text-sm text-gray-500">24</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-buttons px-4 py-3 bg-gray-50 sm:px-6 text-right">
+                        <button type="button" id="applyWatermark" class="ant-btn ant-btn-primary inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            应用水印
+                        </button>
+                        <button type="button" id="saveImage" class="ant-btn ant-btn-success ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            保存图片
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/main.js" defer></script>
+</body>
+
+
+
+
+
+</html>

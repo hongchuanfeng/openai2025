@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片转Excel工具-传道软件</title>
+    <meta name="keywords" content="在线软件工具集合、传道软件">
+    <meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
+    <link rel="canonical" href="https://chdaoai.com/">
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="css.css" rel="stylesheet" />
+    <link href="bootstrap.min.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 20px;
+        }
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .input-area {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: vertical;
+            font-family: monospace;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .convert-btn {
+            background-color: #00c853;
+            color: white;
+        }
+        .convert-btn:hover {
+            background-color: #00b34a;
+        }
+        .clear-btn {
+            background-color: #ff5252;
+            color: white;
+        }
+        .clear-btn:hover {
+            background-color: #ff1744;
+        }
+        .result-area {
+            width: 100%;
+            min-height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .result-area img {
+            max-width: 100%;
+            max-height: 500px;
+        }
+        .info-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff5f0;
+            border-radius: 4px;
+        }
+        .info-title {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+        .info-list {
+            list-style: none;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .info-list li {
+            margin-bottom: 5px;
+            color: #ff6b6b;
+        }
+    </style>
+    <script src="../static/js/jquery-3.6.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <!-- 添加图片处理所需的库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8NMLH22Y6G');
+    </script>
+</head>
+<body>
+<nav class="nav">
+    <a href="../../index.html" class="nav-item">
+        <img src="../../static/images/logo.png" width="100" style="margin-right: 60px"/>
+    </a>
+    <a href="../../index.html" class="nav-item">🔍 推荐工具</a>
+    <a href="../../life.html" class="nav-item">🏠 生活工具</a>
+    <a href="../../encry.html" class="nav-item">🔒 加密解密</a>
+    <a href="../../code.html" class="nav-item">📝 编码解码</a>
+    <a href="../../dev.html" class="nav-item">💻 开发工具</a>
+    <a href="../../image.html" class="nav-item">🖼️ 图片处理</a>
+    <a href="../../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<h1 style="text-align: center">图片转Excel</h1>
+<div class="container">
+    <p class="text-center mb-4" style="line-height: 1.6; color: mediumvioletred; ">将您的图片转换成Excel艺术作品，支持亮度、对比度等调整，轻松创作像素风格表格艺术</p>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card p-4 mb-4">
+                <div class="upload-area text-center p-5 border rounded" id="uploadArea">
+                    <input type="file" id="fileInput" accept="image/*" class="d-none">
+                    <div>
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mb-3">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <p class="mb-0">点击或拖拽图片到这里</p>
+                    </div>
+                </div>
+
+                <div class="settings card mt-4" id="settings">
+                    <div class="card-body">
+                        <div class="settings-group mb-4">
+                            <h3 class="h5 mb-3">图片设置</h3>
+                            <div class="mb-3">
+                                <label class="form-label">最大像素数:</label>
+                                <input type="number" id="maxSize" value="50" min="10" max="200" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">亮度调整:</label>
+                                <div class="d-flex align-items-center">
+                                    <input type="range" id="brightness" min="-100" max="100" value="0" class="form-range flex-grow-1">
+                                    <span class="range-value ms-2">0</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">对比度:</label>
+                                <div class="d-flex align-items-center">
+                                    <input type="range" id="contrast" min="-100" max="100" value="0" class="form-range flex-grow-1">
+                                    <span class="range-value ms-2">0</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">饱和度:</label>
+                                <div class="d-flex align-items-center">
+                                    <input type="range" id="saturation" min="-100" max="100" value="0" class="form-range flex-grow-1">
+                                    <span class="range-value ms-2">0</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">色调:</label>
+                                <div class="d-flex align-items-center">
+                                    <input type="range" id="hue" min="-180" max="180" value="0" class="form-range flex-grow-1">
+                                    <span class="range-value ms-2">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <h3 class="h5 mb-3">Excel设置</h3>
+                            <div class="mb-3">
+                                <label class="form-label">单元格大小:</label>
+                                <input type="number" id="cellSize" value="40" min="20" max="100" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">工作表背景色:</label>
+                                <input type="color" id="sheetBackground" value="#FFFFFF" class="form-control form-control-color">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">单元格边框:</label>
+                                <select id="borderStyle" class="form-select">
+                                    <option value="none">无边框</option>
+                                    <option value="thin">细边��</option>
+                                    <option value="medium">中等边框</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">边框颜色:</label>
+                                <input type="color" id="borderColor" value="#000000" class="form-control form-control-color">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">缩放比例:</label>
+                                <select id="zoomScale" class="form-select">
+                                    <option value="50">50%</option>
+                                    <option value="75">75%</option>
+                                    <option value="100" selected>100%</option>
+                                    <option value="125">125%</option>
+                                    <option value="150">150%</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="preview-container" id="previewContainer">
+                <img id="previewImage" class="preview-image img-fluid mb-3">
+                <div class="pixel-preview">
+                    <div id="pixelGrid" class="pixel-grid"></div>
+                </div>
+                <button class="btn btn-primary w-100" id="generateButton">生成Excel文件</button>
+                <div id="loading" class="loading text-muted mt-3">正在生成Excel文件，请稍候...</div>
+            </div>
+        </div>
+    </div>
+    <canvas id="canvas" style="display:none;"></canvas>
+    <script src="main.js"></script>
+</div>
+
+
+</body>
+
+
+
+
+
+</html>

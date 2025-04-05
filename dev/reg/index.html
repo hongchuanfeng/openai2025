@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线正则表达式测试工具-传道软件</title>
+    <meta name="keywords" content="在线软件工具集合、传道软件">
+    <meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
+    <link rel="canonical" href="https://chdaoai.com/">
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+    <script src="lib/jquery-1.9.1.js"></script>
+
+    <link rel="stylesheet" href="lib/codemirror/codemirror.css">
+    <script src="lib/codemirror/codemirror.js"></script>
+
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css">
+    <script src="lib/bootstrap/js/bootstrap.js"></script>
+    <script src="js/jch.Core.js"></script>
+    <script src="js/jch.jRegexTester.js"></script>
+    <script src="js/index.js"></script>
+    <link href="css/css.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 20px;
+        }
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 5px;
+        }
+
+        .header {
+            text-align: center;
+            color: #2a5ca7;
+            margin-bottom: 30px;
+        }
+
+        .stars {
+            color: #FFD700;
+            font-size: 24px;
+            margin-left: 10px;
+        }
+
+        .time-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        input[type="datetime-local"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #2a5ca7;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #2a5ca7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f4ff;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .instructions {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+    </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8NMLH22Y6G');
+    </script>
+
+</head>
+<body>
+<nav class="nav">
+    <a href="../../index.html" class="nav-item">
+        <img src="../../static/images/logo.png" width="100" style="margin-right: 60px"/>
+    </a>
+    <a href="../../index.html" class="nav-item">🔍 推荐工具</a>
+    <a href="../../life.html" class="nav-item">🏠 生活工具</a>
+    <a href="../../encry.html" class="nav-item">🔒 加密解密</a>
+    <a href="../../code.html" class="nav-item">📝 编码解码</a>
+    <a href="../../dev.html" class="nav-item">💻 开发工具</a>
+    <a href="../../image.html" class="nav-item">🖼️ 图片处理</a>
+    <a href="../../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+<div class="container">
+    <div class="container-fluid">
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="btn-toolbar alert alert-info" role="toolbar">
+                        <h1 style="text-align: center">
+                            正则表达式测试工具
+                        </h1>
+
+
+                        <div class="btn-group btn-group-sm" data-toggle="buttons" role="group">
+
+                            <label class="btn btn-default active">
+                                <input type="radio" name="workMode" id="workModeMatch" value="0" checked>查找模式
+
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" name="workMode" id="workModeReplace" value="1">替换模式
+
+
+                            </label>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success navbar-btn" id="btnRun" style="display:none">运行!</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="btn-toolbar alert alert-warning" role="toolbar">
+
+                        <label for=''>正则表达式 :</label>
+                        <div class="btn-group btn-group-xs" data-toggle="buttons" role="group">
+                            <a href='javascript:;' class="copy-link" id="copyLink" title="复制当前正则表达式与替换字符串到URL">
+                                #复制链接
+                            </a>
+                            <label class="btn btn-default active" title="选中为匹配所有符合项，否则只匹配第一项，参数g">
+                                <input type="checkbox" name="RegExpOption" id="RegExpOptionGlobal" value="g" checked>全局模式
+                            </label>
+                            <label class="btn btn-default" title="选中则忽略大小写，参数i">
+                                <input type="checkbox" name="RegExpOption" id="RegExpOptionIgnoreCase" value="i">忽略大小写
+                            </label>
+                            <label class="btn btn-default" title="选中则转义^和$为行的开始和结束，否则^和$为所有文本的开始和结束">
+                                <input type="checkbox" name="RegExpOption" id="RegExpOptionMultiline" value="m">多行模式
+                            </label>
+                        </div>
+                        <textarea class="form-control" style="font-size:x-large" name="" id="tbReg" cols="30" rows="1" placeholder="正则表达式" spellcheck="false"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="btn-toolbar alert alert-warning" role="toolbar">
+                        <label for=''>输入字符串 : </label>
+                        <div class="btn-group btn-group-xs" role="group">
+
+                        </div>
+                        <textarea class="form-control" name="" id="tbInput" cols="30" rows="7" placeholder="输入字符串" spellcheck="false"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="btn-toolbar alert alert-warning" role="toolbar">
+                        <label for="">替换内容 : </label>
+                        <div class="btn-group btn-group-xs" data-toggle="buttons" role="group">
+                            <label class="btn btn-default active" title="默认模式，指将源字符串中的匹配结果替换为新内容">
+                                <input type="radio" name="replaceMode" id="replaceModeIncludeNoMatch" value="0" checked>包含不匹配的项目
+                            </label>
+                            <label class="btn btn-default" title="提取模式，用于将源字符串中匹配内容替换后新内容，常用于数据提取">
+                                <input type="radio" name="replaceMode" id="replaceModeExcludeNoMatch" value="1">排除不匹配的项目
+                            </label>
+                        </div>
+                        <textarea class="form-control" name="" id="tbReplace" cols="30" rows="3" placeholder="替换内容" spellcheck="false"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="btn-toolbar alert alert-warning" role="toolbar">
+                        <label for=''>输出结果:</label>
+
+                        <div class="btn-group btn-group-xs" role="group">
+                            <label class="btn btn-default" title="将输出结果导入输入内容框" id="btnOutputToInput">⬆</label>
+                        </div>
+
+                        <div class="btn-group btn-group-xs" data-toggle="buttons" role="group">
+                            <label class="btn btn-default active" title="window系统换行符,CRLF">
+                                <input type="radio" name="newLineChar" id="newLineCharCRLF" value="0" checked>\r\n
+                            </label>
+                            <label class="btn btn-default" title="Mac系统换行符,CR">
+                                <input type="radio" name="newLineChar" id="newLineCharCR" value="1">\r
+                            </label>
+                            <label class="btn btn-default" title="Linux系统换行符,LF">
+                                <input type="radio" name="newLineChar" id="newLineCharLF" value="2">\n
+                            </label>
+                        </div>
+                        <textarea class="form-control" name="" id="tbOutput" cols="30" rows="7" placeholder="输出结果" spellcheck="false"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>

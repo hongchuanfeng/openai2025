@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>电子签名生成器-传道软件</title>
+	<meta name="keywords" content="在线软件工具集合、传道软件">
+	<meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
+	<link rel="canonical" href="https://chdaoai.com/">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			display: flex;
+			gap: 20px;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			align-items: center;
+			margin: 0 auto;
+			max-width: 1200px;
+			text-align: center;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #2d3436;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 20px;
+		}
+		.toolbar {
+			margin: 20px 0;
+			display: flex;
+			gap: 15px;
+			align-items: center;
+			width: 800px;
+		}
+		.color-picker {
+			display: flex;
+			gap: 10px;
+		}
+		button {
+			padding: 8px 15px;
+			background-color: #f0f0f0;
+			border: 1px solid #ccc;
+			cursor: pointer;
+			border-radius: 4px;
+		}
+		button:hover {
+			background-color: #e0e0e0;
+		}
+		#signatureCanvas {
+			border: 2px solid #ccc;
+			background-color: rgba(0,0,0,0.05);
+			touch-action: none;
+			float: none;
+			width: 800px;
+		}
+		.instructions {
+			margin-top: 20px;
+			color: #666;
+			font-size: 14px;
+			line-height: 1.6;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">
+		<img src="../static/images/logo.png" width="100" style="margin-right: 60px"/>
+	</a>
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+
+<div class="header">
+
+	<div class="header-title">
+		<h2>电子签名生成器</h2>
+	</div>
+</div>
+
+<div class="container">
+
+
+	<div class="toolbar">
+		<div class="color-picker">
+			<label>画笔颜色：
+				<input type="color" id="penColor" value="#000000">
+			</label>
+			<label>背景颜色：
+				<input type="color" id="bgColor" value="#ffffff">
+			</label>
+		</div>
+		<button onclick="exportBase64()">Base64</button>
+		<button onclick="downloadPNG()">下载图片</button>
+		<button onclick="downloadSVG()">下载SVG</button>
+		<button onclick="undo()">撤销</button>
+		<button onclick="clearCanvas()">清空</button>
+	</div>
+
+	<br/>
+	<canvas id="signatureCanvas"></canvas>
+	<br/>
+	<div class="instructions">
+		<h3>使用说明：</h3>
+		<ol>
+			<li>PC端请按住鼠标右键进行书写</li>
+			<li>移动端直接触摸屏幕手写</li>
+			<li>下载图片可保存透明背景的PNG</li>
+			<li>Base64编码可用于嵌入网页</li>
+		</ol>
+		<p>提示：默认背景为半透明，可自定义背景颜色</p>
+		<p>注意：深色模式下请调整画笔颜色或背景颜色</p>
+	</div>
+</div>
+
+<script>
+	const canvas = document.getElementById('signatureCanvas');
+	const ctx = canvas.getContext('2d');
+	let paths = [];
+	let currentPath = [];
+	let isDrawing = false;
+
+	// 初始化画布
+	function initCanvas() {
+		canvas.width = 800;
+		canvas.height = 300;
+		ctx.strokeStyle = '#000000';
+		ctx.lineWidth = 2;
+		ctx.lineCap = 'round';
+	}
+
+	// 绘制功能
+	canvas.addEventListener('mousedown', startDrawing);
+	canvas.addEventListener('mousemove', draw);
+	canvas.addEventListener('mouseup', endDrawing);
+	canvas.addEventListener('mouseleave', endDrawing);
+	canvas.addEventListener('touchstart', (e) => {
+		e.preventDefault();
+		startDrawing(e.touches[0]);
+	});
+	canvas.addEventListener('touchmove', (e) => {
+		e.preventDefault();
+		draw(e.touches[0]);
+	});
+	canvas.addEventListener('touchend', endDrawing);
+
+	function startDrawing(e) {
+		if (e.button === 2 || e.type === 'touchstart') {
+			isDrawing = true;
+			const rect = canvas.getBoundingClientRect();
+			currentPath = [{
+				x: e.clientX - rect.left,
+				y: e.clientY - rect.top,
+				color: document.getElementById('penColor').value
+			}];
+			ctx.beginPath();
+			ctx.moveTo(currentPath[0].x, currentPath[0].y);
+		}
+	}
+
+	function draw(e) {
+		if (!isDrawing) return;
+		const rect = canvas.getBoundingClientRect();
+		const x = e.clientX - rect.left;
+		const y = e.clientY - rect.top;
+
+		ctx.strokeStyle = document.getElementById('penColor').value;
+		ctx.lineTo(x, y);
+		ctx.stroke();
+
+		currentPath.push({x, y});
+	}
+
+	function endDrawing() {
+		if (isDrawing) {
+			paths.push(currentPath);
+		}
+		isDrawing = false;
+		ctx.beginPath();
+	}
+
+	// 清空画布
+	function clearCanvas() {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		paths = [];
+	}
+
+	// 撤销功能
+	function undo() {
+		if (paths.length > 0) {
+			paths.pop();
+			redrawCanvas();
+		}
+	}
+
+	// 重绘画布
+	function redrawCanvas() {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		paths.forEach(path => {
+			ctx.beginPath();
+			ctx.moveTo(path[0].x, path[0].y);
+			path.forEach(point => ctx.lineTo(point.x, point.y));
+			ctx.strokeStyle = path[0].color;
+			ctx.stroke();
+		});
+	}
+
+	// 文件导出功能
+	function downloadPNG() {
+		const tempCanvas = createTempCanvas();
+		const link = document.createElement('a');
+		link.download = 'signature.png';
+		link.href = tempCanvas.toDataURL();
+		link.click();
+	}
+
+	function exportBase64() {
+		const tempCanvas = createTempCanvas();
+		prompt('Base64编码:', tempCanvas.toDataURL());
+	}
+
+	function downloadSVG() {
+		const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${canvas.width}" height="${canvas.height}">
+                ${paths.map(path => `
+                    <path d="M ${path.map(p => `${p.x} ${p.y}`).join(' L ')}"
+                          stroke="${path[0].color}"
+                          fill="none"
+                          stroke-width="2"/>
+                `).join('')}
+            </svg>`;
+		const blob = new Blob([svg], {type: 'image/svg+xml'});
+		const link = document.createElement('a');
+		link.download = 'signature.svg';
+		link.href = URL.createObjectURL(blob);
+		link.click();
+	}
+
+	// 创建临时画布
+	function createTempCanvas() {
+		const tempCanvas = document.createElement('canvas');
+		const tempCtx = tempCanvas.getContext('2d');
+		tempCanvas.width = canvas.width;
+		tempCanvas.height = canvas.height;
+
+		// 添加背景颜色
+		tempCtx.fillStyle = document.getElementById('bgColor').value;
+		tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+
+		// 绘制签名
+		tempCtx.drawImage(canvas, 0, 0);
+		return tempCanvas;
+	}
+
+	// 初始化
+	initCanvas();
+	// 阻止右键菜单
+	canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+</script>
+</body>
+
+</html>

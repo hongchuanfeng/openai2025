@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线图片马赛克处理工具-传道软件</title>
+    <meta name="keywords" content="在线软件工具集合、传道软件">
+    <meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
+    <link rel="canonical" href="https://chdaoai.com/">
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="css.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 20px;
+        }
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .container {
+
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .input-area {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: vertical;
+            font-family: monospace;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .convert-btn {
+            background-color: #00c853;
+            color: white;
+        }
+        .convert-btn:hover {
+            background-color: #00b34a;
+        }
+        .clear-btn {
+            background-color: #ff5252;
+            color: white;
+        }
+        .clear-btn:hover {
+            background-color: #ff1744;
+        }
+        .result-area {
+            width: 100%;
+            min-height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .result-area img {
+            max-width: 100%;
+            max-height: 500px;
+        }
+        .info-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff5f0;
+            border-radius: 4px;
+        }
+        .info-title {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+        .info-list {
+            list-style: none;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .info-list li {
+            margin-bottom: 5px;
+            color: #ff6b6b;
+        }
+    </style>
+    <script src="../static/js/jquery-3.6.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <!-- 添加图片处理所需的库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8NMLH22Y6G');
+    </script>
+</head>
+<body>
+<nav class="nav">
+    <a href="../../index.html" class="nav-item">
+        <img src="../../static/images/logo.png" width="100" style="margin-right: 60px"/>
+    </a>
+    <a href="../../index.html" class="nav-item">🔍 推荐工具</a>
+    <a href="../../life.html" class="nav-item">🏠 生活工具</a>
+    <a href="../../encry.html" class="nav-item">🔒 加密解密</a>
+    <a href="../../code.html" class="nav-item">📝 编码解码</a>
+    <a href="../../dev.html" class="nav-item">💻 开发工具</a>
+    <a href="../../image.html" class="nav-item">🖼️ 图片处理</a>
+    <a href="../../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<h1 style="text-align: center">在线图片马赛克处理工具</h1>
+<div class="container">
+    <div class="frame-div">
+        <div class="frame-top">
+            <input type="file" id="fileBtn" accept="image/jpeg,image/gif,image/png,image/bmp,image/webp" />
+        </div>
+        <div class="frame-center">
+            <img id="img" alt="马赛克前图片" style="display:none;text-align: center;" />
+        </div>
+    </div>
+    <div class="frame-div">
+        <div class="frame-top">
+            <input type="range" id="rangeInput" min="1" max="10" value="5" />
+            <input type="button" id="downloadBtn" value="下载">
+        </div>
+        <div class="frame-center">
+            <img id="convertImg" alt="马赛克处理后的图片" style="display:none"  />
+        </div>
+    </div>
+</div>
+
+<script>
+    var pix = 5;
+
+    document.getElementById("fileBtn").addEventListener("change",function (e){
+        if (window.FileReader) {
+            var file = e.target.files[0];
+            let reader = new FileReader();
+            reader.onload = function (event) {
+                var dataURL = event.target.result;
+                var img = document.getElementById("img");
+                img.src = dataURL;
+                img.style.display = "block";
+                document.getElementById("convertImg").style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert("您的浏览器不支持更改功能");
+        }
+    });
+
+    document.getElementById("img").addEventListener("load",function (e){
+        if (e.target.src) {
+            showConvertPic();
+        }
+    });
+
+
+    document.getElementById("rangeInput").addEventListener("change", function (e) {
+        if (document.getElementById("img").src) {
+            pix = parseInt(e.target.value);
+            showConvertPic();
+        }
+    });
+
+    document.getElementById("downloadBtn").addEventListener("click",function (e){
+        var convertImg = document.getElementById("convertImg");
+        if(!!convertImg.src){
+            download(convertImg.src);
+        } else {
+            alert("请先上传图片");
+        }
+    });
+
+    function showConvertPic(){
+        var img = document.getElementById("img");
+        var convertImg = document.getElementById("convertImg");
+        convertImg.src = createRevertPic(img);
+    }
+
+    function createRevertPic(img){
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img,0,0);
+        var c = ctx.getImageData(0, 0, img.width, img.height);
+        var height = c.height;
+        var width = c.width;
+        for(var i = 0; i < height; i+=pix){
+            for(var j = 0; j < width; j+=pix){
+                var rAvg = 0;
+                var gAvg = 0;
+                var bAvg = 0;
+                var aAvg = 0;
+                var count = 0;
+                outerFor:for (var iPix = i; iPix < i+pix; iPix++) {
+                    for (var jPix = j; jPix < j+pix; jPix++) {
+                        if (iPix > height) {
+                            break;
+                        } else if(jPix>width){
+                            break outerFor;
+                        }
+                        var x = iPix*4*width + 4*jPix;
+                        count++;
+                        rAvg += c.data[x];
+                        gAvg += c.data[x+1];
+                        bAvg += c.data[x+2];
+                        aAvg += c.data[x+3];
+                    }
+
+                }
+                rAvg /= (count);
+                gAvg /= (count);
+                bAvg /= (count);
+                aAvg /= (count);
+
+                outerFor:for (var iPix = i; iPix < i+pix; iPix++) {
+                    for (var jPix = j; jPix < j+pix; jPix++) {
+                        if (iPix > height) {
+                            break;
+                        } else if(jPix>width){
+                            break outerFor;
+                        }
+                        var x = iPix*4*width + 4*jPix;
+                        c.data[x] = rAvg
+                        c.data[x+1] = gAvg;
+                        c.data[x+2] = bAvg;
+                        c.data[x+3] = aAvg;
+                    }
+                }
+            }
+        }
+        ctx.putImageData(c,0,0);
+        return canvas.toDataURL();
+    }
+
+
+    function download(src) {
+        var $a = document.createElement('a');
+        $a.setAttribute("href", src);
+        $a.setAttribute("download", "");
+
+        var evObj = document.createEvent('MouseEvents');
+        evObj.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, false, false, true, false, 0, null);
+        $a.dispatchEvent(evObj);
+    };
+</script>
+</body>
+
+
+
+
+
+</html>
