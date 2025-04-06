@@ -1,201 +1,100 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>麦克风测试工具</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        .periodic-table {
+            display: grid;
+            grid-template-columns: repeat(18, 1fr);
+            gap: 2px;
+            max-width: 1200px;
+            margin: 20px auto;
         }
 
-        body {
-            background: white;
-            padding: 2rem;
+        .element {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+            min-width: 60px;
         }
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
+        /* 颜色分类 */
+        .alkali-metal { background-color: #FFB74D; }      /* 碱金属 */
+        .alkaline-earth { background-color: #FFF176; }   /* 碱土金属 */
+        .transition-metal { background-color: #81D4FA; } /* 过渡金属 */
+        .other-metal { background-color: #90CAF9; }      /* 其他金属 */
+        .non-metal { background-color: #A5D6A7; }         /* 非金属 */
+        .noble-gas { background-color: #CE93D8; }        /* 稀有气体 */
+        .metalloid { background-color: #F48FB1; }        /* 半金属 */
 
-        .header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        h1 {
-            color: #333;
-            font-size: 1.8rem;
-        }
-
-        .rating {
-            color: #ffc107;
-            font-size: 1.2rem;
-        }
-
-        #micButton {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: #4CAF50;
-            border: none;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin: 2rem auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            position: relative;
-        }
-
-        #micButton:hover {
-            background: #45a049;
-        }
-
-        #micButton.active {
-            background: #2196F3;
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .sound-wave {
-            display: none;
-            position: absolute;
-            width: 120%;
-            height: 120%;
-            border-radius: 50%;
-            border: 2px solid #fff;
-            animation: wave 1.5s infinite;
-        }
-
-        @keyframes wave {
-            0% { opacity: 1; }
-            100% { opacity: 0; transform: scale(2); }
-        }
-
-        .instructions {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-top: 2rem;
-            color: #666;
-        }
-
-        ol {
-            padding-left: 1.5rem;
-            line-height: 1.6;
-        }
+        .empty { border: none; }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1>麦克风测试</h1>
-        <div class="rating">★★★★☆</div>
-    </div>
+<h1 style="text-align: center">化学元素周期表</h1>
 
-    <button id="micButton">
-        <div class="sound-wave"></div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
-            <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
-        </svg>
-        <span>点击测试麦克风</span>
-    </button>
+<div class="periodic-table">
+    <!-- 第1周期 -->
+    <div class="element non-metal">1<br>H<br>氢</div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="element noble-gas">2<br>He<br>氦</div>
 
-    <div class="instructions">
-        <h3>麦克风测试说明：</h3>
-        <ol>
-            <li>点击按钮开始实时音频输入检测</li>
-            <li>禁止麦克风权限将无法进行测试</li>
-            <li>本工具完全在本地浏览器端运行</li>
-            <li>支持与外部音频设备配合使用</li>
-        </ol>
-    </div>
+    <!-- 第2周期 -->
+    <div class="element alkali-metal">3<br>Li<br>锂</div>
+    <div class="element alkaline-earth">4<br>Be<br>铍</div>
+    <div class="element metalloid">5<br>B<br>硼</div>
+    <div class="element non-metal">6<br>C<br>碳</div>
+    <div class="element non-metal">7<br>N<br>氮</div>
+    <div class="element non-metal">8<br>O<br>氧</div>
+    <div class="element non-metal">9<br>F<br>氟</div>
+    <div class="element noble-gas">10<br>Ne<br>氖</div>
+
+    <!-- 第3周期 -->
+    <div class="element alkali-metal">11<br>Na<br>钠</div>
+    <div class="element alkaline-earth">12<br>Mg<br>镁</div>
+    <div class="element other-metal">13<br>Al<br>铝</div>
+    <div class="element metalloid">14<br>Si<br>硅</div>
+    <div class="element non-metal">15<br>P<br>磷</div>
+    <div class="element non-metal">16<br>S<br>硫</div>
+    <div class="element non-metal">17<br>Cl<br>氯</div>
+    <div class="element noble-gas">18<br>Ar<br>氩</div>
+
+    <!-- 过渡金属区域 -->
+    <div class="element transition-metal">21<br>Sc<br>钪</div>
+    <div class="element transition-metal">22<br>Ti<br>钛</div>
+    <div class="element transition-metal">26<br>Fe<br>铁</div>
+    <div class="element transition-metal">27<br>Co<br>钴</div>
+    <div class="element transition-metal">28<br>Ni<br>镍</div>
+    <div class="element transition-metal">29<br>Cu<br>铜</div>
+    <div class="element transition-metal">30<br>Zn<br>锌</div>
+
+    <!-- 其他可见元素 -->
+    <div class="element transition-metal">39<br>Y<br>钇</div>
+    <div class="element transition-metal">47<br>Ag<br>银</div>
+    <div class="element other-metal">48<br>Cd<br>镉</div>
+    <div class="element other-metal">49<br>In<br>铟</div>
+    <div class="element other-metal">50<br>Sn<br>锡</div>
+    <div class="element metalloid">51<br>Sb<br>锑</div>
+    <div class="element metalloid">52<br>Te<br>碲</div>
+    <div class="element non-metal">53<br>I<br>碘</div>
+    <div class="element noble-gas">54<br>Xe<br>氙</div>
 </div>
 
-<script>
-    const micButton = document.getElementById('micButton');
-    const soundWave = document.querySelector('.sound-wave');
-    let mediaStream;
-    let audioContext;
-
-    async function startTest() {
-        try {
-            mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            micButton.classList.add('active');
-            soundWave.style.display = 'block';
-            micButton.querySelector('span').textContent = '正在检测中...';
-
-            // 创建音频分析器
-            audioContext = new AudioContext();
-            const analyzer = audioContext.createAnalyser();
-            const source = audioContext.createMediaStreamSource(mediaStream);
-            source.connect(analyzer);
-
-            // 实时检测音频输入
-            const bufferLength = analyzer.frequencyBinCount;
-            const dataArray = new Uint8Array(bufferLength);
-
-            function detectSound() {
-                analyzer.getByteFrequencyData(dataArray);
-                const average = dataArray.reduce((a, b) => a + b) / bufferLength;
-
-                // 动态调整声波动画
-                soundWave.style.transform = `scale(${1 + average/50})`;
-                requestAnimationFrame(detectSound);
-            }
-            detectSound();
-
-        } catch (error) {
-            alert('麦克风访问被拒绝，请检查权限设置');
-            resetUI();
-        }
-    }
-
-    function stopTest() {
-        if (mediaStream) {
-            mediaStream.getTracks().forEach(track => track.stop());
-        }
-        if (audioContext) {
-            audioContext.close();
-        }
-        resetUI();
-    }
-
-    function resetUI() {
-        micButton.classList.remove('active');
-        soundWave.style.display = 'none';
-        micButton.querySelector('span').textContent = '点击测试麦克风';
-        soundWave.style.transform = 'scale(1)';
-    }
-
-    // 按钮点击事件
-    micButton.addEventListener('click', () => {
-        if (micButton.classList.contains('active')) {
-            stopTest();
-        } else {
-            startTest();
-        }
-    });
-
-    // 页面关闭时停止检测
-    window.addEventListener('beforeunload', stopTest);
-</script>
+<div style="max-width: 800px; margin: 20px auto; padding: 10px;">
+    <h3>说明：</h3>
+    <p>化学元素周期表是根据原子序数从小至大排序的化学元素列表。列表大体呈长方形，某些元素周期中留有空格，使特性相近的元素归在同一族中。这是分析化学行为时十分有用的框架。</p>
+</div>
 </body>
 </html>

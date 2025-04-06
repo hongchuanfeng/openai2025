@@ -147,6 +147,7 @@
 
         gtag('config', 'G-8NMLH22Y6G');
     </script>
+    <script src="../static/js/jquery-3.6.2.min.js"></script>
 </head>
 <body>
 <nav class="nav">
@@ -197,25 +198,57 @@
         result.style.display = 'block';
         result.innerHTML = '查询中...';
 
-        // 调用手机号查询API
-        fetch(`https://api.apishop.net/common/mobile/get?apiKey=YOUR_API_KEY&mobile=${phoneNumber}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.result) {
-                    result.innerHTML = `
+        // // 调用手机号查询API
+        // fetch(`https://api.apishop.net/common/mobile/get?apiKey=YOUR_API_KEY&mobile=${phoneNumber}`)
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         if (data.result) {
+        //             result.innerHTML = `
+        //                     <p><strong>手机号：</strong>${phoneNumber}</p>
+        //                     <p><strong>归属地：</strong>${data.result.province} ${data.result.city}</p>
+        //                     <p><strong>运营商：</strong>${data.result.carrier}</p>
+        //                     <p><strong>卡类型：</strong>${data.result.cardType}</p>
+        //                 `;
+        //         } else {
+        //             result.innerHTML = '未查询到相关信息';
+        //         }
+        //     })
+        //     .catch(error => {
+        //         result.innerHTML = '查询失败，请稍后重试';
+        //         console.error('Error:', error);
+        //     });
+
+
+        var data = {
+            "mobile": phoneNumber
+        }
+
+        $.ajax({
+            "url":"https://eolink.o.apispace.com/teladress/teladress",
+            "method": "POST",
+            "headers": {
+                "X-APISpace-Token":"gmn3bm7jxy2tm6zjqvtbn4e8wsg32l1u",
+                "Content-Type":"application/x-www-form-urlencoded"
+            },
+            "data": data,
+            "crossDomain": true
+        })
+            .done(function(data){
+
+                //console.log(response)
+
+                result.innerHTML = `
                             <p><strong>手机号：</strong>${phoneNumber}</p>
-                            <p><strong>归属地：</strong>${data.result.province} ${data.result.city}</p>
-                            <p><strong>运营商：</strong>${data.result.carrier}</p>
-                            <p><strong>卡类型：</strong>${data.result.cardType}</p>
+                            <p><strong>归属地：</strong>${data.data.province} ${data.data.city}</p>
+                            <p><strong>运营商：</strong>${data.data.isp}</p>
+                            <p><strong>卡类型：</strong>${data.data.isp}</p>
                         `;
-                } else {
-                    result.innerHTML = '未查询到相关信息';
-                }
             })
-            .catch(error => {
-                result.innerHTML = '查询失败，请稍后重试';
-                console.error('Error:', error);
-            });
+            .fail(function(jqXHR){
+
+
+            })
+
     }
 
     // 输入框只允许输入数字
