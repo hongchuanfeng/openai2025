@@ -233,21 +233,21 @@
             "data": data,
             "crossDomain": true
         })
-            .done(function(data){
+        .done(function(data){
 
-                //console.log(response)
+            //console.log(response)
 
-                result.innerHTML = `
-                            <p><strong>手机号：</strong>${phoneNumber}</p>
-                            <p><strong>归属地：</strong>${data.data.province} ${data.data.city}</p>
-                            <p><strong>运营商：</strong>${data.data.isp}</p>
-                            <p><strong>卡类型：</strong>${data.data.isp}</p>
-                        `;
-            })
-            .fail(function(jqXHR){
+            result.innerHTML = `
+                        <p><strong>手机号：</strong>${phoneNumber}</p>
+                        <p><strong>归属地：</strong>${data.data.province} ${data.data.city}</p>
+                        <p><strong>运营商：</strong>${data.data.isp}</p>
+                        <p><strong>卡类型：</strong>${data.data.isp}</p>
+                    `;
+        })
+        .fail(function(jqXHR){
 
 
-            })
+        })
 
     }
 

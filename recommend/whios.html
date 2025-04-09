@@ -208,17 +208,66 @@
 
 		// 这里应该调用实际的WHOIS API
 		// 以下为模拟数据
-		resultContainer.innerHTML = `
+		// resultContainer.innerHTML = `
+        //         <h3>查询结果：</h3>
+        //         <p>域名：${domain}</p>
+        //         <p>注册商：示例注册商</p>
+        //         <p>创建时间：2023-01-01</p>
+        //         <p>到期时间：2024-01-01</p>
+        //         <p>状态：已注册</p>
+        //     `;
+		//
+		// // 添加到历史记录
+		// addToHistory(domain);
+
+		const data ={
+			"domainName": domain,
+			"apiKey": "at_yEXmjA2f9lr7eFTbg06cHAmYh6WME"
+		};
+		// $.ajax({
+		// 	"url": 'https://www.whoisxmlapi.com/whoisserver/WhoisService',
+		// 	"method": "post",
+		// 	"headers": {
+		// 		"Content-Type":"application/json"
+		// 	},
+		// 	"data":data,
+		// 	"crossDomain": true
+		// })
+		$.ajax({
+			"url": 'https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=at_yEXmjA2f9lr7eFTbg06cHAmYh6WME&domainName='+domain,
+			"method": "get"
+		})
+		.done(function(data){
+
+			console.log(data)
+
+			var createdDate = $(data).find("createdDate").text();
+			var expiresDate = $(data).find("expiresDate").text();
+			var registrarName = $(data).find("registrarName").text();
+			var country = $(data).find("country").text();
+			var status = $(data).find("status").text();
+			var state = $(data).find("state").text();
+			console.log(createdDate);
+
+			resultContainer.innerHTML = `
                 <h3>查询结果：</h3>
                 <p>域名：${domain}</p>
-                <p>注册商：示例注册商</p>
-                <p>创建时间：2023-01-01</p>
-                <p>到期时间：2024-01-01</p>
-                <p>状态：已注册</p>
+                <p>注册商：${registrarName}</p>
+                <p>创建时间：${createdDate}</p>
+                <p>到期时间：${expiresDate}</p>
+                <p>状态：${status}</p>
+                <p>国家：${country}</p>
+                <p>城市：${state}</p>
             `;
 
-		// 添加到历史记录
-		addToHistory(domain);
+			// 添加到历史记录
+			addToHistory(domain);
+
+		})
+		.fail(function(jqXHR){
+
+
+		})
 	}
 
 	function addToHistory(domain) {
@@ -229,6 +278,8 @@
 		historyItem.style.borderBottom = '1px solid #eee';
 		historyList.insertBefore(historyItem, historyList.firstChild);
 	}
+
+
 
 	// $.ajax({
 	// 	url: 'https://whois.arin.net/rest/domain/chdaoai.com', // 替换为实际要查询的域名

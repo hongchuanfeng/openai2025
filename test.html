@@ -1,100 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
+    <meta charset="UTF-8">
+    <title>CSS 格式化示例</title>
+    <!-- 引入 js-beautify 的 CSS 美化脚本 -->
+    <script src="https://cdn.jsdelivr.net/npm/js-beautify@1.14.7/beautify-css.js"></script>
     <style>
-        .periodic-table {
-            display: grid;
-            grid-template-columns: repeat(18, 1fr);
-            gap: 2px;
-            max-width: 1200px;
-            margin: 20px auto;
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
         }
-
-        .element {
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 10px;
             padding: 10px;
             border: 1px solid #ccc;
-            text-align: center;
-            min-width: 60px;
+            background-color: #f9f9f9;
         }
-
-        /* 颜色分类 */
-        .alkali-metal { background-color: #FFB74D; }      /* 碱金属 */
-        .alkaline-earth { background-color: #FFF176; }   /* 碱土金属 */
-        .transition-metal { background-color: #81D4FA; } /* 过渡金属 */
-        .other-metal { background-color: #90CAF9; }      /* 其他金属 */
-        .non-metal { background-color: #A5D6A7; }         /* 非金属 */
-        .noble-gas { background-color: #CE93D8; }        /* 稀有气体 */
-        .metalloid { background-color: #F48FB1; }        /* 半金属 */
-
-        .empty { border: none; }
     </style>
 </head>
 <body>
-<h1 style="text-align: center">化学元素周期表</h1>
 
-<div class="periodic-table">
-    <!-- 第1周期 -->
-    <div class="element non-metal">1<br>H<br>氢</div>
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="empty"></div>
-    <div class="element noble-gas">2<br>He<br>氦</div>
-
-    <!-- 第2周期 -->
-    <div class="element alkali-metal">3<br>Li<br>锂</div>
-    <div class="element alkaline-earth">4<br>Be<br>铍</div>
-    <div class="element metalloid">5<br>B<br>硼</div>
-    <div class="element non-metal">6<br>C<br>碳</div>
-    <div class="element non-metal">7<br>N<br>氮</div>
-    <div class="element non-metal">8<br>O<br>氧</div>
-    <div class="element non-metal">9<br>F<br>氟</div>
-    <div class="element noble-gas">10<br>Ne<br>氖</div>
-
-    <!-- 第3周期 -->
-    <div class="element alkali-metal">11<br>Na<br>钠</div>
-    <div class="element alkaline-earth">12<br>Mg<br>镁</div>
-    <div class="element other-metal">13<br>Al<br>铝</div>
-    <div class="element metalloid">14<br>Si<br>硅</div>
-    <div class="element non-metal">15<br>P<br>磷</div>
-    <div class="element non-metal">16<br>S<br>硫</div>
-    <div class="element non-metal">17<br>Cl<br>氯</div>
-    <div class="element noble-gas">18<br>Ar<br>氩</div>
-
-    <!-- 过渡金属区域 -->
-    <div class="element transition-metal">21<br>Sc<br>钪</div>
-    <div class="element transition-metal">22<br>Ti<br>钛</div>
-    <div class="element transition-metal">26<br>Fe<br>铁</div>
-    <div class="element transition-metal">27<br>Co<br>钴</div>
-    <div class="element transition-metal">28<br>Ni<br>镍</div>
-    <div class="element transition-metal">29<br>Cu<br>铜</div>
-    <div class="element transition-metal">30<br>Zn<br>锌</div>
-
-    <!-- 其他可见元素 -->
-    <div class="element transition-metal">39<br>Y<br>钇</div>
-    <div class="element transition-metal">47<br>Ag<br>银</div>
-    <div class="element other-metal">48<br>Cd<br>镉</div>
-    <div class="element other-metal">49<br>In<br>铟</div>
-    <div class="element other-metal">50<br>Sn<br>锡</div>
-    <div class="element metalloid">51<br>Sb<br>锑</div>
-    <div class="element metalloid">52<br>Te<br>碲</div>
-    <div class="element non-metal">53<br>I<br>碘</div>
-    <div class="element noble-gas">54<br>Xe<br>氙</div>
+<h2>CSS 格式化工具</h2>
+<textarea id="cssInput" placeholder="在这里输入您的CSS代码..."></textarea>
+<br>
+<button onclick="formatCSS()">格式化 CSS</button>
+<div class="result">
+    <h3>格式化后的 CSS:</h3>
+    <pre id="cssOutput"></pre>
 </div>
 
-<div style="max-width: 800px; margin: 20px auto; padding: 10px;">
-    <h3>说明：</h3>
-    <p>化学元素周期表是根据原子序数从小至大排序的化学元素列表。列表大体呈长方形，某些元素周期中留有空格，使特性相近的元素归在同一族中。这是分析化学行为时十分有用的框架。</p>
-</div>
+<script>
+    function formatCSS() {
+        const input = document.getElementById('cssInput').value;
+        try {
+            // 使用 js-beautify 的 CSS 美化功能
+            const formatted = CSSBeautify(input, {
+                indent_size: 4,          // 缩进大小
+                indent_char: ' ',        // 缩进字符
+                eol: '\r\n',               // 行尾符
+                end_with_newline: false, // 是否以换行结束
+                preserve_newlines: true, // 是否保留现有换行
+                max_preserve_newlines: 10, // 最大保留换行数
+                space_in_empty_paren: false, // 是否在空括号中添加空格
+                unindent_chained_methods: false, // 是否取消链式方法缩进
+                break_chained_methods: false, // 是否在链式方法后换行
+                keep_array_indentation: false, // 是否保持数组缩进
+                keep_function_indentation: false, // 是否保持函数缩进
+                space_before_conditional: true, // 条件语句前是否加空格
+                unescape_strings: false, // 是否转义字符串
+                wrap_line_length: 0, // 行包裹长度，0表示不换行
+                e4x: false, // 是否支持 E4X 语法
+                comma_first: false, // 是否使用逗号前置
+                operator_position: 'before-newline' // 操作符位置
+            });
+            document.getElementById('cssOutput').textContent = formatted;
+        } catch (error) {
+            console.error('格式化 CSS 时出错:', error);
+            document.getElementById('cssOutput').textContent = '格式化失败';
+        }
+    }
+</script>
+
 </body>
 </html>

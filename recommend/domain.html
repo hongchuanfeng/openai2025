@@ -265,6 +265,48 @@
 
 		// 添加到历史记录
 		addToHistory(domain);
+		// const data ={
+		// 	"apiKey": "at_yEXmjA2f9lr7eFTbg06cHAmYh6WME",
+		// 	"searchType": "forward",
+		// 	"recordType": "aaaa",
+		// 	"domainName": domain
+		// };
+		// $.ajax({
+		// 	url: 'https://dns-history.whoisxmlapi.com/api/v1',
+		// 	method: "post",
+		// 	contentType: "application/json; charset=utf-8",
+		// 	data: JSON.stringify(data),
+		// 	dataType: "json", // 预期服务器返回的数据类型
+		// })
+		// .done(function(data){
+		//
+		// 	console.log(data)
+		// 	// $(data).each(function() {
+		// 	// 	var createdDate = $(this).find("createdDate").text();
+		// 	// 	var expiresDate = $(this).find("expiresDate").text();
+		// 	// 	var organization = $(this).find("organization").text();
+		// 	// 	var country = $(this).find("country").text();
+		// 	// 	var state = $(this).find("state").text();
+		// 	//
+		// 	// 	var bookHtml = "<div class='book'>" +
+		// 	// 			"<h3>" + title + "</h3>" +
+		// 	// 			"<p>Author: " + author + "</p>" +
+		// 	// 			"<p>Price: $" + price + "</p>" +
+		// 	// 			"</div>";
+		// 	//
+		// 	// 	$("#books-container").append(bookHtml);
+		// 	// });
+		// 	//
+		// 	// resultContainer.innerHTML = $(data);
+		// 	// // 添加到历史记录
+		// 	// addToHistory(domain);
+		//
+		// })
+		// .fail(function(jqXHR){
+		//
+		//
+		// })
+
 	}
 
 	function addToHistory(domain) {
