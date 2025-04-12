@@ -241,11 +241,11 @@
 
 			console.log(data)
 
-			var createdDate = $(data).find("createdDate").text();
-			var expiresDate = $(data).find("expiresDate").text();
+			var createdDate = $(data).find("createdDate").first().text().replace("T"," ").replace("Z"," ");
+			var expiresDate = $(data).find("expiresDate").first().text().replace("T"," ").replace("Z"," ");
 			var registrarName = $(data).find("registrarName").text();
 			var country = $(data).find("country").text();
-			var status = $(data).find("status").text();
+			var status = $(data).find("status").first().text();
 			var state = $(data).find("state").text();
 			console.log(createdDate);
 

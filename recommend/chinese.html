@@ -131,6 +131,9 @@
             line-height: 1.6;
         }
     </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/umd/full.js"></script>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
     <script>
@@ -140,6 +143,7 @@
 
         gtag('config', 'G-8NMLH22Y6G');
     </script>
+
 </head>
 <body>
 <nav class="nav">
@@ -161,16 +165,16 @@
     </div>
 </div>
 
-<div class="converter">
+<div class="converter" >
     <textarea class="text-area" id="inputText" placeholder="请输入要转换的文字..."></textarea>
 
     <div class="button-group">
-        <button class="convert-btn to-traditional" onclick="convert('traditional')">转为繁体中文↓</button>
-        <button class="convert-btn to-simplified" onclick="convert('simplified')">转为简体中文↓</button>
+        <button class="convert-btn to-traditional" onclick="toTW()">转为繁体中文↓</button>
+        <button class="convert-btn to-simplified" onclick="toCN()">转为简体中文↓</button>
         <button class="convert-btn clear-btn" onclick="clearText()">清空</button>
     </div>
 
-    <textarea class="text-area" id="outputText" placeholder="转换结果..." readonly></textarea>
+    <textarea class="text-area" id="outputText" placeholder="转换结果..."></textarea>
 
     <div class="info-box">
         <h3 class="info-title">关于简体中文与繁体中文介绍：</h3>
@@ -183,43 +187,38 @@
 </div>
 
 <script>
-    // 简繁体转换字典
-    const simplifiedToTraditional = {
-        '国': '國',
-        '东': '東',
-        '义': '義',
-        '产': '產',
-        '乐': '樂',
-        '习': '習',
-        '书': '書',
-        '买': '買',
-        '云': '雲',
-        '车': '車',
-        // ... 更多字符映射
-    };
 
-    const traditionalToSimplified = {};
-    for (let key in simplifiedToTraditional) {
-        traditionalToSimplified[simplifiedToTraditional[key]] = key;
-    }
+    const customDict = [
+        ['“', '「'],
+        ['”', '」'],
+        ['‘', '『'],
+        ['’', '』'],
+    ];
+    const converter = OpenCC.ConverterFactory(
+        OpenCC.Locale.from.cn, // 中国大陆 => OpenCC 标准
+        OpenCC.Locale.to.tw,   // OpenCC 标准 => 台湾
+        [customDict]           // 台湾 => 自订
+    );
+    //console.log(converter('悟空道：“师父又来了。怎么叫做‘水中捞月’？”'));
+    // output: 悟空道：「師父又來了。怎麼叫做『水中撈月』？」
 
-    function convert(type) {
+    function toTW(){
         const inputText = document.getElementById('inputText').value;
         const outputText = document.getElementById('outputText');
-
-        if (!inputText) {
-            alert('请输入要转换的文字！');
-            return;
-        }
-
-        let result = '';
-        const dict = type === 'traditional' ? simplifiedToTraditional : traditionalToSimplified;
-
-        for (let char of inputText) {
-            result += dict[char] || char;
-        }
-
+        const result = converter(inputText);
         outputText.value = result;
+    }
+
+    function toCN(){
+        // console.log(11);
+        // 将繁体中文（香港）转换为简体中文（中国大陆）
+        const converter2 = OpenCC.Converter({ from: 'hk', to: 'cn' });
+        // console.log(converter2('漢語')); // output: 汉语
+
+        const outputText = document.getElementById('outputText').value;
+        const inputText = document.getElementById('inputText');
+        const result = converter2(outputText);
+        inputText.value = result;
     }
 
     function clearText() {
@@ -228,7 +227,7 @@
     }
 
     // 示例文本
-    document.getElementById('inputText').value = '少年强则国强，少年智则国智，少年富则国富，少年独立则国独立，少年自由则自由，少年进步则国进步...';
+    document.getElementById('inputText').value = '少年强则国强，少年智则国智，少年富则国富，少年独立则国独立，少年自由则自由，少年进步则国进步';
 </script>
 </body>
 </html>

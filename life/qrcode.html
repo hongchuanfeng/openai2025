@@ -140,7 +140,7 @@
 
 		<div id="qrCode" class="qr-code"></div>
 
-		<div id="hintBox" class="hint-box">提示：长按图片可以保存/分享</div>
+		<div id="hintBox" class="hint-box" onclick="downloadDiagram()">提示：长按图片可以保存/分享</div>
 	</div>
 
 </div>
@@ -166,6 +166,65 @@
 
 		// 显示提示框
 		hintBox.style.display = "block";
+	}
+
+	// 增强版图片下载函数
+	async function downloadDiagram() {
+		const img = document.getElementById('targetImage');
+
+		try {
+			// 第一阶段：验证图片可访问性
+			if (!await validateImage(img)) {
+				throw new Error('图片加载失败，请检查网络连接');
+			}
+
+			// 第二阶段：通过Canvas处理
+			const canvas = document.createElement('canvas');
+			canvas.width = img.naturalWidth;
+			canvas.height = img.naturalHeight;
+
+			const ctx = canvas.getContext('2d');
+			ctx.drawImage(img, 0, 0);
+
+			// 第三阶段：触发下载
+			canvas.toBlob(blob => {
+				const link = document.createElement('a');
+				link.download = `format-converter-${new Date().toISOString().slice(0,10)}.png`;
+				link.href = URL.createObjectURL(blob);
+				link.click();
+
+				// 内存清理
+				setTimeout(() => {
+					URL.revokeObjectURL(link.href);
+					canvas.remove();
+				}, 100);
+			}, 'image/png', 1);
+
+		} catch (error) {
+			handleError(error);
+			console.error('下载失败原因:', error.stack);
+		}
+	}
+
+	// 图片验证方法
+	function validateImage(img) {
+		return new Promise((resolve, reject) => {
+			if (img.complete && img.naturalWidth > 0) {
+				resolve(true);
+				return;
+			}
+
+			img.onload = () => resolve(true);
+			img.onerror = () => reject(new Error('图片加载被阻止（可能因CORS限制）'));
+
+			// 超时处理
+			setTimeout(() => reject(new Error('图片加载超时')), 5000);
+		});
+	}
+
+	// 错误处理
+	function handleError(error) {
+		alert(`下载失败: ${error.message}\n建议：1. 检查网络 2. 尝试右键另存为`);
 	}
 </script>
 

@@ -1,74 +1,43 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>CSS 格式化示例</title>
-    <!-- 引入 js-beautify 的 CSS 美化脚本 -->
-    <script src="https://cdn.jsdelivr.net/npm/js-beautify@1.14.7/beautify-css.js"></script>
+    <title>简繁转换修复版</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/umd/full.js"></script>     <!-- 完全版 -->
+    <script src="https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/umd/cn2t.js"></script>     <!-- 只需要简转繁时 -->
+    <script src="https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/umd/t2cn.js"></script>     <!-- 只需要繁转简时 -->
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
+        .container { max-width: 800px; margin: 20px auto; padding: 20px; }
         textarea {
             width: 100%;
-            height: 150px;
-            margin-bottom: 10px;
+            height: 200px;
+            padding: 15px;
+            border: 2px solid #4CAF50;
+            margin: 10px 0;
         }
         button {
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-        .result {
-            margin-top: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
+            padding: 12px 24px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-
-<h2>CSS 格式化工具</h2>
-<textarea id="cssInput" placeholder="在这里输入您的CSS代码..."></textarea>
-<br>
-<button onclick="formatCSS()">格式化 CSS</button>
-<div class="result">
-    <h3>格式化后的 CSS:</h3>
-    <pre id="cssOutput"></pre>
+<div class="container">
+    <textarea id="input" placeholder="输入简体中文..."></textarea>
+    <button onclick="convert()">转换为繁体中文</button>
+    <textarea id="output" readonly></textarea>
 </div>
 
 <script>
-    function formatCSS() {
-        const input = document.getElementById('cssInput').value;
-        try {
-            // 使用 js-beautify 的 CSS 美化功能
-            const formatted = CSSBeautify(input, {
-                indent_size: 4,          // 缩进大小
-                indent_char: ' ',        // 缩进字符
-                eol: '\r\n',               // 行尾符
-                end_with_newline: false, // 是否以换行结束
-                preserve_newlines: true, // 是否保留现有换行
-                max_preserve_newlines: 10, // 最大保留换行数
-                space_in_empty_paren: false, // 是否在空括号中添加空格
-                unindent_chained_methods: false, // 是否取消链式方法缩进
-                break_chained_methods: false, // 是否在链式方法后换行
-                keep_array_indentation: false, // 是否保持数组缩进
-                keep_function_indentation: false, // 是否保持函数缩进
-                space_before_conditional: true, // 条件语句前是否加空格
-                unescape_strings: false, // 是否转义字符串
-                wrap_line_length: 0, // 行包裹长度，0表示不换行
-                e4x: false, // 是否支持 E4X 语法
-                comma_first: false, // 是否使用逗号前置
-                operator_position: 'before-newline' // 操作符位置
-            });
-            document.getElementById('cssOutput').textContent = formatted;
-        } catch (error) {
-            console.error('格式化 CSS 时出错:', error);
-            document.getElementById('cssOutput').textContent = '格式化失败';
-        }
-    }
+    // 将繁体中文（香港）转换为简体中文（中国大陆）
+    const converter = OpenCC.Converter({ from: 'hk', to: 'cn' });
+    console.log(converter('漢語')); // output: 汉语
 </script>
-
 </body>
 </html>

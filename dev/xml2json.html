@@ -34,104 +34,13 @@
 			align-items: center;
 			gap: 5px;
 		}
-		.container {
-			background: white;
-			padding: 30px;
-			border-radius: 5px;
-		}
-
-		.header {
-			text-align: center;
-			margin-bottom: 20px;
-		}
-
-		.title {
-			font-size: 24px;
-			color: #4CAF50;
-			margin: 0;
-		}
-
-		.stars {
-			color: #FFD700;
-			font-size: 20px;
-			margin-top: 5px;
-		}
-
-		.editor-container {
-			display: grid;
-			grid-template-columns: 1fr;
-			gap: 20px;
-		}
-
-		.code-area {
-			position: relative;
-			border: 2px solid #4CAF50;
-			border-radius: 4px;
-			background: white;
-		}
-
-		.line-numbers {
-			position: absolute;
-			left: 0;
-			top: 0;
-			padding: 10px;
-			color: #666;
-			font-family: Consolas, monospace;
-			user-select: none;
-		}
-
-		textarea {
-			width: 100%;
-			height: 300px;
-			padding: 10px 10px 10px 40px;
-			border: none;
-			resize: vertical;
-			font-family: Consolas, monospace;
-			font-size: 14px;
-			line-height: 1.5;
-			tab-size: 4;
-		}
-
-		.button-group {
-			text-align: center;
-			margin: 20px 0;
-		}
-
-		button {
-			padding: 12px 24px;
-			margin: 0 10px;
-			border: none;
-			border-radius: 4px;
-			cursor: pointer;
-			font-weight: 500;
-			transition: all 0.3s;
-		}
-
-		.xml-btn {
-			background-color: #4CAF50;
-			color: white;
-		}
-
-		.json-btn {
-			background-color: #2196F3;
-			color: white;
-		}
-
-		.clear-btn {
-			background-color: #9E9E9E;
-			color: white;
-		}
-
-		.error {
-			color: #ff0000;
-			text-align: center;
-			margin: 10px 0;
-			display: none;
-		}
+		.container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+		.panel { border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
+		textarea { width: 100%; height: 300px; padding: 10px; font-family: Consolas, monospace; }
+		button { padding: 10px 20px; margin: 10px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; }
+		.error { color: red; text-align: center; }
 	</style>
-
-	<script src="https://cdn.jsdelivr.net/npm/jquery"></script>
-	<script src="https://cdn.jsdelivr.net/npm/xml2js@0.6.2/lib/xml2js.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
 	<script>
@@ -155,428 +64,131 @@
 	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
 	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
 </nav>
+<h1 class="search-title" style="text-align: center">XML与JSON相互转换</h1>
 <div class="container">
-	<div class="header">
-		<h1 class="title">XML/JSON相互转换</h1>
+	<div class="panel">
+		<h3>XML</h3>
+		<textarea id="xmlInput"><root>
+    <employees>
+        <employee id="101">
+            <name>Alice</name>
+            <department>HR</department>
+        </employee>
+    </employees>
+</root></textarea>
 	</div>
 
-	<div class="editor-container">
-		<div class="code-area">
-			<div class="line-numbers" id="xmlLines"></div>
-			<textarea id="xmlInput" spellcheck="false">
-<sites>
-    <site>
-        <name>xiaohong</name>
-        <age>18</age>
-    </site>
-    <site>
-        <name>xiaoming</name>
-        <age>24</age>
-    </site>
-</sites></textarea>
-		</div>
+	<div class="panel">
+		<h3>JSON</h3>
+		<textarea id="jsonInput">
 
-		<div class="button-group">
-			<button class="xml-btn" onclick="xmlToJson()">XML转JSON ↓</button>
-			<button class="json-btn" onclick="convertJsonToXml()">JSON转XML ↑</button>
-			<button class="clear-btn" onclick="clearAll()">清空</button>
-		</div>
-
-		<div class="code-area">
-			<div class="line-numbers" id="jsonLines"></div>
-			<textarea id="jsonInput" spellcheck="false"></textarea>
-		</div>
-
-		<div class="error" id="errorMsg"></div>
+</textarea>
 	</div>
+</div>
 
-	<script>
-		// 动态行号更新
-		function updateLineNumbers(textareaId, linesId) {
-			const textarea = document.getElementById(textareaId);
-			const lines = textarea.value.split('\n').length;
-			document.getElementById(linesId).innerHTML = Array(lines).fill('<span></span>').join('\n');
-		}
+<div style="text-align: center;">
+	<button onclick="convertXmlToJson()">XML → JSON</button>
+	<button onclick="convertJsonToXml()">JSON → XML</button>
+</div>
+<div class="error" id="error"></div>
 
-		function xmlToJson66(xmlStr) {
-			const parser = new DOMParser();
-			const xmlDoc = parser.parseFromString(xmlStr, "text/xml");
+<script>
+	// 通用XML转JSON方法
+	function xmlToJson(xmlNode) {
+		const result = {};
 
-			function traverse(node) {
-				const obj = {};
-				// 处理属性
-				if (node.attributes?.length > 0) {
-					obj["@attributes"] = {};
-					Array.from(node.attributes).forEach(attr => {
-						obj["@attributes"][attr.name] = attr.value;
-					});
-				}
-				// 处理子节点
-				Array.from(node.children).forEach(child => {
-					const childName = child.tagName;
-					const childData = traverse(child);
-					obj[childName] = childData;
-				});
-				// 处理文本内容
-				if (node.childNodes.length === 1 && node.childNodes[0].nodeType === 3) {
-					return node.childNodes[0].nodeValue.trim();
-				}
-				return Object.keys(obj).length ? obj : null;
-			}
+		// 处理子节点
+		if (xmlNode.children.length > 0) {
+			[...xmlNode.children].forEach(child => {
+				const childName = child.nodeName;
+				const childData = xmlToJson(child);
 
-			return traverse(xmlDoc.documentElement);
-		}
-		function xmlToJson77(xmlStr) {
-			const parser = new DOMParser();
-			const xmlDoc = parser.parseFromString(xmlStr, "text/xml");
-
-			function traverse(node) {
-				// 处理注释、CDATA等非元素节点
-				if (node.nodeType !== Node.ELEMENT_NODE) {
-					return node.nodeValue?.trim() || null;
-				}
-
-				const obj = {};
-
-				// 处理属性（网页7方案增强）
-				if (node.attributes.length > 0) {
-					obj["@attributes"] = {};
-					Array.from(node.attributes).forEach(attr => {
-						obj["@attributes"][attr.name] = attr.value;
-					});
-				}
-
-				// 处理子节点递归（关键改进点）
-				const childNodes = Array.from(node.childNodes);
-				childNodes.forEach(child => {
-					const childName = child.nodeName.toLowerCase();
-					const childData = traverse(child);
-
-					if (childData === null) return; // 忽略空节点
-
-					// 处理混合内容（网页3方案扩展）
-					if (child.nodeType === Node.TEXT_NODE) {
-						obj["#text"] = (obj["#text"] || "") + childData;
-					} else if (child.nodeType === Node.ELEMENT_NODE) {
-						// 自动转换为数组（同名标签处理）
-						if (obj[childName]) {
-							if (!Array.isArray(obj[childName])) {
-								obj[childName] = [obj[childName]];
-							}
-							obj[childName].push(childData);
-						} else {
-							obj[childName] = childData;
-						}
+				// 自动检测数组
+				if (result[childName]) {
+					if (!Array.isArray(result[childName])) {
+						result[childName] = [result[childName]];
 					}
-				});
-
-				// 合并结果（优先返回内容或对象）
-				return Object.keys(obj).length > 0 ? obj : null;
-			}
-
-			return traverse(xmlDoc.documentElement);
-		}
-
-		function xmlToJson88(xmlStr) {
-			const parser = new DOMParser();
-			const xmlDoc = parser.parseFromString(xmlStr, "text/xml");
-
-			function traverse(node) {
-				// 处理文本节点（网页6方案）
-				if (node.nodeType === Node.TEXT_NODE) {
-					return node.textContent.trim();
-				}
-
-				const obj = {};
-
-				// 处理属性（网页3方案增强）
-				if (node.attributes?.length > 0) {
-					obj["@attributes"] = {};
-					Array.from(node.attributes).forEach(attr => {
-						obj["@attributes"][attr.name] = attr.value;
-					});
-				}
-
-				// 处理子节点（网页7递归算法）
-				const childNodes = Array.from(node.childNodes);
-				childNodes.forEach(child => {
-					const childName = child.nodeName.toLowerCase();
-
-					if (child.nodeType === Node.ELEMENT_NODE) {
-						const childData = traverse(child);
-
-						// 自动数组转换（网页6最佳实践）
-						if (obj[childName]) {
-							if (!Array.isArray(obj[childName])) {
-								obj[childName] = [obj[childName]];
-							}
-							obj[childName].push(childData);
-						} else {
-							obj[childName] = childData;
-						}
-					}
-				});
-
-				return Object.keys(obj).length ? obj : null;
-			}
-
-			return { [xmlDoc.documentElement.nodeName]: traverse(xmlDoc.documentElement) };
-		}
-
-		/**
-		 * xml字符串转换xml对象数据
-		 * @param {Object} xmlStr
-		 */
-		function xmlStr2XmlObj(xmlStr) {
-			var xmlObj = {};
-			if (document.all) {
-				var xmlDom = new ActiveXObject("Microsoft.XMLDOM");
-				xmlDom.loadXML(xmlStr);
-				xmlObj = xmlDom;
-			} else {
-				xmlObj = new DOMParser().parseFromString(xmlStr, "text/xml");
-			}
-			return xmlObj;
-		}
-
-		/**
-		 * xml字符串转换json数据
-		 * @param {Object} xml
-		 */
-		function xmlObj2json(xml) {
-			var xmlObj = xmlStr2XmlObj(xml);
-			var jsonObj = {};
-			if (xmlObj.childNodes.length > 0) {
-				jsonObj = xml2json(xmlObj);
-			}
-			return jsonObj;
-		}
-
-		function parseElement(element) {
-			let obj = {};
-			if (element.nodeType === 1) { // Element
-				if (element.attributes.length > 0) {
-					obj['@attributes'] = {};
-					for (let j = 0; j < element.attributes.length; j++) {
-						let attribute = element.attributes.item(j);
-						obj['@attributes'][attribute.nodeName] = attribute.nodeValue;
-					}
-				}
-			} else if (element.nodeType === 3) { // Text
-				obj = element.nodeValue;
-			}
-
-			if (element.hasChildNodes()) {
-				for (let i = 0; i < element.childNodes.length; i++) {
-					let item = element.childNodes.item(i);
-					let nodeName = item.nodeName;
-					if (typeof(obj[nodeName]) === 'undefined') {
-						obj[nodeName] = parseElement(item);
-					} else {
-						if (typeof(obj[nodeName].push) === 'undefined') {
-							let old = obj[nodeName];
-							obj[nodeName] = [];
-							obj[nodeName].push(old);
-						}
-						obj[nodeName].push(parseElement(item));
-					}
-				}
-			}
-			return obj;
-		}
-
-		function xmlToJson(xml) {
-			const obj = {};
-
-			// 处理元素节点
-			if (xml.nodeType === Node.ELEMENT_NODE) {
-				// 处理属性
-				if (xml.attributes.length > 0) {
-					obj["@attributes"] = {};
-					Array.from(xml.attributes).forEach(attr => {
-						obj["@attributes"][attr.name] = attr.value;
-					});
-				}
-
-				// 处理子节点
-				Array.from(xml.childNodes).forEach(child => {
-					const childObj = xmlToJson(child);
-					const nodeName = child.nodeName;
-
-					if (typeof obj[nodeName] === 'undefined') {
-						obj[nodeName] = childObj;
-					} else {
-						if (!Array.isArray(obj[nodeName])) {
-							obj[nodeName] = [obj[nodeName]];
-						}
-						obj[nodeName].push(childObj);
-					}
-				});
-
-				return Object.keys(obj).length > 0 ? obj : xml.textContent.trim();
-			}
-
-			// 处理文本节点
-			if (xml.nodeType === Node.TEXT_NODE) {
-				return xml.textContent.trim();
-			}
-		}
-
-		function parseXML(xmlString) {
-			const parser = new xml2js.Parser({
-				explicitArray: false,
-				mergeAttrs: true
-			});
-
-			parser.parseString(xmlString, (err, result) => {
-				if(err) return console.error(err);
-				console.log('浏览器端JSON:', result);
-			});
-		}
-
-		// XML转JSON
-		function xmlToJson() {
-			try {
-				const xmlString = document.getElementById('xmlInput').value;
-				// const parser = new DOMParser();
-				// const xmlDoc = parser.parseFromString(xmlString, "xml/text");
-				//
-				// const xmlobj = xmlStr2XmlObj(xmlDoc);
-				// const jsonResult = xmlObj2json(xmlobj);
-				//const json = parseElement(xmlDoc.documentElement);
-				//const jsonResult = JSON.stringify(json, null, 2);
-				const jsonObj = xmlToJson88(xmlString);
-				document.getElementById('jsonInput').value = JSON.stringify(jsonObj, null, 4);
-
-				showError('');
-			} catch (error) {
-				showError('转换错误: ' + error.message);
-			}
-		}
-
-		// 核心转换函数（支持特殊字符编码）
-		function jsonToXml(jsonObj, rootName = 'root', indent = '') {
-			let xml = '';
-			const encodeName = (name) => {
-				return name.replace(/[^a-zA-Z0-9_-]/g, c =>
-						`_x${c.charCodeAt(0).toString(16).padStart(4, '0').toUpperCase()}_`);
-			};
-
-			// 处理数组
-			if (Array.isArray(jsonObj)) {
-				jsonObj.forEach((item, index) => {
-					xml += `${indent}<${encodeName(rootName)}>\n`;
-					xml += jsonToXml(item, 'item', indent + '  ');
-					xml += `${indent}</${encodeName(rootName)}>\n`;
-				});
-				return xml;
-			}
-
-			// 处理对象
-			if (typeof jsonObj === 'object') {
-				const attrs = jsonObj["@attributes"] || {};
-				const children = Object.entries(jsonObj)
-						.filter(([k]) => k !== "@attributes");
-
-				const startTag = `${indent}<${encodeName(rootName)}` +
-						Object.entries(attrs)
-								.map(([k, v]) => ` ${encodeName(k)}="${v}"`)
-								.join('') +
-						'>\n';
-
-				xml += startTag;
-
-				children.forEach(([key, value]) => {
-					if (value === null || value === undefined) return;
-
-					if (typeof value === 'object') {
-						xml += jsonToXml(value, key, indent + '  ');
-					} else {
-						xml += `${indent}  <${encodeName(key)}>`;
-						xml += escapeXml(value.toString());
-						xml += `</${encodeName(key)}>\n`;
-					}
-				});
-
-				xml += `${indent}</${encodeName(rootName)}>\n`;
-				return xml;
-			}
-
-			// 处理原始值
-			return `${indent}<${encodeName(rootName)}>${escapeXml(jsonObj)}</${encodeName(rootName)}>\n`;
-		}
-
-		// XML特殊字符转义
-		function escapeXml(unsafe) {
-			return unsafe.replace(/[<>&'"]/g, c =>
-					({ '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;' })[c]);
-		}
-
-		// 转换入口
-		function convertJsonToXml() {
-			try {
-				const jsonString = document.getElementById('jsonInput').value;
-				const jsonObj = JSON.parse(jsonString);
-				const rootKey = Object.keys(jsonObj)[0] || 'root';
-				const xmlHeader = `<?xml version="1.0" encoding="UTF-8"?>\n`;
-				const formattedXml = xmlHeader + jsonToXml(jsonObj[rootKey], rootKey);
-
-				document.getElementById('xmlInput').value = formattedXml;
-				showError('');
-			} catch (error) {
-				showError(`转换错误: ${error.message}`);
-			}
-		}
-
-		// XML格式化
-		function formatXml(xml) {
-			let formatted = '';
-			let indent = '';
-			const tokens = xml.split(/(<[^>]+>)/g);
-
-			tokens.forEach(token => {
-				if (token.startsWith('<')) {
-					if (token.startsWith('</')) {
-						indent = indent.slice(4);
-						formatted += '\n' + indent + token;
-					} else {
-						formatted += '\n' + indent + token;
-						if (!token.startsWith('<?xml') && !token.endsWith('/>')) {
-							indent += '    ';
-						}
-					}
+					result[childName].push(childData);
 				} else {
-					formatted += token;
+					result[childName] = childData;
 				}
 			});
-
-			return formatted.trim();
 		}
 
-		// 辅助功能
-		function clearAll() {
-			document.getElementById('xmlInput').value = '';
-			document.getElementById('jsonInput').value = '';
-			showError('');
-			updateLineNumbers('xmlInput', 'xmlLines');
-			updateLineNumbers('jsonInput', 'jsonLines');
+		// 处理文本内容
+		const textContent = xmlNode.textContent.trim();
+		if (textContent && !Object.keys(result).length) {
+			return textContent;
 		}
 
-		function showError(message) {
-			const errorElem = document.getElementById('errorMsg');
-			errorElem.textContent = message;
-			errorElem.style.display = message ? 'block' : 'none';
-		}
+		return Object.keys(result).length ? result : textContent;
+	}
 
-		// 初始化事件监听
-		document.querySelectorAll('textarea').forEach(ta => {
-			ta.addEventListener('input', function() {
-				const isXml = this.id === 'xmlInput';
-				updateLineNumbers(this.id, isXml ? 'xmlLines' : 'jsonLines');
+	// XML转JSON
+	function convertXmlToJson() {
+		try {
+			const xmlString = $('#xmlInput').val().trim();
+			const xmlDoc = $.parseXML(xmlString);
+			const jsonResult = xmlToJson(xmlDoc.documentElement);
+
+			$('#jsonInput').val(JSON.stringify(jsonResult, null, 4));
+			$('#error').text('');
+		} catch (err) {
+			$('#error').text('XML转换错误: ' + err.message);
+		}
+	}
+
+	// 通用JSON转XML方法
+	function jsonToXml(nodeName, data) {
+		let xml = '';
+
+		if (Array.isArray(data)) {
+			data.forEach(item => {
+				xml += `<${nodeName}>${jsonToXml('item', item)}</${nodeName}>`;
 			});
-			ta.dispatchEvent(new Event('input'));
+		} else if (typeof data === 'object') {
+			Object.entries(data).forEach(([key, value]) => {
+				xml += `<${key}>${jsonToXml(key, value)}</${key}>`;
+			});
+		} else {
+			return escapeXml(data.toString());
+		}
+
+		return xml;
+	}
+
+	// JSON转XML
+	function convertJsonToXml() {
+		try {
+			const jsonData = JSON.parse($('#jsonInput').val());
+			const xmlContent = `<root>${jsonToXml('root', jsonData)}</root>`;
+			$('#xmlInput').val(formatXml(xmlContent));
+			$('#error').text('');
+		} catch (err) {
+			$('#error').text('JSON转换错误: ' + err.message);
+		}
+	}
+
+	// XML格式化
+	function formatXml(xml) {
+		let formatted = '';
+		let indent = '';
+		xml.split(/>\s*</).forEach(node => {
+			if (node.startsWith('/')) indent = indent.slice(2);
+			formatted += indent + '<' + node + '>\r\n';
+			if (!node.startsWith('/') && !node.endsWith('/')) indent += '  ';
 		});
-	</script>
+		return formatted.substring(1, formatted.length - 3);
+	}
+
+	// XML特殊字符转义
+	function escapeXml(unsafe) {
+		return unsafe.replace(/[&<>'"]/g, c => ({
+			'&': '&amp;', '<': '&lt;', '>': '&gt;',
+			'\'': '&apos;', '"': '&quot;'
+		}[c]));
+	}
+</script>
 </div>
 </body>
 

@@ -229,84 +229,50 @@
 
 		// 这里应该调用实际的DNS查询API
 		// 以下为模拟数据
-		resultContainer.innerHTML = `
-                <h3>查询结果：${domain}</h3>
-                <table class="record-table">
-                    <thead>
-                        <tr>
-                            <th>记录类型</th>
-                            <th>主机记录</th>
-                            <th>记录值</th>
-                            <th>TTL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>A</td>
-                            <td>@</td>
-                            <td>192.168.1.1</td>
-                            <td>600</td>
-                        </tr>
-                        <tr>
-                            <td>CNAME</td>
-                            <td>www</td>
-                            <td>${domain}</td>
-                            <td>600</td>
-                        </tr>
-                        <tr>
-                            <td>MX</td>
-                            <td>@</td>
-                            <td>mail.${domain}</td>
-                            <td>3600</td>
-                        </tr>
-                    </tbody>
-                </table>
-            `;
-
-		// 添加到历史记录
-		addToHistory(domain);
+		// resultContainer.innerHTML = `
+        //         <h3>查询结果：${domain}</h3>
+        //         <table class="record-table">
+        //             <thead>
+        //                 <tr>
+        //                     <th>记录类型</th>
+        //                     <th>主机记录</th>
+        //                     <th>记录值</th>
+        //                     <th>TTL</th>
+        //                 </tr>
+        //             </thead>
+        //             <tbody>
+        //                 <tr>
+        //                     <td>A</td>
+        //                     <td>@</td>
+        //                     <td>192.168.1.1</td>
+        //                     <td>600</td>
+        //                 </tr>
+        //                 <tr>
+        //                     <td>CNAME</td>
+        //                     <td>www</td>
+        //                     <td>${domain}</td>
+        //                     <td>600</td>
+        //                 </tr>
+        //                 <tr>
+        //                     <td>MX</td>
+        //                     <td>@</td>
+        //                     <td>mail.${domain}</td>
+        //                     <td>3600</td>
+        //                 </tr>
+        //             </tbody>
+        //         </table>
+        //     `;
+		//
+		// // 添加到历史记录
+		// addToHistory(domain);
 		// const data ={
 		// 	"apiKey": "at_yEXmjA2f9lr7eFTbg06cHAmYh6WME",
 		// 	"searchType": "forward",
 		// 	"recordType": "aaaa",
 		// 	"domainName": domain
 		// };
-		// $.ajax({
-		// 	url: 'https://dns-history.whoisxmlapi.com/api/v1',
-		// 	method: "post",
-		// 	contentType: "application/json; charset=utf-8",
-		// 	data: JSON.stringify(data),
-		// 	dataType: "json", // 预期服务器返回的数据类型
-		// })
-		// .done(function(data){
-		//
-		// 	console.log(data)
-		// 	// $(data).each(function() {
-		// 	// 	var createdDate = $(this).find("createdDate").text();
-		// 	// 	var expiresDate = $(this).find("expiresDate").text();
-		// 	// 	var organization = $(this).find("organization").text();
-		// 	// 	var country = $(this).find("country").text();
-		// 	// 	var state = $(this).find("state").text();
-		// 	//
-		// 	// 	var bookHtml = "<div class='book'>" +
-		// 	// 			"<h3>" + title + "</h3>" +
-		// 	// 			"<p>Author: " + author + "</p>" +
-		// 	// 			"<p>Price: $" + price + "</p>" +
-		// 	// 			"</div>";
-		// 	//
-		// 	// 	$("#books-container").append(bookHtml);
-		// 	// });
-		// 	//
-		// 	// resultContainer.innerHTML = $(data);
-		// 	// // 添加到历史记录
-		// 	// addToHistory(domain);
-		//
-		// })
-		// .fail(function(jqXHR){
-		//
-		//
-		// })
 
+		getData(domain)
 	}
 
 	function addToHistory(domain) {
@@ -319,6 +285,93 @@
 			searchDomain();
 		};
 		historyList.insertBefore(historyItem, historyList.firstChild);
+	}
+
+	function getData(domain){
+		$.ajax({
+			url: 'https://dns.google/resolve?name='+domain+'&type=A',
+			method: "get",
+			dataType: "json", // 预期服务器返回的数据类型
+		})
+		.done(function(data1){
+
+
+			$.ajax({
+				url: 'https://dns.google/resolve?name='+domain+'&type=CNAME',
+				method: "get",
+				dataType: "json", // 预期服务器返回的数据类型
+			})
+			.done(function(data2){
+
+				$.ajax({
+					url: 'https://dns.google/resolve?name='+domain+'&type=MX',
+					method: "get",
+					dataType: "json", // 预期服务器返回的数据类型
+				})
+				.done(function(data3){
+
+
+					// 这里应该调用实际的DNS查询API
+					// 以下为模拟数据
+					resultContainer.innerHTML = `
+								<h3>查询结果：${domain}</h3>
+								<table class="record-table">
+									<thead>
+										<tr>
+											<th>记录类型</th>
+											<th>主机记录</th>
+											<th>记录值</th>
+											<th>TTL</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>A</td>
+											<td>@</td>
+											<td>${data1.Answer[0].data}</td>
+											<td>${data1.Answer[0].TTL}</td>
+										</tr>
+										<tr>
+											<td>CNAME</td>
+											<td>www</td>
+											<td>${data2.Authority[0].data}</td>
+											<td>${data2.Authority[0].TTL}</td>
+										</tr>
+										<tr>
+											<td>MX</td>
+											<td>@</td>
+											<td>${data3.Authority[0].data}</td>
+											<td>${data3.Authority[0].TTL}</td>
+										</tr>
+									</tbody>
+								</table>
+							`;
+
+					addToHistory(domain);
+
+				})
+				.fail(function(jqXHR){
+
+
+				})
+
+
+
+
+
+			})
+			.fail(function(jqXHR){
+
+
+			})
+
+
+
+		})
+		.fail(function(jqXHR){
+
+
+		})
 	}
 </script>
 </body>
