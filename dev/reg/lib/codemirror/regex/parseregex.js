@@ -55,7 +55,7 @@
  *                                                                                      simply checks that the values are plausible;
  *                                                                                      Note: To include Unicode validation, you must include your
  *                                                                                                      CodeMirror parserfile in this sequence:
- *                                                                                          parserfile: ["parseregex.js", "parseregex-unicode.js"]
+ *                                                                                          parserfile: ["parseregex.js2", "parseregex-unicode.js2"]
  * "unicode_classes": {Boolean} Whether to accept all Unicode classes (unless overridden); default is true
  * "unicode_blocks": {Boolean} Whether to accept Unicode blocks (overrides unicode_classes default); e.g., \p{InArabic}
  * "unicode_scripts": {Boolean} Whether to accept Unicode scripts (overrides unicode_classes default); e.g., \p{Hebrew}
@@ -149,7 +149,7 @@ var RegexParser = CodeMirror.Editor.Parser = (function() {
         
     config.literal_initial = '/';
     
-    // Adapted from tokenize.js (not distinctly treating whitespace except for newlines)
+    // Adapted from tokenize.js2 (not distinctly treating whitespace except for newlines)
     function noWSTokenizer (source, state) {
       var tokenizer = {
         state: state,
@@ -839,7 +839,7 @@ if (e != StopIteration) {
 
             if (config.unicode_mode !== 'simple') {
                 if (!unicode) {
-                    throw 'You must include the parseregex-unicode.js file in order to use validate or storage mode Unicode';
+                    throw 'You must include the parseregex-unicode.js2 file in order to use validate or storage mode Unicode';
                 }
             }
         }
