@@ -115,6 +115,8 @@
 		gtag('config', 'G-8NMLH22Y6G');
 	</script>
 
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -144,8 +146,10 @@
 
 	<div class="result-area">
 		<div class="result-item">数字个数：<span id="numberCount">0</span></div>
+		<div class="result-item">字符个数：<span id="strCount">0</span></div>
 		<div class="result-item">汉字个数：<span id="chineseCount">0</span></div>
 		<div class="result-item">标点符号：<span id="punctuationCount">0</span></div>
+		<div class="result-item">总数量：<span id="totalCount">0</span></div>
 	</div>
 
 	<div class="instructions">
@@ -164,6 +168,10 @@
 			// 统计数字（0-9）
 			const numberCount = (text.match(/[0-9]/g) || []).length;
 
+
+			// 统计数字（0-9）
+			const strCount = (text.match(/[a-z]/g) || []).length;
+
 			// 统计汉字（Unicode范围）
 			const chineseCount = (text.match(/[\u4e00-\u9fa5]/g) || []).length;
 
@@ -172,8 +180,11 @@
 
 			// 更新统计结果
 			document.getElementById('numberCount').textContent = numberCount;
+			document.getElementById('strCount').textContent = strCount;
 			document.getElementById('chineseCount').textContent = chineseCount;
 			document.getElementById('punctuationCount').textContent = punctuationCount;
+
+			document.getElementById('totalCount').textContent = (numberCount+strCount+chineseCount+punctuationCount);
 		}
 
 		function clearAll() {
@@ -181,6 +192,8 @@
 			document.getElementById('numberCount').textContent = '0';
 			document.getElementById('chineseCount').textContent = '0';
 			document.getElementById('punctuationCount').textContent = '0';
+			document.getElementById('strCount').textContent = '0';
+			document.getElementById('totalCount').textContent = '0';
 		}
 	</script>
 </div>
