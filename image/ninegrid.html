@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>九宫格切图工具-传道软件</title>
+	<meta name="keywords" content="在线软件工具集合、传道软件">
+	<meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
+	<link rel="canonical" href="https://chdaoai.com/">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.image-container {
+			display: flex;
+			gap: 20px;
+			margin-bottom: 20px;
+		}
+		.image-box {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 10px;
+		}
+		.image-preview {
+			width: 100%;
+			height: 300px;
+			border: 2px dashed #ddd;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			background-color: #f8f9fa;
+		}
+		.image-preview img {
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+		}
+		.button {
+			width: 100%;
+			padding: 12px;
+			border: none;
+			border-radius: 4px;
+			font-size: 16px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+		}
+		.upload-btn {
+			background-color: #ff6b6b;
+			color: white;
+		}
+		.upload-btn:hover {
+			background-color: #ff5252;
+		}
+		.download-btn {
+			background-color: #f8f9fa;
+			color: #333;
+			border: 1px solid #ddd;
+		}
+		.download-btn:hover {
+			background-color: #e9ecef;
+		}
+		.info-box {
+			margin-top: 20px;
+			padding: 15px;
+			background: #fff5f0;
+			border-radius: 4px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 10px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+			font-size: 14px;
+			line-height: 1.8;
+		}
+		.info-list li {
+			margin-bottom: 5px;
+		}
+	</style>
+
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					colors: {
+						primary: '#3B82F6',
+						secondary: '#6366F1',
+						accent: '#8B5CF6',
+						neutral: '#1F2937',
+						'base-100': '#F3F4F6',
+					},
+					fontFamily: {
+						inter: ['Inter', 'sans-serif'],
+					},
+				}
+			}
+		}
+	</script>
+	<style type="text/tailwindcss">
+		@layer utilities {
+			.content-auto {
+				content-visibility: auto;
+			}
+			.text-shadow {
+				text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+			}
+			.transition-all-300 {
+				transition: all 300ms ease-in-out;
+			}
+			.hover-scale {
+				@apply hover:scale-105 transition-all duration-300;
+			}
+		}
+	</style>
+
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+	<!-- 添加图片处理所需的库 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">
+		<img src="../static/images/logo.png" width="100" style="margin-right: 60px"/>
+	</a>
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<div class="container">
+
+	<div class="container mx-auto px-4 py-8 max-w-6xl">
+		<!-- 头部 -->
+		<header class="text-center mb-12">
+			<h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-neutral mb-4 text-shadow bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+				九宫格切图工具
+			</h1>
+			<p class="text-gray-600 text-lg max-w-2xl mx-auto">上传一张图片，将其切割成9个均等的部分，轻松创建九宫格拼图效果。</p>
+		</header>
+
+		<!-- 主内容区 -->
+		<main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+			<!-- 左侧：上传区域 -->
+			<section class="lg:col-span-1 bg-white rounded-2xl shadow-xl p-6 hover-scale">
+				<div class="text-center mb-6">
+					<i class="fa-solid fa-cloud-upload text-5xl text-primary mb-4"></i>
+					<h2 class="text-xl font-bold text-neutral mb-2">上传图片</h2>
+					<p class="text-gray-500">选择一张图片开始切割</p>
+				</div>
+
+				<div id="drop-area" class="border-2 border-dashed border-primary/30 rounded-xl p-8 text-center cursor-pointer hover:border-primary transition-all duration-300 mb-6">
+					<input type="file" id="file-input" accept="image/*" class="hidden">
+					<label for="file-input" class="cursor-pointer">
+						<i class="fa-solid fa-image text-4xl text-primary/60 mb-3"></i>
+						<p class="text-gray-600 mb-2">点击或拖拽图片到这里</p>
+						<p class="text-sm text-gray-400">支持 JPG, PNG, GIF 格式</p>
+					</label>
+				</div>
+
+				<div id="preview-container" class="hidden mb-6">
+					<h3 class="text-lg font-semibold text-neutral mb-3">图片预览</h3>
+					<div class="relative overflow-hidden rounded-lg border border-gray-200">
+						<img id="preview-image" src="" alt="预览图片" class="max-w-full h-auto object-contain">
+						<div id="loading-overlay" class="absolute inset-0 bg-black/50 flex items-center justify-center hidden">
+							<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+						</div>
+					</div>
+				</div>
+
+				<button id="slice-button" class="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
+					<i class="fa-solid fa-scissors mr-2"></i>
+					开始切割
+				</button>
+			</section>
+
+			<!-- 右侧：结果展示区 -->
+			<section id="results-section" class="lg:col-span-2 bg-white rounded-2xl shadow-xl p-6 opacity-0 transition-opacity duration-500">
+				<div class="text-center mb-6">
+					<i class="fa-solid fa-th text-5xl text-accent mb-4"></i>
+					<h2 class="text-xl font-bold text-neutral mb-2">切割结果</h2>
+					<p class="text-gray-500">点击下载按钮保存每一部分</p>
+				</div>
+
+				<div id="grid-container" class="grid grid-cols-3 gap-4 mb-6">
+					<!-- 九宫格图片将在这里动态生成 -->
+				</div>
+
+				<button id="download-all" class="w-full bg-secondary hover:bg-secondary/90 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+					<i class="fa-solid fa-download mr-2"></i>
+					下载全部图片
+				</button>
+			</section>
+		</main>
+
+	</div>
+</div>
+
+<script>
+	// 初始化变量
+	let originalImage = null;
+	let canvasElements = [];
+	let isProcessing = false;
+
+	// DOM 元素
+	const dropArea = document.getElementById('drop-area');
+	const fileInput = document.getElementById('file-input');
+	const previewContainer = document.getElementById('preview-container');
+	const previewImage = document.getElementById('preview-image');
+	const sliceButton = document.getElementById('slice-button');
+	const resultsSection = document.getElementById('results-section');
+	const gridContainer = document.getElementById('grid-container');
+	const downloadAllButton = document.getElementById('download-all');
+	const loadingOverlay = document.getElementById('loading-overlay');
+
+	// 拖拽上传功能
+	['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+		dropArea.addEventListener(eventName, preventDefaults, false);
+	});
+
+	function preventDefaults(e) {
+		e.preventDefault();
+		e.stopPropagation();
+	}
+
+	['dragenter', 'dragover'].forEach(eventName => {
+		dropArea.addEventListener(eventName, highlight, false);
+	});
+
+	['dragleave', 'drop'].forEach(eventName => {
+		dropArea.addEventListener(eventName, unhighlight, false);
+	});
+
+	function highlight() {
+		dropArea.classList.add('border-primary');
+		dropArea.classList.add('bg-primary/5');
+	}
+
+	function unhighlight() {
+		dropArea.classList.remove('border-primary');
+		dropArea.classList.remove('bg-primary/5');
+	}
+
+	dropArea.addEventListener('drop', handleDrop, false);
+
+	function handleDrop(e) {
+		const dt = e.dataTransfer;
+		const file = dt.files[0];
+		handleFile(file);
+	}
+
+	// 文件选择
+	fileInput.addEventListener('change', function() {
+		handleFile(this.files[0]);
+	});
+
+	// 处理文件
+	function handleFile(file) {
+		if (!file) return;
+		if (!file.type.match('image.*')) {
+			alert('请选择图片文件！');
+			return;
+		}
+
+		const reader = new FileReader();
+		reader.onload = function(e) {
+			previewImage.src = e.target.result;
+			previewContainer.classList.remove('hidden');
+			previewContainer.classList.add('animate-fadeIn');
+
+			// 加载原始图片用于切割
+			const img = new Image();
+			img.onload = function() {
+				originalImage = img;
+				sliceButton.disabled = false;
+			};
+			img.src = e.target.result;
+		};
+		reader.readAsDataURL(file);
+	}
+
+	// 切割图片
+	sliceButton.addEventListener('click', function() {
+		if (!originalImage || isProcessing) return;
+
+		isProcessing = true;
+		loadingOverlay.classList.remove('hidden');
+		sliceButton.disabled = true;
+
+		setTimeout(() => {
+			sliceImage();
+			isProcessing = false;
+			loadingOverlay.classList.add('hidden');
+			resultsSection.style.opacity = '1';
+			// 平滑滚动到结果区域
+			resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}, 800); // 模拟处理延迟
+	});
+
+	// 执行图片切割
+	function sliceImage() {
+		const imgWidth = originalImage.width;
+		const imgHeight = originalImage.height;
+		const pieceWidth = Math.floor(imgWidth / 3);
+		const pieceHeight = Math.floor(imgHeight / 3);
+
+		// 清空结果容器
+		gridContainer.innerHTML = '';
+		canvasElements = [];
+
+		// 创建9个canvas并绘制切割后的图片
+		for (let row = 0; row < 3; row++) {
+			for (let col = 0; col < 3; col++) {
+				const canvas = document.createElement('canvas');
+				canvas.width = pieceWidth;
+				canvas.height = pieceHeight;
+				const ctx = canvas.getContext('2d');
+
+				// 计算源图片的位置
+				const sx = col * pieceWidth;
+				const sy = row * pieceHeight;
+
+				// 绘制图片到canvas
+				ctx.drawImage(
+						originalImage,
+						sx, sy, pieceWidth, pieceHeight,
+						0, 0, pieceWidth, pieceHeight
+				);
+
+				// 保存canvas引用
+				canvasElements.push(canvas);
+
+				// 创建结果项
+				const gridItem = document.createElement('div');
+				gridItem.className = 'bg-base-100 rounded-lg shadow-md overflow-hidden hover-scale';
+
+				// 添加图片预览
+				const imgContainer = document.createElement('div');
+				imgContainer.className = 'relative aspect-square overflow-hidden';
+				const img = document.createElement('img');
+				img.src = canvas.toDataURL('image/png');
+				img.alt = `图片部分 ${row * 3 + col + 1}`;
+				img.className = 'w-full h-full object-cover transition-transform duration-500 hover:scale-110';
+				imgContainer.appendChild(img);
+
+				// 添加序号
+				const numberBadge = document.createElement('div');
+				numberBadge.className = 'absolute top-2 left-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded-full shadow';
+				numberBadge.textContent = `${row * 3 + col + 1}`;
+				imgContainer.appendChild(numberBadge);
+
+				// 添加下载按钮
+				const downloadBtn = document.createElement('button');
+				downloadBtn.className = 'w-full bg-accent hover:bg-accent/90 text-white font-medium py-2 px-4 transition-all duration-300 flex items-center justify-center';
+				downloadBtn.innerHTML = '<i class="fa-solid fa-download mr-2"></i> 下载';
+				downloadBtn.addEventListener('click', function() {
+					downloadCanvas(canvas, `九宫格_${row * 3 + col + 1}.png`);
+				});
+
+				// 组装结果项
+				gridItem.appendChild(imgContainer);
+				gridItem.appendChild(downloadBtn);
+				gridContainer.appendChild(gridItem);
+			}
+		}
+	}
+
+	// 下载单个canvas图片
+	function downloadCanvas(canvas, filename) {
+		const link = document.createElement('a');
+		link.download = filename;
+		link.href = canvas.toDataURL('image/png');
+		link.click();
+	}
+
+	// 下载全部图片
+	downloadAllButton.addEventListener('click', function() {
+		if (canvasElements.length === 0) return;
+
+		// 逐个下载图片，设置小延迟避免浏览器阻止
+		canvasElements.forEach((canvas, index) => {
+			setTimeout(() => {
+				downloadCanvas(canvas, `九宫格_${index + 1}.png`);
+			}, index * 200);
+		});
+	});
+
+	// 添加淡入动画
+	document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                .animate-fadeIn {
+                    animation: fadeIn 0.5s ease-out forwards;
+                }
+            </style>
+        `);
+</script>
+</body>
+
+
+
+
+
+</html>

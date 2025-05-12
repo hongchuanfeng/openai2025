@@ -1,43 +1,545 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>简繁转换修复版</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/umd/full.js"></script>     <!-- 完全版 -->
-    <script src="https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/umd/cn2t.js"></script>     <!-- 只需要简转繁时 -->
-    <script src="https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/umd/t2cn.js"></script>     <!-- 只需要繁转简时 -->
-    <style>
-        .container { max-width: 800px; margin: 20px auto; padding: 20px; }
-        textarea {
-            width: 100%;
-            height: 200px;
-            padding: 15px;
-            border: 2px solid #4CAF50;
-            margin: 10px 0;
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片拼接工具</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        neutral: '#1F2937',
+                        'base-100': '#F3F4F6',
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
         }
-        button {
-            padding: 12px 24px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .transition-all-300 {
+                transition: all 300ms ease-in-out;
+            }
+            .hover-scale {
+                @apply hover:scale-105 transition-all duration-300;
+            }
+            .image-preview {
+                @apply relative bg-white rounded-lg shadow-md overflow-hidden mb-4 transition-all duration-300 hover:shadow-lg;
+            }
+            .image-preview img {
+                @apply w-full h-auto object-cover;
+            }
+            .remove-btn {
+                @apply absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300;
+            }
+            .image-preview:hover .remove-btn {
+                @apply opacity-100;
+            }
         }
     </style>
 </head>
-<body>
-<div class="container">
-    <textarea id="input" placeholder="输入简体中文..."></textarea>
-    <button onclick="convert()">转换为繁体中文</button>
-    <textarea id="output" readonly></textarea>
+<body class="font-inter bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen">
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+    <!-- 头部 -->
+    <header class="text-center mb-12">
+        <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-neutral mb-4 text-shadow bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+            图片拼接工具
+        </h1>
+        <p class="text-gray-600 text-lg max-w-2xl mx-auto">上传多张图片，选择拼接方式，生成一张组合图片。</p>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- 左侧：上传和设置 -->
+        <section class="lg:col-span-1 bg-white rounded-2xl shadow-xl p-6 hover-scale">
+            <div class="text-center mb-6">
+                <i class="fa-solid fa-images text-5xl text-primary mb-4"></i>
+                <h2 class="text-xl font-bold text-neutral mb-2">上传图片</h2>
+                <p class="text-gray-500">支持上传多张图片进行拼接</p>
+            </div>
+
+            <div id="drop-area" class="border-2 border-dashed border-primary/30 rounded-xl p-8 text-center cursor-pointer hover:border-primary transition-all duration-300 mb-6">
+                <input type="file" id="file-input" accept="image/*" multiple class="hidden">
+                <label for="file-input" class="cursor-pointer">
+                    <i class="fa-solid fa-cloud-upload text-4xl text-primary/60 mb-3"></i>
+                    <p class="text-gray-600 mb-2">点击或拖拽图片到这里</p>
+                    <p class="text-sm text-gray-400">支持 JPG, PNG, GIF 格式</p>
+                </label>
+            </div>
+
+            <div id="preview-container" class="space-y-4">
+                <h3 class="text-lg font-semibold text-neutral mb-3">已上传图片</h3>
+                <div id="images-list" class="space-y-3">
+                    <!-- 上传的图片预览将在这里显示 -->
+                    <div class="text-center text-gray-500 py-6 border border-dashed border-gray-300 rounded-lg">
+                        <i class="fa-solid fa-image text-3xl mb-2"></i>
+                        <p>暂无上传的图片</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">拼接方式</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button type="button" id="horizontal-btn" class="flex items-center justify-center py-3 border border-primary bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-all duration-200 focus:ring-2 focus:ring-primary">
+                            <i class="fa-solid fa-arrows-left-right mr-2"></i>
+                            水平拼接
+                        </button>
+                        <button type="button" id="vertical-btn" class="flex items-center justify-center py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition-all duration-200 focus:ring-2 focus:ring-primary">
+                            <i class="fa-solid fa-arrows-up-down mr-2"></i>
+                            垂直拼接
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">间距</label>
+                    <input type="range" id="spacing" min="0" max="50" step="1" value="10" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                        <span>无</span>
+                        <span id="spacing-value">10px</span>
+                        <span>大</span>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">背景颜色</label>
+                    <div class="flex items-center">
+                        <input type="color" id="bg-color" value="#FFFFFF" class="w-10 h-10 border border-gray-300 rounded cursor-pointer">
+                        <input type="text" id="bg-color-hex" value="#FFFFFF" class="ml-3 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary w-full">
+                    </div>
+                </div>
+
+                <button id="combine-button" class="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="fa-solid fa-object-group mr-2"></i>
+                    开始拼接
+                </button>
+            </div>
+        </section>
+
+        <!-- 右侧：结果展示区 -->
+        <section id="results-section" class="lg:col-span-2 bg-white rounded-2xl shadow-xl p-6 opacity-0 transition-opacity duration-500">
+            <div class="text-center mb-6">
+                <i class="fa-solid fa-image text-5xl text-accent mb-4"></i>
+                <h2 class="text-xl font-bold text-neutral mb-2">拼接结果</h2>
+                <p class="text-gray-500">点击下载按钮保存拼接后的图片</p>
+            </div>
+
+            <div id="result-container" class="bg-base-100 rounded-xl p-4 shadow-inner mb-6">
+                <div class="flex justify-center items-center min-h-[300px]">
+                    <div class="relative">
+                        <canvas id="result-canvas" class="max-w-full"></canvas>
+                        <div id="loading-overlay" class="absolute inset-0 bg-black/50 flex items-center justify-center hidden">
+                            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-4 justify-center">
+                <div class="flex-1 min-w-[200px]">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">输出格式</label>
+                    <select id="format-select" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
+                        <option value="png">PNG</option>
+                        <option value="jpeg">JPEG</option>
+                        <option value="webp">WebP</option>
+                    </select>
+                </div>
+
+                <div class="flex-1 min-w-[200px]">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">图片质量</label>
+                    <input type="range" id="quality-range" min="0.1" max="1" step="0.1" value="0.9" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                        <span>低</span>
+                        <span id="quality-value">90%</span>
+                        <span>高</span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="download-button" class="mt-6 w-full bg-accent hover:bg-accent/90 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
+                <i class="fa-solid fa-download mr-2"></i>
+                下载图片
+            </button>
+            <div id="preview"></div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="mt-16 text-center text-gray-500 text-sm">
+        <p>© 2025 图片拼接工具 | 使用现代网页技术构建</p>
+    </footer>
 </div>
 
 <script>
-    // 将繁体中文（香港）转换为简体中文（中国大陆）
-    const converter = OpenCC.Converter({ from: 'hk', to: 'cn' });
-    console.log(converter('漢語')); // output: 汉语
+    // 初始化变量
+    let images = [];
+    let isHorizontal = true;
+    let spacing = 10;
+    let bgColor = '#FFFFFF';
+    let canvas = null;
+    let ctx = null;
+
+    // DOM 元素
+    const dropArea = document.getElementById('drop-area');
+    const fileInput = document.getElementById('file-input');
+    const imagesList = document.getElementById('images-list');
+    const horizontalBtn = document.getElementById('horizontal-btn');
+    const verticalBtn = document.getElementById('vertical-btn');
+    const spacingSlider = document.getElementById('spacing');
+    const spacingValue = document.getElementById('spacing-value');
+    const bgColorPicker = document.getElementById('bg-color');
+    const bgColorHex = document.getElementById('bg-color-hex');
+    const combineButton = document.getElementById('combine-button');
+    const resultsSection = document.getElementById('results-section');
+    const resultCanvas = document.getElementById('result-canvas');
+    const loadingOverlay = document.getElementById('loading-overlay');
+    const downloadButton = document.getElementById('download-button');
+    const formatSelect = document.getElementById('format-select');
+    const qualityRange = document.getElementById('quality-range');
+    const qualityValue = document.getElementById('quality-value');
+
+    // 初始化Canvas
+    function initCanvas() {
+        canvas = resultCanvas;
+        ctx = canvas.getContext('2d');
+    }
+
+    // 拖拽上传功能
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight() {
+        dropArea.classList.add('border-primary');
+        dropArea.classList.add('bg-primary/5');
+    }
+
+    function unhighlight() {
+        dropArea.classList.remove('border-primary');
+        dropArea.classList.remove('bg-primary/5');
+    }
+
+    dropArea.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        handleFiles(files);
+    }
+
+    // 文件选择
+    fileInput.addEventListener('change', function() {
+        handleFiles(this.files);
+    });
+
+    // 处理文件
+    function handleFiles(files) {
+        if (!files.length) return;
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            if (!file.type.match('image.*')) continue;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    // 存储图片数据
+                    images.push({
+                        src: e.target.result,
+                        width: img.width,
+                        height: img.height,
+                        naturalWidth: img.width,
+                        naturalHeight: img.height
+                    });
+
+                    // 更新图片预览
+                    updateImagePreviews();
+
+                    // 启用拼接按钮
+                    if (images.length > 1) {
+                        combineButton.disabled = false;
+                    }
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // 更新图片预览
+    function updateImagePreviews() {
+        // 清空现有预览
+        imagesList.innerHTML = '';
+
+        if (images.length === 0) {
+            imagesList.innerHTML = `
+                    <div class="text-center text-gray-500 py-6 border border-dashed border-gray-300 rounded-lg">
+                        <i class="fa-solid fa-image text-3xl mb-2"></i>
+                        <p>暂无上传的图片</p>
+                    </div>
+                `;
+            return;
+        }
+
+        // 添加图片预览
+        images.forEach((img, index) => {
+            const preview = document.createElement('div');
+            preview.className = 'image-preview';
+            preview.innerHTML = `
+                    <img src="${img.src}" alt="图片 ${index + 1}">
+                    <div class="remove-btn" data-index="${index}">
+                        <i class="fa-solid fa-times"></i>
+                    </div>
+                `;
+
+            // 添加删除事件
+            const removeBtn = preview.querySelector('.remove-btn');
+            removeBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const idx = parseInt(this.getAttribute('data-index'));
+                images.splice(idx, 1);
+                updateImagePreviews();
+
+                // 如果图片数量不足，禁用拼接按钮
+                if (images.length < 2) {
+                    combineButton.disabled = true;
+                }
+            });
+
+            imagesList.appendChild(preview);
+        });
+    }
+
+    // 设置拼接方向
+    horizontalBtn.addEventListener('click', function() {
+        isHorizontal = true;
+        horizontalBtn.classList.add('bg-primary/10', 'border-primary', 'text-primary');
+        horizontalBtn.classList.remove('border-gray-300');
+        verticalBtn.classList.remove('bg-primary/10', 'border-primary', 'text-primary');
+        verticalBtn.classList.add('border-gray-300');
+    });
+
+    verticalBtn.addEventListener('click', function() {
+        isHorizontal = false;
+        verticalBtn.classList.add('bg-primary/10', 'border-primary', 'text-primary');
+        verticalBtn.classList.remove('border-gray-300');
+        horizontalBtn.classList.remove('bg-primary/10', 'border-primary', 'text-primary');
+        horizontalBtn.classList.add('border-gray-300');
+    });
+
+    // 间距滑块
+    spacingSlider.addEventListener('input', function() {
+        spacing = parseInt(this.value);
+        spacingValue.textContent = `${spacing}px`;
+    });
+
+    // 背景颜色
+    bgColorPicker.addEventListener('input', function() {
+        bgColor = this.value;
+        bgColorHex.value = bgColor;
+    });
+
+    bgColorHex.addEventListener('input', function() {
+        if (/^#[0-9A-F]{6}$/i.test(this.value)) {
+            bgColor = this.value;
+            bgColorPicker.value = bgColor;
+        }
+    });
+
+    // 质量滑块
+    qualityRange.addEventListener('input', function() {
+        qualityValue.textContent = `${Math.round(parseFloat(this.value) * 100)}%`;
+    });
+
+    // 拼接图片
+    combineButton.addEventListener('click', function() {
+        if (images.length < 2) return;
+
+        loadingOverlay.classList.remove('hidden');
+        downloadButton.disabled = true;
+
+        setTimeout(() => {
+            combineImages();
+            loadingOverlay.classList.add('hidden');
+            resultsSection.style.opacity = '1';
+            downloadButton.disabled = false;
+
+            // 平滑滚动到结果区域
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 800); // 模拟处理延迟
+    });
+
+    async function combineImages() {
+        if (images.length === 0) {
+            alert('请先选择图片');
+            return;
+        }
+
+        // 加载所有图片
+        const imageElements = await Promise.all(images.map(src => {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.src = src;
+            });
+        }));
+
+        // 计算画布尺寸
+        const direction = document.getElementById('direction').value;
+        let canvasWidth = 0;
+        let canvasHeight = 0;
+
+        if (isHorizontal) {
+            canvasWidth = imageElements.reduce((sum, img) => sum + img.width, 0);
+            canvasHeight = Math.max(...imageElements.map(img => img.height));
+        } else {
+            canvasWidth = Math.max(...imageElements.map(img => img.width));
+            canvasHeight = imageElements.reduce((sum, img) => sum + img.height, 0);
+        }
+
+        // 创建画布
+        let canvas = resultCanvas;
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+        const ctx = canvas.getContext('2d');
+
+        // 绘制图片
+        let offset = 0;
+        imageElements.forEach(img => {
+            if (isHorizontal) {
+                ctx.drawImage(img, offset, 0);
+                offset += img.width;
+            } else {
+                ctx.drawImage(img, 0, offset);
+                offset += img.height;
+            }
+        });
+
+        // 显示结果
+        const resultImage = new Image();
+        resultImage.src = canvas.toDataURL('image/png');
+        resultImage.style.maxWidth = '100%';
+
+        const preview = document.getElementById('preview');
+        preview.innerHTML = '';
+        preview.appendChild(resultImage);
+
+        // 添加下载链接
+        const downloadLink = document.createElement('a');
+        downloadLink.href = resultImage.src;
+        downloadLink.download = 'stitched-image.png';
+        downloadLink.textContent = '下载拼接图片';
+        preview.appendChild(downloadLink);
+    }
+
+    // 执行图片拼接
+    function combineImages2() {
+        if (images.length === 0) return;
+
+        // 计算拼接后的总尺寸
+        let totalWidth = 0;
+        let totalHeight = 0;
+        let maxWidth = 0;
+        let maxHeight = 0;
+
+        images.forEach(img => {
+            maxWidth = Math.max(maxWidth, img.width);
+            maxHeight = Math.max(maxHeight, img.height);
+        });
+
+        if (isHorizontal) {
+            // 水平拼接：总宽度是所有图片宽度之和加上间距，高度是最高图片的高度
+            totalWidth = images.reduce((sum, img) => sum + img.width, 0) + spacing * (images.length - 1);
+            totalHeight = maxHeight;
+        } else {
+            // 垂直拼接：总高度是所有图片高度之和加上间距，宽度是最宽图片的宽度
+            totalWidth = maxWidth;
+            totalHeight = images.reduce((sum, img) => sum + img.height, 0) + spacing * (images.length - 1);
+        }
+
+        // 设置Canvas尺寸
+        canvas.width = totalWidth;
+        canvas.height = totalHeight;
+
+        // 清空Canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // 绘制背景
+        ctx.fillStyle = bgColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // 拼接图片
+        let currentX = 0;
+        let currentY = 0;
+
+        images.forEach(img => {
+            const imageObj = new Image();
+            imageObj.onload = function() {
+                ctx.drawImage(imageObj, currentX, currentY, img.width, img.height);
+            };
+            imageObj.src = img.src;
+
+            if (isHorizontal) {
+                currentX += img.width + spacing;
+            } else {
+                currentY += img.height + spacing;
+            }
+        });
+    }
+
+    // 下载图片
+    downloadButton.addEventListener('click', function() {
+        const format = formatSelect.value;
+        const mimeType = format === 'jpeg' ? 'image/jpeg' :
+            format === 'webp' ? 'image/webp' : 'image/png';
+
+        // 获取质量设置（仅对JPEG和WebP有效）
+        const qualitySetting = (format === 'jpeg' || format === 'webp') ? parseFloat(qualityRange.value) : undefined;
+
+        // 创建下载链接
+        const link = document.createElement('a');
+        link.download = `拼接图片.${format}`;
+        link.href = canvas.toDataURL(mimeType, qualitySetting);
+        link.click();
+    });
+
+    // 页面加载完成后初始化
+    window.addEventListener('load', function() {
+        initCanvas();
+        updateImagePreviews();
+    });
 </script>
 </body>
 </html>

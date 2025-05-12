@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>图片裁剪工具-传道软件</title>
+	<meta name="keywords" content="在线软件工具集合、传道软件">
+	<meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
+	<link rel="canonical" href="https://chdaoai.com/">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.image-container {
+			display: flex;
+			gap: 20px;
+			margin-bottom: 20px;
+		}
+		.image-box {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 10px;
+		}
+		.image-preview {
+			width: 100%;
+			height: 300px;
+			border: 2px dashed #ddd;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			background-color: #f8f9fa;
+		}
+		.image-preview img {
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+		}
+		.button {
+			width: 100%;
+			padding: 12px;
+			border: none;
+			border-radius: 4px;
+			font-size: 16px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+		}
+		.upload-btn {
+			background-color: #ff6b6b;
+			color: white;
+		}
+		.upload-btn:hover {
+			background-color: #ff5252;
+		}
+		.download-btn {
+			background-color: #f8f9fa;
+			color: #333;
+			border: 1px solid #ddd;
+		}
+		.download-btn:hover {
+			background-color: #e9ecef;
+		}
+		.info-box {
+			margin-top: 20px;
+			padding: 15px;
+			background: #fff5f0;
+			border-radius: 4px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 10px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+			font-size: 14px;
+			line-height: 1.8;
+		}
+		.info-list li {
+			margin-bottom: 5px;
+		}
+	</style>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					colors: {
+						primary: '#3B82F6',
+						secondary: '#10B981',
+						accent: '#8B5CF6',
+						neutral: '#1F2937',
+						'base-100': '#F3F4F6',
+					},
+					fontFamily: {
+						inter: ['Inter', 'sans-serif'],
+					},
+				}
+			}
+		}
+	</script>
+	<style type="text/tailwindcss">
+		@layer utilities {
+			.content-auto {
+				content-visibility: auto;
+			}
+			.text-shadow {
+				text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+			}
+			.transition-all-300 {
+				transition: all 300ms ease-in-out;
+			}
+			.hover-scale {
+				@apply hover:scale-105 transition-all duration-300;
+			}
+			.cropper-handle {
+				@apply absolute w-4 h-4 bg-white border-2 border-primary rounded-full transform -translate-x-1/2 -translate-y-1/2 cursor-move;
+			}
+			.cropper-handle-nw {
+				@apply top-0 left-0;
+			}
+			.cropper-handle-ne {
+				@apply top-0 left-full;
+			}
+			.cropper-handle-sw {
+				@apply top-full left-0;
+			}
+			.cropper-handle-se {
+				@apply top-full left-full;
+			}
+			.cropper-overlay {
+				@apply absolute bg-black/50;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+	<!-- 添加图片处理所需的库 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">
+		<img src="../static/images/logo.png" width="100" style="margin-right: 60px"/>
+	</a>
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<div class="container">
+
+	<div class="container mx-auto px-4 py-8 max-w-6xl">
+		<!-- 头部 -->
+		<header class="text-center mb-12">
+			<h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-neutral mb-4 text-shadow bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+				图片裁剪工具
+			</h1>
+			<p class="text-gray-600 text-lg max-w-2xl mx-auto">上传一张图片，调整裁剪框大小和位置，获取完美裁剪结果。</p>
+		</header>
+
+		<!-- 主内容区 -->
+		<main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+			<!-- 左侧：上传区域 -->
+			<section class="lg:col-span-1 bg-white rounded-2xl shadow-xl p-6 hover-scale">
+				<div class="text-center mb-6">
+					<i class="fa-solid fa-cloud-upload text-5xl text-primary mb-4"></i>
+					<h2 class="text-xl font-bold text-neutral mb-2">上传图片</h2>
+					<p class="text-gray-500">选择一张图片开始裁剪</p>
+				</div>
+
+				<div id="drop-area" class="border-2 border-dashed border-primary/30 rounded-xl p-8 text-center cursor-pointer hover:border-primary transition-all duration-300 mb-6">
+					<input type="file" id="file-input" accept="image/*" class="hidden">
+					<label for="file-input" class="cursor-pointer">
+						<i class="fa-solid fa-image text-4xl text-primary/60 mb-3"></i>
+						<p class="text-gray-600 mb-2">点击或拖拽图片到这里</p>
+						<p class="text-sm text-gray-400">支持 JPG, PNG, GIF 格式</p>
+					</label>
+				</div>
+
+				<div id="preview-container" class="hidden mb-6">
+					<h3 class="text-lg font-semibold text-neutral mb-3">图片预览</h3>
+					<div class="relative overflow-hidden rounded-lg border border-gray-200">
+						<div id="image-container" class="relative">
+							<img id="preview-image" src="" alt="预览图片" class="max-w-full h-auto object-contain">
+
+							<!-- 裁剪框 -->
+							<div id="cropper" class="absolute border-2 border-primary cursor-move hidden">
+								<!-- 裁剪框手柄 -->
+								<div class="cropper-handle cropper-handle-nw"></div>
+								<div class="cropper-handle cropper-handle-ne"></div>
+								<div class="cropper-handle cropper-handle-sw"></div>
+								<div class="cropper-handle cropper-handle-se"></div>
+
+								<!-- 裁剪框覆盖层 -->
+								<div id="overlay-top" class="cropper-overlay top-0 left-0 w-full"></div>
+								<div id="overlay-bottom" class="cropper-overlay left-0 w-full"></div>
+								<div id="overlay-left" class="cropper-overlay left-0"></div>
+								<div id="overlay-right" class="cropper-overlay"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="flex flex-col space-y-3">
+					<button id="auto-crop-button" class="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
+						<i class="fa-solid fa-crop mr-2"></i>
+						自动适配裁剪框
+					</button>
+
+					<button id="crop-button" class="w-full bg-secondary hover:bg-secondary/90 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
+						<i class="fa-solid fa-scissors mr-2"></i>
+						执行裁剪
+					</button>
+				</div>
+			</section>
+
+			<!-- 右侧：结果展示区 -->
+			<section id="results-section" class="lg:col-span-2 bg-white rounded-2xl shadow-xl p-6 opacity-0 transition-opacity duration-500">
+				<div class="text-center mb-6">
+					<i class="fa-solid fa-image text-5xl text-accent mb-4"></i>
+					<h2 class="text-xl font-bold text-neutral mb-2">裁剪结果</h2>
+					<p class="text-gray-500">点击下载按钮保存裁剪后的图片</p>
+				</div>
+
+				<div id="result-container" class="bg-base-100 rounded-xl p-4 shadow-inner mb-6">
+					<div class="flex justify-center items-center min-h-[300px]">
+						<img id="result-image" src="" alt="裁剪结果" class="max-w-full max-h-[400px] object-contain">
+					</div>
+				</div>
+
+				<div class="flex flex-wrap gap-4 justify-center">
+					<div class="flex-1 min-w-[200px]">
+						<label class="block text-sm font-medium text-gray-700 mb-2">输出格式</label>
+						<select id="format-select" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
+							<option value="png">PNG</option>
+							<option value="jpeg">JPEG</option>
+							<option value="webp">WebP</option>
+						</select>
+					</div>
+
+					<div class="flex-1 min-w-[200px]">
+						<label class="block text-sm font-medium text-gray-700 mb-2">图片质量</label>
+						<input type="range" id="quality-range" min="0.1" max="1" step="0.1" value="0.9" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+						<div class="flex justify-between text-xs text-gray-500 mt-1">
+							<span>低</span>
+							<span id="quality-value">90%</span>
+							<span>高</span>
+						</div>
+					</div>
+				</div>
+
+				<button id="download-button" class="mt-6 w-full bg-accent hover:bg-accent/90 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+					<i class="fa-solid fa-download mr-2"></i>
+					下载裁剪图片
+				</button>
+			</section>
+		</main>
+
+	</div>
+</div>
+
+<script>
+	// 初始化变量
+	let originalImage = null;
+	let previewImage = null;
+	let isDragging = false;
+	let isResizing = false;
+	let startX, startY, startWidth, startHeight;
+	let currentHandle = null;
+	let quality = 0.9;
+
+	// DOM 元素
+	const dropArea = document.getElementById('drop-area');
+	const fileInput = document.getElementById('file-input');
+	const previewContainer = document.getElementById('preview-container');
+	const previewImg = document.getElementById('preview-image');
+	const cropper = document.getElementById('cropper');
+	const autoCropButton = document.getElementById('auto-crop-button');
+	const cropButton = document.getElementById('crop-button');
+	const resultsSection = document.getElementById('results-section');
+	const resultImage = document.getElementById('result-image');
+	const downloadButton = document.getElementById('download-button');
+	const formatSelect = document.getElementById('format-select');
+	const qualityRange = document.getElementById('quality-range');
+	const qualityValue = document.getElementById('quality-value');
+	const overlayTop = document.getElementById('overlay-top');
+	const overlayBottom = document.getElementById('overlay-bottom');
+	const overlayLeft = document.getElementById('overlay-left');
+	const overlayRight = document.getElementById('overlay-right');
+
+	// 拖拽上传功能
+	['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+		dropArea.addEventListener(eventName, preventDefaults, false);
+	});
+
+	function preventDefaults(e) {
+		e.preventDefault();
+		e.stopPropagation();
+	}
+
+	['dragenter', 'dragover'].forEach(eventName => {
+		dropArea.addEventListener(eventName, highlight, false);
+	});
+
+	['dragleave', 'drop'].forEach(eventName => {
+		dropArea.addEventListener(eventName, unhighlight, false);
+	});
+
+	function highlight() {
+		dropArea.classList.add('border-primary');
+		dropArea.classList.add('bg-primary/5');
+	}
+
+	function unhighlight() {
+		dropArea.classList.remove('border-primary');
+		dropArea.classList.remove('bg-primary/5');
+	}
+
+	dropArea.addEventListener('drop', handleDrop, false);
+
+	function handleDrop(e) {
+		const dt = e.dataTransfer;
+		const file = dt.files[0];
+		handleFile(file);
+	}
+
+	// 文件选择
+	fileInput.addEventListener('change', function() {
+		handleFile(this.files[0]);
+	});
+
+	// 处理文件
+	function handleFile(file) {
+		if (!file) return;
+		if (!file.type.match('image.*')) {
+			alert('请选择图片文件！');
+			return;
+		}
+
+		const reader = new FileReader();
+		reader.onload = function(e) {
+			previewImg.src = e.target.result;
+			previewContainer.classList.remove('hidden');
+			previewContainer.classList.add('animate-fadeIn');
+
+			// 加载原始图片用于裁剪
+			const img = new Image();
+			img.onload = function() {
+				originalImage = img;
+				autoCropButton.disabled = false;
+				cropButton.disabled = true;
+			};
+			img.src = e.target.result;
+		};
+		reader.readAsDataURL(file);
+	}
+
+	// 图片加载完成后初始化裁剪框
+	previewImg.onload = function() {
+		previewImage = this;
+		// 默认不显示裁剪框，等待用户点击自动适配按钮
+		cropper.classList.add('hidden');
+	};
+
+	// 自动适配裁剪框
+	autoCropButton.addEventListener('click', function() {
+		if (!previewImage) return;
+
+		// 获取图片容器尺寸和位置
+		const container = document.getElementById('image-container');
+		const containerRect = container.getBoundingClientRect();
+		const imgRect = previewImage.getBoundingClientRect();
+
+		// 设置裁剪框初始位置和大小（默认为图片的80%）
+		const width = imgRect.width * 0.8;
+		const height = imgRect.height * 0.8;
+		const left = imgRect.left + (imgRect.width - width) / 2 - containerRect.left;
+		const top = imgRect.top + (imgRect.height - height) / 2 - containerRect.top;
+
+		// 设置裁剪框样式
+		cropper.style.left = `${left}px`;
+		cropper.style.top = `${top}px`;
+		cropper.style.width = `${width}px`;
+		cropper.style.height = `${height}px`;
+
+		// 显示裁剪框
+		cropper.classList.remove('hidden');
+		updateOverlays();
+
+		// 启用裁剪按钮
+		cropButton.disabled = false;
+	});
+
+	// 裁剪框拖拽功能
+	cropper.addEventListener('mousedown', function(e) {
+		// 检查是否点击了手柄
+		if (e.target.classList.contains('cropper-handle')) {
+			isResizing = true;
+			currentHandle = e.target;
+		} else {
+			isDragging = true;
+		}
+
+		const rect = cropper.getBoundingClientRect();
+		startX = e.clientX;
+		startY = e.clientY;
+		startWidth = rect.width;
+		startHeight = rect.height;
+
+		// 添加移动时的样式
+		document.body.style.cursor = 'move';
+		e.preventDefault();
+	});
+
+	// 鼠标移动处理
+	document.addEventListener('mousemove', function(e) {
+		if (isDragging) {
+			drag(e);
+		} else if (isResizing) {
+			resize(e);
+		}
+	});
+
+	// 鼠标释放处理
+	document.addEventListener('mouseup', function() {
+		isDragging = false;
+		isResizing = false;
+		currentHandle = null;
+		document.body.style.cursor = '';
+	});
+
+	// 拖拽裁剪框
+	function drag(e) {
+		const container = document.getElementById('image-container');
+		const containerRect = container.getBoundingClientRect();
+		const imgRect = previewImage.getBoundingClientRect();
+
+		const dx = e.clientX - startX;
+		const dy = e.clientY - startY;
+
+		let newLeft = parseFloat(cropper.style.left) + dx;
+		let newTop = parseFloat(cropper.style.top) + dy;
+
+		// 限制在图片范围内
+		const minLeft = imgRect.left - containerRect.left;
+		const maxLeft = imgRect.right - containerRect.left - parseFloat(cropper.style.width);
+		const minTop = imgRect.top - containerRect.top;
+		const maxTop = imgRect.bottom - containerRect.left - parseFloat(cropper.style.height);
+
+		newLeft = Math.max(minLeft, Math.min(newLeft, maxLeft));
+		newTop = Math.max(minTop, Math.min(newTop, maxTop));
+
+		cropper.style.left = `${newLeft}px`;
+		cropper.style.top = `${newTop}px`;
+
+		startX = e.clientX;
+		startY = e.clientY;
+
+		updateOverlays();
+	}
+
+	// 调整裁剪框大小
+	function resize(e) {
+		const container = document.getElementById('image-container');
+		const containerRect = container.getBoundingClientRect();
+		const imgRect = previewImage.getBoundingClientRect();
+
+		const dx = e.clientX - startX;
+		const dy = e.clientY - startY;
+
+		let newWidth = startWidth;
+		let newHeight = startHeight;
+		let newLeft = parseFloat(cropper.style.left);
+		let newTop = parseFloat(cropper.style.top);
+
+		// 根据不同的手柄调整大小
+		if (currentHandle.classList.contains('cropper-handle-se')) {
+			newWidth += dx;
+			newHeight += dy;
+		} else if (currentHandle.classList.contains('cropper-handle-sw')) {
+			newWidth -= dx;
+			newLeft += dx;
+			newHeight += dy;
+		} else if (currentHandle.classList.contains('cropper-handle-ne')) {
+			newWidth += dx;
+			newTop += dy;
+			newHeight -= dy;
+		} else if (currentHandle.classList.contains('cropper-handle-nw')) {
+			newWidth -= dx;
+			newLeft += dx;
+			newTop += dy;
+			newHeight -= dy;
+		}
+
+		// 限制最小尺寸
+		const minSize = 50;
+		if (newWidth < minSize) {
+			newWidth = minSize;
+			if (currentHandle.classList.contains('cropper-handle-sw') ||
+					currentHandle.classList.contains('cropper-handle-nw')) {
+				newLeft = parseFloat(cropper.style.left) + startWidth - newWidth;
+			}
+		}
+
+		if (newHeight < minSize) {
+			newHeight = minSize;
+			if (currentHandle.classList.contains('cropper-handle-nw') ||
+					currentHandle.classList.contains('cropper-handle-ne')) {
+				newTop = parseFloat(cropper.style.top) + startHeight - newHeight;
+			}
+		}
+
+		// 限制在图片范围内
+		const maxWidth = imgRect.right - containerRect.left - newLeft;
+		const maxHeight = imgRect.bottom - containerRect.top - newTop;
+
+		newWidth = Math.min(newWidth, maxWidth);
+		newHeight = Math.min(newHeight, maxHeight);
+
+		cropper.style.width = `${newWidth}px`;
+		cropper.style.height = `${newHeight}px`;
+		cropper.style.left = `${newLeft}px`;
+		cropper.style.top = `${newTop}px`;
+
+		startX = e.clientX;
+		startY = e.clientY;
+		startWidth = newWidth;
+		startHeight = newHeight;
+
+		updateOverlays();
+	}
+
+	// 更新裁剪框覆盖层
+	function updateOverlays() {
+		const container = document.getElementById('image-container');
+		const containerRect = container.getBoundingClientRect();
+		const imgRect = previewImage.getBoundingClientRect();
+		const cropRect = cropper.getBoundingClientRect();
+
+		// 计算相对于容器的位置
+		const imgLeft = imgRect.left - containerRect.left;
+		const imgTop = imgRect.top - containerRect.top;
+		const imgWidth = imgRect.width;
+		const imgHeight = imgRect.height;
+
+		const cropLeft = cropRect.left - containerRect.left;
+		const cropTop = cropRect.top - containerRect.top;
+		const cropWidth = cropRect.width;
+		const cropHeight = cropRect.height;
+
+		// 更新覆盖层
+		overlayTop.style.top = '0px';
+		overlayTop.style.left = '0px';
+		overlayTop.style.width = `${containerRect.width}px`;
+		overlayTop.style.height = `${cropTop - imgTop}px`;
+
+		overlayBottom.style.top = `${cropTop + cropHeight - imgTop}px`;
+		overlayBottom.style.left = '0px';
+		overlayBottom.style.width = `${containerRect.width}px`;
+		overlayBottom.style.height = `${imgTop + imgHeight - (cropTop + cropHeight)}px`;
+
+		overlayLeft.style.top = `${cropTop - imgTop}px`;
+		overlayLeft.style.left = '0px';
+		overlayLeft.style.width = `${cropLeft - imgLeft}px`;
+		overlayLeft.style.height = `${cropHeight}px`;
+
+		overlayRight.style.top = `${cropTop - imgTop}px`;
+		overlayRight.style.left = `${cropLeft + cropWidth - imgLeft}px`;
+		overlayRight.style.width = `${imgLeft + imgWidth - (cropLeft + cropWidth)}px`;
+		overlayRight.style.height = `${cropHeight}px`;
+	}
+
+	// 执行裁剪
+	cropButton.addEventListener('click', function() {
+		if (!originalImage || !previewImage) return;
+
+		// 获取裁剪框位置和大小
+		const cropRect = cropper.getBoundingClientRect();
+		const container = document.getElementById('image-container');
+		const containerRect = container.getBoundingClientRect();
+
+		// 计算裁剪区域相对于原始图片的比例
+		const imgRatioX = originalImage.width / previewImage.offsetWidth;
+		const imgRatioY = originalImage.height / previewImage.offsetHeight;
+
+		// 计算裁剪区域在原始图片上的坐标
+		const cropX = (cropRect.left - containerRect.left) * imgRatioX;
+		const cropY = (cropRect.top - containerRect.top) * imgRatioY;
+		const cropWidth = cropRect.width * imgRatioX;
+		const cropHeight = cropRect.height * imgRatioY;
+
+		// 创建canvas并绘制裁剪区域
+		const canvas = document.createElement('canvas');
+		canvas.width = cropWidth;
+		canvas.height = cropHeight;
+		const ctx = canvas.getContext('2d');
+		ctx.drawImage(
+				originalImage,
+				cropX, cropY, cropWidth, cropHeight,
+				0, 0, cropWidth, cropHeight
+		);
+
+		// 显示裁剪结果
+		resultImage.src = canvas.toDataURL('image/png');
+		resultsSection.style.opacity = '1';
+
+		// 保存canvas供下载使用
+		downloadButton.onclick = function() {
+			downloadCroppedImage(canvas);
+		};
+
+		// 平滑滚动到结果区域
+		resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	});
+
+	// 下载裁剪后的图片
+	function downloadCroppedImage(canvas) {
+		const format = formatSelect.value;
+		const mimeType = format === 'jpeg' ? 'image/jpeg' :
+				format === 'webp' ? 'image/webp' : 'image/png';
+
+		// 获取质量设置（仅对JPEG和WebP有效）
+		const qualitySetting = (format === 'jpeg' || format === 'webp') ? quality : undefined;
+
+		// 创建下载链接
+		const link = document.createElement('a');
+		link.download = `裁剪图片.${format}`;
+		link.href = canvas.toDataURL(mimeType, qualitySetting);
+		link.click();
+	}
+
+	// 质量滑块事件
+	qualityRange.addEventListener('input', function() {
+		quality = parseFloat(this.value);
+		qualityValue.textContent = `${Math.round(quality * 100)}%`;
+	});
+
+	// 添加淡入动画
+	document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                .animate-fadeIn {
+                    animation: fadeIn 0.5s ease-out forwards;
+                }
+            </style>
+        `);
+</script>
+</body>
+
+
+
+
+
+</html>
