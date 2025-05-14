@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>图片加文字-传道软件</title>
+	<meta name="keywords" content="在线软件工具集合、传道软件">
+	<meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
+	<link rel="canonical" href="https://chdaoai.com/">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #f5f5f5;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			padding: 20px;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.image-container {
+			display: flex;
+			gap: 20px;
+			margin-bottom: 20px;
+		}
+		.image-box {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 10px;
+		}
+		.image-preview {
+			width: 100%;
+			height: 300px;
+			border: 2px dashed #ddd;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			background-color: #f8f9fa;
+		}
+		.image-preview img {
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+		}
+		.button {
+			width: 100%;
+			padding: 12px;
+			border: none;
+			border-radius: 4px;
+			font-size: 16px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+		}
+		.upload-btn {
+			background-color: #ff6b6b;
+			color: white;
+		}
+		.upload-btn:hover {
+			background-color: #ff5252;
+		}
+		.download-btn {
+			background-color: #f8f9fa;
+			color: #333;
+			border: 1px solid #ddd;
+		}
+		.download-btn:hover {
+			background-color: #e9ecef;
+		}
+		.info-box {
+			margin-top: 20px;
+			padding: 15px;
+			background: #fff5f0;
+			border-radius: 4px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 10px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+			font-size: 14px;
+			line-height: 1.8;
+		}
+		.info-list li {
+			margin-bottom: 5px;
+		}
+	</style>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					colors: {
+						primary: '#165DFF',
+						secondary: '#FF7D00',
+						neutral: '#F5F7FA',
+					},
+					fontFamily: {
+						inter: ['Inter', 'system-ui', 'sans-serif'],
+					},
+				}
+			}
+		}
+	</script>
+	<style type="text/tailwindcss">
+		@layer utilities {
+			.content-auto {
+				content-visibility: auto;
+			}
+			.shadow-soft {
+				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+			}
+			.transition-custom {
+				transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+			.text-shadow {
+				text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			}
+		}
+	</style>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+<nav class="nav">
+	<a href="../index.html" class="nav-item">
+		<img src="../static/images/logo.png" width="100" style="margin-right: 60px"/>
+	</a>
+	<a href="../index.html" class="nav-item">🔍 推荐工具</a>
+	<a href="../life.html" class="nav-item">🏠 生活工具</a>
+	<a href="../encry.html" class="nav-item">🔒 加密解密</a>
+	<a href="../code.html" class="nav-item">📝 编码解码</a>
+	<a href="../dev.html" class="nav-item">💻 开发工具</a>
+	<a href="../image.html" class="nav-item">🖼️ 图片处理</a>
+	<a href="../game.html" class="nav-item">🎮 娱乐工具</a>
+</nav>
+
+<div class="container">
+
+	<!-- 主要内容区 -->
+	<main class="flex-grow container mx-auto px-4 py-8">
+		<div class="max-w-6xl mx-auto">
+			<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+				<!-- 左侧控制面板 -->
+				<div class="lg:col-span-1">
+					<div class="bg-white rounded-xl shadow-soft p-6 sticky top-24">
+						<h2 class="text-xl font-bold text-gray-800 mb-6">编辑选项</h2>
+
+						<!-- 上传图片 -->
+						<div class="mb-6">
+							<label class="block text-sm font-medium text-gray-700 mb-2">选择图片</label>
+							<div id="drop-area" class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center transition-custom hover:border-primary cursor-pointer bg-neutral">
+								<i class="fa fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+								<p class="text-sm text-gray-500">拖放图片到这里或</p>
+								<label class="inline-block mt-2 bg-primary hover:bg-primary/90 text-white text-sm font-medium py-1.5 px-4 rounded-md cursor-pointer transition-custom">
+									<i class="fa fa-folder-open mr-1"></i>选择图片
+									<input type="file" id="file-input" class="hidden" accept="image/*">
+								</label>
+							</div>
+							<div id="image-preview" class="mt-4 hidden">
+								<img id="preview-img" src="" alt="预览图" class="w-full h-auto rounded-lg shadow-sm">
+								<button id="remove-img" class="mt-2 text-sm text-red-500 hover:text-red-600 transition-custom">
+									<i class="fa fa-trash mr-1"></i>移除图片
+								</button>
+							</div>
+						</div>
+
+						<!-- 添加文字 -->
+						<div class="mb-6">
+							<label class="block text-sm font-medium text-gray-700 mb-2">添加文字</label>
+							<textarea id="text-input" rows="2" placeholder="输入要添加的文字..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"></textarea>
+							<button id="add-text-btn" class="mt-3 w-full bg-secondary hover:bg-secondary/90 text-white font-medium py-2 px-4 rounded-md transition-custom flex items-center justify-center">
+								<i class="fa fa-font mr-2"></i>添加文字
+							</button>
+						</div>
+
+						<!-- 文字样式 -->
+						<div class="mb-6">
+							<h3 class="text-sm font-medium text-gray-700 mb-3 flex items-center">
+								<i class="fa fa-paint-brush mr-2"></i>文字样式
+							</h3>
+
+							<!-- 字体大小 -->
+							<div class="mb-4">
+								<label for="font-size" class="block text-xs text-gray-500 mb-1">字体大小</label>
+								<div class="flex items-center space-x-3">
+									<input type="range" id="font-size" min="12" max="100" value="36" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+									<span id="font-size-value" class="text-sm font-medium text-gray-700 min-w-[2.5rem] text-right">36px</span>
+								</div>
+							</div>
+
+							<!-- 字体颜色 -->
+							<div class="mb-4">
+								<label for="text-color" class="block text-xs text-gray-500 mb-1">字体颜色</label>
+								<div class="flex items-center space-x-4">
+									<input type="color" id="text-color" value="#ffffff" class="w-8 h-8 rounded-full border-0 cursor-pointer">
+									<input type="text" id="text-color-text" value="#ffffff" class="w-full px-3 py-1.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary text-sm">
+								</div>
+							</div>
+
+							<!-- 对齐方式 -->
+							<div class="mb-4">
+								<label class="block text-xs text-gray-500 mb-1">对齐方式</label>
+								<div class="flex space-x-2">
+									<button class="text-align-btn flex-1 py-1.5 border border-gray-300 rounded-md hover:bg-gray-50 transition-custom" data-align="left">
+										<i class="fa fa-align-left"></i>
+									</button>
+									<button class="text-align-btn flex-1 py-1.5 border border-gray-300 rounded-md hover:bg-gray-50 transition-custom" data-align="center">
+										<i class="fa fa-align-center"></i>
+									</button>
+									<button class="text-align-btn flex-1 py-1.5 border border-gray-300 rounded-md hover:bg-gray-50 transition-custom" data-align="right">
+										<i class="fa fa-align-right"></i>
+									</button>
+								</div>
+							</div>
+
+							<!-- 字体样式 -->
+							<div class="flex flex-wrap gap-2 mb-4">
+								<button id="bold-btn" class="py-1 px-3 border border-gray-300 rounded-md hover:bg-gray-50 transition-custom text-sm">
+									<b>B</b>
+								</button>
+								<button id="italic-btn" class="py-1 px-3 border border-gray-300 rounded-md hover:bg-gray-50 transition-custom text-sm">
+									<i>I</i>
+								</button>
+								<button id="underline-btn" class="py-1 px-3 border border-gray-300 rounded-md hover:bg-gray-50 transition-custom text-sm">
+									<u>U</u>
+								</button>
+								<button id="stroke-btn" class="py-1 px-3 border border-gray-300 rounded-md hover:bg-gray-50 transition-custom text-sm">
+									<span style="text-decoration: line-through;">S</span>
+								</button>
+							</div>
+
+							<!-- 文字阴影 -->
+							<div>
+								<label class="flex items-center justify-between text-xs text-gray-500 mb-1">
+									<span>文字阴影</span>
+									<span id="shadow-value" class="text-gray-700">关</span>
+								</label>
+								<div class="flex items-center space-x-2">
+									<input type="range" id="text-shadow" min="0" max="10" value="0" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+									<button id="shadow-toggle" class="text-gray-400 hover:text-gray-600 transition-custom">
+										<i class="fa fa-toggle-off"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+
+						<!-- 位置调整 -->
+						<div class="mb-6">
+							<h3 class="text-sm font-medium text-gray-700 mb-3 flex items-center">
+								<i class="fa fa-arrows-alt mr-2"></i>位置调整
+							</h3>
+
+							<!-- X 位置 -->
+							<div class="mb-4">
+								<label for="pos-x" class="block text-xs text-gray-500 mb-1">水平位置</label>
+								<div class="flex items-center space-x-3">
+									<input type="range" id="pos-x" min="0" max="100" value="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+									<span id="pos-x-value" class="text-sm font-medium text-gray-700 min-w-[2.5rem] text-right">50%</span>
+								</div>
+							</div>
+
+							<!-- Y 位置 -->
+							<div>
+								<label for="pos-y" class="block text-xs text-gray-500 mb-1">垂直位置</label>
+								<div class="flex items-center space-x-3">
+									<input type="range" id="pos-y" min="0" max="100" value="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+									<span id="pos-y-value" class="text-sm font-medium text-gray-700 min-w-[2.5rem] text-right">50%</span>
+								</div>
+							</div>
+						</div>
+
+						<!-- 操作按钮 -->
+						<div class="flex space-x-3">
+							<button id="reset-btn" class="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 font-medium hover:bg-gray-50 transition-custom">
+								<i class="fa fa-refresh mr-1"></i>重置
+							</button>
+							<button id="save-btn" class="flex-1 px-4 py-2 bg-primary hover:bg-primary/90 text-white font-medium rounded-md transition-custom">
+								<i class="fa fa-download mr-1"></i>保存图片
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- 右侧预览区 -->
+				<div class="lg:col-span-2">
+					<div class="bg-white rounded-xl shadow-soft p-6 h-full">
+						<h2 class="text-xl font-bold text-gray-800 mb-6">预览区域</h2>
+
+						<div id="canvas-container" class="relative bg-neutral rounded-lg overflow-hidden" style="height: 600px;">
+							<!-- 画布将在这里动态生成 -->
+							<canvas id="image-canvas" class="w-full h-full"></canvas>
+
+							<!-- 无图片提示 -->
+							<div id="no-image-placeholder" class="absolute inset-0 flex flex-col items-center justify-center text-gray-400">
+								<i class="fa fa-image text-6xl mb-4"></i>
+								<p class="text-lg">请上传一张图片开始编辑</p>
+							</div>
+						</div>
+
+						<!-- 提示信息 -->
+						<div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-blue-700">
+							<h4 class="font-medium mb-2 flex items-center">
+								<i class="fa fa-lightbulb-o mr-2"></i>提示
+							</h4>
+							<ul class="list-disc pl-5 space-y-1">
+								<li>添加文字后，可以调整其位置和样式</li>
+								<li>可以添加多个文字，每个文字都是独立可编辑的</li>
+								<li>点击已添加的文字可以选中它进行编辑</li>
+								<li>使用滑块可以精确控制文字的位置和大小</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+</div>
+
+<script>
+	// DOM 元素
+	const dropArea = document.getElementById('drop-area');
+	const fileInput = document.getElementById('file-input');
+	const imagePreview = document.getElementById('image-preview');
+	const previewImg = document.getElementById('preview-img');
+	const removeImg = document.getElementById('remove-img');
+	const textInput = document.getElementById('text-input');
+	const addTextBtn = document.getElementById('add-text-btn');
+	const fontSize = document.getElementById('font-size');
+	const fontSizeValue = document.getElementById('font-size-value');
+	const textColor = document.getElementById('text-color');
+	const textColorText = document.getElementById('text-color-text');
+	const textAlignBtns = document.querySelectorAll('.text-align-btn');
+	const boldBtn = document.getElementById('bold-btn');
+	const italicBtn = document.getElementById('italic-btn');
+	const underlineBtn = document.getElementById('underline-btn');
+	const strokeBtn = document.getElementById('stroke-btn');
+	const textShadow = document.getElementById('text-shadow');
+	const shadowValue = document.getElementById('shadow-value');
+	const shadowToggle = document.getElementById('shadow-toggle');
+	const posX = document.getElementById('pos-x');
+	const posXValue = document.getElementById('pos-x-value');
+	const posY = document.getElementById('pos-y');
+	const posYValue = document.getElementById('pos-y-value');
+	const resetBtn = document.getElementById('reset-btn');
+	const saveBtn = document.getElementById('save-btn');
+	const canvas = document.getElementById('image-canvas');
+	const ctx = canvas.getContext('2d');
+	const noImagePlaceholder = document.getElementById('no-image-placeholder');
+
+	// 存储当前编辑的文本对象索引
+	let currentTextIndex = -1;
+
+	// 存储所有添加的文本对象
+	let texts = [];
+
+	// 图片对象
+	let image = null;
+
+	// 文本样式默认值
+	let textStyle = {
+		fontSize: 36,
+		color: '#ffffff',
+		align: 'center',
+		bold: false,
+		italic: false,
+		underline: false,
+		stroke: false,
+		shadow: 0,
+		posX: 50,
+		posY: 50
+	};
+
+	// 初始化画布尺寸
+	function initCanvasSize() {
+		const container = document.getElementById('canvas-container');
+		canvas.width = container.clientWidth;
+		canvas.height = container.clientHeight;
+		redrawCanvas();
+	}
+
+	// 监听窗口大小变化，调整画布尺寸
+	window.addEventListener('resize', initCanvasSize);
+
+	// 初始化
+	initCanvasSize();
+
+	// 拖放事件处理
+	['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+		dropArea.addEventListener(eventName, preventDefaults, false);
+	});
+
+	function preventDefaults(e) {
+		e.preventDefault();
+		e.stopPropagation();
+	}
+
+	['dragenter', 'dragover'].forEach(eventName => {
+		dropArea.addEventListener(eventName, highlight, false);
+	});
+
+	['dragleave', 'drop'].forEach(eventName => {
+		dropArea.addEventListener(eventName, unhighlight, false);
+	});
+
+	function highlight() {
+		dropArea.classList.add('border-primary', 'bg-primary/5');
+	}
+
+	function unhighlight() {
+		dropArea.classList.remove('border-primary', 'bg-primary/5');
+	}
+
+	dropArea.addEventListener('drop', handleDrop, false);
+
+	function handleDrop(e) {
+		const dt = e.dataTransfer;
+		const file = dt.files[0];
+		if (file) {
+			handleFile(file);
+		}
+	}
+
+	// 文件选择
+	fileInput.addEventListener('change', () => {
+		const file = fileInput.files[0];
+		if (file) {
+			handleFile(file);
+		}
+	});
+
+	// 移除图片
+	removeImg.addEventListener('click', () => {
+		image = null;
+		imagePreview.classList.add('hidden');
+		noImagePlaceholder.classList.remove('hidden');
+		redrawCanvas();
+	});
+
+	// 处理上传的文件
+	function handleFile(file) {
+		if (!file.type.match('image.*')) {
+			alert('请上传图片文件！');
+			return;
+		}
+
+		const reader = new FileReader();
+
+		reader.onload = function(e) {
+			image = new Image();
+			image.onload = function() {
+				// 显示预览
+				previewImg.src = e.target.result;
+				imagePreview.classList.remove('hidden');
+				noImagePlaceholder.classList.add('hidden');
+
+				// 重绘画布
+				redrawCanvas();
+			};
+			image.src = e.target.result;
+		};
+
+		reader.readAsDataURL(file);
+	}
+
+	// 添加文字
+	addTextBtn.addEventListener('click', () => {
+		const text = textInput.value.trim();
+		if (!text) {
+			alert('请输入文字内容！');
+			return;
+		}
+
+		// 添加新文本对象
+		texts.push({
+			text,
+			...textStyle
+		});
+
+		// 更新当前文本索引
+		currentTextIndex = texts.length - 1;
+
+		// 清空输入框
+		textInput.value = '';
+
+		// 重绘画布
+		redrawCanvas();
+	});
+
+	// 画布点击事件 - 选择文本
+	canvas.addEventListener('click', (e) => {
+		if (!image) return;
+
+		const rect = canvas.getBoundingClientRect();
+		const clickX = e.clientX - rect.left;
+		const clickY = e.clientY - rect.top;
+
+		// 从后往前检查，优先选择最上面的文本
+		for (let i = texts.length - 1; i >= 0; i--) {
+			const text = texts[i];
+			ctx.save();
+			ctx.font = getFontString(text);
+			const textWidth = ctx.measureText(text.text).width;
+			const textHeight = text.fontSize;
+
+			// 计算文本包围盒
+			let x, y;
+			if (text.align === 'left') {
+				x = (text.posX / 100) * canvas.width;
+			} else if (text.align === 'center') {
+				x = (text.posX / 100) * canvas.width - textWidth / 2;
+			} else { // right
+				x = (text.posX / 100) * canvas.width - textWidth;
+			}
+			y = (text.posY / 100) * canvas.height;
+
+			// 检查点击是否在文本范围内
+			if (clickX >= x && clickX <= x + textWidth &&
+					clickY >= y - textHeight && clickY <= y) {
+				currentTextIndex = i;
+				updateControls();
+				redrawCanvas();
+				ctx.restore();
+				return;
+			}
+			ctx.restore();
+		}
+
+		// 如果没有点击到任何文本，取消选择
+		currentTextIndex = -1;
+		redrawCanvas();
+	});
+
+	// 更新控制选项
+	function updateControls() {
+		if (currentTextIndex === -1) {
+			// 没有选中的文本，重置为默认样式
+			textStyle = {
+				fontSize: 36,
+				color: '#ffffff',
+				align: 'center',
+				bold: false,
+				italic: false,
+				underline: false,
+				stroke: false,
+				shadow: 0,
+				posX: 50,
+				posY: 50
+			};
+		} else {
+			// 使用选中的文本样式
+			textStyle = { ...texts[currentTextIndex] };
+		}
+
+		// 更新UI
+		fontSize.value = textStyle.fontSize;
+		fontSizeValue.textContent = `${textStyle.fontSize}px`;
+
+		textColor.value = textStyle.color;
+		textColorText.value = textStyle.color;
+
+		textAlignBtns.forEach(btn => {
+			if (btn.dataset.align === textStyle.align) {
+				btn.classList.add('bg-primary/10', 'border-primary');
+			} else {
+				btn.classList.remove('bg-primary/10', 'border-primary');
+			}
+		});
+
+		boldBtn.classList.toggle('bg-primary/10', textStyle.bold);
+		italicBtn.classList.toggle('bg-primary/10', textStyle.italic);
+		underlineBtn.classList.toggle('bg-primary/10', textStyle.underline);
+		strokeBtn.classList.toggle('bg-primary/10', textStyle.stroke);
+
+		textShadow.value = textStyle.shadow;
+		shadowValue.textContent = textStyle.shadow > 0 ? '开' : '关';
+		shadowToggle.innerHTML = textStyle.shadow > 0 ?
+				'<i class="fa fa-toggle-on text-primary"></i>' :
+				'<i class="fa fa-toggle-off text-gray-400"></i>';
+
+		posX.value = textStyle.posX;
+		posXValue.textContent = `${textStyle.posX}%`;
+
+		posY.value = textStyle.posY;
+		posYValue.textContent = `${textStyle.posY}%`;
+	}
+
+	// 监听字体大小变化
+	fontSize.addEventListener('input', () => {
+		textStyle.fontSize = parseInt(fontSize.value);
+		fontSizeValue.textContent = `${textStyle.fontSize}px`;
+		updateCurrentText();
+	});
+
+	// 监听文本颜色变化
+	textColor.addEventListener('input', () => {
+		textStyle.color = textColor.value;
+		textColorText.value = textColor.value;
+		updateCurrentText();
+	});
+
+	textColorText.addEventListener('input', () => {
+		if (/^#([0-9A-F]{3}){1,2}$/i.test(textColorText.value)) {
+			textStyle.color = textColorText.value;
+			textColor.value = textColorText.value;
+			updateCurrentText();
+		}
+	});
+
+	// 监听对齐方式变化
+	textAlignBtns.forEach(btn => {
+		btn.addEventListener('click', () => {
+			// 移除所有按钮的选中状态
+			textAlignBtns.forEach(b => {
+				b.classList.remove('bg-primary/10', 'border-primary');
+			});
+
+			// 添加当前按钮的选中状态
+			btn.classList.add('bg-primary/10', 'border-primary');
+
+			// 更新样式
+			textStyle.align = btn.dataset.align;
+			updateCurrentText();
+		});
+	});
+
+	// 监听字体样式变化
+	boldBtn.addEventListener('click', () => {
+		textStyle.bold = !textStyle.bold;
+		boldBtn.classList.toggle('bg-primary/10', textStyle.bold);
+		updateCurrentText();
+	});
+
+	italicBtn.addEventListener('click', () => {
+		textStyle.italic = !textStyle.italic;
+		italicBtn.classList.toggle('bg-primary/10', textStyle.italic);
+		updateCurrentText();
+	});
+
+	underlineBtn.addEventListener('click', () => {
+		textStyle.underline = !textStyle.underline;
+		underlineBtn.classList.toggle('bg-primary/10', textStyle.underline);
+		updateCurrentText();
+	});
+
+	strokeBtn.addEventListener('click', () => {
+		textStyle.stroke = !textStyle.stroke;
+		strokeBtn.classList.toggle('bg-primary/10', textStyle.stroke);
+		updateCurrentText();
+	});
+
+	// 监听文字阴影变化
+	textShadow.addEventListener('input', () => {
+		textStyle.shadow = parseInt(textShadow.value);
+		shadowValue.textContent = textStyle.shadow > 0 ? '开' : '关';
+		shadowToggle.innerHTML = textStyle.shadow > 0 ?
+				'<i class="fa fa-toggle-on text-primary"></i>' :
+				'<i class="fa fa-toggle-off text-gray-400"></i>';
+		updateCurrentText();
+	});
+
+	shadowToggle.addEventListener('click', () => {
+		textStyle.shadow = textStyle.shadow > 0 ? 0 : 3;
+		textShadow.value = textStyle.shadow;
+		shadowValue.textContent = textStyle.shadow > 0 ? '开' : '关';
+		shadowToggle.innerHTML = textStyle.shadow > 0 ?
+				'<i class="fa fa-toggle-on text-primary"></i>' :
+				'<i class="fa fa-toggle-off text-gray-400"></i>';
+		updateCurrentText();
+	});
+
+	// 监听位置变化
+	posX.addEventListener('input', () => {
+		textStyle.posX = parseInt(posX.value);
+		posXValue.textContent = `${textStyle.posX}%`;
+		updateCurrentText();
+	});
+
+	posY.addEventListener('input', () => {
+		textStyle.posY = parseInt(posY.value);
+		posYValue.textContent = `${textStyle.posY}%`;
+		updateCurrentText();
+	});
+
+	// 重置按钮
+	resetBtn.addEventListener('click', () => {
+		if (currentTextIndex !== -1) {
+			// 如果有选中的文本，只重置该文本
+			texts.splice(currentTextIndex, 1);
+			currentTextIndex = -1;
+			updateControls();
+			redrawCanvas();
+		} else {
+			// 否则重置所有
+			texts = [];
+			currentTextIndex = -1;
+			updateControls();
+			redrawCanvas();
+		}
+	});
+
+	// 保存按钮
+	saveBtn.addEventListener('click', () => {
+		if (!image && texts.length === 0) {
+			alert('请先上传图片并添加文字！');
+			return;
+		}
+
+		// 创建一个新的临时画布，确保图片质量
+		const tempCanvas = document.createElement('canvas');
+		const tempCtx = tempCanvas.getContext('2d');
+
+		// 设置临时画布尺寸为图片原始尺寸
+		if (image) {
+			tempCanvas.width = image.width;
+			tempCanvas.height = image.height;
+
+			// 绘制图片
+			tempCtx.drawImage(image, 0, 0);
+		} else {
+			// 如果没有图片，使用当前画布尺寸
+			tempCanvas.width = canvas.width;
+			tempCanvas.height = canvas.height;
+
+			// 设置背景色
+			tempCtx.fillStyle = '#ffffff';
+			tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+		}
+
+		// 绘制所有文本
+		texts.forEach(text => {
+			drawText(tempCtx, text, tempCanvas.width, tempCanvas.height);
+		});
+
+		// 创建下载链接
+		const link = document.createElement('a');
+		link.download = 'image-with-text.png';
+		link.href = tempCanvas.toDataURL('image/png');
+		link.click();
+	});
+
+	// 更新当前选中的文本
+	function updateCurrentText() {
+		if (currentTextIndex !== -1) {
+			texts[currentTextIndex] = { ...textStyle };
+			redrawCanvas();
+		}
+	}
+
+	// 获取字体字符串
+	function getFontString(text) {
+		let font = '';
+		if (text.italic) font += 'italic ';
+		if (text.bold) font += 'bold ';
+		font += `${text.fontSize}px Inter, sans-serif`;
+		return font;
+	}
+
+	// 绘制文本
+	function drawText(ctx, text, canvasWidth, canvasHeight) {
+		ctx.save();
+
+		// 设置字体和样式
+		ctx.font = getFontString(text);
+		ctx.fillStyle = text.color;
+		ctx.textAlign = text.align;
+		ctx.textBaseline = 'middle';
+
+		// 设置阴影
+		if (text.shadow > 0) {
+			ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+			ctx.shadowBlur = text.shadow;
+			ctx.shadowOffsetX = 2;
+			ctx.shadowOffsetY = 2;
+		}
+
+		// 计算文本位置
+		let x, y;
+		if (text.align === 'left') {
+			x = (text.posX / 100) * canvasWidth;
+		} else if (text.align === 'center') {
+			x = (text.posX / 100) * canvasWidth;
+		} else { // right
+			x = (text.posX / 100) * canvasWidth;
+		}
+		y = (text.posY / 100) * canvasHeight;
+
+		// 绘制文本
+		ctx.fillText(text.text, x, y);
+
+		// 绘制下划线或删除线
+		if (text.underline || text.stroke) {
+			const textWidth = ctx.measureText(text.text).width;
+			const lineY = text.stroke ? y - text.fontSize / 8 : y + text.fontSize / 3;
+
+			ctx.beginPath();
+			ctx.moveTo(x - textWidth / 2, lineY);
+			ctx.lineTo(x + textWidth / 2, lineY);
+			ctx.lineWidth = 2;
+			ctx.strokeStyle = text.color;
+			ctx.stroke();
+		}
+
+		// 如果是当前选中的文本，绘制选中框
+		if (currentTextIndex !== -1 && texts[currentTextIndex] === text) {
+			const textWidth = ctx.measureText(text.text).width;
+			const padding = 10;
+
+			ctx.strokeStyle = '#165DFF';
+			ctx.lineWidth = 2;
+			ctx.setLineDash([5, 3]);
+
+			ctx.strokeRect(
+					x - textWidth / 2 - padding,
+					y - text.fontSize / 2 - padding,
+					textWidth + padding * 2,
+					text.fontSize + padding * 2
+			);
+
+			ctx.setLineDash([]);
+		}
+
+		ctx.restore();
+	}
+
+	// 重绘画布
+	function redrawCanvas() {
+		// 清空画布
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+		// 如果有图片，绘制图片
+		if (image) {
+			// 计算图片在画布中的最佳显示位置（居中且等比例缩放）
+			const imgRatio = image.width / image.height;
+			const canvasRatio = canvas.width / canvas.height;
+
+			let displayWidth, displayHeight, x, y;
+
+			if (imgRatio > canvasRatio) {
+				// 图片比画布宽，以宽度为基准
+				displayWidth = canvas.width;
+				displayHeight = canvas.width / imgRatio;
+				x = 0;
+				y = (canvas.height - displayHeight) / 2;
+			} else {
+				// 图片比画布高，以高度为基准
+				displayHeight = canvas.height;
+				displayWidth = canvas.height * imgRatio;
+				x = (canvas.width - displayWidth) / 2;
+				y = 0;
+			}
+
+			// 绘制图片
+			ctx.drawImage(image, x, y, displayWidth, displayHeight);
+
+			// 保存图片的显示信息，用于文本定位
+			image.displayInfo = { x, y, width: displayWidth, height: displayHeight };
+		}
+
+		// 绘制所有文本
+		texts.forEach(text => {
+			drawText(ctx, text, canvas.width, canvas.height);
+		});
+	}
+
+</script>
+</body>
+
+
+
+
+
+</html>
