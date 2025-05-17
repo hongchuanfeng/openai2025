@@ -4,12 +4,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>生活类软件工具-在线软件工具集合-传道软件</title>
-    <link rel="stylesheet" href="static/css/index.css">
     <meta name="keywords" content="在线软件工具集合、传道软件">
     <meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
     <link rel="canonical" href="https://chdaoai.com/">
     <link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/css.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* 响应式导航栏 */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* 工具卡片布局 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #444;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+        }
+
+        /* 移动端样式 */
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+        }
+    </style>
     <!-- Google tag (gtag.js2) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
     <script>
@@ -23,25 +145,34 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<nav class="nav">
+<nav>
     <div class="nav-container">
-        <a href="index.html" class="nav-item">
-            <img src="static/images/logo.png" width="100px" style="margin-right: 60px"/>
-        </a>
-        <a href="index.html" class="nav-item">🔍 推荐工具</a>
-        <a href="life.html" class="nav-item">🏠 生活工具</a>
-        <a href="encry.html" class="nav-item">🔒 加密解密</a>
-        <a href="code.html" class="nav-item">📝 编码解码</a>
-        <a href="dev.html" class="nav-item">💻 开发工具</a>
-        <a href="image.html" class="nav-item">🖼️ 图片处理</a>
-        <a href="game.html" class="nav-item">🎮 娱乐工具</a>
+        <div class="logo">
+            <a href="index.html" class="nav-item">
+                <img src="static/images/logo.png" width="100px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-categories">
+            <a href="index.html" class="nav-category">🔍 推荐工具</a>
+            <a href="life.html" class="nav-category">🏠 生活工具</a>
+            <a href="encry.html" class="nav-category">🔒 加密解密</a>
+            <a href="code.html" class="nav-category">📝 编码解码</a>
+            <a href="dev.html" class="nav-category">💻 开发工具</a>
+            <a href="image.html" class="nav-category">🖼️ 图片工具</a>
+            <a href="game.html" class="nav-category">🎮 娱乐工具</a>
+        </div>
     </div>
 </nav>
 
 <div class="container">
+    <!-- 推荐工具 -->
+    <h2 class="category-title">生活工具</h2>
+    <div class="tools-grid">
 
-    <a href="life/fest.html">
+
         <div class="tool-card">
+            <a href="life/fest.html">
 
                 <img src="static/images/fest.png" class="tool-icon" alt="中国节日查询">
                 <div class="tool-info">
@@ -49,162 +180,227 @@
                     <div class="tool-desc">提供中国阳历节日,农历节日,世界节日在线查询</div>
                 </div>
 
+            </a>
         </div>
-    </a>
 
-    <a href="life/relate.html">
+
         <div class="tool-card">
-            <img src="static/images/time.png" class="tool-icon" alt="世界时间表">
-            <div class="tool-info">
-                <div class="tool-title">亲戚关系计算器</div>
-                <div class="tool-desc">亲戚关系计算器</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="life/countdown.html">
+            <a href="life/relate.html">
+
+                <img src="static/images/time.png" class="tool-icon" alt="世界时间表">
+                <div class="tool-info">
+                    <div class="tool-title">亲戚关系计算器</div>
+                    <div class="tool-desc">亲戚关系计算器</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/countdown.png" class="tool-icon" alt="IP地址归属地查询">
-            <div class="tool-info">
-                <div class="tool-title">倒计时</div>
-                <div class="tool-desc">在线倒计时</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="life/unit.html">
+            <a href="life/countdown.html">
+
+                <img src="static/images/countdown.png" class="tool-icon" alt="IP地址归属地查询">
+                <div class="tool-info">
+                    <div class="tool-title">倒计时</div>
+                    <div class="tool-desc">在线倒计时</div>
+                </div>
+            </a>
+
+        </div>
+
+
         <div class="tool-card">
-            <img src="static/images/unit.png" class="tool-icon" alt="IP地址归属地查询">
-            <div class="tool-info">
-                <div class="tool-title">单位转换</div>
-                <div class="tool-desc">在线单位转换</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="life/pwd.html">
+            <a href="life/unit.html">
+
+                <img src="static/images/unit.png" class="tool-icon" alt="IP地址归属地查询">
+                <div class="tool-info">
+                    <div class="tool-title">单位转换</div>
+                    <div class="tool-desc">在线单位转换</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/pwd.png" class="tool-icon" alt="IP地址归属地查询">
-            <div class="tool-info">
-                <div class="tool-title">密码生成器</div>
-                <div class="tool-desc">在线密码生成器</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="life/ms.html">
+            <a href="life/pwd.html">
+
+                <img src="static/images/pwd.png" class="tool-icon" alt="IP地址归属地查询">
+                <div class="tool-info">
+                    <div class="tool-title">密码生成器</div>
+                    <div class="tool-desc">在线密码生成器</div>
+                </div>
+            </a>
+
+        </div>
+
+
         <div class="tool-card">
-            <img src="static/images/ms.png" class="tool-icon" alt="IP地址归属地查询">
-            <div class="tool-info">
-                <div class="tool-title">摩斯电码</div>
-                <div class="tool-desc">在线摩斯电码</div>
-            </div>
+
+            <a href="life/ms.html">
+
+                <img src="static/images/ms.png" class="tool-icon" alt="IP地址归属地查询">
+                <div class="tool-info">
+                    <div class="tool-title">摩斯电码</div>
+                    <div class="tool-desc">在线摩斯电码</div>
+                </div>
+            </a>
+
         </div>
-    </a>
 
-
-    <a href="life/text2voice.html">
         <div class="tool-card">
-            <img src="static/images/voice.png" class="tool-icon" alt="IP地址归属地查询">
-            <div class="tool-info">
-                <div class="tool-title">文字转语音</div>
-                <div class="tool-desc">在线文字转语音</div>
-            </div>
+
+            <a href="life/voice.html">
+
+                <img src="static/images/voice.png" class="tool-icon" alt="IP地址归属地查询">
+                <div class="tool-info">
+                    <div class="tool-title">文字转语音</div>
+                    <div class="tool-desc">在线文字转语音</div>
+                </div>
+            </a>
+
         </div>
-    </a>
 
-
-    <a href="life/tomato.html">
         <div class="tool-card">
-            <img src="static/images/tomato.png" class="tool-icon" alt="IP地址归属地查询">
-            <div class="tool-info">
-                <div class="tool-title">番茄时钟</div>
-                <div class="tool-desc">在线番茄时钟</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="life/cal.html">
+            <a href="life/tomato.html">
+
+                <img src="static/images/tomato.png" class="tool-icon" alt="IP地址归属地查询">
+                <div class="tool-info">
+                    <div class="tool-title">番茄时钟</div>
+                    <div class="tool-desc">在线番茄时钟</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/cal.png" class="tool-icon" alt="IP地址归属地查询">
-            <div class="tool-info">
-                <div class="tool-title">计算器</div>
-                <div class="tool-desc">在线计算器</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="life/bank.html">
+            <a href="life/cal.html">
+
+                <img src="static/images/cal.png" class="tool-icon" alt="IP地址归属地查询">
+                <div class="tool-info">
+                    <div class="tool-title">计算器</div>
+                    <div class="tool-desc">在线计算器</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/bank.png" class="tool-icon" alt="IP地址归属地查询">
-            <div class="tool-info">
-                <div class="tool-title">银行卡类型查询</div>
-                <div class="tool-desc">在线银行卡类型查询</div>
-            </div>
+
+            <a href="life/bank.html">
+
+                <img src="static/images/bank.png" class="tool-icon" alt="IP地址归属地查询">
+                <div class="tool-info">
+                    <div class="tool-title">银行卡类型查询</div>
+                    <div class="tool-desc">在线银行卡类型查询</div>
+                </div>
+            </a>
+
         </div>
-    </a>
 
-
-    <a href="life/qrcode.html">
         <div class="tool-card">
-            <img src="static/images/qrcode.png" class="tool-icon" alt="IP地址归属地查询">
-            <div class="tool-info">
-                <div class="tool-title">二维码生成</div>
-                <div class="tool-desc">在线二维码生成</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="life/hei.html">
-        <div class="tool-card">
-            <img src="static/images/hei.png" class="tool-icon" alt="IP地址归属地查询">
-            <div class="tool-info">
-                <div class="tool-title">孩子身高预测</div>
-                <div class="tool-desc">通过父母的身高来预测孩子的身高</div>
-            </div>
-        </div>
-    </a>
+            <a href="life/qrcode.html">
 
-    <a href="life/child.html">
-        <div class="tool-card">
-            <img src="static/images/child.png" class="tool-icon" alt="IP地址归属地查询">
-            <div class="tool-info">
-                <div class="tool-title">生男生女预测</div>
-                <div class="tool-desc">清宫珍藏的生男生女预测表</div>
-            </div>
-        </div>
-    </a>
+                <img src="static/images/qrcode.png" class="tool-icon" alt="IP地址归属地查询">
+                <div class="tool-info">
+                    <div class="tool-title">二维码生成</div>
+                    <div class="tool-desc">在线二维码生成</div>
+                </div>
+            </a>
 
-    <a href="life/smoke.html">
-        <div class="tool-card">
-            <img src="static/images/smoke.png" class="tool-icon" alt="IP地址归属地查询">
-            <div class="tool-info">
-                <div class="tool-title">吸烟成本计算器</div>
-                <div class="tool-desc">帮你估算吸烟的实际成本，更好的去戒烟</div>
-            </div>
         </div>
-    </a>
 
-    <a href="life/carema.html">
         <div class="tool-card">
-            <img src="static/images/carema.png" class="tool-icon" alt="摄像头测试">
-            <div class="tool-info">
-                <div class="tool-title">摄像头测试</div>
-                <div class="tool-desc">在线摄像头测试</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="life/voice.html">
-        <div class="tool-card">
-            <img src="static/images/pcvoice.png" class="tool-icon" alt="麦克风测试工具">
-            <div class="tool-info">
-                <div class="tool-title">麦克风测试工具</div>
-                <div class="tool-desc">在线麦克风测试工具</div>
-            </div>
+            <a href="life/hei.html">
+
+                <img src="static/images/hei.png" class="tool-icon" alt="IP地址归属地查询">
+                <div class="tool-info">
+                    <div class="tool-title">孩子身高预测</div>
+                    <div class="tool-desc">通过父母的身高来预测孩子的身高</div>
+                </div>
+            </a>
+
         </div>
-    </a>
+
+        <div class="tool-card">
+
+            <a href="life/child.html">
+
+                <img src="static/images/child.png" class="tool-icon" alt="IP地址归属地查询">
+                <div class="tool-info">
+                    <div class="tool-title">生男生女预测</div>
+                    <div class="tool-desc">清宫珍藏的生男生女预测表</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="life/smoke.html">
+
+                <img src="static/images/smoke.png" class="tool-icon" alt="IP地址归属地查询">
+                <div class="tool-info">
+                    <div class="tool-title">吸烟成本计算器</div>
+                    <div class="tool-desc">帮你估算吸烟的实际成本，更好的去戒烟</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="life/carema.html">
+
+                <img src="static/images/carema.png" class="tool-icon" alt="摄像头测试">
+                <div class="tool-info">
+                    <div class="tool-title">摄像头测试</div>
+                    <div class="tool-desc">在线摄像头测试</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="life/voice.html">
+
+                <img src="static/images/pcvoice.png" class="tool-icon" alt="麦克风测试工具">
+                <div class="tool-info">
+                    <div class="tool-title">麦克风测试工具</div>
+                    <div class="tool-desc">在线麦克风测试工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
+
+    </div>
 
 </div>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // 点击菜单项后自动关闭
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+</script>
 </body>
 </html>

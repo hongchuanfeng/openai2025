@@ -4,12 +4,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>娱乐类软件工具-在线软件工具集合-传道软件</title>
-    <link rel="stylesheet" href="static/css/index.css">
     <meta name="keywords" content="在线软件工具集合、传道软件">
     <meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
     <link rel="canonical" href="https://chdaoai.com/">
     <link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/css.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* 响应式导航栏 */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* 工具卡片布局 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #444;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+        }
+
+        /* 移动端样式 */
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+        }
+    </style>
     <!-- Google tag (gtag.js2) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
     <script>
@@ -24,25 +146,34 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<nav class="nav">
+<nav>
     <div class="nav-container">
-        <a href="index.html" class="nav-item">
-            <img src="static/images/logo.png" width="100px" style="margin-right: 60px"/>
-        </a>
-        <a href="index.html" class="nav-item">🔍 推荐工具</a>
-        <a href="life.html" class="nav-item">🏠 生活工具</a>
-        <a href="encry.html" class="nav-item">🔒 加密解密</a>
-        <a href="code.html" class="nav-item">📝 编码解码</a>
-        <a href="dev.html" class="nav-item">💻 开发工具</a>
-        <a href="image.html" class="nav-item">🖼️ 图片处理</a>
-        <a href="game.html" class="nav-item">🎮 娱乐工具</a>
+        <div class="logo">
+            <a href="index.html" class="nav-item">
+                <img src="static/images/logo.png" width="100px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-categories">
+            <a href="index.html" class="nav-category">🔍 推荐工具</a>
+            <a href="life.html" class="nav-category">🏠 生活工具</a>
+            <a href="encry.html" class="nav-category">🔒 加密解密</a>
+            <a href="code.html" class="nav-category">📝 编码解码</a>
+            <a href="dev.html" class="nav-category">💻 开发工具</a>
+            <a href="image.html" class="nav-category">🖼️ 图片工具</a>
+            <a href="game.html" class="nav-category">🎮 娱乐工具</a>
+        </div>
     </div>
 </nav>
 
 <div class="container">
+    <!-- 推荐工具 -->
+    <h2 class="category-title">娱乐工具</h2>
+    <div class="tools-grid">
 
-    <a href="game/sl.html">
+
         <div class="tool-card">
+            <a href="game/sl.html">
 
                 <img src="static/images/sl.png" class="tool-icon" alt="在线扫雷">
                 <div class="tool-info">
@@ -50,98 +181,134 @@
                     <div class="tool-desc">在线扫雷</div>
                 </div>
 
+            </a>
         </div>
-    </a>
 
-    <a href="game/guess.html">
+
         <div class="tool-card">
-            <img src="static/images/guess.png" class="tool-icon" alt="在线猜拳游戏">
-            <div class="tool-info">
-                <div class="tool-title">猜拳游戏</div>
-                <div class="tool-desc">在线猜拳游戏</div>
-            </div>
-        </div>
-    </a>
 
+            <a href="game/guess.html">
 
-    <a href="game/road.html">
-        <div class="tool-card">
-            <img src="static/images/road.png" class="tool-icon" alt="在线数字华容道">
-            <div class="tool-info">
-                <div class="tool-title">数字华容道
+                <img src="static/images/guess.png" class="tool-icon" alt="在线猜拳游戏">
+                <div class="tool-info">
+                    <div class="tool-title">猜拳游戏</div>
+                    <div class="tool-desc">在线猜拳游戏</div>
                 </div>
-                <div class="tool-desc">在线数字华容道
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="game/road.html">
+
+                <img src="static/images/road.png" class="tool-icon" alt="在线数字华容道">
+                <div class="tool-info">
+                    <div class="tool-title">数字华容道</div>
+                    <div class="tool-desc">在线数字华容道</div>
                 </div>
-            </div>
-        </div>
-    </a>
+            </a>
 
-    <a href="game/block.html">
+        </div>
+
+
         <div class="tool-card">
-            <img src="static/images/block.png" class="tool-icon" alt="在线点击方块游戏">
-            <div class="tool-info">
-                <div class="tool-title">方块游戏</div>
-                <div class="tool-desc">在线点击方块游戏</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="game/jump.html">
+            <a href="game/block.html">
+
+                <img src="static/images/block.png" class="tool-icon" alt="在线点击方块游戏">
+                <div class="tool-info">
+                    <div class="tool-title">方块游戏</div>
+                    <div class="tool-desc">在线点击方块游戏</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/jump.png" class="tool-icon" alt="在线山鸡跳跳乐">
-            <div class="tool-info">
-                <div class="tool-title">山鸡跳跳乐</div>
-                <div class="tool-desc">在线山鸡跳跳乐</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="game/blockbreak.html">
+            <a href="game/jump.html">
+
+                <img src="static/images/jump.png" class="tool-icon" alt="在线山鸡跳跳乐">
+                <div class="tool-info">
+                    <div class="tool-title">山鸡跳跳乐</div>
+                    <div class="tool-desc">在线山鸡跳跳乐</div>
+                </div>
+            </a>
+
+        </div>
+
+
         <div class="tool-card">
-            <img src="static/images/blockbreak.png" class="tool-icon" alt="在线打砖块">
-            <div class="tool-info">
-                <div class="tool-title">打砖块</div>
-                <div class="tool-desc">在线打砖块</div>
-            </div>
+
+            <a href="game/blockbreak.html">
+
+                <img src="static/images/blockbreak.png" class="tool-icon" alt="在线打砖块">
+                <div class="tool-info">
+                    <div class="tool-title">打砖块</div>
+                    <div class="tool-desc">在线打砖块</div>
+                </div>
+            </a>
+
         </div>
-    </a>
 
-
-    <a href="game/text.html">
         <div class="tool-card">
-            <img src="static/images/text.png" class="tool-icon" alt="中文繁简体转换">
-            <div class="tool-info">
-                <div class="tool-title">文字游戏</div>
-                <div class="tool-desc">在线文字游戏</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="game/maze.html">
+            <a href="game/text.html">
+
+                <img src="static/images/text.png" class="tool-icon" alt="中文繁简体转换">
+                <div class="tool-info">
+                    <div class="tool-title">文字游戏</div>
+                    <div class="tool-desc">在线文字游戏</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/maze.png" class="tool-icon" alt="在线走迷宫">
-            <div class="tool-info">
-                <div class="tool-title">走迷宫</div>
-                <div class="tool-desc">在线走迷宫</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="game/guessnumber.html">
+            <a href="game/maze.html">
+
+                <img src="static/images/maze.png" class="tool-icon" alt="在线走迷宫">
+                <div class="tool-info">
+                    <div class="tool-title">走迷宫</div>
+                    <div class="tool-desc">在线走迷宫</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/guessnumber.png" class="tool-icon" alt="在线猜数字">
-            <div class="tool-info">
-                <div class="tool-title">猜数字</div>
-                <div class="tool-desc">在线猜数字</div>
-            </div>
+
+            <a href="game/guessnumber.html">
+
+                <img src="static/images/guessnumber.png" class="tool-icon" alt="在线猜数字">
+                <div class="tool-info">
+                    <div class="tool-title">猜数字</div>
+                    <div class="tool-desc">在线猜数字</div>
+                </div>
+            </a>
+
         </div>
-    </a>
 
-
-
-
-
+    </div>
 
 </div>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // 点击菜单项后自动关闭
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+</script>
 </body>
 </html>

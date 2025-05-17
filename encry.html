@@ -4,12 +4,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>加密解密类软件工具-在线软件工具集合-传道软件</title>
-    <link rel="stylesheet" href="static/css/index.css">
     <meta name="keywords" content="在线软件工具集合、传道软件">
     <meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
     <link rel="canonical" href="https://chdaoai.com/">
     <link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/css.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* 响应式导航栏 */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* 工具卡片布局 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #444;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+        }
+
+        /* 移动端样式 */
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+        }
+    </style>
     <!-- Google tag (gtag.js2) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
     <script>
@@ -23,25 +145,34 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<nav class="nav">
+<nav>
     <div class="nav-container">
-        <a href="index.html" class="nav-item">
-            <img src="static/images/logo.png" width="100px" style="margin-right: 60px"/>
-        </a>
-        <a href="index.html" class="nav-item">🔍 推荐工具</a>
-        <a href="life.html" class="nav-item">🏠 生活工具</a>
-        <a href="encry.html" class="nav-item">🔒 加密解密</a>
-        <a href="code.html" class="nav-item">📝 编码解码</a>
-        <a href="dev.html" class="nav-item">💻 开发工具</a>
-        <a href="image.html" class="nav-item">🖼️ 图片处理</a>
-        <a href="game.html" class="nav-item">🎮 娱乐工具</a>
+        <div class="logo">
+            <a href="index.html" class="nav-item">
+                <img src="static/images/logo.png" width="100px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-categories">
+            <a href="index.html" class="nav-category">🔍 推荐工具</a>
+            <a href="life.html" class="nav-category">🏠 生活工具</a>
+            <a href="encry.html" class="nav-category">🔒 加密解密</a>
+            <a href="code.html" class="nav-category">📝 编码解码</a>
+            <a href="dev.html" class="nav-category">💻 开发工具</a>
+            <a href="image.html" class="nav-category">🖼️ 图片工具</a>
+            <a href="game.html" class="nav-category">🎮 娱乐工具</a>
+        </div>
     </div>
 </nav>
 
 <div class="container">
+    <!-- 推荐工具 -->
+    <h2 class="category-title">加密解密</h2>
+    <div class="tools-grid">
 
-    <a href="encry/asc.html">
+
         <div class="tool-card">
+            <a href="encry/asc.html">
 
                 <img src="static/images/asc.png" class="tool-icon" alt="字符串/ASCII互换">
                 <div class="tool-info">
@@ -49,152 +180,214 @@
                     <div class="tool-desc">一款在线免费的字符串/ASCII互换工具</div>
                 </div>
 
+            </a>
         </div>
-    </a>
 
-    <a href="encry/aes.html">
+
         <div class="tool-card">
-            <img src="static/images/aes.png" class="tool-icon" alt="AES加密解密工具">
-            <div class="tool-info">
-                <div class="tool-title">AES加密解密工具</div>
-                <div class="tool-desc">AES在线加密工具/AES在线解密工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="encry/des.html">
+            <a href="encry/aes.html">
+
+                <img src="static/images/aes.png" class="tool-icon" alt="AES加密解密工具">
+                <div class="tool-info">
+                    <div class="tool-title">AES加密解密工具</div>
+                    <div class="tool-desc">AES在线加密工具/AES在线解密工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/des.png" class="tool-icon" alt="DES加密解密工具">
-            <div class="tool-info">
-                <div class="tool-title">DES加密解密工具</div>
-                <div class="tool-desc">DES在线加密工具/DES在线解密工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="encry/jwt.html">
+            <a href="encry/des.html">
+
+                <img src="static/images/des.png" class="tool-icon" alt="DES加密解密工具">
+                <div class="tool-info">
+                    <div class="tool-title">DES加密解密工具</div>
+                    <div class="tool-desc">DES在线加密工具/DES在线解密工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
         <div class="tool-card">
-            <img src="static/images/jwt.png" class="tool-icon" alt="JWT在线解密">
-            <div class="tool-info">
-                <div class="tool-title">JWT在线解密</div>
-                <div class="tool-desc">JSON Web Tokens在线解密工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="encry/md5.html">
+            <a href="encry/jwt.html">
+
+                <img src="static/images/jwt.png" class="tool-icon" alt="JWT在线解密">
+                <div class="tool-info">
+                    <div class="tool-title">JWT在线解密</div>
+                    <div class="tool-desc">JSON Web Tokens在线解密工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/md5.png" class="tool-icon" alt="MD5加密">
-            <div class="tool-info">
-                <div class="tool-title">MD5加密</div>
-                <div class="tool-desc">MD5在线加密工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="encry/sha.html">
+            <a href="encry/md5.html">
+
+                <img src="static/images/md5.png" class="tool-icon" alt="MD5加密">
+                <div class="tool-info">
+                    <div class="tool-title">MD5加密</div>
+                    <div class="tool-desc">MD5在线加密工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
         <div class="tool-card">
-            <img src="static/images/sha.png" class="tool-icon" alt="SHA加密">
-            <div class="tool-info">
-                <div class="tool-title">SHA加密</div>
-                <div class="tool-desc">在线SHA加密处理工具</div>
-            </div>
+
+            <a href="encry/sha.html">
+
+                <img src="static/images/sha.png" class="tool-icon" alt="SHA加密">
+                <div class="tool-info">
+                    <div class="tool-title">SHA加密</div>
+                    <div class="tool-desc">在线SHA加密处理工具</div>
+                </div>
+            </a>
+
         </div>
-    </a>
 
-
-    <a href="encry/shake.html">
         <div class="tool-card">
-            <img src="static/images/shake.png" class="tool-icon" alt="Shake加密">
-            <div class="tool-info">
-                <div class="tool-title">Shake加密</div>
-                <div class="tool-desc">在线字符串Shake加密工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="encry/CRC32.html">
+            <a href="encry/shake.html">
+
+                <img src="static/images/shake.png" class="tool-icon" alt="Shake加密">
+                <div class="tool-info">
+                    <div class="tool-title">Shake加密</div>
+                    <div class="tool-desc">在线字符串Shake加密工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/CRC32.png" class="tool-icon" alt="CRC32加密">
-            <div class="tool-info">
-                <div class="tool-title">CRC32加密</div>
-                <div class="tool-desc">CRC32在线加密工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="encry/HMAC.html">
+            <a href="encry/CRC32.html">
+
+                <img src="static/images/CRC32.png" class="tool-icon" alt="CRC32加密">
+                <div class="tool-info">
+                    <div class="tool-title">CRC32加密</div>
+                    <div class="tool-desc">CRC32在线加密工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/HMAC.png" class="tool-icon" alt="HMAC在线加密工具">
-            <div class="tool-info">
-                <div class="tool-title">HMAC加密</div>
-                <div class="tool-desc">HMAC在线加密工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="encry/jseval.html">
+            <a href="encry/HMAC.html">
+
+                <img src="static/images/HMAC.png" class="tool-icon" alt="HMAC在线加密工具">
+                <div class="tool-info">
+                    <div class="tool-title">HMAC加密</div>
+                    <div class="tool-desc">HMAC在线加密工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/jseval.png" class="tool-icon" alt="js(eval)加密">
-            <div class="tool-info">
-                <div class="tool-title">js(eval)加密</div>
-                <div class="tool-desc">js(eval)在线加密工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="encry/keccak.html">
+            <a href="encry/jseval.html">
+
+                <img src="static/images/jseval.png" class="tool-icon" alt="js(eval)加密">
+                <div class="tool-info">
+                    <div class="tool-title">js(eval)加密</div>
+                    <div class="tool-desc">js(eval)在线加密工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/keccak.png" class="tool-icon" alt="keccak在线加密工具">
-            <div class="tool-info">
-                <div class="tool-title">keccak加密</div>
-                <div class="tool-desc">keccak在线加密工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="encry/Rabbit.html">
+            <a href="encry/keccak.html">
+
+                <img src="static/images/keccak.png" class="tool-icon" alt="keccak在线加密工具">
+                <div class="tool-info">
+                    <div class="tool-title">keccak加密</div>
+                    <div class="tool-desc">keccak在线加密工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/Rabbit.png" class="tool-icon" alt="Rabbit加密">
-            <div class="tool-info">
-                <div class="tool-title">Rabbit加密</div>
-                <div class="tool-desc">Rabbit在线加密工具</div>
-            </div>
+
+            <a href="encry/Rabbit.html">
+
+                <img src="static/images/Rabbit.png" class="tool-icon" alt="Rabbit加密">
+                <div class="tool-info">
+                    <div class="tool-title">Rabbit加密</div>
+                    <div class="tool-desc">Rabbit在线加密工具</div>
+                </div>
+            </a>
+
         </div>
-    </a>
 
-
-    <a href="encry/RC4.html">
         <div class="tool-card">
-            <img src="static/images/RC4.png" class="tool-icon" alt="RC4加密">
-            <div class="tool-info">
-                <div class="tool-title">RC4加密</div>
-                <div class="tool-desc">RC4在线加密工具</div>
-            </div>
+
+            <a href="encry/RC4.html">
+
+                <img src="static/images/RC4.png" class="tool-icon" alt="RC4加密">
+                <div class="tool-info">
+                    <div class="tool-title">RC4加密</div>
+                    <div class="tool-desc">RC4在线加密工具</div>
+                </div>
+            </a>
+
         </div>
-    </a>
 
-
-    <a href="encry/RIPEMD160.html">
         <div class="tool-card">
-            <img src="static/images/RIPEMD160.png" class="tool-icon" alt="RIPEMD160加密">
-            <div class="tool-info">
-                <div class="tool-title">RIPEMD160加密</div>
-                <div class="tool-desc">RIPEMD160加密</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="encry/TripleDES.html">
-        <div class="tool-card">
-            <img src="static/images/TripleDES.png" class="tool-icon" alt="TripleDES加密">
-            <div class="tool-info">
-                <div class="tool-title">TripleDES加密</div>
-                <div class="tool-desc">TripleDES在线加密工具</div>
-            </div>
+            <a href="encry/RIPEMD160.html">
+
+                <img src="static/images/RIPEMD160.png" class="tool-icon" alt="RIPEMD160加密">
+                <div class="tool-info">
+                    <div class="tool-title">RIPEMD160加密</div>
+                    <div class="tool-desc">RIPEMD160加密</div>
+                </div>
+            </a>
+
         </div>
-    </a>
+
+        <div class="tool-card">
+
+            <a href="encry/TripleDES.html">
+
+                <img src="static/images/TripleDES.png" class="tool-icon" alt="TripleDES加密">
+                <div class="tool-info">
+                    <div class="tool-title">TripleDES加密</div>
+                    <div class="tool-desc">TripleDES在线加密工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
+
+    </div>
 
 </div>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // 点击菜单项后自动关闭
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+</script>
 </body>
 </html>

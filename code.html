@@ -4,12 +4,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>编码解码类软件工具-在线软件工具集合-传道软件</title>
-    <link rel="stylesheet" href="static/css/index.css">
     <meta name="keywords" content="在线软件工具集合、传道软件">
     <meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
     <link rel="canonical" href="https://chdaoai.com/">
     <link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/css.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* 响应式导航栏 */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* 工具卡片布局 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #444;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+        }
+
+        /* 移动端样式 */
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+        }
+    </style>
     <!-- Google tag (gtag.js2) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
     <script>
@@ -24,25 +146,34 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<nav class="nav">
+<nav>
     <div class="nav-container">
-        <a href="index.html" class="nav-item">
-            <img src="static/images/logo.png" width="100px" style="margin-right: 60px"/>
-        </a>
-        <a href="index.html" class="nav-item">🔍 推荐工具</a>
-        <a href="life.html" class="nav-item">🏠 生活工具</a>
-        <a href="encry.html" class="nav-item">🔒 加密解密</a>
-        <a href="code.html" class="nav-item">📝 编码解码</a>
-        <a href="dev.html" class="nav-item">💻 开发工具</a>
-        <a href="image.html" class="nav-item">🖼️ 图片处理</a>
-        <a href="game.html" class="nav-item">🎮 娱乐工具</a>
+        <div class="logo">
+            <a href="index.html" class="nav-item">
+                <img src="static/images/logo.png" width="100px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-categories">
+            <a href="index.html" class="nav-category">🔍 推荐工具</a>
+            <a href="life.html" class="nav-category">🏠 生活工具</a>
+            <a href="encry.html" class="nav-category">🔒 加密解密</a>
+            <a href="code.html" class="nav-category">📝 编码解码</a>
+            <a href="dev.html" class="nav-category">💻 开发工具</a>
+            <a href="image.html" class="nav-category">🖼️ 图片工具</a>
+            <a href="game.html" class="nav-category">🎮 娱乐工具</a>
+        </div>
     </div>
 </nav>
 
 <div class="container">
+    <!-- 推荐工具 -->
+    <h2 class="category-title">编码解码</h2>
+    <div class="tools-grid">
 
-    <a href="code/gzip.html">
+
         <div class="tool-card">
+            <a href="code/gzip.html">
 
                 <img src="static/images/gzip.png" class="tool-icon" alt="Gzip编码/解码">
                 <div class="tool-info">
@@ -50,111 +181,162 @@
                     <div class="tool-desc">字符串Gzip在线编码/解码在线处理工具</div>
                 </div>
 
-        </div>
-    </a>
 
-    <a href="code/decodeurl.html">
+            </a>
+        </div>
+
+
         <div class="tool-card">
-            <img src="static/images/decodeurl.png" class="tool-icon" alt="decodeURL编码工具">
-            <div class="tool-info">
-                <div class="tool-title">decodeURL编码工具</div>
-                <div class="tool-desc">在线decodeURL编码工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="code/encodeurl.html">
+            <a href="code/decodeurl.html">
+
+                <img src="static/images/decodeurl.png" class="tool-icon" alt="decodeURL编码工具">
+                <div class="tool-info">
+                    <div class="tool-title">decodeURL编码工具</div>
+                    <div class="tool-desc">在线decodeURL编码工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/encodeurl.png" class="tool-icon" alt="encodeURL编码工具">
-            <div class="tool-info">
-                <div class="tool-title">encodeURL编码工具</div>
-                <div class="tool-desc">在线encodeURL编码工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="code/base64.html">
+            <a href="code/encodeurl.html">
+
+                <img src="static/images/encodeurl.png" class="tool-icon" alt="encodeURL编码工具">
+                <div class="tool-info">
+                    <div class="tool-title">encodeURL编码工具</div>
+                    <div class="tool-desc">在线encodeURL编码工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
         <div class="tool-card">
-            <img src="static/images/base64.png" class="tool-icon" alt="Base64编码/解码">
-            <div class="tool-info">
-                <div class="tool-title">Base64编码/解码</div>
-                <div class="tool-desc">字符串Base64在线编码/解码工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="code/b2h.html">
+            <a href="code/base64.html">
+
+                <img src="static/images/base64.png" class="tool-icon" alt="Base64编码/解码">
+                <div class="tool-info">
+                    <div class="tool-title">Base64编码/解码</div>
+                    <div class="tool-desc">字符串Base64在线编码/解码工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/b2h.png" class="tool-icon" alt="Base64/Hex互转工具">
-            <div class="tool-info">
-                <div class="tool-title">Base64/Hex互转工具</div>
-                <div class="tool-desc">Base64/Hex互转在线工具</div>
-            </div>
+
+            <a href="code/b2h.html">
+
+                <img src="static/images/b2h.png" class="tool-icon" alt="Base64/Hex互转工具">
+                <div class="tool-info">
+                    <div class="tool-title">Base64/Hex互转工具</div>
+                    <div class="tool-desc">Base64/Hex互转在线工具</div>
+                </div>
+            </a>
+
         </div>
-    </a>
 
 
-    <a href="code/file2base64.html">
         <div class="tool-card">
-            <img src="static/images/file2base64.png" class="tool-icon" alt="Base64/文件互转工具">
-            <div class="tool-info">
-                <div class="tool-title">Base64/文件互转工具</div>
-                <div class="tool-desc">Base64/文件互转在线工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="code/hex2string.html">
+            <a href="code/file2base64.html">
+
+                <img src="static/images/file2base64.png" class="tool-icon" alt="Base64/文件互转工具">
+                <div class="tool-info">
+                    <div class="tool-title">Base64/文件互转工具</div>
+                    <div class="tool-desc">Base64/文件互转在线工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/hex2string.png" class="tool-icon" alt="HEX与字符转换工具">
-            <div class="tool-info">
-                <div class="tool-title">HEX与字符转换工具</div>
-                <div class="tool-desc">HEX与字符转换在线工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="code/Punycode.html">
+            <a href="code/hex2string.html">
+
+                <img src="static/images/hex2string.png" class="tool-icon" alt="HEX与字符转换工具">
+                <div class="tool-info">
+                    <div class="tool-title">HEX与字符转换工具</div>
+                    <div class="tool-desc">HEX与字符转换在线工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/Punycode.png" class="tool-icon" alt="Punycode编码/解码工具">
-            <div class="tool-info">
-                <div class="tool-title">Punycode编码/解码工具</div>
-                <div class="tool-desc">Punycode编码/解码在线工具</div>
-            </div>
+
+            <a href="code/Punycode.html">
+
+                <img src="static/images/Punycode.png" class="tool-icon" alt="Punycode编码/解码工具">
+                <div class="tool-info">
+                    <div class="tool-title">Punycode编码/解码工具</div>
+                    <div class="tool-desc">Punycode编码/解码在线工具</div>
+                </div>
+            </a>
+
         </div>
-    </a>
 
-
-    <a href="code/Unicode2ASCII.html">
         <div class="tool-card">
-            <img src="static/images/Unicode2ASCII.png" class="tool-icon" alt="Unicode/ASCII转换工具">
-            <div class="tool-info">
-                <div class="tool-title">Unicode/ASCII转换工具</div>
-                <div class="tool-desc">Unicode/ASCII转换在线工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="code/Unicode2china.html">
-        <div class="tool-card">
-            <img src="static/images/Unicode2china.png" class="tool-icon" alt="Unicode与中文互转">
-            <div class="tool-info">
-                <div class="tool-title">Unicode与中文互转</div>
-                <div class="tool-desc">Unicode与中文互转在线工具</div>
-            </div>
-        </div>
-    </a>
+            <a href="code/Unicode2ASCII.html">
 
-    <a href="code/utf8china.html">
-        <div class="tool-card">
-            <img src="static/images/utf8china.png" class="tool-icon" alt="UTF8与中文互转">
-            <div class="tool-info">
-                <div class="tool-title">UTF8与中文互转</div>
-                <div class="tool-desc">UTF8与中文互转在线工具</div>
-            </div>
+                <img src="static/images/Unicode2ASCII.png" class="tool-icon" alt="Unicode/ASCII转换工具">
+                <div class="tool-info">
+                    <div class="tool-title">Unicode/ASCII转换工具</div>
+                    <div class="tool-desc">Unicode/ASCII转换在线工具</div>
+                </div>
+            </a>
+
         </div>
-    </a>
+
+        <div class="tool-card">
+
+            <a href="code/Unicode2china.html">
+
+                <img src="static/images/Unicode2china.png" class="tool-icon" alt="Unicode与中文互转">
+                <div class="tool-info">
+                    <div class="tool-title">Unicode与中文互转</div>
+                    <div class="tool-desc">Unicode与中文互转在线工具</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="code/utf8china.html">
+
+                <img src="static/images/utf8china.png" class="tool-icon" alt="UTF8与中文互转">
+                <div class="tool-info">
+                    <div class="tool-title">UTF8与中文互转</div>
+                    <div class="tool-desc">UTF8与中文互转在线工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
+    </div>
 
 </div>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // 点击菜单项后自动关闭
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+</script>
 </body>
 </html>

@@ -4,12 +4,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>开发类软件工具-在线软件工具集合-传道软件</title>
-    <link rel="stylesheet" href="static/css/index.css">
     <meta name="keywords" content="在线软件工具集合、传道软件">
     <meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
     <link rel="canonical" href="https://chdaoai.com/">
     <link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/css.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* 响应式导航栏 */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* 工具卡片布局 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #444;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+        }
+
+        /* 移动端样式 */
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+        }
+    </style>
     <!-- Google tag (gtag.js2) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
     <script>
@@ -23,25 +145,34 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<nav class="nav">
+<nav>
     <div class="nav-container">
-        <a href="index.html" class="nav-item">
-            <img src="static/images/logo.png" width="100px" style="margin-right: 60px"/>
-        </a>
-        <a href="index.html" class="nav-item">🔍 推荐工具</a>
-        <a href="life.html" class="nav-item">🏠 生活工具</a>
-        <a href="encry.html" class="nav-item">🔒 加密解密</a>
-        <a href="code.html" class="nav-item">📝 编码解码</a>
-        <a href="dev.html" class="nav-item">💻 开发工具</a>
-        <a href="image.html" class="nav-item">🖼️ 图片处理</a>
-        <a href="game.html" class="nav-item">🎮 娱乐工具</a>
+        <div class="logo">
+            <a href="index.html" class="nav-item">
+                <img src="static/images/logo.png" width="100px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-categories">
+            <a href="index.html" class="nav-category">🔍 推荐工具</a>
+            <a href="life.html" class="nav-category">🏠 生活工具</a>
+            <a href="encry.html" class="nav-category">🔒 加密解密</a>
+            <a href="code.html" class="nav-category">📝 编码解码</a>
+            <a href="dev.html" class="nav-category">💻 开发工具</a>
+            <a href="image.html" class="nav-category">🖼️ 图片工具</a>
+            <a href="game.html" class="nav-category">🎮 娱乐工具</a>
+        </div>
     </div>
 </nav>
 
 <div class="container">
+    <!-- 推荐工具 -->
+    <h2 class="category-title">开发工具</h2>
+    <div class="tools-grid">
 
-    <a href="dev/getstringbyjson.html">
+
         <div class="tool-card">
+            <a href="dev/getstringbyjson.html">
 
                 <img src="static/images/getstringbyjson.png" class="tool-icon" alt="JSON/GET请求字符串互转">
                 <div class="tool-info">
@@ -49,204 +180,281 @@
                     <div class="tool-desc">在线JSON与GET请求字符串相互转换工具</div>
                 </div>
 
+            </a>
         </div>
-    </a>
 
-    <a href="dev/html.html">
+
         <div class="tool-card">
-            <img src="static/images/html.png" class="tool-icon" alt="HTML代码调试预览">
-            <div class="tool-info">
-                <div class="tool-title">HTML代码调试预览</div>
-                <div class="tool-desc">html代码在线调试预览工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="dev/json.html">
+            <a href="dev/html.html">
+
+                <img src="static/images/html.png" class="tool-icon" alt="HTML代码调试预览">
+                <div class="tool-info">
+                    <div class="tool-title">HTML代码调试预览</div>
+                    <div class="tool-desc">html代码在线调试预览工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/json.png" class="tool-icon" alt="JSON压缩/格式化">
-            <div class="tool-info">
-                <div class="tool-title">JSON压缩/格式化</div>
-                <div class="tool-desc">JSON在线压缩/JSON在线解压格式化工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="dev/jstest.html">
+            <a href="dev/json.html">
+
+                <img src="static/images/json.png" class="tool-icon" alt="JSON压缩/格式化">
+                <div class="tool-info">
+                    <div class="tool-title">JSON压缩/格式化</div>
+                    <div class="tool-desc">JSON在线压缩/JSON在线解压格式化工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
         <div class="tool-card">
-            <img src="static/images/jstest.png" class="tool-icon" alt="JS代码调试">
-            <div class="tool-info">
-                <div class="tool-title">JS代码调试</div>
-                <div class="tool-desc">JS在线运行调试工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="dev/xml.html">
+            <a href="dev/jstest.html">
+
+                <img src="static/images/jstest.png" class="tool-icon" alt="JS代码调试">
+                <div class="tool-info">
+                    <div class="tool-title">JS代码调试</div>
+                    <div class="tool-desc">JS在线运行调试工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/xml.png" class="tool-icon" alt="XML压缩/格式化">
-            <div class="tool-info">
-                <div class="tool-title">XML压缩/格式化</div>
-                <div class="tool-desc">XML在线压缩/解压格式化工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="dev/caltime.html">
+            <a href="dev/xml.html">
+
+                <img src="static/images/xml.png" class="tool-icon" alt="XML压缩/格式化">
+                <div class="tool-info">
+                    <div class="tool-title">XML压缩/格式化</div>
+                    <div class="tool-desc">XML在线压缩/解压格式化工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
         <div class="tool-card">
-            <img src="static/images/caltime.png" class="tool-icon" alt="时间差计算器">
-            <div class="tool-info">
-                <div class="tool-title">时间差计算器</div>
-                <div class="tool-desc">时间差计算器在线工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="dev/cssformat.html">
+            <a href="dev/caltime.html">
+
+                <img src="static/images/caltime.png" class="tool-icon" alt="时间差计算器">
+                <div class="tool-info">
+                    <div class="tool-title">时间差计算器</div>
+                    <div class="tool-desc">时间差计算器在线工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/cssformat.png" class="tool-icon" alt="CSS压缩/格式化工具">
-            <div class="tool-info">
-                <div class="tool-title">CSS压缩/格式化工具</div>
-                <div class="tool-desc">CSS压缩/格式化在线工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="dev/dataconvert.html">
+            <a href="dev/cssformat.html">
+
+                <img src="static/images/cssformat.png" class="tool-icon" alt="CSS压缩/格式化工具">
+                <div class="tool-info">
+                    <div class="tool-title">CSS压缩/格式化工具</div>
+                    <div class="tool-desc">CSS压缩/格式化在线工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/dataconvert.png" class="tool-icon" alt="数据大小转换工具">
-            <div class="tool-info">
-                <div class="tool-title">数据大小转换工具</div>
-                <div class="tool-desc">数据大小转换工具在线工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="dev/htmlformat.html">
+            <a href="dev/dataconvert.html">
+
+                <img src="static/images/dataconvert.png" class="tool-icon" alt="数据大小转换工具">
+                <div class="tool-info">
+                    <div class="tool-title">数据大小转换工具</div>
+                    <div class="tool-desc">数据大小转换工具在线工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/htmlformat.png" class="tool-icon" alt="HTML压缩/格式化工具">
-            <div class="tool-info">
-                <div class="tool-title">HTML压缩/格式化工具</div>
-                <div class="tool-desc">HTML压缩/格式化在线工具</div>
-            </div>
+
+            <a href="dev/htmlformat.html">
+
+                <img src="static/images/htmlformat.png" class="tool-icon" alt="HTML压缩/格式化工具">
+                <div class="tool-info">
+                    <div class="tool-title">HTML压缩/格式化工具</div>
+                    <div class="tool-desc">HTML压缩/格式化在线工具</div>
+                </div>
+            </a>
+
         </div>
-    </a>
 
-
-    <a href="dev/jsformat.html">
         <div class="tool-card">
-            <img src="static/images/jsformat.png" class="tool-icon" alt="JS压缩/格式化工具">
-            <div class="tool-info">
-                <div class="tool-title">JS压缩/格式化工具</div>
-                <div class="tool-desc">JS压缩/格式化在线工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="dev/pinyin.html">
+            <a href="dev/jsformat.html">
+
+                <img src="static/images/jsformat.png" class="tool-icon" alt="JS压缩/格式化工具">
+                <div class="tool-info">
+                    <div class="tool-title">JS压缩/格式化工具</div>
+                    <div class="tool-desc">JS压缩/格式化在线工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/pinyin.png" class="tool-icon" alt="汉字拼音在线转换">
-            <div class="tool-info">
-                <div class="tool-title">汉字拼音在线转换</div>
-                <div class="tool-desc">汉字拼音在线转换在线工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="dev/rad.html">
+            <a href="dev/pinyin.html">
+
+                <img src="static/images/pinyin.png" class="tool-icon" alt="汉字拼音在线转换">
+                <div class="tool-info">
+                    <div class="tool-title">汉字拼音在线转换</div>
+                    <div class="tool-desc">汉字拼音在线转换在线工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
         <div class="tool-card">
-            <img src="static/images/rad.png" class="tool-icon" alt="全进制转换工具">
-            <div class="tool-info">
-                <div class="tool-title">全进制转换工具</div>
-                <div class="tool-desc">全进制转换工具在线工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="dev/RGB.html">
+            <a href="dev/rad.html">
+
+                <img src="static/images/rad.png" class="tool-icon" alt="全进制转换工具">
+                <div class="tool-info">
+                    <div class="tool-title">全进制转换工具</div>
+                    <div class="tool-desc">全进制转换工具在线工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
         <div class="tool-card">
-            <img src="static/images/RGB.png" class="tool-icon" alt="RGB/HEX颜色转换工具">
-            <div class="tool-info">
-                <div class="tool-title">RGB/HEX颜色转换工具</div>
-                <div class="tool-desc">RGB/HEX颜色转换在线工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="dev/sqlformat.html">
+            <a href="dev/RGB.html">
+
+                <img src="static/images/RGB.png" class="tool-icon" alt="RGB/HEX颜色转换工具">
+                <div class="tool-info">
+                    <div class="tool-title">RGB/HEX颜色转换工具</div>
+                    <div class="tool-desc">RGB/HEX颜色转换在线工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
         <div class="tool-card">
-            <img src="static/images/sqlformat.png" class="tool-icon" alt="SQL压缩/格式化工具">
-            <div class="tool-info">
-                <div class="tool-title">SQL压缩/格式化工具</div>
-                <div class="tool-desc">SQL压缩/格式化在线工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="dev/string.html">
+            <a href="dev/sqlformat.html">
+
+                <img src="static/images/sqlformat.png" class="tool-icon" alt="SQL压缩/格式化工具">
+                <div class="tool-info">
+                    <div class="tool-title">SQL压缩/格式化工具</div>
+                    <div class="tool-desc">SQL压缩/格式化在线工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
+
         <div class="tool-card">
-            <img src="static/images/string.png" class="tool-icon" alt="在线字数统计">
-            <div class="tool-info">
-                <div class="tool-title">在线字数统计</div>
-                <div class="tool-desc">在线字数统计工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="dev/text2bt.html">
+            <a href="dev/string.html">
+
+                <img src="static/images/string.png" class="tool-icon" alt="在线字数统计">
+                <div class="tool-info">
+                    <div class="tool-title">在线字数统计</div>
+                    <div class="tool-desc">在线字数统计工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/text2bt.png" class="tool-icon" alt="文本与二进制转换工具">
-            <div class="tool-info">
-                <div class="tool-title">文本与二进制转换工具</div>
-                <div class="tool-desc">文本与二进制转换在线工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="dev/unix.html">
+            <a href="dev/text2bt.html">
+                <img src="static/images/text2bt.png" class="tool-icon" alt="文本与二进制转换工具">
+                <div class="tool-info">
+                    <div class="tool-title">文本与二进制转换工具</div>
+                    <div class="tool-desc">文本与二进制转换在线工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
         <div class="tool-card">
-            <img src="static/images/unix.png" class="tool-icon" alt="Unix时间戳转换">
-            <div class="tool-info">
-                <div class="tool-title">Unix时间戳转换</div>
-                <div class="tool-desc">Unix时间戳转换在线工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="dev/xml2json.html">
+            <a href="dev/unix.html">
+                <img src="static/images/unix.png" class="tool-icon" alt="Unix时间戳转换">
+                <div class="tool-info">
+                    <div class="tool-title">Unix时间戳转换</div>
+                    <div class="tool-desc">Unix时间戳转换在线工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/xml2json.png" class="tool-icon" alt="XML/JSON相互转换">
-            <div class="tool-info">
-                <div class="tool-title">XML/JSON相互转换</div>
-                <div class="tool-desc">XML/JSON相互转换在线工具</div>
-            </div>
-        </div>
-    </a>
 
-    <a href="dev/json/index.html">
+            <a href="dev/xml2json.html">
+                <img src="static/images/xml2json.png" class="tool-icon" alt="XML/JSON相互转换">
+                <div class="tool-info">
+                    <div class="tool-title">XML/JSON相互转换</div>
+                    <div class="tool-desc">XML/JSON相互转换在线工具</div>
+                </div>
+            </a>
+
+        </div>
+
         <div class="tool-card">
-            <img src="static/images/json.png" class="tool-icon" alt="在线JSON格式化工具">
-            <div class="tool-info">
-                <div class="tool-title">JSON格式化工具</div>
-                <div class="tool-desc">在线JSON格式化工具</div>
-            </div>
+
+            <a href="dev/json/index.html">
+                <img src="static/images/json.png" class="tool-icon" alt="在线JSON格式化工具">
+                <div class="tool-info">
+                    <div class="tool-title">JSON格式化工具</div>
+                    <div class="tool-desc">在线JSON格式化工具</div>
+                </div>
+            </a>
+
         </div>
-    </a>
 
 
-    <a href="dev/reg/index.html">
         <div class="tool-card">
-            <img src="static/images/reg.png" class="tool-icon" alt="在线正则表达式测试工具">
-            <div class="tool-info">
-                <div class="tool-title">正则表达式测试工具</div>
-                <div class="tool-desc">在线正则表达式测试工具</div>
-            </div>
+
+            <a href="dev/reg/index.html">
+                <img src="static/images/reg.png" class="tool-icon" alt="在线正则表达式测试工具">
+                <div class="tool-info">
+                    <div class="tool-title">正则表达式测试工具</div>
+                    <div class="tool-desc">在线正则表达式测试工具</div>
+                </div>
+            </a>
+
         </div>
-    </a>
 
 
 
+    </div>
 
 </div>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // 点击菜单项后自动关闭
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+</script>
 </body>
 </html>

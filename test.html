@@ -3,334 +3,429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>图片圆角处理工具</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#4F46E5',
-                        secondary: '#818CF8',
-                        neutral: '#1F2937',
-                    },
-                    fontFamily: {
-                        inter: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                }
-            }
+    <title>传道 - 实用工具集合</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/css.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
         }
-    </script>
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .content-auto {
-                content-visibility: auto;
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* 响应式导航栏 */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* 工具卡片布局 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #444;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+        }
+
+        /* 移动端样式 */
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             }
-            .transition-transform-opacity {
-                transition-property: transform, opacity;
-                transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-                transition-duration: 300ms;
+
+            .nav-categories.active {
+                display: flex;
             }
-            .hover-scale {
-                @apply hover:scale-105 transition-all duration-300;
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
             }
         }
     </style>
 </head>
-<body class="font-inter bg-gray-50 min-h-screen flex flex-col">
-<header class="bg-gradient-to-r from-primary to-secondary text-white shadow-lg">
-    <div class="container mx-auto px-4 py-6">
-        <h1 class="text-[clamp(1.8rem,5vw,2.5rem)] font-bold tracking-tight">
-            <i class="fa-solid fa-image-circle-check mr-3"></i>图片圆角处理工具
-        </h1>
-        <p class="mt-2 text-gray-100 text-[clamp(1rem,2vw,1.2rem)]">轻松为您的图片添加圆角效果</p>
-    </div>
-</header>
-
-<main class="flex-grow container mx-auto px-4 py-8">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- 左侧控制面板 -->
-        <div class="bg-white rounded-xl shadow-lg p-6 transform hover:shadow-xl transition-all duration-300">
-            <h2 class="text-xl font-bold text-neutral mb-4 flex items-center">
-                <i class="fa-solid fa-sliders mr-2 text-primary"></i>圆角设置
-            </h2>
-
-            <div class="space-y-6">
-                <!-- 上传图片区域 -->
-                <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-colors duration-300">
-                    <input type="file" id="imageUpload" accept="image/*" class="hidden">
-                    <label for="imageUpload" class="cursor-pointer block">
-                        <i class="fa-solid fa-cloud-arrow-up text-4xl text-gray-400 mb-3"></i>
-                        <p class="text-gray-600">点击或拖拽图片到此处上传</p>
-                        <p class="text-sm text-gray-400 mt-1">支持 JPG, PNG, WebP 格式</p>
-                    </label>
-                </div>
-
-                <!-- 圆角控制滑块 -->
-                <div class="space-y-3">
-                    <div class="flex justify-between items-center">
-                        <label for="radiusSlider" class="text-gray-700 font-medium">圆角半径:</label>
-                        <span id="radiusValue" class="text-primary font-semibold min-w-[40px] text-center">0px</span>
-                    </div>
-                    <input type="range" id="radiusSlider" min="0" max="100" value="0"
-                           class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
-                    <div class="flex justify-between text-xs text-gray-500">
-                        <span>无圆角</span>
-                        <span>圆形</span>
-                    </div>
-                </div>
-
-                <!-- 预设选项 -->
-                <div>
-                    <h3 class="text-sm font-medium text-gray-700 mb-2">圆角预设:</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <button class="preset-btn px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-md text-sm transition-colors" data-radius="0">
-                            无圆角
-                        </button>
-                        <button class="preset-btn px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-md text-sm transition-colors" data-radius="4">
-                            小圆角
-                        </button>
-                        <button class="preset-btn px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-md text-sm transition-colors" data-radius="8">
-                            中等圆角
-                        </button>
-                        <button class="preset-btn px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-md text-sm transition-colors" data-radius="16">
-                            大圆角
-                        </button>
-                        <button class="preset-btn px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-md text-sm transition-colors" data-radius="50">
-                            圆形
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 操作按钮 -->
-                <div class="flex gap-3">
-                    <button id="downloadBtn" class="flex-1 bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i class="fa-solid fa-download mr-2"></i>下载图片
-                    </button>
-                    <button id="resetBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center">
-                        <i class="fa-solid fa-refresh mr-2"></i>重置
-                    </button>
-                </div>
-            </div>
+<body>
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="index.html" class="nav-item">
+                <img src="static/images/logo.png" width="100px" style="margin-right: 60px"/>
+            </a>
         </div>
-
-        <!-- 右侧预览区域 -->
-        <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col transform hover:shadow-xl transition-all duration-300">
-            <h2 class="text-xl font-bold text-neutral mb-4 flex items-center">
-                <i class="fa-solid fa-eye mr-2 text-primary"></i>预览效果
-            </h2>
-
-            <div class="flex-grow flex flex-col items-center justify-center">
-                <div id="previewContainer" class="w-full max-w-md aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center relative mb-4 shadow-inner">
-                    <div id="noImageState" class="text-center p-6">
-                        <i class="fa-solid fa-image text-5xl text-gray-300 mb-3"></i>
-                        <p class="text-gray-500">请上传一张图片开始处理</p>
-                    </div>
-                    <img id="previewImage" src="" alt="预览图片" class="max-w-full max-h-full object-contain rounded-[0px] transition-all duration-500 ease-out">
-                    <div id="loadingIndicator" class="absolute inset-0 bg-black/50 flex items-center justify-center hidden">
-                        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-                    </div>
-                </div>
-
-                <div class="mt-4 w-full">
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="bg-gray-50 p-3 rounded-lg">
-                            <p class="text-xs text-gray-500">原始图片</p>
-                            <div id="originalPreview" class="w-full aspect-[4/3] bg-gray-100 rounded overflow-hidden">
-                                <img id="originalImage" src="" alt="原始图片" class="w-full h-full object-cover rounded-[0px]">
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 p-3 rounded-lg">
-                            <p class="text-xs text-gray-500">处理后图片</p>
-                            <div id="processedPreview" class="w-full aspect-[4/3] bg-gray-100 rounded overflow-hidden">
-                                <img id="processedImage" src="" alt="处理后图片" class="w-full h-full object-cover rounded-[0px] transition-all duration-500">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-categories">
+            <a href="index.html" class="nav-category">🔍 推荐工具</a>
+            <a href="life.html" class="nav-category">🏠 生活工具</a>
+            <a href="encry.html" class="nav-category">🔒 加密解密</a>
+            <a href="code.html" class="nav-category">📝 编码解码</a>
+            <a href="dev.html" class="nav-category">💻 开发工具</a>
+            <a href="image.html" class="nav-category">🖼️ 图片处理</a>
+            <a href="game.html" class="nav-category">🎮 娱乐工具</a>
         </div>
     </div>
-</main>
+</nav>
 
-<footer class="bg-neutral text-white py-6 mt-10">
-    <div class="container mx-auto px-4">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-4 md:mb-0">
-                <p class="text-gray-400">© 2025 图片圆角处理工具</p>
-            </div>
-            <div class="flex space-x-4">
-                <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="fa-brands fa-github"></i>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="fa-brands fa-twitter"></i>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="fa-brands fa-linkedin"></i>
-                </a>
-            </div>
+<div class="container">
+    <!-- 推荐工具 -->
+    <h2 class="category-title">图片工具</h2>
+    <div class="tools-grid">
+
+
+        <div class="tool-card">
+            <a href="image/fav.html">
+
+                <img src="static/images/fav.png" class="tool-icon" alt="今天吃什么">
+                <div class="tool-info">
+                    <div class="tool-title">Favicon图标生成</div>
+                    <div class="tool-desc">一款安全的在线Favicon图标转换工具</div>
+                </div>
+
+
+            </a>
         </div>
+
+
+        <div class="tool-card">
+
+            <a href="image/color.html">
+
+                <img src="static/images/color.png" class="tool-icon" alt="图片颜色拾取器">
+                <div class="tool-info">
+                    <div class="tool-title">图片颜色拾取器</div>
+                    <div class="tool-desc">在线图片颜色拾取器</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="image/colorbyscreen.html">
+
+                <img src="static/images/colorbyscreen.png" class="tool-icon" alt="屏幕颜色拾取">
+                <div class="tool-info">
+                    <div class="tool-title">屏幕颜色拾取</div>
+                    <div class="tool-desc">在线屏幕颜色拾取</div>
+                </div>
+            </a>
+
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="image/convert.html">
+
+                <img src="static/images/convert.png" class="tool-icon" alt="图片格式转换">
+                <div class="tool-info">
+                    <div class="tool-title">图片格式转换</div>
+                    <div class="tool-desc">在线图片格式转换</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="image/selectcolor.html">
+
+                <img src="static/images/selectcolor.png" class="tool-icon" alt="颜色选择器">
+                <div class="tool-info">
+                    <div class="tool-title">颜色选择器</div>
+                    <div class="tool-desc">在线颜色选择器</div>
+                </div>
+            </a>
+
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="image/blank.html">
+
+                <img src="static/images/blank.png" class="tool-icon" alt="彩图转黑白">
+                <div class="tool-info">
+                    <div class="tool-title">彩图转黑白</div>
+                    <div class="tool-desc">彩图转黑白</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="image/base64toimage.html">
+
+                <img src="static/images/base64toimage.png" class="tool-icon" alt="Base64转图片">
+                <div class="tool-info">
+                    <div class="tool-title">Base64转图片</div>
+                    <div class="tool-desc">在线Base64转图片</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="image/image2base64.html">
+
+                <img src="static/images/imagetobase64.png" class="tool-icon" alt="图片转Base64">
+                <div class="tool-info">
+                    <div class="tool-title">图片转Base64</div>
+                    <div class="tool-desc">在线图片转Base64</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="image/compress/index.html">
+
+                <img src="static/images/compress.png" class="tool-icon" alt="在线图片压缩工具">
+                <div class="tool-info">
+                    <div class="tool-title">图片压缩工具</div>
+                    <div class="tool-desc">在线图片压缩工具</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="image/excel/index.html">
+
+                <img src="static/images/excel.png" class="tool-icon" alt="图片转Excel工具">
+                <div class="tool-info">
+                    <div class="tool-title">图片转Excel工具</div>
+                    <div class="tool-desc">在线图片转Excel工具</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="image/mosaic/index.html">
+
+                <img src="static/images/mosaic.png" class="tool-icon" alt="在线图片马赛克处理工具">
+                <div class="tool-info">
+                    <div class="tool-title">图片马赛克处理工具</div>
+                    <div class="tool-desc">在线图片马赛克处理工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="image/watermark/index.html">
+
+                <img src="static/images/watermark.png" class="tool-icon" alt="在线图片水印处理工具">
+                <div class="tool-info">
+                    <div class="tool-title">图片水印处理工具</div>
+                    <div class="tool-desc">在线图片水印处理工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="image/icon/index.html">
+
+                <img src="static/images/icon.png" class="tool-icon" alt="在线免费转换icon图标工具">
+                <div class="tool-info">
+                    <div class="tool-title">在线免费转换icon工具</div>
+                    <div class="tool-desc">在线免费转换icon工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="image/cropper.html">
+
+                <img src="static/images/cropper.jpg" class="tool-icon" alt="图片裁剪工具">
+                <div class="tool-info">
+                    <div class="tool-title">图片裁剪工具</div>
+                    <div class="tool-desc">图片裁剪工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
+
+        <div class="tool-card">
+
+            <a href="image/ninegrid.html">
+
+                <img src="static/images/ninegrid.png" class="tool-icon" alt="九宫格切图工具">
+                <div class="tool-info">
+                    <div class="tool-title">九宫格切图工具</div>
+                    <div class="tool-desc">九宫格切图工具</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="image/text2img.html">
+                <img src="static/images/text2img.png" class="tool-icon" alt="文字生成图片工具">
+                <div class="tool-info">
+                    <div class="tool-title">文字生成图片工具</div>
+                    <div class="tool-desc">文字生成图片工具</div>
+                </div>
+            </a>
+
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="image/joinImg.html">
+                <img src="static/images/joinImg.jpg" class="tool-icon" alt="图片拼接工具">
+                <div class="tool-info">
+                    <div class="tool-title">图片拼接工具</div>
+                    <div class="tool-desc">图片拼接工具</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="dev/round.html">
+                <img src="static/images/round.jpeg" class="tool-icon" alt="图片圆角处理">
+                <div class="tool-info">
+                    <div class="tool-title">图片圆角处理</div>
+                    <div class="tool-desc">图片圆角处理工具</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="image/textInImg.html">
+                <img src="static/images/textInImg.png" class="tool-icon" alt="图片加文字">
+                <div class="tool-info">
+                    <div class="tool-title">图片加文字</div>
+                    <div class="tool-desc">图片加文字</div>
+                </div>
+            </a>
+
+        </div>
+
+
     </div>
-</footer>
+
+</div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // 获取DOM元素
-        const imageUpload = document.getElementById('imageUpload');
-        const radiusSlider = document.getElementById('radiusSlider');
-        const radiusValue = document.getElementById('radiusValue');
-        const previewImage = document.getElementById('previewImage');
-        const processedImage = document.getElementById('processedImage');
-        const originalImage = document.getElementById('originalImage');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const resetBtn = document.getElementById('resetBtn');
-        const noImageState = document.getElementById('noImageState');
-        const loadingIndicator = document.getElementById('loadingIndicator');
-        const presetBtns = document.querySelectorAll('.preset-btn');
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
 
-        // 初始化状态
-        let originalImageData = null;
-        let currentRadius = 0;
-        downloadBtn.disabled = true;
-
-        // 监听图片上传
-        imageUpload.addEventListener('change', function(e) {
-            if (e.target.files && e.target.files[0]) {
-                const file = e.target.files[0];
-                if (!file.type.match('image.*')) {
-                    alert('请上传图片文件！');
-                    return;
+        // 点击菜单项后自动关闭
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
                 }
-
-                showLoading(true);
-
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    // 设置预览图片
-                    previewImage.src = e.target.result;
-                    originalImage.src = e.target.result;
-                    processedImage.src = e.target.result;
-
-                    // 存储原始图片数据
-                    originalImageData = e.target.result;
-
-                    // 更新UI状态
-                    noImageState.classList.add('hidden');
-                    downloadBtn.disabled = false;
-
-                    // 应用当前圆角半径
-                    applyRadius();
-
-                    showLoading(false);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // 监听滑块变化
-        radiusSlider.addEventListener('input', function() {
-            currentRadius = parseInt(this.value);
-            updateRadiusDisplay();
-            applyRadius();
-        });
-
-        // 监听预设按钮点击
-        presetBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                currentRadius = parseInt(this.dataset.radius);
-                radiusSlider.value = currentRadius;
-                updateRadiusDisplay();
-                applyRadius();
             });
         });
-
-        // 监听下载按钮点击
-        downloadBtn.addEventListener('click', function() {
-            if (!previewImage.src) return;
-
-            // 创建一个临时canvas
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-
-            // 创建图片对象
-            const img = new Image();
-            img.onload = function() {
-                // 设置canvas尺寸
-                canvas.width = img.width;
-                canvas.height = img.height;
-
-                // 计算圆角半径（基于图片尺寸的百分比）
-                const radius = (currentRadius / 100) * Math.min(img.width, img.height);
-
-                // 绘制带圆角的图片
-                ctx.beginPath();
-                ctx.moveTo(radius, 0);
-                ctx.lineTo(img.width - radius, 0);
-                ctx.arcTo(img.width, 0, img.width, radius, radius);
-                ctx.lineTo(img.width, img.height - radius);
-                ctx.arcTo(img.width, img.height, img.width - radius, img.height, radius);
-                ctx.lineTo(radius, img.height);
-                ctx.arcTo(0, img.height, 0, img.height - radius, radius);
-                ctx.lineTo(0, radius);
-                ctx.arcTo(0, 0, radius, 0, radius);
-                ctx.closePath();
-                ctx.clip();
-                ctx.drawImage(img, 0, 0, img.width, img.height);
-
-                // 创建下载链接
-                const link = document.createElement('a');
-                link.download = 'rounded_image.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            };
-            img.src = previewImage.src;
-        });
-
-        // 监听重置按钮点击
-        resetBtn.addEventListener('click', function() {
-            // 重置滑块
-            radiusSlider.value = 0;
-            currentRadius = 0;
-            updateRadiusDisplay();
-            applyRadius();
-
-            // 清除图片（可选）
-            // imageUpload.value = '';
-            // previewImage.src = '';
-            // originalImage.src = '';
-            // processedImage.src = '';
-            // noImageState.classList.remove('hidden');
-            // downloadBtn.disabled = true;
-        });
-
-        // 更新圆角半径显示
-        function updateRadiusDisplay() {
-            radiusValue.textContent = `${currentRadius}px`;
-        }
-
-        // 应用圆角效果
-        function applyRadius() {
-            if (!previewImage.src) return;
-
-            // 为预览图片应用圆角
-            previewImage.style.borderRadius = `${currentRadius}px`;
-            processedImage.style.borderRadius = `${currentRadius}px`;
-        }
-
-        // 显示/隐藏加载指示器
-        function showLoading(show) {
-            if (show) {
-                loadingIndicator.classList.remove('hidden');
-            } else {
-                loadingIndicator.classList.add('hidden');
-            }
-        }
-
-        // 初始化显示
-        updateRadiusDisplay();
-    });
+    }
 </script>
 </body>
 </html>
