@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.periodic-table {
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+    gap: 2px;
+}
+
+.element {
+    aspect-ratio: 1;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.atomic-number {
+    font-size: 10px;
+    align-self: flex-start;
+}
+
+.symbol {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 2px 0;
+}
+
+.name {
+    font-size: 10px;
+}
+
+/* 元素类型的颜色 */
+.alkali-metal { background-color: #ff9933; }
+.alkaline-earth { background-color: #ffff66; }
+.transition-metal { background-color: #ff99cc; }
+.post-transition-metal { background-color: #99ccff; }
+.metalloid { background-color: #99ff99; }
+.nonmetal { background-color: #00ff00; }
+.halogen { background-color: #99ff33; }
+.noble-gas { background-color: #66ffff; }
+.lanthanide { background-color: #ffcccc; }
+.actinide { background-color: #ff99ff; }
+.unknown { background-color: #cccccc; }
+
+.empty {
+    visibility: hidden;
+}
+
+.description {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+} 
