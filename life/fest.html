@@ -281,56 +281,92 @@
 	</div>
 </nav>
 
-<h1 style="text-align: center">中国节日查询</h1>
-
-<div class="festival-table">
-	<div class="table-header">
-		<div>日期</div>
-		<div>节日</div>
-	</div>
-	<div class="festival-row">
-		<div class="date">正月初一</div>
-		<div class="festival">春节<span class="festival-english">(the Spring Festival)</span></div>
-	</div>
-	<div class="festival-row">
-		<div class="date">正月十五</div>
-		<div class="festival">元宵节<span class="festival-english">(Lantern Festival)</span></div>
-	</div>
-	<div class="festival-row">
-		<div class="date">五月初五</div>
-		<div class="festival">端午节<span class="festival-english">(the Dragon-Boat Festival)</span></div>
-	</div>
-	<div class="festival-row">
-		<div class="date">七月初七</div>
-		<div class="festival">七夕节<span class="festival-english">(Double-Seventh Day)</span></div>
-	</div>
-	<div class="festival-row">
-		<div class="date">八月十五</div>
-		<div class="festival">中秋节<span class="festival-english">(the Mid-Autumn Festival)</span></div>
-	</div>
-	<div class="festival-row">
-		<div class="date">九月初九</div>
-		<div class="festival">重阳节<span class="festival-english">(the Double Ninth Festival)</span></div>
-	</div>
-	<div class="festival-row">
-		<div class="date">腊月初八</div>
-		<div class="festival">腊八节<span class="festival-english">(the laba Rice Porridge Festival)</span></div>
-	</div>
-	<div class="festival-row">
-		<div class="date">腊月二十四</div>
-		<div class="festival">传统扫房日</div>
-	</div>
+<h1 style="text-align: center">节日查询</h1>
+<div class="tabs">
+  <div class="tab active" data-tab="china">中国节日</div>
+  <div class="tab" data-tab="world">国外著名节日</div>
 </div>
-
+<div id="china-festival" class="festival-table">
+  <div class="table-header">
+    <div>日期</div>
+    <div>节日</div>
+  </div>
+  <div class="festival-row"><div class="date">1月1日</div><div class="festival">元旦</div></div>
+  <div class="festival-row"><div class="date">正月初一</div><div class="festival">春节<span class="festival-english">(the Spring Festival)</span></div></div>
+  <div class="festival-row"><div class="date">正月十五</div><div class="festival">元宵节<span class="festival-english">(Lantern Festival)</span></div></div>
+  <div class="festival-row"><div class="date">2月14日</div><div class="festival">情人节（部分年轻人过）</div></div>
+  <div class="festival-row"><div class="date">三月三</div><div class="festival">上巳节/壮族三月三</div></div>
+  <div class="festival-row"><div class="date">清明节</div><div class="festival">清明节<span class="festival-english">(Tomb-sweeping Day)</span></div></div>
+  <div class="festival-row"><div class="date">四月初八</div><div class="festival">佛诞节</div></div>
+  <div class="festival-row"><div class="date">五月初五</div><div class="festival">端午节<span class="festival-english">(the Dragon-Boat Festival)</span></div></div>
+  <div class="festival-row"><div class="date">六月初六</div><div class="festival">回族开斋节（时间随伊斯兰历变动）</div></div>
+  <div class="festival-row"><div class="date">七月初七</div><div class="festival">七夕节<span class="festival-english">(Double-Seventh Day)</span></div></div>
+  <div class="festival-row"><div class="date">七月十五</div><div class="festival">中元节</div></div>
+  <div class="festival-row"><div class="date">八月十五</div><div class="festival">中秋节<span class="festival-english">(the Mid-Autumn Festival)</span></div></div>
+  <div class="festival-row"><div class="date">九月初九</div><div class="festival">重阳节<span class="festival-english">(the Double Ninth Festival)</span></div></div>
+  <div class="festival-row"><div class="date">十月初一</div><div class="festival">寒衣节</div></div>
+  <div class="festival-row"><div class="date">十月十五</div><div class="festival">下元节</div></div>
+  <div class="festival-row"><div class="date">腊月初八</div><div class="festival">腊八节<span class="festival-english">(the laba Rice Porridge Festival)</span></div></div>
+  <div class="festival-row"><div class="date">腊月二十三/二十四</div><div class="festival">小年</div></div>
+  <div class="festival-row"><div class="date">腊月二十四</div><div class="festival">传统扫房日</div></div>
+  <div class="festival-row"><div class="date">12月24日</div><div class="festival">平安夜（部分年轻人过）</div></div>
+  <div class="festival-row"><div class="date">12月25日</div><div class="festival">圣诞节（部分年轻人过）</div></div>
+  <div class="festival-row"><div class="date">农历四月初八</div><div class="festival">浴佛节</div></div>
+  <div class="festival-row"><div class="date">农历五月十三</div><div class="festival">关公诞</div></div>
+  <div class="festival-row"><div class="date">农历六月十九</div><div class="festival">观音成道日</div></div>
+  <div class="festival-row"><div class="date">农历七月十三</div><div class="festival">关帝诞</div></div>
+  <div class="festival-row"><div class="date">农历九月初九</div><div class="festival">重阳节</div></div>
+  <div class="festival-row"><div class="date">农历十月初一</div><div class="festival">寒衣节</div></div>
+  <div class="festival-row"><div class="date">农历十月十五</div><div class="festival">下元节</div></div>
+  <div class="festival-row"><div class="date">农历腊月二十三/二十四</div><div class="festival">小年</div></div>
+  <div class="festival-row"><div class="date">农历腊月二十四</div><div class="festival">扫尘日</div></div>
+  <div class="festival-row"><div class="date">农历腊月三十</div><div class="festival">除夕</div></div>
+  <div class="festival-row"><div class="date">4月5日左右</div><div class="festival">清明节</div></div>
+  <div class="festival-row"><div class="date">5月1日</div><div class="festival">劳动节</div></div>
+  <div class="festival-row"><div class="date">6月1日</div><div class="festival">儿童节</div></div>
+  <div class="festival-row"><div class="date">9月10日</div><div class="festival">教师节</div></div>
+  <div class="festival-row"><div class="date">10月1日</div><div class="festival">国庆节</div></div>
+  <div class="festival-row"><div class="date">农历四月初八</div><div class="festival">浴佛节</div></div>
+  <div class="festival-row"><div class="date">农历六月十九</div><div class="festival">观音成道日</div></div>
+  <div class="festival-row"><div class="date">农历七月十三</div><div class="festival">关帝诞</div></div>
+  <div class="festival-row"><div class="date">农历九月十九</div><div class="festival">观音诞</div></div>
+  <div class="festival-row"><div class="date">农历十月十五</div><div class="festival">下元节</div></div>
+  <div class="festival-row"><div class="date">农历腊月二十三</div><div class="festival">北方小年</div></div>
+  <div class="festival-row"><div class="date">农历腊月二十四</div><div class="festival">南方小年</div></div>
+  <div class="festival-row"><div class="date">农历腊月三十</div><div class="festival">除夕</div></div>
+</div>
+<div id="world-festival" class="festival-table" style="display:none;">
+  <div class="table-header">
+    <div>日期</div>
+    <div>节日</div>
+  </div>
+  <div class="festival-row"><div class="date">1月1日</div><div class="festival">新年（New Year's Day）</div></div>
+  <div class="festival-row"><div class="date">2月14日</div><div class="festival">情人节（Valentine's Day）</div></div>
+  <div class="festival-row"><div class="date">3月8日</div><div class="festival">国际妇女节（International Women's Day）</div></div>
+  <div class="festival-row"><div class="date">3月17日</div><div class="festival">圣帕特里克节（St. Patrick's Day）</div></div>
+  <div class="festival-row"><div class="date">4月1日</div><div class="festival">愚人节（April Fool's Day）</div></div>
+  <div class="festival-row"><div class="date">复活节</div><div class="festival">复活节（Easter）</div></div>
+  <div class="festival-row"><div class="date">5月第2个星期日</div><div class="festival">母亲节（Mother's Day）</div></div>
+  <div class="festival-row"><div class="date">6月第3个星期日</div><div class="festival">父亲节（Father's Day）</div></div>
+  <div class="festival-row"><div class="date">7月4日</div><div class="festival">美国独立日（Independence Day）</div></div>
+  <div class="festival-row"><div class="date">10月31日</div><div class="festival">万圣节（Halloween）</div></div>
+  <div class="festival-row"><div class="date">11月第4个星期四</div><div class="festival">感恩节（Thanksgiving Day）</div></div>
+  <div class="festival-row"><div class="date">12月24日</div><div class="festival">平安夜（Christmas Eve）</div></div>
+  <div class="festival-row"><div class="date">12月25日</div><div class="festival">圣诞节（Christmas Day）</div></div>
+  <div class="festival-row"><div class="date">12月26日</div><div class="festival">节礼日（Boxing Day）</div></div>
+  <div class="festival-row"><div class="date">12月31日</div><div class="festival">新年前夜（New Year's Eve）</div></div>
+</div>
 <script>
-	// 标签切换功能
-	const tabs = document.querySelectorAll('.tab');
-	tabs.forEach(tab => {
-		tab.addEventListener('click', () => {
-			tabs.forEach(t => t.classList.remove('active'));
-			tab.classList.add('active');
-		});
-	});
+// 标签切换功能
+const tabs = document.querySelectorAll('.tab');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('china-festival').style.display = tab.dataset.tab === 'china' ? '' : 'none';
+    document.getElementById('world-festival').style.display = tab.dataset.tab === 'world' ? '' : 'none';
+  });
+});
 </script>
 <script>
 	function toggleMenu() {
