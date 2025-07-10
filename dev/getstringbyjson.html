@@ -280,63 +280,146 @@
 </div>
 
 <script>
-	// JSON转GET参数
-	function jsonToGet() {
-		try {
-			const jsonInput = document.getElementById('inputArea').value;
-			const obj = JSON.parse(jsonInput);
-			let getParams = [];
+// 智能判断输入类型
+function detectInputType(str) {
+  const s = str.trim();
+  if (s.startsWith('{') && s.endsWith('}')) return 'json';
+  if (s.includes('=') && s.includes('&')) return 'get';
+  if (s.startsWith('http')) return 'url';
+  if (s.startsWith('?')) return 'get';
+  return 'unknown';
+}
 
-			for (const [key, value] of Object.entries(obj)) {
-				const encodedValue = encodeURIComponent(value);
-				getParams.push(`${key}=${encodedValue}`);
-			}
+// 递归处理嵌套对象为GET参数
+function buildGetParams(obj, prefix = '') {
+  let params = [];
+  for (const key in obj) {
+    if (!obj.hasOwnProperty(key)) continue;
+    const value = obj[key];
+    const paramKey = prefix ? (Array.isArray(obj) ? `${prefix}[${key}]` : `${prefix}.${key}`) : key;
+    if (typeof value === 'object' && value !== null) {
+      params = params.concat(buildGetParams(value, paramKey));
+    } else {
+      params.push(`${encodeURIComponent(paramKey)}=${encodeURIComponent(value)}`);
+    }
+  }
+  return params;
+}
 
-			document.getElementById('outputArea').value = getParams.join('&');
-		} catch (error) {
-			alert(`JSON解析错误: ${error.message}`);
-		}
-	}
+// JSON转GET参数（支持嵌套）
+function jsonToGet() {
+  try {
+    const jsonInput = document.getElementById('inputArea').value;
+    const obj = JSON.parse(jsonInput);
+    const getParams = buildGetParams(obj);
+    document.getElementById('outputArea').value = getParams.join('&');
+  } catch (error) {
+    alert(`JSON解析错误: ${error.message}`);
+  }
+}
 
-	// GET参数转JSON
-	function getToJson() {
-		try {
-			const getInput = document.getElementById('inputArea').value;
-			const params = new URLSearchParams(getInput);
-			const result = {};
+// GET参数转JSON（支持嵌套、数组）
+function getToJson() {
+  try {
+    let getInput = document.getElementById('outputArea').value.trim();
+    // 处理URL完整参数
+    if (getInput.startsWith('http')) {
+      const idx = getInput.indexOf('?');
+      if (idx >= 0) getInput = getInput.slice(idx + 1);
+    }
+    if (getInput.startsWith('?')) getInput = getInput.slice(1);
+    // 兼容+号空格
+    getInput = getInput.replace(/\+/g, '%20');
+    const params = new URLSearchParams(getInput);
+    const entries = Array.from(params.entries());
+    // 智能判断：如果只有一个key且key本身是JSON字符串
+    if (entries.length === 1) {
+      const [k, v] = entries[0];
+      try {
+        const obj = JSON.parse(k);
+        document.getElementById('inputArea').value = JSON.stringify(obj, null, 2);
+        return;
+      } catch(e) {}
+    }
+    const result = {};
+    for (const [key, value] of params) {
+      // 处理嵌套key（a.b、arr[0]）
+      let cur = result;
+      const parts = key.split(/\.|\[|\]/).filter(Boolean);
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i];
+        if (i === parts.length - 1) {
+          cur[p] = decodeURIComponent(value);
+        } else {
+          if (!cur[p]) {
+            // 判断下一个是否数字，决定是数组还是对象
+            cur[p] = /^\d+$/.test(parts[i + 1]) ? [] : {};
+          }
+          cur = cur[p];
+        }
+      }
+    }
+    let jsonStr = JSON.stringify(result, null, 2);
+    if (jsonStr.startsWith('"') && jsonStr.endsWith('"')) {
+      try { jsonStr = JSON.parse(jsonStr); } catch(e){}
+    }
+    document.getElementById('inputArea').value = jsonStr;
+  } catch (error) {
+    alert('GET参数解析错误，请检查格式');
+  }
+}
 
-			for (const [key, value] of params) {
-				result[key] = decodeURIComponent(value);
-			}
+// 智能一键转换
+function smartConvert() {
+  const val = document.getElementById('inputArea').value.trim();
+  const type = detectInputType(val);
+  if (type === 'json') {
+    jsonToGet();
+  } else if (type === 'get' || type === 'url') {
+    getToJson();
+  } else {
+    alert('无法识别输入内容类型，请输入JSON或GET参数');
+  }
+}
 
-			document.getElementById('outputArea').value = JSON.stringify(result, null, 2);
-		} catch (error) {
-			alert('GET参数解析错误，请检查格式');
-		}
-	}
+// 复制结果
+function copyResult() {
+  const output = document.getElementById('outputArea');
+  output.select();
+  document.execCommand('copy');
+  alert('内容已复制到剪贴板');
+}
 
-	// 复制结果
-	function copyResult() {
-		const output = document.getElementById('outputArea');
-		output.select();
-		document.execCommand('copy');
-		alert('内容已复制到剪贴板');
-	}
+// 清空所有内容
+function clearAll() {
+  document.getElementById('inputArea').value = '';
+  document.getElementById('outputArea').value = '';
+}
 
-	// 清空所有内容
-	function clearAll() {
-		document.getElementById('inputArea').value = '';
-		document.getElementById('outputArea').value = '';
-	}
+// 自动去除URL前缀
+// 并支持自动识别GET参数
+const inputArea = document.getElementById('inputArea');
+inputArea.addEventListener('input', function() {
+  let value = this.value.trim();
+  if (value.startsWith('?')) {
+    this.value = value.slice(1);
+  }
+});
 
-	// 自动去除URL前缀
-	document.getElementById('inputArea').addEventListener('input', function() {
-		const value = this.value.trim();
-		if (value.startsWith('?')) {
-			this.value = value.slice(1);
-		}
-	});
+// 支持粘贴URL自动提取参数
+inputArea.addEventListener('paste', function(e) {
+  setTimeout(() => {
+    let v = this.value.trim();
+    if (v.startsWith('http')) {
+      const idx = v.indexOf('?');
+      if (idx >= 0) this.value = v.slice(idx + 1);
+    }
+  }, 0);
+});
 </script>
+<div class="btn-group">
+  <button onclick="smartConvert()">智能一键转换</button>
+</div>
 </body>
 <script>
 	function toggleMenu() {
