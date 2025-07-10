@@ -47,30 +47,36 @@
 			margin-right: 10px;
 		}
 		.container {
-			max-width: 800px;
+			max-width: 1000px;
 			margin: 0 auto;
+			padding: 0 1rem;
 		}
 		.search-container {
 			text-align: center;
 			margin: 40px 0;
 		}
 		.search-title {
-			font-size: 24px;
+			font-size: 28px;
 			color: #4c6ef5;
-			margin-bottom: 20px;
+			margin-bottom: 30px;
 		}
 		.search-box {
 			display: flex;
 			max-width: 600px;
 			margin: 0 auto;
+			gap: 10px;
+			flex-wrap: wrap;
+			justify-content: center;
 		}
 		.search-input {
 			flex: 1;
+			min-width: 300px;
 			padding: 12px 20px;
 			font-size: 16px;
 			border: 2px solid #e9ecef;
-			border-radius: 8px 0 0 8px;
-			border-right: none;
+			border-radius: 8px;
+			outline: none;
+			transition: border-color 0.3s;
 		}
 		.search-input:focus {
 			outline: none;
@@ -81,19 +87,77 @@
 			background-color: #4c6ef5;
 			color: white;
 			border: none;
-			border-radius: 0 8px 8px 0;
+			border-radius: 8px;
 			font-size: 16px;
 			cursor: pointer;
+			transition: background-color 0.3s;
 		}
 		.search-btn:hover {
 			background-color: #364fc7;
+		}
+		.search-btn:disabled {
+			background-color: #ccc;
+			cursor: not-allowed;
+		}
+		.record-type-selector {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+		.record-type-btn {
+			padding: 8px 16px;
+			background-color: #f8f9fa;
+			border: 1px solid #dee2e6;
+			border-radius: 6px;
+			cursor: pointer;
+			transition: all 0.3s;
+			font-size: 14px;
+		}
+		.record-type-btn:hover {
+			background-color: #e9ecef;
+		}
+		.record-type-btn.active {
+			background-color: #4c6ef5;
+			color: white;
+			border-color: #4c6ef5;
 		}
 		.result-container {
 			background: white;
 			padding: 20px;
 			border-radius: 8px;
 			margin-top: 20px;
-			min-height: 200px;
+			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+			display: none;
+		}
+		.loading {
+			text-align: center;
+			color: #666;
+			font-style: italic;
+			padding: 40px;
+		}
+		.error {
+			text-align: center;
+			color: #f44336;
+			background: #ffebee;
+			padding: 20px;
+			border-radius: 8px;
+			margin: 20px 0;
+		}
+		.spinner {
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			border: 3px solid #f3f3f3;
+			border-top: 3px solid #4c6ef5;
+			border-radius: 50%;
+			animation: spin 1s linear infinite;
+			margin-right: 10px;
+		}
+		@keyframes spin {
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
 		}
 		.info-box {
 			background-color: #fff5f0;
@@ -147,6 +211,30 @@
 		.record-table th {
 			background-color: #f8f9fa;
 			font-weight: bold;
+			color: #495057;
+		}
+		.record-table tr:hover {
+			background-color: #f8f9fa;
+		}
+		.domain-info {
+			background: #e3f2fd;
+			padding: 15px;
+			border-radius: 6px;
+			margin-bottom: 20px;
+		}
+		.domain-info h4 {
+			color: #1976d2;
+			margin-bottom: 10px;
+		}
+		.domain-info p {
+			margin: 5px 0;
+			color: #666;
+		}
+		.no-records {
+			text-align: center;
+			color: #666;
+			padding: 40px;
+			font-style: italic;
 		}
 	</style>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -269,6 +357,14 @@
 			nav {
 				padding: 1rem;
 			}
+			
+			.search-box {
+				flex-direction: column;
+			}
+			
+			.search-input {
+				min-width: auto;
+			}
 		}
 	</style>
 	<script src="../static/js/jquery-3.6.2.min.js"></script>
@@ -310,10 +406,19 @@
 
 <div class="container">
 	<div class="search-container">
-		<h1 class="search-title">域名解析记录查询</h1>
+		<h1 class="search-title">🌐 域名解析记录查询</h1>
 		<div class="search-box">
-			<input type="text" class="search-input" id="domainInput" placeholder="输入网址">
-			<button class="search-btn" onclick="searchDomain()">查询</button>
+			<input type="text" class="search-input" id="domainInput" placeholder="请输入域名，如：example.com">
+			<button class="search-btn" onclick="searchDomain()" id="searchBtn">查询</button>
+		</div>
+		<div class="record-type-selector">
+			<button class="record-type-btn active" data-type="ALL">全部记录</button>
+			<button class="record-type-btn" data-type="A">A记录</button>
+			<button class="record-type-btn" data-type="AAAA">AAAA记录</button>
+			<button class="record-type-btn" data-type="CNAME">CNAME记录</button>
+			<button class="record-type-btn" data-type="MX">MX记录</button>
+			<button class="record-type-btn" data-type="TXT">TXT记录</button>
+			<button class="record-type-btn" data-type="NS">NS记录</button>
 		</div>
 	</div>
 
@@ -337,73 +442,211 @@
 	</div>
 
 	<div class="history-container">
-		<h3 class="history-title">最近查询：</h3>
+		<h3 class="history-title">📋 最近查询：</h3>
 		<div id="historyList">
-			<div class="history-item">openai2025.com</div>
+			<!-- 历史记录将在这里显示 -->
 		</div>
 	</div>
 </div>
 
 <script>
-	function searchDomain() {
-		const domain = document.getElementById('domainInput').value.trim();
+	// DNS记录类型配置
+	const DNS_RECORD_TYPES = {
+		'A': 'IPv4地址记录',
+		'AAAA': 'IPv6地址记录', 
+		'CNAME': '别名记录',
+		'MX': '邮件交换记录',
+		'TXT': '文本记录',
+		'NS': '域名服务器记录'
+	};
+
+	// 当前选中的记录类型
+	let selectedRecordType = 'ALL';
+
+	// 显示加载状态
+	function showLoading(message = '正在查询DNS记录...') {
 		const resultContainer = document.getElementById('resultContainer');
+		resultContainer.style.display = 'block';
+		resultContainer.innerHTML = `<div class="loading"><span class="spinner"></span>${message}</div>`;
+	}
+
+	// 显示错误信息
+	function showError(message) {
+		const resultContainer = document.getElementById('resultContainer');
+		resultContainer.style.display = 'block';
+		resultContainer.innerHTML = `<div class="error">${message}</div>`;
+	}
+
+	// 验证域名格式
+	function isValidDomain(domain) {
+		const domainPattern = /^[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)*$/;
+		return domainPattern.test(domain);
+	}
+
+	// 查询单个DNS记录类型
+	async function queryDNSRecord(domain, recordType) {
+		return new Promise((resolve, reject) => {
+			$.ajax({
+				url: `https://223.5.5.5/resolve?name=${domain}&type=${recordType}`,
+				method: 'GET',
+				dataType: 'json',
+				success: function(response) {
+					console.log(`${recordType}记录查询结果:`, response);
+					resolve(response);
+				},
+				error: function(xhr, status, error) {
+					console.error(`${recordType}记录查询失败:`, error);
+					reject(error);
+				}
+			});
+		});
+	}
+
+	// 处理DNS响应数据
+	function processDNSResponse(domain, recordType, response) {
+		const records = [];
+		
+		if (response && response.Answer) {
+			response.Answer.forEach(answer => {
+				records.push({
+					type: recordType,
+					name: answer.name,
+					data: answer.data,
+					ttl: answer.TTL
+				});
+			});
+		}
+		
+		if (response && response.Authority) {
+			response.Authority.forEach(authority => {
+				records.push({
+					type: recordType,
+					name: authority.name,
+					data: authority.data,
+					ttl: authority.TTL
+				});
+			});
+		}
+		
+		return records;
+	}
+
+	// 显示查询结果
+	function displayResults(domain, allRecords) {
+		const resultContainer = document.getElementById('resultContainer');
+		
+		// 过滤记录类型
+		let filteredRecords = allRecords;
+		if (selectedRecordType !== 'ALL') {
+			filteredRecords = allRecords.filter(record => record.type === selectedRecordType);
+		}
+		
+		if (filteredRecords.length === 0) {
+			resultContainer.innerHTML = `
+				<div class="no-records">
+					<h3>📊 查询结果：${domain}</h3>
+					<p>未找到${selectedRecordType === 'ALL' ? '任何' : selectedRecordType}记录</p>
+				</div>
+			`;
+			return;
+		}
+		
+		const html = `
+			<h3>📊 查询结果：${domain}</h3>
+			<div class="domain-info">
+				<h4>📈 统计信息</h4>
+				<p>总记录数：${filteredRecords.length}</p>
+				<p>记录类型：${selectedRecordType === 'ALL' ? '全部' : selectedRecordType}</p>
+				<p>查询时间：${new Date().toLocaleString()}</p>
+			</div>
+			<table class="record-table">
+				<thead>
+					<tr>
+						<th>记录类型</th>
+						<th>主机记录</th>
+						<th>记录值</th>
+						<th>TTL</th>
+					</tr>
+				</thead>
+				<tbody>
+					${filteredRecords.map(record => `
+						<tr>
+							<td><strong>${record.type}</strong></td>
+							<td>${record.name}</td>
+							<td>${record.data}</td>
+							<td>${record.ttl}</td>
+						</tr>
+					`).join('')}
+				</tbody>
+			</table>
+		`;
+		
+		resultContainer.innerHTML = html;
+	}
+
+	// 查询域名解析记录
+	async function searchDomain() {
+		const domain = document.getElementById('domainInput').value.trim();
+		const searchBtn = document.getElementById('searchBtn');
 
 		if (!domain) {
 			alert('请输入要查询的域名！');
 			return;
 		}
 
-		// 这里应该调用实际的DNS查询API
-		// 以下为模拟数据
-		// resultContainer.innerHTML = `
-        //         <h3>查询结果：${domain}</h3>
-        //         <table class="record-table">
-        //             <thead>
-        //                 <tr>
-        //                     <th>记录类型</th>
-        //                     <th>主机记录</th>
-        //                     <th>记录值</th>
-        //                     <th>TTL</th>
-        //                 </tr>
-        //             </thead>
-        //             <tbody>
-        //                 <tr>
-        //                     <td>A</td>
-        //                     <td>@</td>
-        //                     <td>192.168.1.1</td>
-        //                     <td>600</td>
-        //                 </tr>
-        //                 <tr>
-        //                     <td>CNAME</td>
-        //                     <td>www</td>
-        //                     <td>${domain}</td>
-        //                     <td>600</td>
-        //                 </tr>
-        //                 <tr>
-        //                     <td>MX</td>
-        //                     <td>@</td>
-        //                     <td>mail.${domain}</td>
-        //                     <td>3600</td>
-        //                 </tr>
-        //             </tbody>
-        //         </table>
-        //     `;
-		//
-		// // 添加到历史记录
-		// addToHistory(domain);
-		// const data ={
-		// 	"apiKey": "at_yEXmjA2f9lr7eFTbg06cHAmYh6WME",
-		// 	"searchType": "forward",
-		// 	"recordType": "aaaa",
-		// 	"domainName": domain
-		// };
+		if (!isValidDomain(domain)) {
+			alert('请输入正确的域名格式！\n\n正确格式：\n• example.com\n• www.example.com\n• sub.example.com');
+			return;
+		}
 
-		getData(domain)
+		// 禁用按钮
+		searchBtn.disabled = true;
+
+		try {
+			showLoading('正在查询DNS记录...');
+			console.log('开始查询域名:', domain);
+
+			const recordTypes = selectedRecordType === 'ALL' ? Object.keys(DNS_RECORD_TYPES) : [selectedRecordType];
+			const allRecords = [];
+
+			// 并行查询所有记录类型
+			const promises = recordTypes.map(async (recordType) => {
+				try {
+					const response = await queryDNSRecord(domain, recordType);
+					const records = processDNSResponse(domain, recordType, response);
+					allRecords.push(...records);
+				} catch (error) {
+					console.warn(`${recordType}记录查询失败:`, error);
+				}
+			});
+
+			await Promise.all(promises);
+
+			console.log('所有记录查询完成:', allRecords);
+			displayResults(domain, allRecords);
+			addToHistory(domain);
+
+		} catch (error) {
+			console.error('查询失败:', error);
+			showError('查询失败，请检查网络连接后重试');
+		} finally {
+			// 恢复按钮
+			searchBtn.disabled = false;
+		}
 	}
 
 	function addToHistory(domain) {
 		const historyList = document.getElementById('historyList');
+		
+		// 检查是否已存在
+		const existingItems = historyList.querySelectorAll('.history-item');
+		for (let item of existingItems) {
+			if (item.textContent === domain) {
+				historyList.removeChild(item);
+				break;
+			}
+		}
+		
 		const historyItem = document.createElement('div');
 		historyItem.className = 'history-item';
 		historyItem.textContent = domain;
@@ -411,95 +654,49 @@
 			document.getElementById('domainInput').value = domain;
 			searchDomain();
 		};
+		
 		historyList.insertBefore(historyItem, historyList.firstChild);
+		
+		// 限制历史记录数量
+		if (existingItems.length >= 10) {
+			historyList.removeChild(historyList.lastChild);
+		}
 	}
 
-	function getData(domain){
-		$.ajax({
-			url: 'https://dns.google/resolve?name='+domain+'&type=A',
-			method: "get",
-			dataType: "json", // 预期服务器返回的数据类型
-		})
-		.done(function(data1){
+	// 记录类型选择器事件
+	document.addEventListener('DOMContentLoaded', function() {
+		const recordTypeBtns = document.querySelectorAll('.record-type-btn');
+		
+		recordTypeBtns.forEach(btn => {
+			btn.addEventListener('click', function() {
+				// 移除所有active类
+				recordTypeBtns.forEach(b => b.classList.remove('active'));
+				// 添加active类到当前按钮
+				this.classList.add('active');
+				// 更新选中的记录类型
+				selectedRecordType = this.dataset.type;
+				
+				// 如果结果容器有内容，重新显示结果
+				const resultContainer = document.getElementById('resultContainer');
+				if (resultContainer.style.display === 'block' && resultContainer.innerHTML.includes('查询结果')) {
+					// 这里可以重新查询或重新过滤显示
+					console.log('切换到记录类型:', selectedRecordType);
+				}
+			});
+		});
+	});
 
+	// 回车键查询
+	document.getElementById('domainInput').addEventListener('keypress', function(e) {
+		if (e.key === 'Enter') {
+			searchDomain();
+		}
+	});
 
-			$.ajax({
-				url: 'https://dns.google/resolve?name='+domain+'&type=CNAME',
-				method: "get",
-				dataType: "json", // 预期服务器返回的数据类型
-			})
-			.done(function(data2){
-
-				$.ajax({
-					url: 'https://dns.google/resolve?name='+domain+'&type=MX',
-					method: "get",
-					dataType: "json", // 预期服务器返回的数据类型
-				})
-				.done(function(data3){
-
-
-					// 这里应该调用实际的DNS查询API
-					// 以下为模拟数据
-					resultContainer.innerHTML = `
-								<h3>查询结果：${domain}</h3>
-								<table class="record-table">
-									<thead>
-										<tr>
-											<th>记录类型</th>
-											<th>主机记录</th>
-											<th>记录值</th>
-											<th>TTL</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>A</td>
-											<td>@</td>
-											<td>${data1.Answer[0].data}</td>
-											<td>${data1.Answer[0].TTL}</td>
-										</tr>
-										<tr>
-											<td>CNAME</td>
-											<td>www</td>
-											<td>${data2.Authority[0].data}</td>
-											<td>${data2.Authority[0].TTL}</td>
-										</tr>
-										<tr>
-											<td>MX</td>
-											<td>@</td>
-											<td>${data3.Authority[0].data}</td>
-											<td>${data3.Authority[0].TTL}</td>
-										</tr>
-									</tbody>
-								</table>
-							`;
-
-					addToHistory(domain);
-
-				})
-				.fail(function(jqXHR){
-
-
-				})
-
-
-
-
-
-			})
-			.fail(function(jqXHR){
-
-
-			})
-
-
-
-		})
-		.fail(function(jqXHR){
-
-
-		})
-	}
+	// 页面加载时聚焦输入框
+	window.onload = function() {
+		document.getElementById('domainInput').focus();
+	};
 </script>
 <script>
 	function toggleMenu() {
