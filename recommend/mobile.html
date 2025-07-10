@@ -82,14 +82,17 @@
             gap: 10px;
             justify-content: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         .search-input {
             width: 300px;
-            padding: 12px;
+            min-width: 250px;
+            padding: 12px 15px;
             border: 2px solid #e9ecef;
             border-radius: 8px;
             font-size: 16px;
             outline: none;
+            transition: border-color 0.3s;
         }
         .search-input:focus {
             border-color: #2196f3;
@@ -102,16 +105,81 @@
             border-radius: 8px;
             font-size: 16px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
         .search-btn:hover {
             background-color: #1976d2;
+        }
+        .search-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
         }
         .result {
             margin-top: 20px;
             padding: 20px;
             background: white;
             border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             display: none;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 10;
+        }
+        .result h3 {
+            color: #2196f3;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .result-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .result-detail:last-child {
+            border-bottom: none;
+        }
+        .result-label {
+            font-weight: bold;
+            color: #666;
+        }
+        .result-value {
+            color: #333;
+        }
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+        .error {
+            text-align: center;
+            color: #f44336;
+            background: #ffebee;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2196f3;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .phone-prefix {
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
         }
         .info-box {
             max-width: 800px;
@@ -223,6 +291,9 @@
             padding-left: 1rem;
         }
 
+        #result{
+            display: none;
+        }
         /* 移动端样式 */
         @media (max-width: 768px) {
             .nav-categories {
@@ -253,8 +324,20 @@
             nav {
                 padding: 1rem;
             }
+            
+            .search-box {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .search-input {
+                width: 100%;
+                max-width: 300px;
+                min-width: auto;
+            }
         }
     </style>
+  <script src="../static/js/jquery-3.6.2.min.js"></script>
     <!-- Google tag (gtag.js2) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
     <script>
@@ -291,11 +374,12 @@
 
 
 <div class="search-container">
-    <h1 class="search-title">手机号归属地查询</h1>
+    <h1 class="search-title">📱 手机号归属地查询</h1>
     <div class="search-box">
-        <input type="text" class="search-input" id="phoneNumber" placeholder="输入手机号" maxlength="11">
-        <button class="search-btn" onclick="searchPhone()">查询</button>
+        <input type="text" class="search-input" id="phoneNumber" placeholder="请输入11位手机号码" maxlength="11">
+        <button class="search-btn" onclick="searchPhone()" id="searchBtn">查询</button>
     </div>
+    <div class="phone-prefix">支持查询：移动、联通、电信、广电等运营商手机号码</div>
     <div class="result" id="result"></div>
 </div>
 
@@ -310,77 +394,240 @@
 </div>
 
 <script>
-    function searchPhone() {
-        const phoneNumber = document.getElementById('phoneNumber').value.trim();
+    // 手机号前缀规则
+    const PHONE_PREFIXES = {
+        '130': '联通', '131': '联通', '132': '联通', '133': '电信', '134': '移动',
+        '135': '移动', '136': '移动', '137': '移动', '138': '移动', '139': '移动',
+        '145': '联通', '146': '联通', '147': '移动', '148': '移动', '149': '联通',
+        '150': '移动', '151': '移动', '152': '移动', '153': '电信', '154': '移动',
+        '155': '联通', '156': '联通', '157': '移动', '158': '移动', '159': '移动',
+        '166': '联通', '167': '联通', '168': '移动', '169': '移动',
+        '170': '虚拟运营商', '171': '虚拟运营商', '172': '移动', '173': '电信',
+        '174': '电信', '175': '联通', '176': '联通', '177': '电信', '178': '移动',
+        '180': '电信', '181': '电信', '182': '移动', '183': '移动', '184': '移动',
+        '185': '联通', '186': '联通', '187': '移动', '188': '移动', '189': '电信',
+        '190': '广电', '191': '广电', '192': '广电', '193': '广电', '194': '广电',
+        '195': '广电', '196': '广电', '197': '广电', '198': '移动', '199': '电信'
+    };
+
+    // 多个手机号查询API
+    const PHONE_APIS = [
+        {
+            url: 'https://eolink.o.apispace.com/teladress/teladress',
+            method: 'POST',
+            headers: {
+                'X-APISpace-Token': 'gmn3bm7jxy2tm6zjqvtbn4e8wsg32l1u',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            dataKey: 'mobile',
+            responseKey: 'data'
+        }
+    ];
+
+    // 显示加载状态
+    function showLoading(message = '正在查询...') {
         const result = document.getElementById('result');
+        result.style.display = 'block';
+        result.innerHTML = `<div class="loading"><span class="spinner"></span>${message}</div>`;
+    }
+
+    // 显示错误信息
+    function showError(message) {
+        const result = document.getElementById('result');
+        result.style.display = 'block';
+        result.innerHTML = `<div class="error">${message}</div>`;
+    }
+
+    // 验证手机号格式
+    function isValidPhone(phone) {
+        return /^1[3-9]\d{9}$/.test(phone);
+    }
+
+    // 获取手机号前缀信息
+    function getPhonePrefixInfo(phone) {
+        const prefix = phone.substring(0, 3);
+        return PHONE_PREFIXES[prefix] || '未知';
+    }
+
+    // 显示查询结果
+    function displayResult(phone, data) {
+        const result = document.getElementById('result');
+        const cleanPhone = phone.replace(/\s/g, '');
+        const prefix = cleanPhone.substring(0, 3);
+        const operator = getPhonePrefixInfo(cleanPhone);
+        
+        // 格式化显示手机号
+        const formattedPhone = cleanPhone.replace(/(\d{3})(\d{4})(\d{4})/, '$1 $2 $3');
+        
+        // 调试信息
+        console.log('准备显示数据:', data);
+        console.log('手机号:', phone);
+        console.log('清理后手机号:', cleanPhone);
+        console.log('数据属性:', Object.keys(data));
+        
+        // 确保result元素存在
+        if (!result) {
+            console.error('找不到result元素');
+            return;
+        }
+        
+        // 直接设置内容，不使用嵌套的result div
+        const html = `
+            <h3>📱 手机号信息</h3>
+            <div class="result-detail">
+                <span class="result-label">手机号码:</span>
+                <span class="result-value">${formattedPhone}</span>
+            </div>
+            <div class="result-detail">
+                <span class="result-label">归属地:</span>
+                <span class="result-value">${data.province || '未知'} ${data.city || '未知'}</span>
+            </div>
+            <div class="result-detail">
+                <span class="result-label">运营商:</span>
+                <span class="result-value">${data.isp || operator}</span>
+            </div>
+            <div class="result-detail">
+                <span class="result-label">省份代码:</span>
+                <span class="result-value">${data.provinceCode || '未知'}</span>
+            </div>
+            <div class="result-detail">
+                <span class="result-label">城市代码:</span>
+                <span class="result-value">${data.cityCode || '未知'}</span>
+            </div>
+            <div class="result-detail">
+                <span class="result-label">邮政编码:</span>
+                <span class="result-value">${data.postCode || '未知'}</span>
+            </div>
+            <div class="result-detail">
+                <span class="result-label">号码段:</span>
+                <span class="result-value">${prefix}****${cleanPhone.substring(7)}</span>
+            </div>
+        `;
+        
+        console.log('准备设置HTML:', html);
+        result.innerHTML = html;
+        result.style.display = 'block';
+        console.log('HTML设置完成，元素显示状态:', result.style.display);
+        console.log('元素可见性:', result.offsetHeight, result.offsetWidth);
+    }
+
+    // 查询手机号信息
+    async function queryPhoneInfo(phone) {
+        try {
+            console.log('正在查询手机号:', phone);
+            
+            // 使用jQuery的ajax方法，更稳定
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: 'https://eolink.o.apispace.com/teladress/teladress',
+                    method: 'POST',
+                    headers: {
+                        'X-APISpace-Token': 'gmn3bm7jxy2tm6zjqvtbn4e8wsg32l1u',
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    data: {
+                        mobile: phone
+                    },
+                    success: function(response) {
+                        console.log('API返回数据:', response);
+                        
+                        if (response && response.code === '200000' && response.data) {
+                            console.log('查询成功，返回数据:', response.data);
+                            resolve(response.data);
+                        } else {
+                            console.warn('API返回数据格式异常:', response);
+                            reject(new Error('API返回数据格式异常'));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('API请求失败:', error);
+                        reject(new Error('网络请求失败'));
+                    }
+                });
+            });
+        } catch (error) {
+            console.error('查询过程出错:', error);
+            throw error;
+        }
+    }
+
+    // 查询手机号
+    async function searchPhone() {
+        const phoneNumber = document.getElementById('phoneNumber').value.trim().replace(/\s/g, '');
+        const searchBtn = document.getElementById('searchBtn');
+
+        console.log('开始查询流程，手机号:', phoneNumber);
 
         // 验证手机号格式
-        if (!/^1[3-9]\d{9}$/.test(phoneNumber)) {
-            alert('请输入正确的11位手机号码！');
+        if (!isValidPhone(phoneNumber)) {
+            alert('请输入正确的11位手机号码！\n\n支持格式：\n• 13xxxxxxxxx\n• 14xxxxxxxxx\n• 15xxxxxxxxx\n• 16xxxxxxxxx\n• 17xxxxxxxxx\n• 18xxxxxxxxx\n• 19xxxxxxxxx');
             return;
         }
 
-        // 显示加载状态
-        result.style.display = 'block';
-        result.innerHTML = '查询中...';
+        // 禁用按钮
+        searchBtn.disabled = true;
 
-        // // 调用手机号查询API
-        // fetch(`https://api.apishop.net/common/mobile/get?apiKey=YOUR_API_KEY&mobile=${phoneNumber}`)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         if (data.result) {
-        //             result.innerHTML = `
-        //                     <p><strong>手机号：</strong>${phoneNumber}</p>
-        //                     <p><strong>归属地：</strong>${data.result.province} ${data.result.city}</p>
-        //                     <p><strong>运营商：</strong>${data.result.carrier}</p>
-        //                     <p><strong>卡类型：</strong>${data.result.cardType}</p>
-        //                 `;
-        //         } else {
-        //             result.innerHTML = '未查询到相关信息';
-        //         }
-        //     })
-        //     .catch(error => {
-        //         result.innerHTML = '查询失败，请稍后重试';
-        //         console.error('Error:', error);
-        //     });
-
-
-        var data = {
-            "mobile": phoneNumber
+        try {
+            showLoading('正在查询手机号信息...');
+            console.log('开始查询手机号:', phoneNumber);
+            
+            const data = await queryPhoneInfo(phoneNumber);
+            console.log('查询完成，获取到数据:', data);
+            console.log('数据类型:', typeof data);
+            console.log('数据内容:', JSON.stringify(data, null, 2));
+            
+            if (data && typeof data === 'object') {
+                displayResult(phoneNumber, data);
+            } else {
+                console.error('返回的数据格式不正确:', data);
+                showError('返回的数据格式不正确');
+            }
+        } catch (error) {
+            console.error('查询失败:', error);
+            showError(`查询失败: ${error.message}`);
+        } finally {
+            // 恢复按钮
+            searchBtn.disabled = false;
         }
-
-        $.ajax({
-            "url":"https://eolink.o.apispace.com/teladress/teladress",
-            "method": "POST",
-            "headers": {
-                "X-APISpace-Token":"gmn3bm7jxy2tm6zjqvtbn4e8wsg32l1u",
-                "Content-Type":"application/x-www-form-urlencoded"
-            },
-            "data": data,
-            "crossDomain": true
-        })
-        .done(function(data){
-
-            //console.log(response)
-
-            result.innerHTML = `
-                        <p><strong>手机号：</strong>${phoneNumber}</p>
-                        <p><strong>归属地：</strong>${data.data.province} ${data.data.city}</p>
-                        <p><strong>运营商：</strong>${data.data.isp}</p>
-                        <p><strong>卡类型：</strong>${data.data.isp}</p>
-                    `;
-        })
-        .fail(function(jqXHR){
-
-
-        })
-
     }
 
     // 输入框只允许输入数字
     document.getElementById('phoneNumber').addEventListener('input', function(e) {
+        // 只保留数字
         this.value = this.value.replace(/\D/g, '');
     });
+
+    // 回车键查询
+    document.getElementById('phoneNumber').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            searchPhone();
+        }
+    });
+
+    // 页面加载时聚焦输入框
+    window.onload = function() {
+        document.getElementById('phoneNumber').focus();
+        
+        // 测试页面元素
+        console.log('页面加载完成，测试元素:');
+        console.log('输入框:', document.getElementById('phoneNumber'));
+        console.log('查询按钮:', document.getElementById('searchBtn'));
+        console.log('结果区域:', document.getElementById('result'));
+        
+        // 测试显示功能
+        // setTimeout(() => {
+            // console.log('测试显示功能...');
+            // const testData = {
+                // province: '江西',
+                // city: '南昌',
+                // isp: '移动',
+                // provinceCode: '0791',
+                // cityCode: '360100',
+                // postCode: '330000'
+            // };
+            // displayResult('18770057183', testData);
+        // }, 1000);
+    };
 </script>
 <script>
     function toggleMenu() {
