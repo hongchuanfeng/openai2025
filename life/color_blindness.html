@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>色盲色弱测试-传道软件</title>
+	<meta name="keywords" content="在线软件工具集合、传道软件">
+	<meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
+	<link rel="canonical" href="https://openai2025.com/">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #4285f4;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.header-title {
+			font-size: 18px;
+			font-weight: bold;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.heart-icon {
+			color: #ff4757;
+			cursor: pointer;
+		}
+		.rating {
+			display: flex;
+			gap: 5px;
+			color: #ffd700;
+		}
+		.share-icon {
+			margin-left: auto;
+			color: #666;
+			cursor: pointer;
+		}
+		.tabs {
+			max-width: 800px;
+			margin: 0 auto 20px;
+			display: flex;
+			gap: 10px;
+		}
+		.tab {
+			padding: 6px 16px;
+			border-radius: 20px;
+			cursor: pointer;
+			font-size: 14px;
+		}
+		.tab.active {
+			background-color: #00b894;
+			color: white;
+		}
+		.tab:not(.active) {
+			background-color: #e9ecef;
+			color: #666;
+		}
+		.festival-table {
+			max-width: 800px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.table-header {
+			display: grid;
+			grid-template-columns: 1fr 2fr;
+			background-color: #f8f9fa;
+			padding: 15px 20px;
+			font-weight: bold;
+			color: #666;
+		}
+		.festival-row {
+			display: grid;
+			grid-template-columns: 1fr 2fr;
+			padding: 15px 20px;
+			border-top: 1px solid #eee;
+		}
+		.festival-row:hover {
+			background-color: #f8f9fa;
+		}
+		.date {
+			color: #666;
+		}
+		.festival {
+			color: #333;
+		}
+		.festival-english {
+			color: #666;
+			font-size: 0.9em;
+			margin-left: 8px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-HWMGEQS9C0');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 推荐工具</a>
+			<a href="../life.html" class="nav-category">🏠 生活工具</a>
+			<a href="../encry.html" class="nav-category">🔒 加密解密</a>
+			<a href="../code.html" class="nav-category">📝 编码解码</a>
+			<a href="../dev.html" class="nav-category">💻 开发工具</a>
+			<a href="../image.html" class="nav-category">🖼️ 图片处理</a>
+			<a href="../game.html" class="nav-category">🎮 娱乐工具</a>
+		</div>
+	</div>
+</nav>
+
+<h1 style="text-align: center">色盲色弱测试</h1>
+<div class="container" style="max-width:1000px;margin:30px auto;background:#fff;padding:30px 20px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+  <h2 style="text-align:center;margin-bottom:20px;">色盲色弱测试图</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+    <div style="text-align:center;">
+      <img src="../static/images/b/1.jpg" alt="图1" style="width:120px;height:120px;border-radius:50%;border:1px solid #eee;"> 
+      <div style="font-size:13px;">色盲测试图1<br>正常人看到12，色盲患者可能看不出</div>
+    </div>
+    <div style="text-align:center;">
+      <img src="../static/images/b/2.jpg" alt="图2" style="width:120px;height:120px;border-radius:50%;border:1px solid #eee;">
+      <div style="font-size:13px;">色盲测试图2<br>正常人看到8，色盲患者可能看到3</div>
+    </div>
+    <div style="text-align:center;">
+      <img src="../static/images/b/3.jpg" alt="图3" style="width:120px;height:120px;border-radius:50%;border:1px solid #eee;">
+      <div style="font-size:13px;">色盲测试图3<br>正常人看到6，色盲患者可能看不出</div>
+    </div>
+    <div style="text-align:center;">
+      <img src="../static/images/b/4.jpg" alt="图4" style="width:120px;height:120px;border-radius:50%;border:1px solid #eee;">
+      <div style="font-size:13px;">色盲测试图4<br>正常人看到45，色盲患者可能看不出</div>
+    </div>
+  </div>
+  <div style="margin:30px 0 10px 0;font-weight:bold;">最全面的色盲检查彩图，可以检色色盲类型：红色盲、绿色盲、红绿色盲、红色弱、绿色弱</div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+    <div style="display:flex;gap:10px;width:100%;justify-content:center;flex-wrap:wrap;">
+      <div style="display:flex;gap:10px;width:100%;justify-content:center;">
+        <img src="../static/images/b/5.jpg" style="border:1px solid #eee;"> 
+        <img src="../static/images/b/6.jpg" style="border:1px solid #eee;"> 
+      </div>
+      <div style="display:flex;gap:10px;width:100%;justify-content:center;">
+        <img src="../static/images/b/7.jpg" style="border:1px solid #eee;"> 
+        <img src="../static/images/b/8.jpg" style="border:1px solid #eee;"> 
+      </div>
+      <div style="display:flex;gap:10px;width:100%;justify-content:center;">
+        <img src="../static/images/b/9.jpg" style="border:1px solid #eee;"> 
+        <img src="../static/images/b/10.jpg" style="border:1px solid #eee;">
+      </div>
+    
+  </div>
+  <div style="margin:30px 0 10px 0;font-weight:bold;">色觉检查结果对照表</div>
+  <div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;background:#fafafa;border:2px solid #bbb;">
+      <thead>
+        <tr style="background:#e9ecef;">
+          <th style="padding:12px 8px;border:1.5px solid #888;line-height:2;">图号</th>
+          <th style="padding:12px 8px;border:1.5px solid #888;line-height:2;">色觉正常者辨认结果</th>
+          <th style="padding:12px 8px;border:1.5px solid #888;line-height:2;">色盲/色弱辨认结果</th>
+          <th style="padding:12px 8px;border:1.5px solid #888;line-height:2;">色盲/色弱类型</th>
+          <th style="padding:12px 8px;border:1.5px solid #888;line-height:2;">备注</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">图1-1</td><td style="border:1.5px solid #888;padding:12px 8px;">6</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td><td style="border:1.5px solid #888;padding:12px 8px;">示例图</td></tr>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">图1-2</td><td style="border:1.5px solid #888;padding:12px 8px;">6,9,8</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td><td style="border:1.5px solid #888;padding:12px 8px;">红色盲</td><td style="border:1.5px solid #888;padding:12px 8px;">轻度红色盲</td></tr>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">图1-3</td><td style="border:1.5px solid #888;padding:12px 8px;">3,6</td><td style="border:1.5px solid #888;padding:12px 8px;">不能读</td><td style="border:1.5px solid #888;padding:12px 8px;">红绿色盲</td><td style="border:1.5px solid #888;padding:12px 8px;">较典型红色盲</td></tr>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">图1-4</td><td style="border:1.5px solid #888;padding:12px 8px;">不能读</td><td style="border:1.5px solid #888;padding:12px 8px;">不能读</td><td style="border:1.5px solid #888;padding:12px 8px;">红绿色盲</td><td style="border:1.5px solid #888;padding:12px 8px;">较典型红绿色盲</td></tr>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">图1-5</td><td style="border:1.5px solid #888;padding:12px 8px;">6</td><td style="border:1.5px solid #888;padding:12px 8px;">全不能或都部分不能读</td><td style="border:1.5px solid #888;padding:12px 8px;">绿色弱</td><td style="border:1.5px solid #888;padding:12px 8px;">绿色弱为多见</td></tr>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">图1-6</td><td style="border:1.5px solid #888;padding:12px 8px;">9</td><td style="border:1.5px solid #888;padding:12px 8px;">不能读</td><td style="border:1.5px solid #888;padding:12px 8px;">红色盲</td><td style="border:1.5px solid #888;padding:12px 8px;">红色盲多为轻度</td></tr>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">图2-4</td><td style="border:1.5px solid #888;padding:12px 8px;">6,8,9</td><td style="border:1.5px solid #888;padding:12px 8px;">不能读</td><td style="border:1.5px solid #888;padding:12px 8px;">绿色盲</td><td style="border:1.5px solid #888;padding:12px 8px;">绿色盲也出现在图2-4</td></tr>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">图2-5</td><td style="border:1.5px solid #888;padding:12px 8px;">全能</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td><td style="border:1.5px solid #888;padding:12px 8px;">红绿色弱兼常</td><td style="border:1.5px solid #888;padding:12px 8px;">他出红色盲，部分色弱</td></tr>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">图2-6</td><td style="border:1.5px solid #888;padding:12px 8px;">9,8</td><td style="border:1.5px solid #888;padding:12px 8px;">9</td><td style="border:1.5px solid #888;padding:12px 8px;">红绿色弱兼常</td><td style="border:1.5px solid #888;padding:12px 8px;">他出红色盲，部分色弱</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="margin:30px 0 10px 0;font-weight:bold; ">进一步色觉能力判断</div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+	<div style="text-align:center;width:45%;min-width:180px;">
+	  <img src="../static/images/b/12.jpg" style="width:100px;height:100px;border:1px solid #eee;">
+	  <div style="font-size:13px;">在此图中，A清楚为红色盲</div>
+	</div>
+	<div style="text-align:center;width:45%;min-width:180px;">
+	  <img src="../static/images/b/13.jpg" style="width:100px;height:100px;border:1px solid #eee;">
+	  <div style="font-size:13px;">在此图中，C清楚是绿色色盲</div>
+	</div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+    <div style="text-align:center;width:45%;min-width:180px;">
+      <img src="../static/images/b/13.jpg" style="width:100px;height:100px;border:1px solid #eee;">
+      <div style="font-size:13px;">在此图中，红绿色盲者中的红色盲者只能找到紫色的线，而绿色盲者只能找到红色的线，但红绿色弱者、正常者则两线都找得到。</div>
+    </div>
+    <div style="text-align:center;width:45%;min-width:180px;">
+      <img src="../static/images/b/14.jpg" style="width:100px;height:100px;border:1px solid #eee;">
+      <div style="font-size:13px;">在此图中，红绿色盲者中的红色盲者能读出６，而绿色盲者能读出２，但红绿色弱者及正常者则两个字都能读出来。</div>
+    </div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px;">
+    <div style="text-align:center;width:45%;min-width:180px;">
+      <img src="../static/images/b/15.jpg" style="width:100px;height:100px;border:1px solid #eee;">
+      <div style="font-size:13px;">正常者看到一幅“牛”的图案，如看到的是一头“狗”，表示可能是色盲色弱。</div>
+    </div>
+    <div style="text-align:center;width:45%;min-width:180px;">
+      <img src="../static/images/b/16.jpg" style="width:100px;height:100px;border:1px solid #eee;">
+      <div style="font-size:13px;">正常者看到6，红绿色盲者及红绿色弱者看到5，而全色盲和全色弱看不出上面的两个字。</div>
+    </div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px;">
+    <div style="text-align:center;width:45%;min-width:180px;">
+      <img src="../static/images/b/17.jpg" style="width:100px;height:100px;border:1px solid #eee;">
+      <div style="font-size:13px;">红绿色盲者及红绿色弱者大多都看成5，色全色盲及正常者大多都标不出来。</div>
+    </div>
+    <div style="text-align:center;width:45%;min-width:180px;">
+      <img src="../static/images/b/18.jpg" style="width:100px;height:100px;border:1px solid #eee;">
+      <div style="font-size:13px;">红绿色盲者及红绿色弱者都看成6，但正常及全色盲大多都标不出来。</div>
+    </div>
+  </div>
+</div>
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>
