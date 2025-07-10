@@ -249,7 +249,7 @@
 		<h2 style="text-align: center">JS压缩/格式化</h2>
 	</div>
 
-	<textarea id="editor">function xc_tool() {
+	<textarea id="editor">function test() {
     console.log("Hello World");
 }</textarea>
 
@@ -345,19 +345,97 @@
 			editor.value = '';
 		}
 
-		// 初始化美化库
+		// 更智能的JS美化函数
 		const js_beautify = (function() {
-			// 简化的美化函数实现
+			// 仅支持常见结构的简单美化
 			return function(code, options) {
-				let indent = ' '.repeat(options.indent_size);
+				let indent = ' '.repeat(options.indent_size || 4);
 				let level = 0;
-				return code.split('\n').map(line => {
-					line = line.trim();
-					if (line.endsWith('}')) level--;
-					const result = indent.repeat(level) + line;
-					if (line.endsWith('{')) level++;
-					return result;
-				}).join('\n');
+				let inString = false, stringChar = '', inSingleLineComment = false, inMultiLineComment = false;
+				let out = '';
+				let i = 0;
+				while (i < code.length) {
+					let c = code[i];
+					// 处理字符串
+					if (inString) {
+						out += c;
+						if (c === stringChar && code[i - 1] !== '\\') inString = false;
+						i++;
+						continue;
+					}
+					// 处理注释
+					if (inSingleLineComment) {
+						out += c;
+						if (c === '\n') inSingleLineComment = false;
+						i++;
+						continue;
+					}
+					if (inMultiLineComment) {
+						out += c;
+						if (c === '*' && code[i + 1] === '/') {
+							out += '/';
+							i++;
+							inMultiLineComment = false;
+						}
+						i++;
+						continue;
+					}
+					// 注释开始
+					if (c === '/' && code[i + 1] === '/') {
+						out += '//';
+						i += 2;
+						inSingleLineComment = true;
+						continue;
+					}
+					if (c === '/' && code[i + 1] === '*') {
+						out += '/*';
+						i += 2;
+						inMultiLineComment = true;
+						continue;
+					}
+					// 字符串开始
+					if (c === '"' || c === "'" || c === '`') {
+						inString = true;
+						stringChar = c;
+						out += c;
+						i++;
+						continue;
+					}
+					// 处理缩进
+					if (c === '{') {
+						out = out.trimEnd() + ' {\n' + indent.repeat(++level);
+						i++;
+						continue;
+					}
+					if (c === '}') {
+						out = out.trimEnd() + '\n' + indent.repeat(--level) + '}';
+						// 下一个不是分号时自动换行
+						if (code[i + 1] !== ';') out += '\n' + indent.repeat(level);
+						i++;
+						continue;
+					}
+					if (c === ';') {
+						out = out.trimEnd() + ';\n' + indent.repeat(level);
+						i++;
+						continue;
+					}
+					if (c === '\n' || c === '\r') {
+						// 忽略原始换行
+						i++;
+						continue;
+					}
+					// 逗号后换行（数组/对象/参数列表）
+					if (c === ',') {
+						out = out.trimEnd() + ',\n' + indent.repeat(level);
+						i++;
+						continue;
+					}
+					// 普通字符
+					out += c;
+					i++;
+				}
+				// 清理多余空行
+				return out.replace(/\n{2,}/g, '\n').replace(/\s+$/g, '').replace(/^\s+/, '');
 			};
 		})();
 	</script>
