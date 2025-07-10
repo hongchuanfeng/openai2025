@@ -348,24 +348,40 @@
 
 	// XML格式化核心函数
 	function format(xml, indent) {
+		xml = xml.replace(/>\s+</g, '><').replace(/\r?\n/g, '');
+		const tokens = xml.split(/(<[^>]+>)/g).filter(t => t.trim() !== '');
 		let formatted = '';
 		let indentLevel = 0;
-		const tokens = xml.split(/(<[^>]+>)/g);
-
-		tokens.forEach(token => {
-			if (token.startsWith('</')) {
+		for (let i = 0; i < tokens.length; i++) {
+			const token = tokens[i];
+			if (token.match(/^<\//)) {
+				// 结束标签
 				indentLevel = Math.max(indentLevel - 1, 0);
-				formatted += '\n' + ' '.repeat(indentLevel * indent);
-			} else if (token.startsWith('<')) {
-				formatted += '\n' + ' '.repeat(indentLevel * indent);
-				if (!token.startsWith('<?') && !token.startsWith('<!') && !token.endsWith('/>')) {
-					indentLevel++;
-				}
+				formatted += '\n' + ' '.repeat(indentLevel * indent) + token;
+			} else if (
+				token.match(/^<[^!?][^>]*>$/) &&
+				tokens[i + 1] &&
+				!tokens[i + 1].startsWith('<') &&
+				tokens[i + 2] &&
+				tokens[i + 2].match(/^<\//)
+			) {
+				// <tag>内容</tag> 或 <tag>内容\n  </tag> 叶子节点，合并为一行
+				let text = tokens[i + 1].replace(/^\s+|\s+$/g, '');
+				formatted += '\n' + ' '.repeat(indentLevel * indent) + token + text + tokens[i + 2];
+				i += 2; // 跳过文本和结束标签
+			} else if (token.match(/^<[^!?][^>]*>$/)) {
+				// 普通开始标签
+				formatted += '\n' + ' '.repeat(indentLevel * indent) + token;
+				indentLevel++;
+			} else if (token.match(/^<.*\/>$/)) {
+				// 自闭合标签
+				formatted += '\n' + ' '.repeat(indentLevel * indent) + token;
+			} else {
+				// 文本内容（如果前面不是叶子节点，仍然缩进）
+				formatted += '\n' + ' '.repeat(indentLevel * indent) + token.trim();
 			}
-			formatted += token;
-		});
-
-		return formatted.trim().replace(/\n\n/g, '\n');
+		}
+		return formatted.trim().replace(/\n{2,}/g, '\n');
 	}
 </script>
 </body>
