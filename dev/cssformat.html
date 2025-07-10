@@ -294,21 +294,21 @@ body {
 				// 格式化处理
 				let indent = 0;
 				result = result
-						.replace(/([{])/g, '$1\n')     // 在大括号前添加换行
-						.replace(/}/g, '\n}\n')        // 在结束大括号前后换行
-						.replace(/\s*{\s*/g, ' {\n')   // 格式化开始大括号
-						.replace(/;/g, ';\n')          // 分号后换行
+						.replace(/\s*{\s*/g, ' {\n')   // 选择器后大括号换行
+						.replace(/;\s*/g, ';\n')        // 每条属性后换行
+						.replace(/}\s*/g, '}\n')        // 结束大括号后换行
+						.replace(/\/\*.*?\*\//gs, '') // 移除注释
 						.split('\n')
 						.map(line => {
 							line = line.trim();
+							if (!line) return null; // 跳过空行
 							if (line.endsWith('}')) indent--;
-							const newLine = '  '.repeat(indent) + line;
+							const newLine = '  '.repeat(Math.max(indent, 0)) + line;
 							if (line.endsWith('{')) indent++;
 							return newLine;
 						})
-						.join('\n')
-						.replace(/\n\n+/g, '\n')       // 移除多余空行
-						.trim();
+						.filter(Boolean)
+						.join('\n');
 			}
 
 			$('#outputCss').val(result);
