@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>占位图片生成-传道软件</title>
+	<meta name="keywords" content="在线软件工具集合、传道软件">
+	<meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
+	<link rel="canonical" href="https://openai2025.com/">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #c2185b;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.header-title {
+			font-size: 18px;
+			font-weight: bold;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.heart-icon {
+			color: #ff4757;
+			cursor: pointer;
+		}
+		.rating {
+			display: flex;
+			gap: 5px;
+			color: #ffd700;
+		}
+		.share-icon {
+			margin-left: auto;
+			color: #666;
+			cursor: pointer;
+		}
+		.upload-area {
+			max-width: 800px;
+			margin: 0 auto;
+			background-color: white;
+			border-radius: 8px;
+			padding: 40px;
+			text-align: center;
+			border: 2px dashed #ddd;
+			margin-bottom: 20px;
+			cursor: pointer;
+		}
+		.upload-icon {
+			font-size: 48px;
+			color: #999;
+			margin-bottom: 10px;
+		}
+		.upload-text {
+			color: #666;
+		}
+		.size-options {
+			max-width: 800px;
+			margin: 20px auto;
+			display: flex;
+			gap: 20px;
+			align-items: center;
+		}
+		.size-label {
+			color: #666;
+		}
+		.size-radio {
+			display: flex;
+			gap: 15px;
+		}
+		.radio-item {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.radio-item input[type="radio"] {
+			margin: 0;
+		}
+		.generate-btn {
+			display: block;
+			width: 800px;
+			margin: 20px auto;
+			padding: 12px;
+			background-color: #2196f3;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 16px;
+		}
+		.generate-btn:hover {
+			background-color: #1976d2;
+		}
+		.info-box {
+			max-width: 800px;
+			margin: 30px auto;
+			background-color: #fff5f0;
+			border-radius: 4px;
+			padding: 20px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 15px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+		}
+		.info-list li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+		.code-block {
+			background-color: #1e1e1e;
+			border-radius: 4px;
+			padding: 15px;
+			margin: 15px 0;
+			color: #d4d4d4;
+			font-family: monospace;
+			line-height: 1.5;
+		}
+		.code-block .line-number {
+			color: #858585;
+			margin-right: 10px;
+			user-select: none;
+		}
+		.code-block .code-content {
+			color: #d4d4d4;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+	<!-- 添加图片处理所需的库 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-HWMGEQS9C0');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 推荐工具</a>
+			<a href="../life.html" class="nav-category">🏠 生活工具</a>
+			<a href="../encry.html" class="nav-category">🔒 加密解密</a>
+			<a href="../code.html" class="nav-category">📝 编码解码</a>
+			<a href="../dev.html" class="nav-category">💻 开发工具</a>
+			<a href="../image.html" class="nav-category">🖼️ 图片处理</a>
+			<a href="../game.html" class="nav-category">🎮 娱乐工具</a>
+		</div>
+	</div>
+</nav>
+
+<h1 style="text-align: center">在线生成迷宫图片</h1>
+
+<style>
+@media (max-width: 768px) {
+  .maze-flex-wrap { flex-direction: column !important; gap: 12px !important; max-width: 98vw !important; width: 100% !important; align-items: stretch !important; }
+  .maze-flex-wrap > div { width: 100% !important; min-width: 0 !important; }
+  #mazeCanvas { max-width: 100% !important; width: 100% !important; height: auto !important; min-width: 0 !important; }
+}
+</style>
+<div style="width:100%;display:flex;justify-content:center;">
+  <div class="maze-flex-wrap" style="display:flex; flex-direction:column; align-items:center; width:100%; max-width:900px;">
+    <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-bottom:12px;">
+      <label>宽 <input id="mazeW" type="number" value="15" min="5" max="50" style="width:48px;" /></label>
+      <label>高 <input id="mazeH" type="number" value="15" min="5" max="50" style="width:48px;" /></label>
+      <label>风格
+        <select id="mazeStyle" style="height:28px;">
+          <option value="classic">经典</option>
+          <option value="dense">稠密</option>
+          <option value="sparse">稀疏</option>
+        </select>
+      </label>
+      <label>线宽 <input id="mazeLineWidth" type="range" min="1" max="8" value="2" style="vertical-align:middle;width:80px;" /></label>
+      <label>颜色 <input id="mazeColor" type="color" value="#222" style="width:32px;height:28px;vertical-align:middle;" /></label>
+      <button id="mazeGenBtn" style="background:#2196F3;color:#fff;padding:6px 18px;border:none;border-radius:3px;">生成</button>
+      <button id="mazePrintBtn" style="background:#1976d2;color:#fff;padding:6px 18px;border:none;border-radius:3px;">打印</button>
+      <button id="mazeDownBtn" style="background:#bbb;color:#222;padding:6px 18px;border:none;border-radius:3px;">下载</button>
+    </div>
+    <div style="width:100%;display:flex;justify-content:center;">
+      <canvas id="mazeCanvas" style="border:2px solid #222; background:#fff; max-width:800px; width:100%; display:block;" width="600" height="600"></canvas>
+    </div>
+  </div>
+</div>
+<script>
+function Maze(w, h) {
+  this.w = w; this.h = h;
+  this.grid = [];
+  for (let y = 0; y < h; y++) {
+    let row = [];
+    for (let x = 0; x < w; x++) {
+      row.push({x, y, visited: false, walls: [1,1,1,1]});
+    }
+    this.grid.push(row);
+  }
+}
+Maze.prototype.generate = function(style) {
+  let stack = [], grid = this.grid, w = this.w, h = this.h;
+  let cx = 0, cy = 0;
+  grid[cy][cx].visited = true;
+  let total = w*h, visited = 1;
+  while (visited < total) {
+    let dirs = [];
+    if (cy > 0 && !grid[cy-1][cx].visited) dirs.push([0,-1,0]);
+    if (cx < w-1 && !grid[cy][cx+1].visited) dirs.push([1,0,1]);
+    if (cy < h-1 && !grid[cy+1][cx].visited) dirs.push([0,1,2]);
+    if (cx > 0 && !grid[cy][cx-1].visited) dirs.push([-1,0,3]);
+    if (dirs.length) {
+      let d = dirs[Math.floor(Math.random()*dirs.length)];
+      let nx = cx+d[0], ny = cy+d[1], wall = d[2];
+      grid[cy][cx].walls[wall] = 0;
+      grid[ny][nx].walls[(wall+2)%4] = 0;
+      stack.push([cx,cy]);
+      cx = nx; cy = ny;
+      grid[cy][cx].visited = true;
+      visited++;
+    } else {
+      [cx,cy] = stack.pop();
+    }
+  }
+  // style: dense/sparse
+  if(style==='dense'){
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+      if(Math.random()<0.15){
+        let d = Math.floor(Math.random()*4);
+        this.grid[y][x].walls[d]=0;
+        let nx = x, ny = y;
+        if(d===0&&y>0)ny--; if(d===1&&x<w-1)nx++;
+        if(d===2&&y<h-1)ny++; if(d===3&&x>0)nx--;
+        if(nx!==x||ny!==y) this.grid[ny][nx].walls[(d+2)%4]=0;
+      }
+    }
+  } else if(style==='sparse'){
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+      if(Math.random()<0.15){
+        let d = Math.floor(Math.random()*4);
+        this.grid[y][x].walls[d]=1;
+        let nx = x, ny = y;
+        if(d===0&&y>0)ny--; if(d===1&&x<w-1)nx++;
+        if(d===2&&y<h-1)ny++; if(d===3&&x>0)nx--;
+        if(nx!==x||ny!==y) this.grid[ny][nx].walls[(d+2)%4]=1;
+      }
+    }
+  }
+}
+function drawMaze(maze, lineWidth, color) {
+  let w = maze.w, h = maze.h;
+  let canvas = document.getElementById('mazeCanvas');
+  let size = Math.min(canvas.width, canvas.height);
+  let cell = size/Math.max(w,h);
+  let ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  // 起点终点
+  ctx.fillStyle = '#199c3a';
+  ctx.fillRect(0,0,cell,cell);
+  ctx.fillStyle = '#c62828';
+  ctx.fillRect((w-1)*cell,(h-1)*cell,cell,cell);
+  ctx.strokeStyle = color;
+  ctx.lineWidth = lineWidth;
+  ctx.beginPath();
+  for(let y=0;y<h;y++){
+    for(let x=0;x<w;x++){
+      let gx = x*cell, gy = y*cell;
+      let walls = maze.grid[y][x].walls;
+      if(walls[0]){ctx.moveTo(gx,gy);ctx.lineTo(gx+cell,gy);}
+      if(walls[1]){ctx.moveTo(gx+cell,gy);ctx.lineTo(gx+cell,gy+cell);}
+      if(walls[2]){ctx.moveTo(gx+cell,gy+cell);ctx.lineTo(gx,gy+cell);}
+      if(walls[3]){ctx.moveTo(gx,gy+cell);ctx.lineTo(gx,gy);}
+    }
+  }
+  ctx.stroke();
+}
+function resizeMazeCanvas() {
+  var canvas = document.getElementById('mazeCanvas');
+  var w = parseInt($('#mazeW').val())||15, h = parseInt($('#mazeH').val())||15;
+  var size = Math.max(w,h);
+  var px = 600;
+  if(window.innerWidth<800) px = Math.max(300,window.innerWidth-40);
+  canvas.width = px;
+  canvas.height = px;
+}
+function genMaze() {
+  resizeMazeCanvas();
+  var w = parseInt($('#mazeW').val())||15, h = parseInt($('#mazeH').val())||15;
+  var style = $('#mazeStyle').val();
+  var maze = new Maze(w,h);
+  maze.generate(style);
+  var lineWidth = parseInt($('#mazeLineWidth').val())||2;
+  var color = $('#mazeColor').val();
+  drawMaze(maze, lineWidth, color);
+}
+$('#mazeGenBtn').click(genMaze);
+$('#mazeW,#mazeH,#mazeStyle,#mazeLineWidth,#mazeColor').on('input change', genMaze);
+// 下载
+$('#mazeDownBtn').click(function(){
+  var canvas = document.getElementById('mazeCanvas');
+  var url = canvas.toDataURL('image/png');
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'maze.png';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+});
+// 打印
+$('#mazePrintBtn').click(function(){
+  var canvas = document.getElementById('mazeCanvas');
+  var dataUrl = canvas.toDataURL();
+  var win = window.open('');
+  win.document.write('<img src="'+dataUrl+'" style="width:100%">');
+  win.print();
+  win.close();
+});
+// 初始化
+$(function(){ genMaze(); });
+window.addEventListener('resize', genMaze);
+</script>
+
+</body>
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+
+
+
+</html>
