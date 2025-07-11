@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>字符串数字对比-传道软件</title>
+	<meta name="keywords" content="在线软件工具集合、传道软件">
+	<meta name="description" content="传道软件是一款在线软件工具集合，无需登录，无需费用，用完就走的软件工具。包括生活类、开发类、编码解码、加密解密、图片类、娱乐类的软件工具结合。">
+	<link rel="canonical" href="https://openai2025.com/">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		#jsonEditor {
+			width: 100%;
+			height: 400px;
+			padding: 15px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			font-family: Consolas, monospace;
+			font-size: 14px;
+			line-height: 1.5;
+			margin: 20px 0;
+			tab-size: 4;
+			white-space: pre;
+		}
+
+		.toolbar {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.toolbar>button {
+			padding: 8px 16px;
+			background: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: 0.3s;
+		}
+
+		.toolbar>button:hover {
+			opacity: 0.9;
+			transform: translateY(-1px);
+		}
+
+		.about {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about li {
+			margin: 10px 0;
+			line-height: 1.6;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-HWMGEQS9C0');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 推荐工具</a>
+			<a href="../life.html" class="nav-category">🏠 生活工具</a>
+			<a href="../encry.html" class="nav-category">🔒 加密解密</a>
+			<a href="../code.html" class="nav-category">📝 编码解码</a>
+			<a href="../dev.html" class="nav-category">💻 开发工具</a>
+			<a href="../image.html" class="nav-category">🖼️ 图片处理</a>
+			<a href="../game.html" class="nav-category">🎮 娱乐工具</a>
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<h1>字符串数字对比</h1>
+
+	<div style="display: flex; gap: 20px;">
+    <div style="flex:1; display:flex; flex-direction:column;">
+        <textarea id="leftText" style="flex:1; min-height:200px; resize:vertical; border:1px solid #ddd; border-radius:2px; padding:8px; font-size:15px;"></textarea>
+        <div style="text-align:center; color:#888; font-size:16px; padding:2px 0; background:#f5f5f5; border-bottom-left-radius:2px; border-bottom-right-radius:2px;">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+    <div style="flex:1; display:flex; flex-direction:column;">
+        <textarea id="rightText" style="flex:1; min-height:200px; resize:vertical; border:1px solid #ddd; border-radius:2px; padding:8px; font-size:15px;"></textarea>
+        <div style="text-align:center; color:#888; font-size:16px; padding:2px 0; background:#f5f5f5; border-bottom-left-radius:2px; border-bottom-right-radius:2px;">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+</div>
+<div class="toolbar" style="margin-top:16px;">
+    <button id="compareBtn" style="background:#2196F3;">比较</button>
+    <button id="testBtn" style="background:#4CAF50;">测试用例</button>
+    <button id="clearResultBtn" style="background:#FFC107; color:#333;">清空结果</button>
+</div>
+<div id="resultBox" style="background:#e6f7fa; border-radius:4px; min-height:32px; margin-top:12px; padding:8px 12px; color:#2196F3;"></div>
+<script>
+// 字符串对比
+$('#compareBtn').click(function() {
+    var left = $('#leftText').val();
+    var right = $('#rightText').val();
+    if(left === '' && right === '') {
+        $('#resultBox').html('请输入要对比的内容！');
+        return;
+    }
+    if(left === right) {
+        $('#resultBox').html('完全一致');
+        return;
+    }
+    // 行对比
+    var leftArr = left.split(/\r?\n/);
+    var rightArr = right.split(/\r?\n/);
+    var maxLen = Math.max(leftArr.length, rightArr.length);
+    var diff = [];
+    for(var i=0;i<maxLen;i++){
+        var l = leftArr[i]===undefined?'':leftArr[i];
+        var r = rightArr[i]===undefined?'':rightArr[i];
+        if(l!==r){
+            diff.push('第'+(i+1)+'行不同：<br>左：'+l+'<br>右：'+r+'<br>');
+        }
+    }
+    if(diff.length===0){
+        $('#resultBox').html('内容长度不同，但每行内容一致');
+    }else{
+        $('#resultBox').html(diff.join('<hr style=\'border:none;border-top:1px dashed #bbb;\'>'));
+    }
+});
+// 测试用例
+$('#testBtn').click(function() {
+    $('#leftText').val('hello\nworld\n123');
+    $('#rightText').val('hello\nword\n1234');
+    $('#resultBox').html('');
+});
+// 清空结果
+$('#clearResultBtn').click(function() {
+    $('#resultBox').html('');
+});
+</script>
+</div>
+</body>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</html>
