@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ruby Base64 - Base64 工具</title>
+	<meta name="keywords" content="Base64, 编码, 解码, 传道软件">
+	<meta name="description" content="Ruby 标准库 Base64 用法：常用 API、URL 安全变体、严格模式与文件读写示例。">		
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.openai2025.com/base64/base64Ruby.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 推荐工具</a>
+			<a href="../life.html" class="nav-category">🏠 生活工具</a>
+			<a href="../encry.html" class="nav-category">🔒 加密解密</a>
+			<a href="../code.html" class="nav-category">📝 编码解码</a>
+			<a href="../dev.html" class="nav-category">💻 开发工具</a>
+			<a href="../base64.html" class="nav-category">🔡 Base64</a>
+			<a href="../image.html" class="nav-category">🖼️ 图片工具</a>
+			<a href="../game.html" class="nav-category">🎮 娱乐工具</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>Ruby Base64</h1>
+	<p style="margin-top: 12px; line-height: 1.8; color: #333;">
+		本文总结 Ruby 标准库 <code>Base64</code> 模块用法：常用 API、URL 安全变体、严格模式与文件 I/O 示例。
+	</p>
+
+	<h2 class="category-title">概览</h2>
+	<p style="line-height: 1.9; color: #444;">
+		Ruby ships <code>Base64</code> in the standard library. Require it with <code>require 'base64'</code>.
+		Common methods include <code>encode64</code>/<code>decode64</code> (with line wraps),
+		<code>strict_encode64</code>/<code>strict_decode64</code> (no wraps), and URL-safe variants
+		<code>urlsafe_encode64</code>/<code>urlsafe_decode64</code>.
+	</p>
+
+	<h2 class="category-title">快速示例</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-code"></i></div>
+			<h3 style="margin-bottom: 8px;">基础编解码</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>require 'base64'
+
+text = 'Hello, world'
+
+# Encodes with line wraps (MIME style)
+b64_wrapped = Base64.encode64(text)
+puts b64_wrapped
+
+# Strict encode (no newlines)
+b64 = Base64.strict_encode64(text)
+puts b64 # SGVsbG8sIHdvcmxk
+
+# Decode
+decoded = Base64.decode64(b64)
+puts decoded # Hello, world</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-link"></i></div>
+			<h3 style="margin-bottom: 8px;">URL 安全变体</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>require 'base64'
+
+raw = 'token:id/123+scope'.b
+url_b64 = Base64.urlsafe_encode64(raw)
+puts url_b64 # dG9rZW46aWQvMTIzK3Njb3Bl
+
+plain = Base64.urlsafe_decode64(url_b64)
+puts plain # token:id/123+scope</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-shield-halved"></i></div>
+			<h3 style="margin-bottom: 8px;">严格模式 vs 非严格</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>require 'base64'
+
+valid = 'SGVsbG8sIHdvcmxk'
+puts Base64.strict_decode64(valid) # strict expects no whitespace
+
+non_strict = "SGVsbG8s\nI Hdvcmxk=="
+puts Base64.decode64(non_strict)   # tolerates whitespace/newlines
+
+begin
+	Base64.strict_decode64('@@invalid@@')
+rescue ArgumentError => e
+	warn "Decode failed: #{e.message}"
+end</code></pre>
+		</div>
+	</div>
+
+	<h2 class="category-title">文件读写</h2>
+	<div class="tool-card" style="margin: 0 1rem;">
+		<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>require 'base64'
+
+# Binary file → Base64 (strict, single line)
+bin = File.binread('input.bin')
+b64 = Base64.strict_encode64(bin)
+File.write('output.txt', b64)
+
+# Base64 → Binary file
+b64_text = File.read('output.txt')
+data = Base64.decode64(b64_text)
+File.binwrite('restored.bin', data)</code></pre>
+	</div>
+
+	<h2 class="category-title">注意事项</h2>
+	<ul style="padding-left: 1.2rem; line-height: 1.9; color:#444;">
+		<li><b>换行</b>：<code>encode64</code> 会换行；<code>strict_encode64</code> 不换行。</li>
+		<li><b>URL 安全</b>：<code>urlsafe_encode64</code>/<code>urlsafe_decode64</code> 用 <code>- _</code> 替代 <code>+ /</code>。</li>
+		<li><b>错误</b>：严格解码遇非法输入会抛出 <code>ArgumentError</code>。</li>
+		<li><b>二进制安全</b>：非文本数据用 <code>String#b</code> 或二进制读写。</li>
+	</ul>
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+
+
+
+</body>
+
+</html>

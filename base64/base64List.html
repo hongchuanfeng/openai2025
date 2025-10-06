@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Base64 编码对照表 - Base64 工具</title>
+	<meta name="keywords" content="Base64, 编码, 解码, 传道软件">
+	<meta name="description" content="Base64 编码对照表：演示字母表、分组映射、输出结果与填充关系，支持输入文本实时生成说明表格。">		
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.openai2025.com/base64/base64List.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 推荐工具</a>
+			<a href="../life.html" class="nav-category">🏠 生活工具</a>
+			<a href="../encry.html" class="nav-category">🔒 加密解密</a>
+			<a href="../code.html" class="nav-category">📝 编码解码</a>
+			<a href="../dev.html" class="nav-category">💻 开发工具</a>
+			<a href="../base64.html" class="nav-category">🔡 Base64</a>
+			<a href="../image.html" class="nav-category">🖼️ 图片工具</a>
+			<a href="../game.html" class="nav-category">🎮 娱乐工具</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+
+	<h1>Base64 编码对照表</h1>
+
+	<div class="tool-card" style="margin-top: 16px;">
+		<div style="color:#666; font-size: 14px; margin-bottom:6px;">输入明文（UTF-8）：</div>
+		<textarea id="b64list_input" placeholder="输入要编码的文本，例如：Hello, world!"></textarea>
+		<div class="btn-group">
+			<button id="b64list_buildBtn" style="background:#4CAF50; color:#fff;">生成表格</button>
+			<button id="b64list_clearBtn" style="background:#f44336; color:#fff;">清空</button>
+		</div>
+
+		<div style="margin:8px 0; color:#666; font-size:14px;">Base64 字母表（索引 → 字符）：</div>
+		<div id="b64list_alphabet" style="overflow:auto;">
+			<table style="width:100%; border-collapse: collapse; min-width:640px;">
+				<thead>
+					<tr>
+						<th style="border:1px solid #eee; padding:6px;">索引</th>
+						<th style="border:1px solid #eee; padding:6px;">字符</th>
+						<th style="border:1px solid #eee; padding:6px;">Index</th>
+						<th style="border:1px solid #eee; padding:6px;">Char</th>
+						<th style="border:1px solid #eee; padding:6px;">Index</th>
+						<th style="border:1px solid #eee; padding:6px;">Char</th>
+						<th style="border:1px solid #eee; padding:6px;">Index</th>
+						<th style="border:1px solid #eee; padding:6px;">Char</th>
+					</tr>
+				</thead>
+				<tbody id="b64list_alphaBody"></tbody>
+			</table>
+		</div>
+
+		<div style="margin:12px 0; color:#444;">
+			<strong>编码结果：</strong>
+			<span id="b64list_output" style="word-break: break-all; color:#007bff;"></span>
+		</div>
+
+		<div style="margin-top: 10px; color:#666; font-size:14px;">分块映射（3 字节 → 4 字符）：</div>
+		<div id="b64list_tableWrap" style="overflow:auto;">
+			<table style="width:100%; border-collapse: collapse; min-width:900px;">
+				<thead>
+					<tr style="background:#f8f9fa;">
+						<th style="border:1px solid #eee; padding:6px;">块序号</th>
+						<th style="border:1px solid #eee; padding:6px;">输入字节（十进制）</th>
+						<th style="border:1px solid #eee; padding:6px;">输入字节（十六进制）</th>
+						<th style="border:1px solid #eee; padding:6px;">24 位二进制</th>
+						<th style="border:1px solid #eee; padding:6px;">6 位分组（4 组）</th>
+						<th style="border:1px solid #eee; padding:6px;">索引 → 字符</th>
+						<th style="border:1px solid #eee; padding:6px;">输出四元组</th>
+						<th style="border:1px solid #eee; padding:6px;">填充</th>
+					</tr>
+				</thead>
+				<tbody id="b64list_body"></tbody>
+			</table>
+		</div>
+	</div>
+
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+	(function(){
+		const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+		const $ = id => document.getElementById(id);
+
+		function toBinaryString(bytes) {
+			let s = '';
+			for (let i = 0; i < bytes.length; i++) {
+				s += bytes[i].toString(2).padStart(8, '0');
+			}
+			return s.padEnd(24, '0').slice(0, 24);
+		}
+
+		function encodeChunk(bytes3) {
+			// bytes3: Uint8Array(1..3)
+			const b0 = bytes3[0] || 0;
+			const b1 = bytes3[1] || 0;
+			const b2 = bytes3[2] || 0;
+			const twentyFour = (b0 << 16) | (b1 << 8) | b2;
+			const sextets = [
+				(twentyFour >> 18) & 63,
+				(twentyFour >> 12) & 63,
+				(twentyFour >> 6) & 63,
+				twentyFour & 63
+			];
+			let out = [
+				ALPHABET[sextets[0]],
+				ALPHABET[sextets[1]],
+				ALPHABET[sextets[2]],
+				ALPHABET[sextets[3]]
+			];
+			let pad = '';
+			if (bytes3.length === 1) { out[2] = '='; out[3] = '='; pad = '=='; }
+			else if (bytes3.length === 2) { out[3] = '='; pad = '='; }
+			return {sextets, out: out.join(''), pad, bin: toBinaryString(bytes3)};
+		}
+
+		function encodeAndExplain(text) {
+			const encoder = new TextEncoder();
+			const bytes = encoder.encode(text);
+			const rows = [];
+			let output = '';
+			for (let i = 0; i < bytes.length; i += 3) {
+				const chunk = bytes.subarray(i, Math.min(i + 3, bytes.length));
+				const { sextets, out, pad, bin } = encodeChunk(chunk);
+				output += out;
+				rows.push({
+					index: (i / 3) + 1,
+					decBytes: Array.from(chunk).join(', '),
+					hexBytes: Array.from(chunk).map(b => '0x' + b.toString(16).padStart(2,'0')).join(', '),
+					bin24: bin,
+					sextets: sextets.map(x => x.toString(2).padStart(6,'0')).join(' | '),
+					idxChars: sextets.map(x => x + ' → ' + ALPHABET[x]).join(', '),
+					out,
+					pad
+				});
+			}
+			return { output, rows };
+		}
+
+		function renderAlphabet() {
+			const body = $('b64list_alphaBody');
+			body.innerHTML = '';
+			for (let r = 0; r < 16; r++) {
+				const c0 = r;
+				const c1 = r + 16;
+				const c2 = r + 32;
+				const c3 = r + 48;
+				const tr = document.createElement('tr');
+				[ c0, c1, c2, c3 ].forEach(idx => {
+					const tdIdx = document.createElement('td');
+					tdIdx.style.border = '1px solid #eee';
+					tdIdx.style.padding = '6px';
+					tdIdx.textContent = String(idx);
+					const tdCh = document.createElement('td');
+					tdCh.style.border = '1px solid #eee';
+					tdCh.style.padding = '6px';
+					tdCh.textContent = ALPHABET[idx];
+					tr.appendChild(tdIdx);
+					tr.appendChild(tdCh);
+				});
+				body.appendChild(tr);
+			}
+		}
+
+		function buildTable() {
+			const text = $('b64list_input').value;
+			const { output, rows } = encodeAndExplain(text);
+			$('b64list_output').textContent = output;
+			const tbody = $('b64list_body');
+			tbody.innerHTML = '';
+			rows.forEach(row => {
+				const tr = document.createElement('tr');
+				function td(v){ const d=document.createElement('td'); d.style.border='1px solid #eee'; d.style.padding='6px'; d.textContent=v; return d; }
+				tr.appendChild(td(row.index));
+				tr.appendChild(td(row.decBytes || '-'));
+				tr.appendChild(td(row.hexBytes || '-'));
+				tr.appendChild(td(row.bin24));
+				tr.appendChild(td(row.sextets));
+				tr.appendChild(td(row.idxChars));
+				tr.appendChild(td(row.out));
+				tr.appendChild(td(row.pad || ''));
+				tbody.appendChild(tr);
+			});
+		}
+
+		document.addEventListener('DOMContentLoaded', function(){
+			renderAlphabet();
+			$('b64list_buildBtn').addEventListener('click', buildTable);
+			$('b64list_clearBtn').addEventListener('click', function(){
+				$('b64list_input').value = '';
+				$('b64list_output').textContent = '';
+				$('b64list_body').innerHTML = '';
+			});
+		});
+	})();
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>图片转 Base64 - Base64 工具</title>
+	<meta name="keywords" content="在线工具, Base64, 传道软件">
+	<meta name="description" content="图片转 Base64：上传或拖拽图片，获取 Base64 与 HTML 代码，无需登录，免费使用。">				
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.openai2025.com/base64/image2base64.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 1000px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.upload-area {
+			border: 2px dashed #ddd;
+			border-radius: 8px;
+			padding: 40px;
+			text-align: center;
+			margin-bottom: 20px;
+			cursor: pointer;
+			color: #666;
+		}
+		.upload-area:hover {
+			border-color: #4CAF50;
+			color: #4CAF50;
+		}
+		.clear-btn {
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 20px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			background: #fff;
+			cursor: pointer;
+			color: #666;
+		}
+		.clear-btn:hover {
+			background: #f5f5f5;
+		}
+		.result-section {
+			margin-bottom: 20px;
+		}
+		.result-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 10px;
+			background: #e8f5e9;
+			border-radius: 4px 4px 0 0;
+			margin-bottom: 1px;
+		}
+		.result-title {
+			color: #2e7d32;
+			font-weight: 500;
+		}
+		.copy-btn {
+			padding: 4px 8px;
+			background: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 12px;
+		}
+		.copy-btn:hover {
+			background: #43A047;
+		}
+		.result-content {
+			width: 100%;
+			min-height: 200px;
+			padding: 10px;
+			border: 1px solid #e0e0e0;
+			border-radius: 0 0 4px 4px;
+			resize: vertical;
+			font-family: monospace;
+			font-size: 14px;
+			line-height: 1.4;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+	<!-- 添加图片处理所需的库 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 推荐工具</a>
+			<a href="../life.html" class="nav-category">🏠 生活工具</a>
+			<a href="../encry.html" class="nav-category">🔒 加密解密</a>
+			<a href="../code.html" class="nav-category">📝 编码解码</a>
+			<a href="../dev.html" class="nav-category">💻 开发工具</a>
+			<a href="../base64.html" class="nav-category">🔡 Base64</a>
+			<a href="../image.html" class="nav-category">🖼️ 图片工具</a>
+			<a href="../game.html" class="nav-category">🎮 娱乐工具</a>
+		</div>
+	</div>
+</nav>
+
+<h1 style="text-align: center">图片转 Base64</h1>
+<div class="container">
+	<div class="upload-area" id="dropZone">
+		点击上传，或将图片拖拽到此处
+	</div>
+
+	<button class="clear-btn" id="clearBtn">清空</button>
+
+	<div class="result-section">
+		<div class="result-header">
+			<span class="result-title"># Base64</span>
+			<button class="copy-btn" data-target="base64Output">复制</button>
+		</div>
+		<textarea class="result-content" id="base64Output" readonly></textarea>
+	</div>
+
+	<div class="result-section">
+		<div class="result-header">
+			<span class="result-title"># HTML 代码</span>
+			<button class="copy-btn" data-target="htmlOutput">复制</button>
+		</div>
+		<textarea class="result-content" id="htmlOutput" readonly></textarea>
+	</div>
+</div>
+
+<script>
+	const dropZone = document.getElementById('dropZone');
+	const clearBtn = document.getElementById('clearBtn');
+	const base64Output = document.getElementById('base64Output');
+	const htmlOutput = document.getElementById('htmlOutput');
+
+	// 处理拖放上传
+	dropZone.addEventListener('dragover', (e) => {
+		e.preventDefault();
+		dropZone.style.borderColor = '#4CAF50';
+	});
+
+	dropZone.addEventListener('dragleave', (e) => {
+		e.preventDefault();
+		dropZone.style.borderColor = '#ddd';
+	});
+
+	dropZone.addEventListener('drop', (e) => {
+		e.preventDefault();
+		dropZone.style.borderColor = '#ddd';
+		const file = e.dataTransfer.files[0];
+		handleFile(file);
+	});
+
+	// 处理点击上传
+	dropZone.addEventListener('click', () => {
+		const input = document.createElement('input');
+		input.type = 'file';
+		input.accept = 'image/*';
+		input.onchange = (e) => {
+			const file = e.target.files[0];
+			handleFile(file);
+		};
+		input.click();
+	});
+
+	// 处理文件
+	function handleFile(file) {
+		if (file && file.type.startsWith('image/')) {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				const base64String = e.target.result;
+				base64Output.value = base64String;
+				htmlOutput.value = `<img src="${base64String}" alt="Base64 Image">`;
+			};
+			reader.readAsDataURL(file);
+		}
+	}
+
+	// 清空数据
+	clearBtn.addEventListener('click', () => {
+		base64Output.value = '';
+		htmlOutput.value = '';
+	});
+
+	// 复制功能
+	document.querySelectorAll('.copy-btn').forEach(btn => {
+		btn.addEventListener('click', () => {
+			const targetId = btn.dataset.target;
+			const targetElement = document.getElementById(targetId);
+			targetElement.select();
+			document.execCommand('copy');
+
+			const originalText = btn.textContent;
+			btn.textContent = '已复制！';
+			setTimeout(() => {
+				btn.textContent = originalText;
+			}, 1500);
+		});
+	});
+</script>
+</body>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+
+
+</html>

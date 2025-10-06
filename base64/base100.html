@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Base100 编码/解码 - Base64 工具</title>
+	<meta name="keywords" content="Base100, 编码, 解码, 传道软件">
+	<meta name="description" content="Base100 文本表示：使用 00–99 的两位数字作为 100 个符号，实现字节数据的文本化展示与还原。">		
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.openai2025.com/base64/base100.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 推荐工具</a>
+			<a href="../life.html" class="nav-category">🏠 生活工具</a>
+			<a href="../encry.html" class="nav-category">🔒 加密解密</a>
+			<a href="../code.html" class="nav-category">📝 编码解码</a>
+			<a href="../dev.html" class="nav-category">💻 开发工具</a>
+			<a href="../base64.html" class="nav-category">🔡 Base64</a>
+			<a href="../image.html" class="nav-category">🖼️ 图片工具</a>
+			<a href="../game.html" class="nav-category">🎮 娱乐工具</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+
+	<h1>Base100 编码/解码</h1>
+
+	<div class="tool-card" style="margin-top: 16px;">
+		<div style="display:flex; gap: 16px; flex-wrap: wrap;">
+			<div style="flex:1; min-width: 280px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">输入</div>
+				<textarea id="b100_input" placeholder="输入文本或 Base100（以空格分隔的 00-99）..."></textarea>
+				<div style="display:flex; justify-content: space-between; align-items:center; color:#999; font-size:12px;">
+					<span>Length: <span id="b100_in_len">0</span></span>
+					<div class="btn-group" style="margin: 8px 0;">
+						<button id="b100_copyInBtn" style="background:#e5e7eb; color:#111;">Copy Input</button>
+						<button id="b100_clearBtn">Clear</button>
+					</div>
+				</div>
+			</div>
+			<div style="flex:1; min-width: 280px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">输出</div>
+				<textarea id="b100_output" placeholder="结果显示在此..."></textarea>
+				<div style="display:flex; justify-content: space-between; align-items:center; color:#999; font-size:12px;">
+					<span>Length: <span id="b100_out_len">0</span></span>
+					<div class="btn-group" style="margin: 8px 0;">
+						<button id="b100_copyOutBtn" style="background:#e5e7eb; color:#111;">Copy Output</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="btn-group">
+		<button id="b100_encodeBtn">编码 → Base100</button>
+		<button id="b100_decodeBtn">解码 ← Base100</button>
+		<button id="b100_swapBtn" style="background:#2196F3; color:#fff;">交换</button>
+		</div>
+
+		<div id="b100_error" style="color:#b91c1c; font-size:12px; min-height: 16px;"></div>
+	</div>
+
+	<div class="about-base64" style="margin-top:12px;">
+		<h2>Base100 工作原理</h2>
+		<ul>
+			<li>字母表：使用两位数字 00–99 作为 100 个符号（base‑100）。</li>
+			<li>编码：将字节视为基数 256 的大整数，反复除以 100 得到各位。</li>
+			<li>格式：每一位固定为两位数字（如 3 → 03），通常以空格分隔。</li>
+			<li>解码：解析两位数字（00–99），按 base‑100 累加，还原为字节。</li>
+			<li>说明：仅为文本表示，便于传输/调试，并非加密或压缩。</li>
+		</ul>
+	</div>
+
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+	function $b(id){ return document.getElementById(id); }
+
+	function bytesToBigInt(bytes){
+		let v = 0n;
+		for (let i = 0; i < bytes.length; i++) v = (v << 8n) + BigInt(bytes[i]);
+		return v;
+	}
+
+	function bigIntToBytes(v){
+		if (v === 0n) return new Uint8Array(0);
+		const arr = [];
+		while (v > 0n) { arr.push(Number(v & 0xffn)); v >>= 8n; }
+		return new Uint8Array(arr.reverse());
+	}
+
+	function encodeTextToBase100(text){
+		const enc = new TextEncoder();
+		const bytes = enc.encode(text);
+		let v = bytesToBigInt(bytes);
+		if (bytes.length === 0) return '';
+		const digits = [];
+		while (v > 0n){
+			const d = Number(v % 100n);
+			digits.push(d.toString().padStart(2,'0'));
+			v = v / 100n;
+		}
+		return digits.reverse().join(' ');
+	}
+
+	function parseBase100String(str){
+		let s = str.trim();
+		if (!s) return [];
+		// accept spaces, commas, hyphens, or continuous digits (even length)
+		let tokens = s.match(/\d{1,2}/g);
+		// Prefer strict split on non-digits to preserve two-digit grouping when spaces provided
+		const split = s.split(/[^0-9]+/).filter(Boolean);
+		if (split.length > 0) tokens = split;
+		if (!tokens) throw new Error('No digits found');
+		const out = tokens.map(t => {
+			if (t.length > 2) throw new Error('Invalid token length: ' + t);
+			const n = Number(t);
+			if (!Number.isInteger(n) || n < 0 || n > 99) throw new Error('Out of range: ' + t);
+			return n;
+		});
+		return out;
+	}
+
+	function decodeBase100ToText(str){
+		const digits = parseBase100String(str);
+		if (digits.length === 0) return '';
+		let v = 0n;
+		for (let i = 0; i < digits.length; i++) v = v * 100n + BigInt(digits[i]);
+		const bytes = bigIntToBytes(v);
+		const dec = new TextDecoder();
+		return dec.decode(bytes);
+	}
+
+	function updateB100Counts(){
+		$b('b100_in_len').textContent = String($b('b100_input').value.length);
+		$b('b100_out_len').textContent = String($b('b100_output').value.length);
+	}
+
+	function showB100Error(msg){ $b('b100_error').textContent = msg || ''; }
+
+	document.addEventListener('DOMContentLoaded', function(){
+		$b('b100_input').addEventListener('input', updateB100Counts);
+		updateB100Counts();
+
+		$b('b100_encodeBtn').addEventListener('click', function(){
+			showB100Error('');
+			try {
+				$b('b100_output').value = encodeTextToBase100($b('b100_input').value);
+			} catch(e){ showB100Error('Encode failed: ' + e.message); }
+			updateB100Counts();
+		});
+
+		$b('b100_decodeBtn').addEventListener('click', function(){
+			showB100Error('');
+			try {
+				// Decode from right (output) to left (input)
+				$b('b100_input').value = decodeBase100ToText($b('b100_output').value.trim());
+			} catch(e){ showB100Error('Decode failed: ' + e.message + ' (invalid Base100)'); }
+			updateB100Counts();
+		});
+
+		$b('b100_swapBtn').addEventListener('click', function(){
+			const t = $b('b100_input').value;
+			$b('b100_input').value = $b('b100_output').value;
+			$b('b100_output').value = t;
+			updateB100Counts();
+		});
+
+		$b('b100_clearBtn').addEventListener('click', function(){
+			$b('b100_input').value = '';
+			$b('b100_output').value = '';
+			showB100Error('');
+			updateB100Counts();
+		});
+
+		$b('b100_copyInBtn').addEventListener('click', async function(){
+			const text = $b('b100_input').value;
+			try { await navigator.clipboard.writeText(text); } catch(_) { }
+		});
+
+		$b('b100_copyOutBtn').addEventListener('click', async function(){
+			const text = $b('b100_output').value;
+			try { await navigator.clipboard.writeText(text); } catch(_) { }
+		});
+	});
+</script>
+
+
+</body>
+
+</html>

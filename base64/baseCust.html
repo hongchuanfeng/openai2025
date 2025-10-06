@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>自定义 Base64 字母表映射 - Base64 工具</title>
+	<meta name="keywords" content="Base64, 自定义, 字母表, 传道软件">
+	<meta name="description" content="在标准 Base64 与自定义字母表之间进行一对一字符映射，支持自定义填充符号与是否使用填充。">			
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.openai2025.com/base64/baseCust.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 推荐工具</a>
+			<a href="../life.html" class="nav-category">🏠 生活工具</a>
+			<a href="../encry.html" class="nav-category">🔒 加密解密</a>
+			<a href="../code.html" class="nav-category">📝 编码解码</a>
+			<a href="../dev.html" class="nav-category">💻 开发工具</a>
+			<a href="../base64.html" class="nav-category">🔡 Base64</a>
+			<a href="../image.html" class="nav-category">🖼️ 图片工具</a>
+			<a href="../game.html" class="nav-category">🎮 娱乐工具</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+
+	<h1>自定义 Base64 字母表映射</h1>
+
+	<div class="tool-card" style="margin-top: 16px;">
+		<div style="display:flex; gap: 16px; flex-wrap: wrap; align-items: flex-end;">
+			<div style="flex:1; min-width: 260px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">字母表（64 个字符）</div>
+				<textarea id="b64c_alphabet" style="min-height: 64px;" placeholder="输入 64 个唯一字符，作为自定义 Base64 字母表"></textarea>
+			</div>
+			<div>
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">标准填充符</div>
+				<input id="b64c_stdpad" type="text" value="=" style="padding:8px 10px; border:1px solid #e5e7eb; border-radius:6px; width:80px;" maxlength="1" />
+			</div>
+			<div>
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">自定义填充符</div>
+				<input id="b64c_pad" type="text" value="=" style="padding:8px 10px; border:1px solid #e5e7eb; border-radius:6px; width:80px;" maxlength="1" />
+			</div>
+			<div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+				<input id="b64c_usepad" type="checkbox" checked />
+				<label for="b64c_usepad" style="color:#666; font-size:14px;">使用填充</label>
+			</div>
+		</div>
+
+		<div style="display:flex; gap: 16px; flex-wrap: wrap;">
+			<div style="flex:1; min-width: 280px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">标准 Base64</div>
+				<textarea id="b64c_input" placeholder="粘贴标准 Base64（示例：TWFu=）"></textarea>
+				<div style="display:flex; justify-content: space-between; align-items:center; color:#999; font-size:12px;">
+					<span>Length: <span id="b64c_in_len">0</span></span>
+					<div class="btn-group" style="margin: 8px 0;">
+						<button id="b64c_copyInBtn" style="background:#e5e7eb; color:#111;">Copy Left</button>
+						<button id="b64c_clearBtn">Clear</button>
+					</div>
+				</div>
+			</div>
+			<div style="flex:1; min-width: 280px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">自定义 Base64</div>
+				<textarea id="b64c_output" placeholder="结果（自定义 Base64）或在此粘贴自定义 Base64"></textarea>
+				<div style="display:flex; justify-content: space-between; align-items:center; color:#999; font-size:12px;">
+					<span>Length: <span id="b64c_out_len">0</span></span>
+					<div class="btn-group" style="margin: 8px 0;">
+						<button id="b64c_copyOutBtn" style="background:#e5e7eb; color:#111;">Copy Right</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="btn-group">
+			<button id="b64c_encodeBtn">标准 → 自定义</button>
+			<button id="b64c_decodeBtn">自定义 → 标准</button>
+			<button id="b64c_swapBtn" style="background:#2196F3; color:#fff;">交换</button>
+		</div>
+
+		<div id="b64c_error" style="color:#b91c1c; font-size:12px; min-height: 16px;"></div>
+		<div class="about-base64" style="margin-top:12px;">
+			<h2>自定义 Base 映射原理</h2>
+			<ul>
+				<li>字母表：可选择任意 64 个唯一字符作为 Base64 字母表（标准为 A–Z、a–z、0–9、+、/）。</li>
+				<li>映射：该工具在不重新编码负载的前提下，将源字母表字符一对一替换到目标字母表。</li>
+				<li>填充：<code>=</code> 可保持、改为其他符号或移除；双方规则需一致。</li>
+				<li>兼容性：自定义字母表与标准 Base64 不互通，除非接收方也了解你的字母表与填充规则。</li>
+				<li>安全性：这是 Base64 之上的文本替换层，本身不提供加密或完整性保护。</li>
+			</ul>
+		</div>
+	</div>
+
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+	function $c(id){ return document.getElementById(id); }
+
+	const STD_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+
+	function validateAlphabet(alpha){
+		if (alpha.length !== 64) throw new Error('Alphabet must be exactly 64 characters');
+		const set = new Set(alpha.split(''));
+		if (set.size !== 64) throw new Error('Alphabet characters must be unique');
+	}
+
+	function escapeForClass(ch){
+		return ch.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+	}
+
+	// Remap Base64 string from one alphabet to another (preserving padding policy)
+	function remapBase64Alphabet(input, fromAlphabet, toAlphabet, fromPad, toPad, usePadding){
+		validateAlphabet(toAlphabet);
+		validateAlphabet(fromAlphabet);
+		const map = new Map();
+		for (let i = 0; i < fromAlphabet.length; i++) map.set(fromAlphabet[i], toAlphabet[i]);
+		let out = '';
+		for (let i = 0; i < input.length; i++) {
+			const ch = input[i];
+			if (ch === fromPad) { out += usePadding ? toPad : ''; continue; }
+			const mapped = map.get(ch);
+			// Preserve whitespace and non-base64 chars as-is
+			out += mapped !== undefined ? mapped : ch;
+		}
+		if (!usePadding) {
+			out = out.replace(new RegExp(escapeForClass(toPad), 'g'), '');
+		}
+		return out;
+	}
+
+	function updateCounts(){
+		$c('b64c_in_len').textContent = String($c('b64c_input').value.length);
+		$c('b64c_out_len').textContent = String($c('b64c_output').value.length);
+	}
+
+	function showErr(msg){ $c('b64c_error').textContent = msg || ''; }
+
+	document.addEventListener('DOMContentLoaded', function(){
+		// Defaults
+		$c('b64c_alphabet').value = STD_ALPHABET;
+		$c('b64c_usepad').checked = true;
+		$c('b64c_pad').value = '=';
+		$c('b64c_stdpad').value = '=';
+
+		$c('b64c_input').addEventListener('input', updateCounts);
+		updateCounts();
+
+		// Std -> Custom
+		$c('b64c_encodeBtn').addEventListener('click', function(){
+			showErr('');
+			try {
+				const fromAlpha = STD_ALPHABET;
+				const toAlpha = $c('b64c_alphabet').value;
+				const fromPad = ($c('b64c_stdpad').value || '=');
+				const toPad = ($c('b64c_pad').value || '=');
+				const usePad = $c('b64c_usepad').checked;
+				$c('b64c_output').value = remapBase64Alphabet($c('b64c_input').value, fromAlpha, toAlpha, fromPad, toPad, usePad);
+			} catch(e){ showErr('Map failed: ' + e.message); }
+			updateCounts();
+		});
+
+		// Custom -> Std
+		$c('b64c_decodeBtn').addEventListener('click', function(){
+			showErr('');
+			try {
+				const fromAlpha = $c('b64c_alphabet').value;
+				const toAlpha = STD_ALPHABET;
+				const fromPad = ($c('b64c_pad').value || '=');
+				const toPad = ($c('b64c_stdpad').value || '=');
+				const usePad = $c('b64c_usepad').checked;
+				$c('b64c_input').value = remapBase64Alphabet($c('b64c_output').value, fromAlpha, toAlpha, fromPad, toPad, usePad);
+			} catch(e){ showErr('Map failed: ' + e.message); }
+			updateCounts();
+		});
+
+		$c('b64c_swapBtn').addEventListener('click', function(){
+			const t = $c('b64c_input').value;
+			$c('b64c_input').value = $c('b64c_output').value;
+			$c('b64c_output').value = t;
+			updateCounts();
+		});
+
+		$c('b64c_clearBtn').addEventListener('click', function(){
+			$c('b64c_input').value = '';
+			$c('b64c_output').value = '';
+			showErr('');
+			updateCounts();
+		});
+
+		$c('b64c_copyInBtn').addEventListener('click', async function(){
+			const text = $c('b64c_input').value;
+			try { await navigator.clipboard.writeText(text); } catch(_) { }
+		});
+
+		$c('b64c_copyOutBtn').addEventListener('click', async function(){
+			const text = $c('b64c_output').value;
+			try { await navigator.clipboard.writeText(text); } catch(_) { }
+		});
+	});
+</script>
+
+</body>
+
+</html>
