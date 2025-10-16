@@ -329,6 +329,18 @@
 		document.getElementById('endTime').value = initTime;
 	</script>
 </div>
+<div class="info-box" style="max-width:900px;margin:20px auto;background:#e3f2fd;border-radius:8px;padding:16px;">
+	<h3 class="info-title" style="color:#1565c0;margin-bottom:12px;">使用说明：</h3>
+	<ul class="info-list" style="list-style:none;color:#244;line-height:1.6;">
+		<li>1、选择“开始时间”和“结束时间”，支持精确到秒；点击“开始计算”计算两者时间差。</li>
+		<li>2、若结束早于开始会给出提示；结果以 天/小时/分钟/秒 形式展示。</li>
+	</ul>
+	<h3 class="info-title" style="color:#1565c0;margin:12px 0 8px;">示例：</h3>
+	<ul class="info-list" style="list-style:none;color:#244;line-height:1.6;">
+		<li>`2025-01-01 00:00:00` 至 `2025-01-02 01:02:03` → 1天 1小时 2分 3秒。</li>
+	</ul>
+</div>
+
 </body>
 <script>
 	function toggleMenu() {

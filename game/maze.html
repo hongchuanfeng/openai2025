@@ -397,24 +397,30 @@
 	</script>
 </div>
 
+<div class="info-box" style="max-width:800px;margin:20px auto;background:#fff5f0;border-radius:8px;padding:16px;">
+	<h3 class="info-title" style="color:#ff6b6b;margin-bottom:12px;">使用说明：</h3>
+	<ul class="info-list" style="list-style:none;color:#666;line-height:1.6;">
+		<li>1、可选择上传角色图片；使用键盘方向键或下方虚拟方向键移动角色。</li>
+		<li>2、从左上角入口出发，避开随机墙壁，到达右下角出口完成通关；计时器实时记录用时。</li>
+	</ul>
+	<h3 class="info-title" style="color:#ff6b6b;margin:12px 0 8px;">示例：</h3>
+	<ul class="info-list" style="list-style:none;color:#666;line-height:1.6;">
+		<li>示例：上传头像作为角色，2 分钟内从 (0,0) 走到 (9,9) 成功通关。</li>
+	</ul>
+</div>
 
-
-<script>
-	function toggleMenu() {
-		const nav = document.querySelector('.nav-categories');
-		nav.classList.toggle('active');
-
-		// 点击菜单项后自动关闭
-		document.querySelectorAll('.nav-category').forEach(item => {
-			item.addEventListener('click', () => {
-				if (window.innerWidth <= 768) {
-					nav.classList.remove('active');
-				}
-			});
-		});
-	}
-</script>
-
+<footer style="background:#fff;border-top:1px solid #eee;margin-top:40px;">
+	<div style="max-width:1200px;margin:0 auto;padding:16px 16px;display:flex;gap:16px;flex-wrap:wrap;color:#666;font-size:14px;justify-content:center;">
+		<a href="../about.html" style="color:#666;text-decoration:none;">关于我们</a>
+		<span>|</span>
+		<a href="../contact.html" style="color:#666;text-decoration:none;">联系我们</a>
+		<span>|</span>
+		<a href="../privacy.html" style="color:#666;text-decoration:none;">隐私政策</a>
+	</div>
+	<div style="max-width:1200px;margin:0 auto;padding:0 16px 16px 16px;text-align:center;color:#999;font-size:12px;">
+		© 2025 传道AI · 版权所有
+	</div>
+</footer>
 
 </body>
 

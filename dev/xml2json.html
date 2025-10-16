@@ -317,7 +317,19 @@
 		}[c]));
 	}
 </script>
+<div class="info-box" style="max-width:1000px;margin:20px auto;background:#e8f5e9;border-radius:8px;padding:16px;">
+	<h3 class="info-title" style="color:#2e7d32;margin-bottom:12px;">使用说明：</h3>
+	<ul class="info-list" style="list-style:none;color:#444;line-height:1.6;">
+		<li>1、在左侧粘贴 XML，点击“XML → JSON”生成右侧 JSON；或在右侧粘贴 JSON，点击“JSON → XML”生成左侧 XML。</li>
+		<li>2、JSON → XML 时会自动处理对象/数组并进行必要的转义；XML → JSON 会将同名兄弟节点合并为数组。</li>
+		<li>3、转换失败时请检查 XML 是否闭合、JSON 是否为有效 JSON。</li>
+	</ul>
+	<h3 class="info-title" style="color:#2e7d32;margin:12px 0 8px;">示例：</h3>
+	<ul class="info-list" style="list-style:none;color:#444;line-height:1.6;">
+		<li>XML：`<books><book><title>A</title></book><book><title>B</title></book></books>` → JSON：`{"book":[{"title":"A"},{"title":"B"}]}`</li>
+	</ul>
 </div>
+
 </body>
 <script>
 	function toggleMenu() {

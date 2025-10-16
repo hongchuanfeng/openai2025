@@ -420,6 +420,18 @@ inputArea.addEventListener('paste', function(e) {
 <div class="btn-group">
   <button onclick="smartConvert()">智能一键转换</button>
 </div>
+<div class="info-box" style="max-width:1000px;margin:20px auto;background:#e8f5e9;border-radius:8px;padding:16px;">
+	<h3 class="info-title" style="color:#2e7d32;margin-bottom:12px;">使用说明：</h3>
+	<ul class="info-list" style="list-style:none;color:#444;line-height:1.6;">
+		<li>1、在上方输入 JSON 或 GET 参数，点击相应按钮进行互转；支持 URL 自动提取查询串。</li>
+		<li>2、嵌套对象与数组将以点号或下标形式展开为参数；中文会自动进行 URL 编解码。</li>
+	</ul>
+	<h3 class="info-title" style="color:#2e7d32;margin:12px 0 8px;">示例：</h3>
+	<ul class="info-list" style="list-style:none;color:#444;line-height:1.6;">
+		<li>JSON `{"a":{"b":1},"tags":["x","y"]}` → GET `a.b=1&tags[0]=x&tags[1]=y`；反向转换保持结构。</li>
+	</ul>
+</div>
+
 </body>
 <script>
 	function toggleMenu() {

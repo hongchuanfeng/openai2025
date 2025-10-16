@@ -334,6 +334,19 @@ $('#copyBtn').click(function() {
 });
 </script>
 </div>
+<div class="info-box" style="max-width:1000px;margin:20px auto;background:#e8f5e9;border-radius:8px;padding:16px;">
+	<h3 class="info-title" style="color:#2e7d32;margin-bottom:12px;">使用说明：</h3>
+	<ul class="info-list" style="list-style:none;color:#444;line-height:1.6;">
+		<li>1、在上方输入框输入内容，点击“Escape加密”得到已转义文本；或点击“Escape解密”将转义文本还原。</li>
+		<li>2、可使用“交换内容”快速互换上下框内容；支持复制/下载结果。</li>
+		<li>3、注意：原生 `escape/unescape` 已被废弃，建议在实际开发中使用 `encodeURIComponent/decodeURIComponent`。</li>
+	</ul>
+	<h3 class="info-title" style="color:#2e7d32;margin:12px 0 8px;">示例：</h3>
+	<ul class="info-list" style="list-style:none;color:#444;line-height:1.6;">
+		<li>输入：`中 文` → Escape加密 → `%u4E2D%20%u6587`；将其解密可还原为 `中 文`。</li>
+	</ul>
+</div>
+
 <script>
 	function toggleMenu() {
 		const nav = document.querySelector('.nav-categories');
@@ -349,6 +362,19 @@ $('#copyBtn').click(function() {
 		});
 	}
 </script>
+<footer style="background:#fff;border-top:1px solid #eee;margin-top:40px;">
+	<div style="max-width:1200px;margin:0 auto;padding:16px 16px;display:flex;gap:16px;flex-wrap:wrap;color:#666;font-size:14px;justify-content:center;">
+		<a href="../about.html" style="color:#666;text-decoration:none;">关于我们</a>
+		<span>|</span>
+		<a href="../contact.html" style="color:#666;text-decoration:none;">联系我们</a>
+		<span>|</span>
+		<a href="../privacy.html" style="color:#666;text-decoration:none;">隐私政策</a>
+	</div>
+	<div style="max-width:1200px;margin:0 auto;padding:0 16px 16px 16px;text-align:center;color:#999;font-size:12px;">
+		© 2025 传道AI · 版权所有
+	</div>
+</footer>
+
 </body>
 
 </html>

@@ -309,6 +309,18 @@ WHERE u.status = 'active'
     AND o.total > 1000;`;
 	</script>
 </div>
+<div class="info-box" style="max-width:1000px;margin:20px auto;background:#e8f5e9;border-radius:8px;padding:16px;">
+	<h3 class="info-title" style="color:#2e7d32;margin-bottom:12px;">使用说明：</h3>
+	<ul class="info-list" style="list-style:none;color:#444;line-height:1.6;">
+		<li>1、粘贴 SQL 到编辑框，点击“解压/格式化”按关键字分行缩进；点击“压缩”生成单行。</li>
+		<li>2、支持复制/清空；复杂 SQL 建议人工复查对齐（特别是子查询/CTE）。</li>
+	</ul>
+	<h3 class="info-title" style="color:#2e7d32;margin:12px 0 8px;">示例：</h3>
+	<ul class="info-list" style="list-style:none;color:#444;line-height:1.6;">
+		<li>`SELECT a,b FROM t WHERE x=1 AND y=2;` → 按 SELECT/FROM/WHERE/AND 分行显示；压缩后为单行。</li>
+	</ul>
+</div>
+
 </body>
 <script>
 	function toggleMenu() {

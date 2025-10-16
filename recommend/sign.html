@@ -432,6 +432,21 @@
 	// 阻止右键菜单
 	canvas.addEventListener('contextmenu', (e) => e.preventDefault());
 </script>
+
+<div class="info-box" style="max-width:800px;margin:20px auto;background:#fff5f0;border-radius:8px;padding:16px;">
+    <h3 class="info-title" style="color:#ff6b6b;margin-bottom:12px;">使用说明：</h3>
+    <ul class="info-list" style="list-style:none;color:#666;">
+        <li>1、选择画笔颜色与背景颜色，在画布内书写电子签名。</li>
+        <li>2、可使用“撤销”“清空”调整签名结果，满意后再导出。</li>
+        <li>3、支持导出 PNG 图片、SVG 矢量或 Base64 字符串。</li>
+    </ul>
+    <h3 class="info-title" style="color:#ff6b6b;margin:12px 0 8px;">示例：</h3>
+    <ul class="info-list" style="list-style:none;color:#666;">
+        <li>示例一：黑色画笔+白色背景，点击“下载图片”获取 PNG 用于合同签署。</li>
+        <li>示例二：点击“Base64”复制编码，可直接内联到网页或小程序。</li>
+    </ul>
+</div>
+
 <script>
 	function toggleMenu() {
 		const nav = document.querySelector('.nav-categories');
@@ -447,6 +462,19 @@
 		});
 	}
 </script>
+<footer style="background:#fff;border-top:1px solid #eee;margin-top:40px;">
+	<div style="max-width:1200px;margin:0 auto;padding:16px 16px;display:flex;gap:16px;flex-wrap:wrap;color:#666;font-size:14px;justify-content:center;">
+		<a href="../about.html" style="color:#666;text-decoration:none;">关于我们</a>
+		<span>|</span>
+		<a href="../contact.html" style="color:#666;text-decoration:none;">联系我们</a>
+		<span>|</span>
+		<a href="../privacy.html" style="color:#666;text-decoration:none;">隐私政策</a>
+	</div>
+	<div style="max-width:1200px;margin:0 auto;padding:0 16px 16px 16px;text-align:center;color:#999;font-size:12px;">
+		© 2025 传道AI · 版权所有
+	</div>
+</footer>
+
 </body>
 
 </html>

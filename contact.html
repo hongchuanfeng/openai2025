@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>联系我们 - 传道AI</title>
+	<meta name="keywords" content="联系我们, 传道AI, openai2025">
+	<meta name="description" content="传道AI 联系我们页面，查看联系方式或发送留言。">
+	<link rel="canonical" href="https://www.openai2025.com/contact.html">
+	<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="static/css/css.css">
+	<style>
+		*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif}
+		body{background:#f5f5f5}
+		nav{background:#fff;padding:1rem 2rem;box-shadow:0 2px 5px rgba(0,0,0,.1);position:relative}
+		.nav-container{display:flex;justify-content:space-between;align-items:center}
+		.nav-categories{display:flex;gap:2rem}
+		.nav-category{color:#666;text-decoration:none;white-space:nowrap}
+		.nav-category:hover{color:#007bff}
+		.menu-btn{display:none;background:none;border:none;font-size:1.2rem;cursor:pointer}
+		.container{max-width:900px;margin:2rem auto;padding:0 1rem}
+		.card{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.06);padding:24px}
+		h1{color:#2e7d32;margin-bottom:12px}
+		p{color:#444;line-height:1.8;margin:8px 0}
+		.list{color:#666;margin:8px 0 16px}
+		.form{display:grid;gap:12px;margin-top:8px}
+		input,textarea{width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:14px}
+		button{padding:10px 14px;border:none;border-radius:6px;background:#2e7d32;color:#fff;cursor:pointer}
+		button:hover{opacity:.9}
+		.note{font-size:12px;color:#999;margin-top:6px}
+		@media(max-width:768px){.nav-categories{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;padding:1rem;box-shadow:0 2px 5px rgba(0,0,0,.1)}.nav-categories.active{display:flex}.nav-category{padding:.5rem 0}}
+	</style>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo"><a href="index.html" class="nav-item"><img src="static/images/logo.png" width="100px" style="margin-right:60px"/></a></div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="index.html" class="nav-category">🔍 推荐工具</a>
+			<a href="life.html" class="nav-category">🏠 生活工具</a>
+			<a href="encry.html" class="nav-category">🔒 加密解密</a>
+			<a href="code.html" class="nav-category">📝 编码解码</a>
+			<a href="dev.html" class="nav-category">💻 开发工具</a>
+			<a href="image.html" class="nav-category">🖼️ 图片工具</a>
+			<a href="game.html" class="nav-category">🎮 娱乐工具</a>
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="card">
+		<h1>联系我们</h1>
+		<h2 style="margin:20px 0 8px;color:#2e7d32;">联系方式</h2>
+		<ul style="margin-left:18px;color:#444;line-height:1.9;">
+			<li>邮箱：<a href="mailto:hcf@foxmail.com" style="color:#2e7d32;text-decoration:none;">hcf@foxmail.com</a>（建议优先）</li>
+			<li>地址：深圳市龙华区龙华大道130号（工作日可接待来访，需提前邮件预约）</li>
+			<li>对公合作：请在邮件主题标注【商务合作】以便快速处理</li>
+		</ul>
+
+		<h2 style="margin:16px 0 8px;color:#2e7d32;">服务时间</h2>
+		<p style="color:#444;">周一至周五 09:30–18:30（法定节假日顺延）。其余时段请邮件联系，我们会在 1–2 个工作日内回复。</p>
+
+		<h2 style="margin:16px 0 8px;color:#2e7d32;">位置与导航</h2>
+		<p style="color:#444;">为保护隐私，暂不公开地图坐标；如需来访，邮件确认后将提供导航信息与访客登记指引。</p>
+
+		<h2 style="margin:16px 0 8px;color:#2e7d32;">常见问题（FAQ）</h2>
+		<ul style="margin-left:18px;color:#444;line-height:1.9;">
+			<li><b>提交的表单是否发送到服务器？</b> 当前页面为演示表单，不会上传到服务器；正式沟通请使用邮箱。</li>
+			<li><b>工具是否保存我的数据？</b> 站内工具优先在本地浏览器端运行，详情见《<a href="privacy.html" style="color:#2e7d32;text-decoration:none;">隐私政策</a>》。</li>
+			<li><b>是否支持定制开发？</b> 欢迎通过邮箱描述需求与场景，我们会进行评估与反馈。</li>
+		</ul>
+		<form class="form" onsubmit="event.preventDefault();alert('感谢您的留言，我们会尽快联系您。');this.reset();">
+			<input type="text" placeholder="您的称呼" required>
+			<input type="email" placeholder="您的邮箱" required>
+			<textarea rows="5" placeholder="留言内容" required></textarea>
+			<button type="submit">发送留言</button>
+			<div class="note">温馨提示：该表单为演示用途，不会上传到服务器。</div>
+		</form>
+	</div>
+</div>
+<footer style="background:#fff;border-top:1px solid #eee;margin-top:40px;">
+	<div style="max-width:1200px;margin:0 auto;padding:16px 16px;display:flex;gap:16px;flex-wrap:wrap;color:#666;font-size:14px;justify-content:center;">
+		<a href="about.html" style="color:#666;text-decoration:none;">关于我们</a>
+		<span>|</span>
+		<a href="contact.html" style="color:#666;text-decoration:none;">联系我们</a>
+		<span>|</span>
+		<a href="privacy.html" style="color:#666;text-decoration:none;">隐私政策</a>
+	</div>
+	<div style="max-width:1200px;margin:0 auto;padding:0 16px 16px 16px;text-align:center;color:#999;font-size:12px;">
+		© 2025 传道AI · 版权所有
+	</div>
+</footer>
+
+<script>
+	function toggleMenu(){const nav=document.querySelector('.nav-categories');nav.classList.toggle('active');document.querySelectorAll('.nav-category').forEach(i=>{i.addEventListener('click',()=>{if(window.innerWidth<=768){nav.classList.remove('active');}});});}
+</script>
+</body>
+</html>

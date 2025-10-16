@@ -291,6 +291,19 @@
 	</div>
 </div>
 
+<div class="info-box" style="max-width:1000px;margin:20px auto;background:#e8f5e9;border-radius:8px;padding:16px;">
+	<h3 class="info-title" style="color:#2e7d32;margin-bottom:12px;">使用说明：</h3>
+	<ul class="info-list" style="list-style:none;color:#444;line-height:1.6;">
+		<li>1、左侧输入待压缩文本，点击“GZIP编码”，右侧将输出 Base64 格式的压缩结果。</li>
+		<li>2、右侧粘贴 Base64 压缩内容，点击“GZIP解码”，左侧还原原文。</li>
+		<li>3、若解码报错，请确认内容为有效的 GZIP Base64 字符串。</li>
+	</ul>
+	<h3 class="info-title" style="color:#2e7d32;margin:12px 0 8px;">示例：</h3>
+	<ul class="info-list" style="list-style:none;color:#444;line-height:1.6;">
+		<li>输入：`hello world` → GZIP编码 → 右侧得到形如 `H4sIA...` 的 Base64；将其粘贴回右侧并解码可还原。</li>
+	</ul>
+</div>
+
 <script>
 	// GZIP编码
 	function gzipEncode() {
@@ -340,6 +353,19 @@
 		});
 	}
 </script>
+<footer style="background:#fff;border-top:1px solid #eee;margin-top:40px;">
+	<div style="max-width:1200px;margin:0 auto;padding:16px 16px;display:flex;gap:16px;flex-wrap:wrap;color:#666;font-size:14px;justify-content:center;">
+		<a href="../about.html" style="color:#666;text-decoration:none;">关于我们</a>
+		<span>|</span>
+		<a href="../contact.html" style="color:#666;text-decoration:none;">联系我们</a>
+		<span>|</span>
+		<a href="../privacy.html" style="color:#666;text-decoration:none;">隐私政策</a>
+	</div>
+	<div style="max-width:1200px;margin:0 auto;padding:0 16px 16px 16px;text-align:center;color:#999;font-size:12px;">
+		© 2025 传道AI · 版权所有
+	</div>
+</footer>
+
 </body>
 
 </html>
