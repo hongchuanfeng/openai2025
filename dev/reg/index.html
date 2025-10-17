@@ -116,6 +116,62 @@
             line-height: 1.6;
         }
     </style>
+    <style>
+        /* UI 优化（仅样式覆盖，不改动功能/结构） */
+        .container { max-width: 1100px; }
+        .container .container-fluid { padding-left: 8px; padding-right: 8px; }
+
+        .alert { border-radius: 12px; border: 1px solid rgba(0,0,0,0.06); }
+        .alert-info { background: #f3f7ff; border-color: #dfe9ff; }
+        .alert-warning { background: #f6faff; border-color: #d6e2ff; }
+
+        .btn-toolbar h2 { margin: 0; font-weight: 700; color: #2a5ca7; letter-spacing: .5px; }
+
+        .btn {
+            border-radius: 8px;
+            transition: background-color .2s, box-shadow .2s, transform .05s;
+        }
+        .btn:active { transform: translateY(1px); }
+        .btn-default { background: #fff; border: 1px solid #e6e6e6; color: #444; }
+        .btn-default:hover { background: #f7f7f7; border-color: #ddd; }
+        .btn-default.active, .btn-default:active { background: #e8f0ff; border-color: #bcd3ff; color: #1f5fe0; }
+        .btn-success { background: #2a5ca7; border-color: #2a5ca7; }
+        .btn-success:hover { background: #234f90; border-color: #234f90; box-shadow: 0 6px 18px rgba(42,92,167,.25); }
+
+        .copy-link { color: #2a5ca7; text-decoration: none; margin-right: 10px; }
+        .copy-link:hover { text-decoration: underline; }
+
+        textarea.form-control {
+            border-radius: 12px;
+            border: 1px solid #e6e6e6;
+            box-shadow: inset 0 1px 0 rgba(0,0,0,0.015);
+            transition: border-color .2s, box-shadow .2s;
+        }
+        textarea.form-control:focus {
+            border-color: #2a5ca7;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(42,92,167,.12);
+        }
+
+        label { color: #666; font-weight: 600; }
+
+        /* 顶部模式/选项分组间距更紧凑 */
+        .btn-group.btn-group-xs > .btn,
+        .btn-group.btn-group-sm > .btn { margin-right: 6px; }
+
+        /* 输出区域辅助按钮样式 */
+        #btnOutputToInput { cursor: pointer; border: 1px solid #e6e6e6; border-radius: 8px; }
+        #btnOutputToInput:hover { background: #f4f7ff; border-color: #d6e2ff; }
+
+        /* 顶部“运行!”按钮已隐藏，保留原状，仅样式统一 */
+        .navbar-btn { border-radius: 10px; box-shadow: 0 6px 16px rgba(42,92,167,.15); }
+
+        /* 小屏优化 */
+        @media (max-width: 768px) {
+            .btn-toolbar h2 { font-size: 20px; }
+            textarea.form-control { font-size: 14px; }
+        }
+    </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -385,6 +441,19 @@
             </div>
         </div>
     </div>
+
+<footer style="background:#fff;border-top:1px solid #eee;margin-top:40px;">
+	<div style="max-width:1200px;margin:0 auto;padding:16px 16px;display:flex;gap:16px;flex-wrap:wrap;color:#666;font-size:14px;justify-content:center;">
+		<a href="../../about.html" style="color:#666;text-decoration:none;">关于我们</a>
+		<span>|</span>
+		<a href="../../contact.html" style="color:#666;text-decoration:none;">联系我们</a>
+		<span>|</span>
+		<a href="../../privacy.html" style="color:#666;text-decoration:none;">隐私政策</a>
+	</div>
+	<div style="max-width:1200px;margin:0 auto;padding:0 16px 16px 16px;text-align:center;color:#999;font-size:12px;">
+		© 2025 传道AI · 版权所有
+	</div>
+</footer>
 
 </div>
 </body>

@@ -31,12 +31,12 @@
             gap: 5px;
         }
         .container {
-
+            max-width: 1100px;
             margin: 0 auto;
             background: white;
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
         }
         .input-area {
             width: 100%;
@@ -109,6 +109,60 @@
             margin-bottom: 5px;
             color: #ff6b6b;
         }
+    </style>
+    <style>
+        /* UI 优化覆盖样式，不改变原有功能与结构 */
+        .frame-div {
+            width: 100%;
+            min-height: 200px;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 20px;
+            text-align: center;
+            background: #fafafa;
+        }
+        .frame-top {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+        .btn {
+            transition: background-color 0.2s, box-shadow 0.2s, transform 0.05s;
+        }
+        .convert-btn:hover { box-shadow: 0 4px 12px rgba(0, 184, 74, 0.25); }
+        .clear-btn:hover { box-shadow: 0 4px 12px rgba(255, 23, 68, 0.25); }
+        .result-area img {
+            border-radius: 8px;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.04);
+        }
+        .info-box { background: #fff7f3; border-radius: 8px; border: 1px solid #ffe4d9; }
+        /* 控件优化 */
+        input[type="file"]::-webkit-file-upload-button {
+            background: #00c853;
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        input[type="file"]::-webkit-file-upload-button:hover { background: #00b34a; }
+        #rangeInput { accent-color: #00c853; }
+        #downloadBtn {
+            background: #2962ff;
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        #downloadBtn:hover { background: #1e4fff; box-shadow: 0 4px 12px rgba(41, 98, 255, 0.25); }
+        .range-label { color: #666; font-size: 14px; }
+        .range-label b { color: #00a152; }
     </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -281,6 +335,7 @@
     </div>
     <div class="frame-div">
         <div class="frame-top">
+            <span class="range-label">像素大小：<b id="rangeValue">5</b></span>
             <input type="range" id="rangeInput" min="1" max="10" value="5" />
             <input type="button" id="downloadBtn" value="下载">
         </div>
@@ -317,9 +372,11 @@
     });
 
 
-    document.getElementById("rangeInput").addEventListener("change", function (e) {
+    document.getElementById("rangeInput").addEventListener("input", function (e) {
         if (document.getElementById("img").src) {
             pix = parseInt(e.target.value);
+            var rv = document.getElementById('rangeValue');
+            if (rv) rv.textContent = String(pix);
             showConvertPic();
         }
     });
@@ -419,6 +476,19 @@
         <li>示例：上传人像照片，像素大小设为 6，点击下载得到打码后的图片。</li>
     </ul>
 </div>
+
+<footer style="background:#fff;border-top:1px solid #eee;margin-top:40px;">
+	<div style="max-width:1200px;margin:0 auto;padding:16px 16px;display:flex;gap:16px;flex-wrap:wrap;color:#666;font-size:14px;justify-content:center;">
+		<a href="../../about.html" style="color:#666;text-decoration:none;">关于我们</a>
+		<span>|</span>
+		<a href="../../contact.html" style="color:#666;text-decoration:none;">联系我们</a>
+		<span>|</span>
+		<a href="../../privacy.html" style="color:#666;text-decoration:none;">隐私政策</a>
+	</div>
+	<div style="max-width:1200px;margin:0 auto;padding:0 16px 16px 16px;text-align:center;color:#999;font-size:12px;">
+		© 2025 传道AI · 版权所有
+	</div>
+</footer>
 
 </body>
 

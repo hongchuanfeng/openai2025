@@ -273,6 +273,7 @@
 		<div class="result-item">字符个数：<span id="strCount">0</span></div>
 		<div class="result-item">汉字个数：<span id="chineseCount">0</span></div>
 		<div class="result-item">标点符号：<span id="punctuationCount">0</span></div>
+		<div class="result-item">特殊字符：<span id="specialCount">0</span></div>
 		<div class="result-item">总数量：<span id="totalCount">0</span></div>
 	</div>
 
@@ -289,26 +290,30 @@
 		function countCharacters() {
 			const text = document.getElementById('inputArea').value;
 
-			// 统计数字（0-9）
+			// 数字（0-9）
 			const numberCount = (text.match(/[0-9]/g) || []).length;
 
+			// 英文字母（A-Za-z）
+			const strCount = (text.match(/[A-Za-z]/g) || []).length;
 
-			// 统计数字（0-9）
-			const strCount = (text.match(/[a-z]/g) || []).length;
-
-			// 统计汉字（Unicode范围）
+			// 汉字（常用区间）
 			const chineseCount = (text.match(/[\u4e00-\u9fa5]/g) || []).length;
 
-			// 统计标点符号（常见中文标点）
-			const punctuationCount = (text.match(/[，。？！；：“”‘’《》【】、]/g) || []).length;
+			// 标点符号（常见中英文标点）
+			const punctuationCount = (text.match(/[，。？！；：“”‘’《》【】、…—\-\.,!?:;"'()\[\]{}]/g) || []).length;
+
+			// 特殊字符（除去数字/字母/汉字/标点之外的字符，包含空白符等）
+			const specialCount = (text.match(/[^0-9A-Za-z\u4e00-\u9fa5，。？！；：“”‘’《》【】、…—\-\.,!?:;"'()\[\]{}]/g) || []).length;
 
 			// 更新统计结果
 			document.getElementById('numberCount').textContent = numberCount;
 			document.getElementById('strCount').textContent = strCount;
 			document.getElementById('chineseCount').textContent = chineseCount;
 			document.getElementById('punctuationCount').textContent = punctuationCount;
+			document.getElementById('specialCount').textContent = specialCount;
 
-			document.getElementById('totalCount').textContent = (numberCount+strCount+chineseCount+punctuationCount);
+			// 总数量：字符串总长度
+			document.getElementById('totalCount').textContent = text.length;
 		}
 
 		function clearAll() {
@@ -317,9 +322,11 @@
 			document.getElementById('chineseCount').textContent = '0';
 			document.getElementById('punctuationCount').textContent = '0';
 			document.getElementById('strCount').textContent = '0';
+			document.getElementById('specialCount').textContent = '0';
 			document.getElementById('totalCount').textContent = '0';
 		}
-	</script>
+</script>
+
 </div>
 <div class="info-box" style="max-width:1000px;margin:20px auto;background:#e8f5e9;border-radius:8px;padding:16px;">
 	<h3 class="info-title" style="color:#2e7d32;margin-bottom:12px;">使用说明：</h3>
@@ -332,6 +339,19 @@
 		<li>输入：`Hello，世界！123` → 数字：3；字符：5；汉字：2；标点：2；总数：12。</li>
 	</ul>
 </div>
+
+<footer style="background:#fff;border-top:1px solid #eee;margin-top:40px;">
+	<div style="max-width:1200px;margin:0 auto;padding:16px 16px;display:flex;gap:16px;flex-wrap:wrap;color:#666;font-size:14px;justify-content:center;">
+		<a href="../about.html" style="color:#666;text-decoration:none;">关于我们</a>
+		<span>|</span>
+		<a href="../contact.html" style="color:#666;text-decoration:none;">联系我们</a>
+		<span>|</span>
+		<a href="../privacy.html" style="color:#666;text-decoration:none;">隐私政策</a>
+	</div>
+	<div style="max-width:1200px;margin:0 auto;padding:0 16px 16px 16px;text-align:center;color:#999;font-size:12px;">
+		© 2025 传道AI · 版权所有
+	</div>
+</footer>
 
 </body>
 <script>
