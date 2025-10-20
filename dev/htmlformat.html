@@ -250,17 +250,17 @@
 
 	<div class="editor-wrapper">
 		<div class="line-numbers" id="lineNumbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11</div>
-		<textarea id="editor"><!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>网页的标题</title>
-</head>
-<body>
-<h1>我是HI标题</h1>
-<p>我是一个P段落</p>
-</body>
-</html></textarea>
+		<textarea id="editor">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;网页的标题&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;我是HI标题&lt;/h1&gt;
+&lt;p&gt;我是一个P段落&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
 	</div>
 
 	<div class="button-group">
@@ -288,19 +288,30 @@
 
 		// 压缩HTML
 		function compressHTML() {
-			editor.value = editor.value
+			let content = editor.value;
+			// 先解码HTML实体
+			content = content.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+			// 然后压缩
+			content = content
 					.replace(/\n/g, '')
 					.replace(/>\s+</g, '><')
 					.replace(/\s{2,}/g, ' ')
 					.trim();
+			// 重新编码HTML实体
+			content = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+			editor.value = content;
 		}
 
 		// 格式化HTML
 		function formatHTML() {
 			let indentLevel = 0;
 			let formatted = '';
+			let content = editor.value;
 
-			editor.value
+			// 先解码HTML实体
+			content = content.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+
+			content
 					.replace(/</g, '\n<')
 					.replace(/>/g, '>\n')
 					.split('\n')
@@ -316,6 +327,8 @@
 						}
 					});
 
+			// 重新编码HTML实体
+			formatted = formatted.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 			editor.value = formatted;
 		}
 
@@ -336,7 +349,9 @@
 				const reader = new FileReader();
 
 				reader.onload = e => {
-					editor.value = e.target.result;
+					// 将HTML内容编码为HTML实体
+					let content = e.target.result.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+					editor.value = content;
 				};
 
 				reader.readAsText(file);
@@ -347,7 +362,9 @@
 
 		// 复制内容
 		function copyHTML() {
-			navigator.clipboard.writeText(editor.value)
+			// 解码HTML实体后再复制
+			let content = editor.value.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+			navigator.clipboard.writeText(content)
 					.then(() => alert('已复制到剪贴板'))
 					.catch(() => alert('复制失败'));
 		}
