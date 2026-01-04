@@ -242,6 +242,7 @@
 			<a href="../dev.html" class="nav-category">💻 开发工具</a>
 			<a href="../image.html" class="nav-category">🖼️ 图片处理</a>
 			<a href="../game.html" class="nav-category">🎮 娱乐工具</a>
+			<a href="../en/index.html" class="nav-category">🇺🇸 英文</a>
 		</div>
 	</div>
 </nav>
@@ -250,17 +251,17 @@
 
 	<div class="editor-wrapper">
 		<div class="line-numbers" id="lineNumbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11</div>
-		<textarea id="editor">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;meta charset="utf-8"&gt;
-&lt;title&gt;网页的标题&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;h1&gt;我是HI标题&lt;/h1&gt;
-&lt;p&gt;我是一个P段落&lt;/p&gt;
-&lt;/body&gt;
-&lt;/html&gt;</textarea>
+		<textarea id="editor"><!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>网页的标题</title>
+</head>
+<body>
+<h1>我是HI标题</h1>
+<p>我是一个P段落</p>
+</body>
+</html></textarea>
 	</div>
 
 	<div class="button-group">
@@ -288,30 +289,19 @@
 
 		// 压缩HTML
 		function compressHTML() {
-			let content = editor.value;
-			// 先解码HTML实体
-			content = content.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
-			// 然后压缩
-			content = content
+			editor.value = editor.value
 					.replace(/\n/g, '')
 					.replace(/>\s+</g, '><')
 					.replace(/\s{2,}/g, ' ')
 					.trim();
-			// 重新编码HTML实体
-			content = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-			editor.value = content;
 		}
 
 		// 格式化HTML
 		function formatHTML() {
 			let indentLevel = 0;
 			let formatted = '';
-			let content = editor.value;
 
-			// 先解码HTML实体
-			content = content.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
-
-			content
+			editor.value
 					.replace(/</g, '\n<')
 					.replace(/>/g, '>\n')
 					.split('\n')
@@ -327,8 +317,6 @@
 						}
 					});
 
-			// 重新编码HTML实体
-			formatted = formatted.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 			editor.value = formatted;
 		}
 
@@ -349,9 +337,7 @@
 				const reader = new FileReader();
 
 				reader.onload = e => {
-					// 将HTML内容编码为HTML实体
-					let content = e.target.result.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-					editor.value = content;
+					editor.value = e.target.result;
 				};
 
 				reader.readAsText(file);
@@ -362,9 +348,7 @@
 
 		// 复制内容
 		function copyHTML() {
-			// 解码HTML实体后再复制
-			let content = editor.value.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
-			navigator.clipboard.writeText(content)
+			navigator.clipboard.writeText(editor.value)
 					.then(() => alert('已复制到剪贴板'))
 					.catch(() => alert('复制失败'));
 		}
@@ -392,19 +376,6 @@
 	<ul class="info-list" style="list-style:none;color:#444;line-height:1.6;">
 		<li>输入包含嵌套标签的 HTML，格式化后按层级缩进；压缩后移除多余空白与换行。</li>
 	</ul>
-<footer style="background:#fff;border-top:1px solid #eee;margin-top:40px;">
-	<div style="max-width:1200px;margin:0 auto;padding:16px 16px;display:flex;gap:16px;flex-wrap:wrap;color:#666;font-size:14px;justify-content:center;">
-		<a href="../about.html" style="color:#666;text-decoration:none;">关于我们</a>
-		<span>|</span>
-		<a href="../contact.html" style="color:#666;text-decoration:none;">联系我们</a>
-		<span>|</span>
-		<a href="../privacy.html" style="color:#666;text-decoration:none;">隐私政策</a>
-	</div>
-	<div style="max-width:1200px;margin:0 auto;padding:0 16px 16px 16px;text-align:center;color:#999;font-size:12px;">
-		© 2025 传道AI · 版权所有
-	</div>
-</footer>
-
 </div>
 
 </body>

@@ -277,6 +277,7 @@
 			<a href="../dev.html" class="nav-category">💻 开发工具</a>
 			<a href="../image.html" class="nav-category">🖼️ 图片处理</a>
 			<a href="../game.html" class="nav-category">🎮 娱乐工具</a>
+			<a href="../en/index.html" class="nav-category">🇺🇸 英文</a>
 		</div>
 	</div>
 </nav>
@@ -373,7 +374,50 @@
 	</div>
 </div>
 
-<script src="meta.js"></script>
+<script>
+	function generateMeta() {
+		const title = document.getElementById('title').value;
+		const keywords = document.getElementById('keywords').value;
+		const description = document.getElementById('description').value;
+		const viewport = document.getElementById('viewport').value;
+		const charset = document.getElementById('charset').value;
+		const cache = document.getElementById('cache').value;
+		const author = document.getElementById('author').value;
+		const copyright = document.getElementById('copyright').value;
+		const designer = document.getElementById('designer').value;
+
+		let metaTags = `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="${charset}">
+    <meta name="viewport" content="${viewport}">
+    <title>${title}</title>`;
+
+		if (keywords) {
+			metaTags += `\n    <meta name="keywords" content="${keywords}">`;
+		}
+		if (description) {
+			metaTags += `\n    <meta name="description" content="${description}">`;
+		}
+		if (author) {
+			metaTags += `\n    <meta name="author" content="${author}">`;
+		}
+		if (copyright) {
+			metaTags += `\n    <meta name="copyright" content="${copyright}">`;
+		}
+		if (designer) {
+			metaTags += `\n    <meta name="designer" content="${designer}">`;
+		}
+
+		metaTags += `\n    <meta http-equiv="cache-control" content="${cache}">`;
+		metaTags += '\n</head>\n<body>\n\n</body>\n</html>';
+
+		document.getElementById('result').value = metaTags;
+	}
+
+	// 页面加载时生成默认的Meta标签
+	window.onload = generateMeta;
+</script>
 <script>
 	function toggleMenu() {
 		const nav = document.querySelector('.nav-categories');
