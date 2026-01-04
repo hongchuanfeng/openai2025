@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Base64 customization	Encode/Decode - Base64 Tools</title>
+	<meta name="keywords" content="Base64, encode, decode, Chuandao Tools">
+	<meta name="description" content="Encode or decode Base64 strings. Works with UTF-8 text and runs locally in your browser.">			
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.chdaoai.com/base64/baseCust.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation bar */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tool card layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V5T0MEEJ0Z');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../base64.html" class="nav-category">🔐 Base64</a>
+		            <a href="../index.html" class="nav-category">🔍 Featured</a>
+			<a href="../life.html" class="nav-category">🏠 Life</a>
+			<a href="../encry.html" class="nav-category">🔒 Crypto</a>
+			<a href="../code.html" class="nav-category">📝 Encode/Decode</a>
+			<a href="../dev.html" class="nav-category">💻 Developer</a>
+			<a href="../image.html" class="nav-category">🖼️ Image</a>
+			<a href="../game.html" class="nav-category">🎮 Fun</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+
+	<h1>Custom Base64 Alphabet Mapper</h1>
+
+	<div class="tool-card" style="margin-top: 16px;">
+		<div style="display:flex; gap: 16px; flex-wrap: wrap; align-items: flex-end;">
+			<div style="flex:1; min-width: 260px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">Alphabet (64 chars)</div>
+				<textarea id="b64c_alphabet" style="min-height: 64px;" placeholder="Enter 64 unique characters used as custom Base64 alphabet"></textarea>
+			</div>
+			<div>
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">Standard padding</div>
+				<input id="b64c_stdpad" type="text" value="=" style="padding:8px 10px; border:1px solid #e5e7eb; border-radius:6px; width:80px;" maxlength="1" />
+			</div>
+			<div>
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">Custom padding</div>
+				<input id="b64c_pad" type="text" value="=" style="padding:8px 10px; border:1px solid #e5e7eb; border-radius:6px; width:80px;" maxlength="1" />
+			</div>
+			<div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+				<input id="b64c_usepad" type="checkbox" checked />
+				<label for="b64c_usepad" style="color:#666; font-size:14px;">Use padding</label>
+			</div>
+		</div>
+
+		<div style="display:flex; gap: 16px; flex-wrap: wrap;">
+			<div style="flex:1; min-width: 280px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">Standard Base64</div>
+				<textarea id="b64c_input" placeholder="Paste standard Base64 here (e.g., TWFu=)"></textarea>
+				<div style="display:flex; justify-content: space-between; align-items:center; color:#999; font-size:12px;">
+					<span>Length: <span id="b64c_in_len">0</span></span>
+					<div class="btn-group" style="margin: 8px 0;">
+						<button id="b64c_copyInBtn" style="background:#e5e7eb; color:#111;">Copy Left</button>
+						<button id="b64c_clearBtn">Clear</button>
+					</div>
+				</div>
+			</div>
+			<div style="flex:1; min-width: 280px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">Custom Base64</div>
+				<textarea id="b64c_output" placeholder="Result (custom Base64) or paste custom Base64 here"></textarea>
+				<div style="display:flex; justify-content: space-between; align-items:center; color:#999; font-size:12px;">
+					<span>Length: <span id="b64c_out_len">0</span></span>
+					<div class="btn-group" style="margin: 8px 0;">
+						<button id="b64c_copyOutBtn" style="background:#e5e7eb; color:#111;">Copy Right</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="btn-group">
+			<button id="b64c_encodeBtn">Std → Custom</button>
+			<button id="b64c_decodeBtn">Custom → Std</button>
+			<button id="b64c_swapBtn" style="background:#2196F3; color:#fff;">Swap</button>
+		</div>
+
+		<div id="b64c_error" style="color:#b91c1c; font-size:12px; min-height: 16px;"></div>
+		<div class="about-base64" style="margin-top:12px;">
+			<h2>How custom Base mapping works</h2>
+			<ul>
+				<li>Alphabet: choose any 64 unique characters as the Base64 alphabet (standard is A–Z, a–z, 0–9, +, /).</li>
+				<li>Remapping: this tool remaps characters from the source alphabet to the target alphabet 1‑to‑1, without re‑encoding the payload.</li>
+				<li>Padding: <code>=</code> can be kept, changed to another symbol, or removed entirely; both sides must agree.</li>
+				<li>Compatibility: custom alphabets are not interoperable with standard Base64 unless the receiver knows your alphabet and padding rules.</li>
+				<li>Safety: this is a textual substitution layer over Base64; it does not add encryption or integrity by itself.</li>
+			</ul>
+		</div>
+	</div>
+
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+	function $c(id){ return document.getElementById(id); }
+
+	const STD_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+
+	function validateAlphabet(alpha){
+		if (alpha.length !== 64) throw new Error('Alphabet must be exactly 64 characters');
+		const set = new Set(alpha.split(''));
+		if (set.size !== 64) throw new Error('Alphabet characters must be unique');
+	}
+
+	function escapeForClass(ch){
+		return ch.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+	}
+
+	// Remap Base64 string from one alphabet to another (preserving padding policy)
+	function remapBase64Alphabet(input, fromAlphabet, toAlphabet, fromPad, toPad, usePadding){
+		validateAlphabet(toAlphabet);
+		validateAlphabet(fromAlphabet);
+		const map = new Map();
+		for (let i = 0; i < fromAlphabet.length; i++) map.set(fromAlphabet[i], toAlphabet[i]);
+		let out = '';
+		for (let i = 0; i < input.length; i++) {
+			const ch = input[i];
+			if (ch === fromPad) { out += usePadding ? toPad : ''; continue; }
+			const mapped = map.get(ch);
+			// Preserve whitespace and non-base64 chars as-is
+			out += mapped !== undefined ? mapped : ch;
+		}
+		if (!usePadding) {
+			out = out.replace(new RegExp(escapeForClass(toPad), 'g'), '');
+		}
+		return out;
+	}
+
+	function updateCounts(){
+		$c('b64c_in_len').textContent = String($c('b64c_input').value.length);
+		$c('b64c_out_len').textContent = String($c('b64c_output').value.length);
+	}
+
+	function showErr(msg){ $c('b64c_error').textContent = msg || ''; }
+
+	document.addEventListener('DOMContentLoaded', function(){
+		// Defaults
+		$c('b64c_alphabet').value = STD_ALPHABET;
+		$c('b64c_usepad').checked = true;
+		$c('b64c_pad').value = '=';
+		$c('b64c_stdpad').value = '=';
+
+		$c('b64c_input').addEventListener('input', updateCounts);
+		updateCounts();
+
+		// Std -> Custom
+		$c('b64c_encodeBtn').addEventListener('click', function(){
+			showErr('');
+			try {
+				const fromAlpha = STD_ALPHABET;
+				const toAlpha = $c('b64c_alphabet').value;
+				const fromPad = ($c('b64c_stdpad').value || '=');
+				const toPad = ($c('b64c_pad').value || '=');
+				const usePad = $c('b64c_usepad').checked;
+				$c('b64c_output').value = remapBase64Alphabet($c('b64c_input').value, fromAlpha, toAlpha, fromPad, toPad, usePad);
+			} catch(e){ showErr('Map failed: ' + e.message); }
+			updateCounts();
+		});
+
+		// Custom -> Std
+		$c('b64c_decodeBtn').addEventListener('click', function(){
+			showErr('');
+			try {
+				const fromAlpha = $c('b64c_alphabet').value;
+				const toAlpha = STD_ALPHABET;
+				const fromPad = ($c('b64c_pad').value || '=');
+				const toPad = ($c('b64c_stdpad').value || '=');
+				const usePad = $c('b64c_usepad').checked;
+				$c('b64c_input').value = remapBase64Alphabet($c('b64c_output').value, fromAlpha, toAlpha, fromPad, toPad, usePad);
+			} catch(e){ showErr('Map failed: ' + e.message); }
+			updateCounts();
+		});
+
+		$c('b64c_swapBtn').addEventListener('click', function(){
+			const t = $c('b64c_input').value;
+			$c('b64c_input').value = $c('b64c_output').value;
+			$c('b64c_output').value = t;
+			updateCounts();
+		});
+
+		$c('b64c_clearBtn').addEventListener('click', function(){
+			$c('b64c_input').value = '';
+			$c('b64c_output').value = '';
+			showErr('');
+			updateCounts();
+		});
+
+		$c('b64c_copyInBtn').addEventListener('click', async function(){
+			const text = $c('b64c_input').value;
+			try { await navigator.clipboard.writeText(text); } catch(_) { }
+		});
+
+		$c('b64c_copyOutBtn').addEventListener('click', async function(){
+			const text = $c('b64c_output').value;
+			try { await navigator.clipboard.writeText(text); } catch(_) { }
+		});
+	});
+</script>
+
+</body>
+
+</html>
+
+<!-- Help Section -->
+<div class="help-section" style="background:#f8f9fa; border-radius:8px; padding:2rem; margin:2rem auto; max-width:1100px; border-left:4px solid #007bff;">
+	<h2 class="help-title" style="color:#333; font-size:1.5rem; margin-bottom:1rem; display:flex; align-items:center; gap:.5rem;">How to Use</h2>
+	<div class="help-content" style="color:#666; line-height:1.6;">
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">What this tool does</h3>
+		<p>Remap between standard Base64 and a custom 64‑character alphabet (with optional custom padding). This is a 1‑to‑1 character substitution over Base64—no re‑encoding.</p>
+
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Steps</h3>
+		<ol style="margin:.5rem 0 1rem 1.5rem;">
+			<li>Enter a 64‑character alphabet (unique chars) and choose padding behavior.</li>
+			<li>Paste standard Base64 on the left or custom Base64 on the right.</li>
+			<li>Click “Std → Custom” or “Custom → Std” to map across; copy as needed.</li>
+		</ol>
+
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Examples</h3>
+		<ul style="margin:.5rem 0 1rem 1.5rem;">
+			<li>Custom alphabet: replace <code>+/</code> with <code>-_</code>; keep padding <code>=</code>.</li>
+			<li>Input <code>TWFu</code> (Std) → Custom with <code>-_</code>: mapping keeps payload intact, only chars change.</li>
+		</ul>
+
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Notes</h3>
+		<ul style="margin:.5rem 0 1rem 1.5rem;">
+			<li>Alphabets must be exactly 64 unique characters.</li>
+			<li>Padding policy must match both sides (use or remove consistently).</li>
+			<li>This is not encryption; share alphabets securely if used in protocols.</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Footer -->
+<footer class="footer" style="background:#333; color:#fff; text-align:center; padding:2rem 1rem; margin-top:3rem;">
+	<div class="footer-links" style="display:flex; justify-content:center; gap:2rem; margin-bottom:1rem; flex-wrap:wrap;">
+		<a href="../about.html" style="color:#ccc; text-decoration:none; transition:color .3s;">About Us</a>
+		<a href="../contact.html" style="color:#ccc; text-decoration:none; transition:color .3s;">Contact Us</a>
+		<a href="../privacy.html" style="color:#ccc; text-decoration:none; transition:color .3s;">Privacy Policy</a>
+	</div>
+	<div style="color:#aaa; font-size:.9rem;">© <span id="year-cust">2025</span> Chuandao Tools. All rights reserved.</div>
+</footer>
+<script>document.getElementById('year-cust').textContent = new Date().getFullYear();</script>

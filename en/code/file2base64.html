@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Base64 �?File Converter - Chandao Tools</title>
+	<title>Base64 ⇄ File Converter - Chandao Tools</title>
 	<meta name="keywords" content="online tool collection, Chandao Tools">
 	<meta name="description" content="Chandao Tools is a collection of free, no-login online utilities across life, dev, encoding/decoding, encryption, images, and fun.">
 	<link rel="canonical" href="https://www.chdaoai.com/code/file2base64.html">											
@@ -218,7 +218,7 @@
 			padding-left: 1rem;
 		}
 
-		/* 移动端样�?*/
+		/* 移动端样式 */
 		@media (max-width: 768px) {
 			.nav-categories {
 				display: none;
@@ -252,13 +252,13 @@
 	</style>
 	<script src="../static/js/jquery-3.6.2.min.js"></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
@@ -272,14 +272,14 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">🔍 Recommended</a>
 			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
 			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
 			<a href="../code.html" class="nav-category">📝 Encoding</a>
 			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
-			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../image.html" class="nav-category">🖼️ Image Tools</a>
 			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
 		</div>
 	</div>
@@ -287,7 +287,7 @@
 
 <div class="container">
 	<div class="header">
-		<h1 class="title">Base64 �?File</h1>
+		<h1 class="title">Base64 ⇄ File</h1>
 	</div>
 
 	<div class="conversion-area">
@@ -297,7 +297,7 @@
 				 ondragover="handleDragOver(event)"
 				 ondragleave="handleDragLeave(event)"
 				 ondrop="handleDrop(event)">
-				<div class="upload-icon">�?/div>
+				<div class="upload-icon">↑</div>
 				<p>Click to choose, or drag a file here</p>
 			</div>
 			<textarea id="base64Output" placeholder="Base64 output will appear here..." readonly></textarea>
@@ -329,8 +329,8 @@
 		<p>Converts files to Base64 and restores Base64 back to downloadable files entirely in your browser.</p>
 		<h3>Steps</h3>
 		<ol>
-			<li>File �?Base64: click or drag a file into the box; copy the Base64 output.</li>
-			<li>Base64 �?File: paste Base64 and click Download file.</li>
+			<li>File → Base64: click or drag a file into the box; copy the Base64 output.</li>
+			<li>Base64 → File: paste Base64 and click Download file.</li>
 		</ol>
 		<h3>Example Base64</h3>
 		<code class="wrap">data:image/png;base64,iVBORw0KGgo...</code>
@@ -395,7 +395,7 @@
 		reader.readAsDataURL(file);
 	}
 
-	// Base64转文件功�?
+	// Base64转文件功能
 	const base64Input = document.getElementById('base64Input');
 	const downloadBtn = document.getElementById('downloadBtn');
 
@@ -426,7 +426,7 @@
 		}
 	}
 
-	// MIME类型检�?
+	// MIME类型检测
 	function detectMimeType(base64) {
 		const signatures = {
 			JVBERi0: 'application/pdf',

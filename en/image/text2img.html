@@ -309,7 +309,7 @@
 			padding-left: 1rem;
 		}
 
-		/* 移动端样�?*/
+		/* 移动端样式 */
 		@media (max-width: 768px) {
 			.nav-categories {
 				display: none;
@@ -342,13 +342,13 @@
 		}
 	</style>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
 			crossorigin="anonymous"></script>
@@ -363,14 +363,14 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">🔍 Recommended</a>
 			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
 			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
 			<a href="../code.html" class="nav-category">📝 Encoding</a>
 			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
-			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../image.html" class="nav-category">🖼️ Image Tools</a>
 			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
 		</div>
 	</div>
@@ -500,7 +500,7 @@
 					<div id="image-container" class="relative bg-white border border-gray-200 rounded-lg overflow-hidden">
 						<canvas id="text-canvas" class="max-w-full"></canvas>
 
-						<!-- 图片加载时的占位�?-->
+						<!-- 图片加载时的占位符 -->
 						<div id="loading-placeholder" class="absolute inset-0 flex items-center justify-center bg-gray-100">
 							<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
 						</div>
@@ -635,7 +635,7 @@
 </div>
 
 <script>
-	// 初始化变�?
+	// 初始化变量
 	let canvas = null;
 	let ctx = null;
 	let textOptions = {
@@ -784,9 +784,9 @@
 			downloadButton.disabled = false;
 			isGenerating = false;
 
-			// 平滑滚动到预览区�?
+			// 平滑滚动到预览区域
 			previewSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-		}, 300); // 给动画留出时�?
+		}, 300); // 给动画留出时间
 	}
 
 	// 计算文本宽度
@@ -819,7 +819,7 @@
 		const mimeType = format === 'jpeg' ? 'image/jpeg' :
 				format === 'webp' ? 'image/webp' : 'image/png';
 
-		// 获取质量设置（仅对JPEG和WebP有效�?
+		// 获取质量设置（仅对JPEG和WebP有效）
 		const qualitySetting = (format === 'jpeg' || format === 'webp') ? parseFloat(qualityRange.value) : undefined;
 
 		// 创建下载链接
@@ -829,14 +829,14 @@
 		link.click();
 	}
 
-	// 初始化事件监�?
+	// 初始化事件监听
 	function initEventListeners() {
 		// 字体大小滑块
 		fontSize.addEventListener('input', function() {
 			fontSizeValue.textContent = `${this.value}px`;
 		});
 
-		// 颜色选择�?
+		// 颜色选择器
 		textColor.addEventListener('input', function() {
 			textColorHex.value = this.value;
 		});

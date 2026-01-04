@@ -276,7 +276,7 @@
 			font-size: 0.9rem;
 		}
 
-		/* 移动端样�?*/
+		/* 移动端样式 */
 		@media (max-width: 768px) {
 			.nav-categories {
 				display: none;
@@ -323,13 +323,13 @@
 	<!-- 添加图片处理所需的库 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
 			crossorigin="anonymous"></script>
@@ -342,14 +342,14 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">🔍 Recommended</a>
 			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
 			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
 			<a href="../code.html" class="nav-category">📝 Encoding</a>
 			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
-			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../image.html" class="nav-category">🖼️ Image Tools</a>
 			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
 		</div>
 	</div>
@@ -488,10 +488,10 @@
 	const rgbValue = document.getElementById('rgbValue');
 	const colorPreview = document.getElementById('colorPreview');
 
-	// 由于浏览器安全限制，实际的屏幕颜色拾取需要使用浏览器扩展或原生应�?
+	// 由于浏览器安全限制，实际的屏幕颜色拾取需要使用浏览器扩展或原生应用
 	// 这里我们模拟一个简单的颜色选择功能
 	startPicker.addEventListener('click', () => {
-		// 创建一个颜色选择�?
+		// 创建一个颜色选择器
 		const input = document.createElement('input');
 		input.type = 'color';
 		input.value = hexValue.textContent;
@@ -510,7 +510,7 @@
 	});
 
 	function updateColor(hex) {
-		// 更新HEX�?
+		// 更新HEX值
 		hexValue.textContent = hex.toUpperCase();
 
 		// 转换为RGB

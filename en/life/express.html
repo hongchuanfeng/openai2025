@@ -329,13 +329,13 @@
 	</style>
 	<script src="../static/js/jquery-3.6.2.min.js"></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
@@ -349,14 +349,14 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">🔍 Recommended</a>
 			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
 			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
 			<a href="../code.html" class="nav-category">📝 Encoding/Decoding</a>
 			<a href="../dev.html" class="nav-category">💻 Developer Tools</a>
-			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../image.html" class="nav-category">🖼️ Image Tools</a>
 			<a href="../game.html" class="nav-category">🎮 Entertainment</a>
 		</div>
 	</div>
@@ -400,16 +400,16 @@
 	<h3>Supported Courier Companies</h3>
 	<ul>
 		<li><strong>SF Express (顺丰):</strong> Premium express service</li>
-		<li><strong>YTO (圆�?:</strong> Major express delivery company</li>
-		<li><strong>ZTO (中�?:</strong> Leading express logistics provider</li>
-		<li><strong>STO (申�?:</strong> Established express delivery service</li>
+		<li><strong>YTO (圆通):</strong> Major express delivery company</li>
+		<li><strong>ZTO (中通):</strong> Leading express logistics provider</li>
+		<li><strong>STO (申通):</strong> Established express delivery service</li>
 		<li><strong>Yunda (韵达):</strong> Nationwide express delivery</li>
 		<li><strong>JD (京东):</strong> E-commerce logistics service</li>
 		<li><strong>EMS (邮政):</strong> China Post express service</li>
 		<li><strong>China Post (邮政国内):</strong> National postal service</li>
-		<li><strong>Best Express (汇�?:</strong> Express delivery network</li>
+		<li><strong>Best Express (汇通):</strong> Express delivery network</li>
 		<li><strong>Deppon (德邦):</strong> Logistics and freight service</li>
-		<li><strong>ZJS Express (宅急�?:</strong> Door-to-door delivery service</li>
+		<li><strong>ZJS Express (宅急送):</strong> Door-to-door delivery service</li>
 	</ul>
 
 	<h3>Auto-Detection Rules</h3>
@@ -431,7 +431,7 @@
 	<div class="example">
 		<strong>Example 1 - SF Express:</strong><br>
 		Tracking Number: SF1234567890<br>
-		Company: Auto detect �?SF Express<br>
+		Company: Auto detect → SF Express<br>
 		Result: Shows delivery status and tracking history<br><br>
 		<strong>Example 2 - Manual Selection:</strong><br>
 		Tracking Number: 1234567890123<br>
@@ -563,7 +563,7 @@ $('#searchBtn').on('click', function() {
     method: 'get',
     dataType: 'json',
     success: function(data) {
-      // 适配新接口返回结�?
+      // 适配新接口返回结构
       if (!data || data.code !== 200) {
         showError((data && data.msg ? data.msg : 'No tracking info found') + '<br>If SF Express, JD etc. cannot be queried, try another courier or a real tracking number.');
         return;

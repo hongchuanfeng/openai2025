@@ -220,7 +220,7 @@
 			padding-left: 1rem;
 		}
 
-		/* ç§»åŠ¨ç«¯æ ·å¼?*/
+		/* ç§»åŠ¨ç«¯æ ·å¼ */
 		@media (max-width: 768px) {
 			.nav-categories {
 				display: none;
@@ -255,13 +255,13 @@
 	<script src="../static/js/jquery-3.6.2.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
@@ -275,20 +275,20 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">â˜?/button>
+		<button class="menu-btn" onclick="toggleMenu()">â˜°</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">ğŸ” Recommended</a>
 			<a href="../life.html" class="nav-category">ğŸ  Life Tools</a>
 			<a href="../encry.html" class="nav-category">ğŸ”’ Encryption</a>
 			<a href="../code.html" class="nav-category">ğŸ“ Encoding</a>
 			<a href="../dev.html" class="nav-category">ğŸ’» Dev Tools</a>
-			<a href="../image.html" class="nav-category">ğŸ–¼ï¸?Image Tools</a>
+			<a href="../image.html" class="nav-category">ğŸ–¼ï¸ Image Tools</a>
 			<a href="../game.html" class="nav-category">ğŸ® Fun Tools</a>
 		</div>
 	</div>
 </nav>
 
-<h1 style="text-align: center">ASCII â‡?String Converter</h1>
+<h1 style="text-align: center">ASCII â‡„ String Converter</h1>
 <div class="container">
         <textarea
 				class="input-area"
@@ -296,8 +296,8 @@
 				placeholder="Enter text to convert to ASCII"></textarea>
 
 	<div class="button-group">
-		<button class="btn convert-to-ascii" id="toAsciiBtn">Text â†?ASCII â†?/button>
-		<button class="btn convert-to-string" id="toStringBtn">ASCII â†?Text â†?/button>
+		<button class="btn convert-to-ascii" id="toAsciiBtn">Text â†’ ASCII â†“</button>
+		<button class="btn convert-to-string" id="toStringBtn">ASCII â†’ Text â†‘</button>
 		<button class="btn clear-btn" id="clearBtn">Clear</button>
 	</div>
 
@@ -312,7 +312,7 @@
 		<ul class="info-list">
 			<li>1. ASCII is a character encoding standard for electronic communication and data exchange.</li>
 			<li>2. ASCII uses 7 or 8 bits to represent 128 or 256 characters.</li>
-			<li>3. In 7-bit ASCII, values 0â€?1 and 127 are control characters; 32â€?26 are printable.</li>
+			<li>3. In 7-bit ASCII, values 0â€“31 and 127 are control characters; 32â€“126 are printable.</li>
 			<li>4. Extended ASCII (8-bit) adds 128 extra codes for symbols and international characters.</li>
 		</ul>
 	</div>
@@ -327,19 +327,19 @@
 
         <h3>Steps</h3>
         <ol>
-            <li>Text â†?ASCII: type text then click "Text â†?ASCII" to get code points.</li>
-            <li>ASCII â†?Text: paste numbers separated by spaces then click "ASCII â†?Text".</li>
+            <li>Text â†’ ASCII: type text then click "Text â†’ ASCII" to get code points.</li>
+            <li>ASCII â†’ Text: paste numbers separated by spaces then click "ASCII â†’ Text".</li>
         </ol>
 
         <h3>Examples</h3>
         <ul>
-            <li>"ABC" â†?65 66 67</li>
-            <li>72 101 108 108 111 â†?"Hello"</li>
+            <li>"ABC" â†’ 65 66 67</li>
+            <li>72 101 108 108 111 â†’ "Hello"</li>
         </ul>
 
         <h3>Notes</h3>
         <ul>
-            <li>Nonâ€‘ASCII characters will use UTFâ€?6 code units which may not be standard ASCII.</li>
+            <li>Nonâ€‘ASCII characters will use UTFâ€‘16 code units which may not be standard ASCII.</li>
             <li>All processing is local in your browser.</li>
         </ul>
     </div>
@@ -361,7 +361,7 @@
 	const toStringBtn = document.getElementById('toStringBtn');
 	const clearBtn = document.getElementById('clearBtn');
 
-	// Text â†?ASCII
+	// Text â†’ ASCII
 	toAsciiBtn.addEventListener('click', () => {
 		const input = inputText.value;
 		if (!input) {
@@ -372,7 +372,7 @@
 		outputText.value = ascii;
 	});
 
-	// ASCII â†?Text
+	// ASCII â†’ Text
 	toStringBtn.addEventListener('click', () => {
 		const input = outputText.value;
 		if (!input) {

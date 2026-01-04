@@ -309,7 +309,7 @@
 			padding-left: 1rem;
 		}
 
-		/* 移动端样�?*/
+		/* 移动端样式 */
 		@media (max-width: 768px) {
 			.nav-categories {
 				display: none;
@@ -346,13 +346,13 @@
 	<!-- 添加图片处理所需的库 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
@@ -366,14 +366,14 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">🔍 Recommended</a>
 			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
 			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
 			<a href="../code.html" class="nav-category">📝 Encoding</a>
 			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
-			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../image.html" class="nav-category">🖼️ Image Tools</a>
 			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
 		</div>
 	</div>
@@ -616,13 +616,13 @@
 	const ctx = colorMap.getContext('2d');
 	const preview = document.getElementById('colorPreview');
 
-	// 初始化颜色选择�?
+	// 初始化颜色选择器
 	function initColorPicker() {
 		// 设置画布大小
 		colorMap.width = 400;
 		colorMap.height = 400;
 
-		// 创建渐变色彩�?
+		// 创建渐变色彩图
 		const gradient = ctx.createLinearGradient(0, 0, colorMap.width, 0);
 		gradient.addColorStop(0, "rgb(255, 0, 0)");
 		gradient.addColorStop(1/6, "rgb(255, 255, 0)");
@@ -644,7 +644,7 @@
 		ctx.fillRect(0, 0, colorMap.width, colorMap.height);
 	}
 
-	// 获取点击位置的颜�?
+	// 获取点击位置的颜色
 	colorMap.addEventListener('click', (e) => {
 		const rect = colorMap.getBoundingClientRect();
 		const x = e.clientX - rect.left;
@@ -653,7 +653,7 @@
 		updateColorValues(pixel);
 	});
 
-	// 更新所有颜色�?
+	// 更新所有颜色值
 	function updateColorValues(pixel) {
 		const [r, g, b] = pixel;
 		const hex = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
@@ -666,7 +666,7 @@
 		preview.style.backgroundColor = hex;
 	}
 
-	// 初始�?
+	// 初始化
 	initColorPicker();
 </script>
 </body>

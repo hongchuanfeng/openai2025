@@ -332,7 +332,7 @@
 			padding-left: 1rem;
 		}
 
-		/* 移动端样�?*/
+		/* 移动端样式 */
 		@media (max-width: 768px) {
 			.nav-categories {
 				display: none;
@@ -365,13 +365,13 @@
 		}
 	</style>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
 			crossorigin="anonymous"></script>
@@ -386,14 +386,14 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">🔍 推荐工具</a>
 			<a href="../life.html" class="nav-category">🏠 生活工具</a>
 			<a href="../encry.html" class="nav-category">🔒 加密解密</a>
 			<a href="../code.html" class="nav-category">📝 编码解码</a>
-			<a href="../dev.html" class="nav-category">💻 开发工�?/a>
-			<a href="../image.html" class="nav-category">🖼�?图片处理</a>
+			<a href="../dev.html" class="nav-category">💻 开发工具</a>
+			<a href="../image.html" class="nav-category">🖼️ 图片处理</a>
 			<a href="../game.html" class="nav-category">🎮 娱乐工具</a>
 		</div>
 	</div>
@@ -497,7 +497,7 @@
 							<div class="bg-gray-50 p-3 rounded-lg">
 								<p class="text-xs text-gray-500">Processed</p>
 								<div id="processedPreview" class="w-full aspect-[4/3] bg-gray-100 rounded overflow-hidden">
-									<img id="processedImage" src="../static/images/preve.jpeg" alt="处理后图�? class="w-full h-full object-cover rounded-[0px] transition-all duration-500">
+									<img id="processedImage" src="../static/images/preve.jpeg" alt="处理后图片" class="w-full h-full object-cover rounded-[0px] transition-all duration-500">
 								</div>
 							</div>
 						</div>
@@ -675,7 +675,7 @@
 		const loadingIndicator = document.getElementById('loadingIndicator');
 		const presetBtns = document.querySelectorAll('.preset-btn');
 
-		// 初始化状�?
+		// 初始化状态
 		let originalImageData = null;
 		let currentRadius = 0;
 		downloadBtn.disabled = true;
@@ -701,7 +701,7 @@
 					// 存储原始图片数据
 					originalImageData = e.target.result;
 
-					// 更新UI状�?
+					// 更新UI状态
 					noImageState.classList.add('hidden');
 					downloadBtn.disabled = false;
 
@@ -799,12 +799,12 @@
 		function applyRadius() {
 			if (!previewImage.src) return;
 
-			// 为预览图片应用圆�?
+			// 为预览图片应用圆角
 			previewImage.style.borderRadius = `${currentRadius}px`;
 			processedImage.style.borderRadius = `${currentRadius}px`;
 		}
 
-		// 显示/隐藏加载指示�?
+		// 显示/隐藏加载指示器
 		function showLoading(show) {
 			if (show) {
 				loadingIndicator.classList.remove('hidden');
@@ -813,7 +813,7 @@
 			}
 		}
 
-		// 初始化显�?
+		// 初始化显示
 		updateRadiusDisplay();
 	});
 

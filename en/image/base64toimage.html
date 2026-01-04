@@ -282,7 +282,7 @@
 			font-size: 0.9rem;
 		}
 
-		/* 移动端样�?*/
+		/* 移动端样式 */
 		@media (max-width: 768px) {
 			.nav-categories {
 				display: none;
@@ -329,13 +329,13 @@
 	<!-- 添加图片处理所需的库 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
 			crossorigin="anonymous"></script>
@@ -348,14 +348,14 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">🔍 Recommended</a>
 			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
 			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
 			<a href="../code.html" class="nav-category">📝 Encoding</a>
 			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
-			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../image.html" class="nav-category">🖼️ Image Tools</a>
 			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
 		</div>
 	</div>
@@ -369,7 +369,7 @@
 				placeholder="Enter Base64 starting with data:image/..."></textarea>
 
 	<div class="button-group">
-		<button class="btn convert-btn" id="convertBtn">Convert Base64 �?Image</button>
+		<button class="btn convert-btn" id="convertBtn">Convert Base64 → Image</button>
 		<button class="btn clear-btn" id="clearBtn">Clear</button>
 	</div>
 
@@ -382,7 +382,7 @@
 		<ul class="info-list">
 			<li>1. Base64 encodes binary data to ASCII-safe text for transport.</li>
 			<li>2. Paste image Base64 starting with 'data:image/'.</li>
-			<li>3. Click "Convert Base64 �?Image" to render the image.</li>
+			<li>3. Click "Convert Base64 → Image" to render the image.</li>
 		</ul>
 	</div>
 </div>
@@ -396,7 +396,7 @@
 	<ol>
 		<li><strong>Get Base64 Data:</strong> Copy the Base64 encoded image data (must start with 'data:image/')</li>
 		<li><strong>Paste Data:</strong> Paste the Base64 string into the input area</li>
-		<li><strong>Convert:</strong> Click "Convert Base64 �?Image" to render the image</li>
+		<li><strong>Convert:</strong> Click "Convert Base64 → Image" to render the image</li>
 		<li><strong>View Result:</strong> The converted image will appear in the result area</li>
 		<li><strong>Clear:</strong> Use "Clear" button to reset and try another image</li>
 	</ol>
@@ -490,7 +490,7 @@
 			const img = document.createElement('img');
 			img.src = base64String;
 
-			// 清空之前的内容并显示新图�?
+			// 清空之前的内容并显示新图片
 			imageOutput.innerHTML = '';
 			imageOutput.appendChild(img);
 

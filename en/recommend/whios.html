@@ -214,7 +214,7 @@
 			padding-left: 1rem;
 		}
 
-		/* 移动端样�?*/
+		/* 移动端样式 */
 		@media (max-width: 768px) {
 			.nav-categories {
 				display: none;
@@ -331,13 +331,13 @@
 	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
@@ -351,14 +351,14 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">🔍 Recommended</a>
 			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
 			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
 			<a href="../code.html" class="nav-category">📝 Encoding</a>
 			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
-			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../image.html" class="nav-category">🖼️ Image Tools</a>
 			<a href="../game.html" class="nav-category">🎮 Games</a>
 		</div>
 	</div>
@@ -385,7 +385,7 @@
 			<li>2. Learn about handling domain expiration.</li>
 			<li>Generic domains:</li>
 			<ul class="sub-list">
-				<li>(1) After expiry: 30�?5 day grace period; limited changes allowed.</li>
+				<li>(1) After expiry: 30–45 day grace period; limited changes allowed.</li>
 				<li>(2) Redemption period: ~30 days after grace period.</li>
 				<li>(3) Pending delete: ~5 days; then released to public.</li>
 			</ul>
@@ -512,17 +512,17 @@
 		}
 
 		// 这里应该调用实际的WHOIS API
-		// 以下为模拟数�?
+		// 以下为模拟数据
 		// resultContainer.innerHTML = `
-        //         <h3>查询结果�?/h3>
-        //         <p>域名�?{domain}</p>
-        //         <p>注册商：示例注册�?/p>
-        //         <p>创建时间�?023-01-01</p>
-        //         <p>到期时间�?024-01-01</p>
-        //         <p>状态：已注�?/p>
+        //         <h3>查询结果：</h3>
+        //         <p>域名：${domain}</p>
+        //         <p>注册商：示例注册商</p>
+        //         <p>创建时间：2023-01-01</p>
+        //         <p>到期时间：2024-01-01</p>
+        //         <p>状态：已注册</p>
         //     `;
 		//
-		// // 添加到历史记�?
+		// // 添加到历史记录
 		// addToHistory(domain);
 
 		const data ={
@@ -565,7 +565,7 @@
                 <p>State/Province: ${state}</p>
             `;
 
-			// 添加到历史记�?
+			// 添加到历史记录
 			addToHistory(domain);
 
 		})
@@ -587,19 +587,19 @@
 
 
 	// $.ajax({
-	// 	url: 'https://whois.arin.net/rest/domain/chdaoai.com', // 替换为实际要查询的域�?
+	// 	url: 'https://whois.arin.net/rest/domain/chdaoai.com', // 替换为实际要查询的域名
 	// 	type: 'GET',
 	// 	dataType: 'json',
 	// 	headers: {
 	// 		'Accept': 'application/json'
 	// 	},
 	// 	success: function (response) {
-	// 		// 处理成功响应，打印出域名的相关信�?
+	// 		// 处理成功响应，打印出域名的相关信息
 	// 		console.log(response);
 	// 	},
 	// 	error: function (xhr, status, error) {
 	// 		// 处理错误
-	// 		console.log('请求失败�? + status + ', 错误�? + error);
+	// 		console.log('请求失败：' + status + ', 错误：' + error);
 	// 	}
 	// });
 

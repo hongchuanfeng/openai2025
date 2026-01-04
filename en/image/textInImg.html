@@ -308,7 +308,7 @@
 			padding-left: 1rem;
 		}
 
-		/* 移动端样�?*/
+		/* 移动端样式 */
 		@media (max-width: 768px) {
 			.nav-categories {
 				display: none;
@@ -341,13 +341,13 @@
 		}
 	</style>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
 			crossorigin="anonymous"></script>
@@ -362,14 +362,14 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">🔍 Recommended</a>
 			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
 			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
 			<a href="../code.html" class="nav-category">📝 Encoding</a>
 			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
-			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../image.html" class="nav-category">🖼️ Image Tools</a>
 			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
 		</div>
 	</div>
@@ -377,7 +377,7 @@
 
 <div class="container">
 
-	<!-- 主要内容�?-->
+	<!-- 主要内容区 -->
 	<main class="flex-grow container mx-auto px-4 py-8">
 		<div class="max-w-6xl mx-auto">
 			<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -522,16 +522,16 @@
 					</div>
 				</div>
 
-				<!-- 右侧预览�?-->
+				<!-- 右侧预览区 -->
 				<div class="lg:col-span-2">
 					<div class="bg-white rounded-xl shadow-soft p-6 h-full">
 						<h2 class="text-xl font-bold text-gray-800 mb-6">Preview</h2>
 
 						<div id="canvas-container" class="relative bg-neutral rounded-lg overflow-hidden" style="height: 600px;">
-							<!-- 画布将在这里动态生�?-->
+							<!-- 画布将在这里动态生成 -->
 							<canvas id="image-canvas" class="w-full h-full"></canvas>
 
-							<!-- 无图片提�?-->
+							<!-- 无图片提示 -->
 							<div id="no-image-placeholder" class="absolute inset-0 flex flex-col items-center justify-center text-gray-400">
 								<i class="fa fa-image text-6xl mb-4"></i>
 								<p class="text-lg">Please upload an image to edit</p>
@@ -692,7 +692,7 @@
 	const ctx = canvas.getContext('2d');
 	const noImagePlaceholder = document.getElementById('no-image-placeholder');
 
-	// 存储当前编辑的文本对象索�?
+	// 存储当前编辑的文本对象索引
 	let currentTextIndex = -1;
 
 	// 存储所有添加的文本对象
@@ -701,7 +701,7 @@
 	// 图片对象
 	let image = null;
 
-	// 文本样式默认�?
+	// 文本样式默认值
 	let textStyle = {
 		fontSize: 36,
 		color: '#ffffff',
@@ -715,7 +715,7 @@
 		posY: 50
 	};
 
-	// 初始化画布尺�?
+	// 初始化画布尺寸
 	function initCanvasSize() {
 		const container = document.getElementById('canvas-container');
 		canvas.width = container.clientWidth;
@@ -723,10 +723,10 @@
 		redrawCanvas();
 	}
 
-	// 监听窗口大小变化，调整画布尺�?
+	// 监听窗口大小变化，调整画布尺寸
 	window.addEventListener('resize', initCanvasSize);
 
-	// 初始�?
+	// 初始化
 	initCanvasSize();
 
 	// 拖放事件处理
@@ -781,7 +781,7 @@
 		redrawCanvas();
 	});
 
-	// 处理上传的文�?
+	// 处理上传的文件
 	function handleFile(file) {
 		if (!file.type.match('image.*')) {
 			alert('Please upload an image file');
@@ -815,7 +815,7 @@
 			return;
 		}
 
-		// 添加新文本对�?
+		// 添加新文本对象
 		texts.push({
 			text,
 			...textStyle
@@ -824,7 +824,7 @@
 		// 更新当前文本索引
 		currentTextIndex = texts.length - 1;
 
-		// 清空输入�?
+		// 清空输入框
 		textInput.value = '';
 
 		// 重绘画布
@@ -839,7 +839,7 @@
 		const clickX = e.clientX - rect.left;
 		const clickY = e.clientY - rect.top;
 
-		// 从后往前检查，优先选择最上面的文�?
+		// 从后往前检查，优先选择最上面的文本
 		for (let i = texts.length - 1; i >= 0; i--) {
 			const text = texts[i];
 			ctx.save();
@@ -847,7 +847,7 @@
 			const textWidth = ctx.measureText(text.text).width;
 			const textHeight = text.fontSize;
 
-			// 计算文本包围�?
+			// 计算文本包围盒
 			let x, y;
 			if (text.align === 'left') {
 				x = (text.posX / 100) * canvas.width;
@@ -858,7 +858,7 @@
 			}
 			y = (text.posY / 100) * canvas.height;
 
-			// 检查点击是否在文本范围�?
+			// 检查点击是否在文本范围内
 			if (clickX >= x && clickX <= x + textWidth &&
 					clickY >= y - textHeight && clickY <= y) {
 				currentTextIndex = i;
@@ -878,7 +878,7 @@
 	// 更新控制选项
 	function updateControls() {
 		if (currentTextIndex === -1) {
-			// 没有选中的文本，重置为默认样�?
+			// 没有选中的文本，重置为默认样式
 			textStyle = {
 				fontSize: 36,
 				color: '#ffffff',
@@ -892,7 +892,7 @@
 				posY: 50
 			};
 		} else {
-			// 使用选中的文本样�?
+			// 使用选中的文本样式
 			textStyle = { ...texts[currentTextIndex] };
 		}
 
@@ -954,12 +954,12 @@
 	// 监听对齐方式变化
 	textAlignBtns.forEach(btn => {
 		btn.addEventListener('click', () => {
-			// 移除所有按钮的选中状�?
+			// 移除所有按钮的选中状态
 			textAlignBtns.forEach(b => {
 				b.classList.remove('bg-primary/10', 'border-primary');
 			});
 
-			// 添加当前按钮的选中状�?
+			// 添加当前按钮的选中状态
 			btn.classList.add('bg-primary/10', 'border-primary');
 
 			// 更新样式
@@ -1083,7 +1083,7 @@
 		link.click();
 	});
 
-	// 更新当前选中的文�?
+	// 更新当前选中的文本
 	function updateCurrentText() {
 		if (currentTextIndex !== -1) {
 			texts[currentTextIndex] = { ...textStyle };
@@ -1091,7 +1091,7 @@
 		}
 	}
 
-	// 获取字体字符�?
+	// 获取字体字符串
 	function getFontString(text) {
 		let font = '';
 		if (text.italic) font += 'italic ';
@@ -1104,7 +1104,7 @@
 	function drawText(ctx, text, canvasWidth, canvasHeight) {
 		ctx.save();
 
-		// 设置字体和样�?
+		// 设置字体和样式
 		ctx.font = getFontString(text);
 		ctx.fillStyle = text.color;
 		ctx.textAlign = text.align;
@@ -1132,7 +1132,7 @@
 		// 绘制文本
 		ctx.fillText(text.text, x, y);
 
-		// 绘制下划线或删除�?
+		// 绘制下划线或删除线
 		if (text.underline || text.stroke) {
 			const textWidth = ctx.measureText(text.text).width;
 			const lineY = text.stroke ? y - text.fontSize / 8 : y + text.fontSize / 3;
@@ -1145,7 +1145,7 @@
 			ctx.stroke();
 		}
 
-		// 如果是当前选中的文本，绘制选中�?
+		// 如果是当前选中的文本，绘制选中框
 		if (currentTextIndex !== -1 && texts[currentTextIndex] === text) {
 			const textWidth = ctx.measureText(text.text).width;
 			const padding = 10;
@@ -1174,20 +1174,20 @@
 
 		// 如果有图片，绘制图片
 		if (image) {
-			// 计算图片在画布中的最佳显示位置（居中且等比例缩放�?
+			// 计算图片在画布中的最佳显示位置（居中且等比例缩放）
 			const imgRatio = image.width / image.height;
 			const canvasRatio = canvas.width / canvas.height;
 
 			let displayWidth, displayHeight, x, y;
 
 			if (imgRatio > canvasRatio) {
-				// 图片比画布宽，以宽度为基�?
+				// 图片比画布宽，以宽度为基准
 				displayWidth = canvas.width;
 				displayHeight = canvas.width / imgRatio;
 				x = 0;
 				y = (canvas.height - displayHeight) / 2;
 			} else {
-				// 图片比画布高，以高度为基�?
+				// 图片比画布高，以高度为基准
 				displayHeight = canvas.height;
 				displayWidth = canvas.height * imgRatio;
 				x = (canvas.width - displayWidth) / 2;
@@ -1201,7 +1201,7 @@
 			image.displayInfo = { x, y, width: displayWidth, height: displayHeight };
 		}
 
-		// 绘制所有文�?
+		// 绘制所有文本
 		texts.forEach(text => {
 			drawText(ctx, text, canvas.width, canvas.height);
 		});

@@ -62,7 +62,7 @@
 			margin-top: 60px;
 		}
 
-		/* 虚拟方向键样�?*/
+		/* 虚拟方向键样式 */
 		.direction-keys {
 			display: flex;
 			justify-content: center;
@@ -183,7 +183,7 @@
 			padding-left: 1rem;
 		}
 
-		/* 移动端样�?*/
+		/* 移动端样式 */
 		@media (max-width: 768px) {
 			.nav-categories {
 				display: none;
@@ -218,13 +218,13 @@
 	<script src="../static/js/jquery-3.6.2.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
@@ -238,14 +238,14 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">🔍 Recommended</a>
 			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
 			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
 			<a href="../code.html" class="nav-category">📝 Encoding</a>
 			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
-			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../image.html" class="nav-category">🖼️ Image Tools</a>
 			<a href="../game.html" class="nav-category">🎮 Games</a>
 		</div>
 	</div>
@@ -264,13 +264,13 @@
 
 	<input type="file" id="character-img" accept=".jpg, .jpeg, .png">
 
-	<!-- 虚拟方向�?-->
+	<!-- 虚拟方向键 -->
 	<div class="direction-keys">
-		<button id="up">�?/button>
+		<button id="up">↑</button>
 		<br>
-		<button id="left">�?/button>
-		<button id="down">�?/button>
-		<button id="right">�?/button>
+		<button id="left">←</button>
+		<button id="down">↓</button>
+		<button id="right">→</button>
 	</div>
 
 	<script>
@@ -314,7 +314,7 @@
 				}
 			}
 
-			// 设置迷宫入口和出�?
+			// 设置迷宫入口和出口
 			maze[0][0].classList.add('entry');
 			maze[9][9].classList.add('exit');
 
@@ -394,7 +394,7 @@
 
 		document.addEventListener('keydown', moveCharacter);
 
-		// 监听虚拟方向键点击事�?
+		// 监听虚拟方向键点击事件
 		document.getElementById('up').addEventListener('click', function() {
 			moveCharacter({ key: 'ArrowUp' });
 		});

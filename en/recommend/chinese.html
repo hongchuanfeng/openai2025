@@ -216,7 +216,7 @@
             padding-left: 1rem;
         }
 
-        /* 移动端样�?*/
+        /* 移动端样式 */
         @media (max-width: 768px) {
             .nav-categories {
                 display: none;
@@ -333,13 +333,13 @@
     <script src="https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/umd/full.js"></script>
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
@@ -354,14 +354,14 @@
                 <img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
             </a>
         </div>
-        <button class="menu-btn" onclick="toggleMenu()">�?/button>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
         <div class="nav-categories">
             <a href="../index.html" class="nav-category">🔍 Recommended</a>
             <a href="../life.html" class="nav-category">🏠 Life Tools</a>
             <a href="../encry.html" class="nav-category">🔒 Encryption</a>
             <a href="../code.html" class="nav-category">📝 Encoding</a>
             <a href="../dev.html" class="nav-category">💻 Dev Tools</a>
-            <a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+            <a href="../image.html" class="nav-category">🖼️ Image Tools</a>
             <a href="../game.html" class="nav-category">🎮 Fun Tools</a>
         </div>
     </div>
@@ -377,8 +377,8 @@
     <textarea class="text-area" id="inputText" placeholder="Enter text to convert..."></textarea>
 
     <div class="button-group">
-        <button class="convert-btn to-traditional" onclick="toTW()">To Traditional Chinese �?/button>
-        <button class="convert-btn to-simplified" onclick="toCN()">To Simplified Chinese �?/button>
+        <button class="convert-btn to-traditional" onclick="toTW()">To Traditional Chinese ↓</button>
+        <button class="convert-btn to-simplified" onclick="toCN()">To Simplified Chinese ↓</button>
         <button class="convert-btn clear-btn" onclick="clearText()">Clear</button>
     </div>
 
@@ -418,11 +418,11 @@
     <h3>Examples</h3>
     <div class="example">
         <strong>Example 1 - Simplified to Traditional:</strong><br>
-        Input: "少年强则国强，少年智则国�?<br>
-        Output: "少年強則國強，少年智則國�?<br><br>
+        Input: "少年强则国强，少年智则国智"<br>
+        Output: "少年強則國強，少年智則國智"<br><br>
         <strong>Example 2 - Traditional to Simplified:</strong><br>
-        Input: "計算機科�?<br>
-        Output: "计算机科�?
+        Input: "計算機科學"<br>
+        Output: "计算机科学"
     </div>
 
     <h3>Use Cases</h3>
@@ -451,18 +451,18 @@
 <script>
 
     const customDict = [
-        ['�?, '�?],
-        ['�?, '�?],
-        ['�?, '�?],
-        ['�?, '�?],
+        ['“', '「'],
+        ['”', '」'],
+        ['‘', '『'],
+        ['’', '』'],
     ];
     const converter = OpenCC.ConverterFactory(
         OpenCC.Locale.from.cn, // 中国大陆 => OpenCC 标准
         OpenCC.Locale.to.tw,   // OpenCC 标准 => 台湾
         [customDict]           // 台湾 => 自订
     );
-    //console.log(converter('悟空道：“师父又来了。怎么叫做‘水中捞月’？�?));
-    // output: 悟空道：「師父又來了。怎麼叫做『水中撈月』？�?
+    //console.log(converter('悟空道：“师父又来了。怎么叫做‘水中捞月’？”'));
+    // output: 悟空道：「師父又來了。怎麼叫做『水中撈月』？」
 
     function toTW(){
         const inputText = document.getElementById('inputText').value;
@@ -473,7 +473,7 @@
 
     function toCN(){
         // console.log(11);
-        // 将繁体中文（香港）转换为简体中文（中国大陆�?
+        // 将繁体中文（香港）转换为简体中文（中国大陆）
         const converter2 = OpenCC.Converter({ from: 'hk', to: 'cn' });
         // console.log(converter2('漢語')); // output: 汉语
 

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>HEX �?Text Converter - Chandao Tools</title>
+	<title>HEX ⇄ Text Converter - Chandao Tools</title>
 	<meta name="keywords" content="online tool collection, Chandao Tools">
 	<meta name="description" content="Chandao Tools is a collection of free, no-login online utilities across life, dev, encoding/decoding, encryption, images, and fun.">
 	<link rel="canonical" href="https://www.chdaoai.com/code/hex2string.html">		
@@ -209,7 +209,7 @@
 			padding-left: 1rem;
 		}
 
-		/* 移动端样�?*/
+		/* 移动端样式 */
 		@media (max-width: 768px) {
 			.nav-categories {
 				display: none;
@@ -243,13 +243,13 @@
 	</style>
 	<script src="https://cdn.jsdelivr.net/npm/punycode@2.1.0/punycode.js"></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
@@ -263,28 +263,28 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">🔍 Recommended</a>
 			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
 			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
 			<a href="../code.html" class="nav-category">📝 Encoding</a>
 			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
-			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../image.html" class="nav-category">🖼️ Image Tools</a>
 			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
 		</div>
 	</div>
 </nav>
 <div class="container">
-	<h1>HEX �?Text Converter</h1>
+	<h1>HEX ⇄ Text Converter</h1>
 
 	<div class="input-group">
 		<textarea id="charInput" placeholder="Enter text..."></textarea>
 	</div>
 
 	<div class="button-group">
-		<button class="encode-btn" onclick="charToHex()">Text �?HEX</button>
-		<button class="decode-btn" onclick="hexToChar()">HEX �?Text</button>
+		<button class="encode-btn" onclick="charToHex()">Text → HEX</button>
+		<button class="decode-btn" onclick="hexToChar()">HEX → Text</button>
 		<button class="clear-btn" onclick="clearAll()">Clear</button>
 	</div>
 
@@ -295,15 +295,15 @@
 	<div class="error" id="errorMsg"></div>
 
 	<div class="instructions">
-		<h3>关于Hex编码介绍�?/h3>
+		<h3>关于Hex编码介绍：</h3>
 		<ol>
 			<li>Hex encoding represents data in base-16 for storage or transfer</li>
 			<li>Each hex digit represents 4 bits, making it compact and readable for binary</li>
 			<li>Basics of hex encoding:
 				<ul>
 					<li>基数：Hex编码使用基数16</li>
-					<li>符号：Hex编码使用16个不同的符号，包�?-9的数字和A-F的字�?/li>
-					<li>位权：Hex编码从右向左，每一位的权是16的幂次，�?开始依次增�?/li>
+					<li>符号：Hex编码使用16个不同的符号，包括0-9的数字和A-F的字母</li>
+					<li>位权：Hex编码从右向左，每一位的权是16的幂次，从0开始依次增加</li>
 				</ul>
 			</li>
 			<li>Hex编码在存储和传输二进制数据、调试和程序开发以及网络通信中被广泛使用</li>
@@ -319,13 +319,13 @@
 		<p>Converts between plain text and its HEX representation. Useful for debugging, binary inspection, and protocols.</p>
 		<h3>Steps</h3>
 		<ol>
-			<li>Enter text in the upper box and click "Text �?HEX".</li>
-			<li>Paste HEX in the lower box and click "HEX �?Text".</li>
+			<li>Enter text in the upper box and click "Text → HEX".</li>
+			<li>Paste HEX in the lower box and click "HEX → Text".</li>
 		</ol>
 		<h3>Examples</h3>
 		<ul>
-			<li>Text: "Hi" �?HEX: 48 69</li>
-			<li>HEX: 48656C6C6F �?Text: Hello</li>
+			<li>Text: "Hi" → HEX: 48 69</li>
+			<li>HEX: 48656C6C6F → Text: Hello</li>
 		</ul>
 		<h3>Notes</h3>
 		<ul>
@@ -356,11 +356,11 @@
 			document.getElementById('hexInput').value = hexArray.join(' ');
 			showError('');
 		} catch (error) {
-			showError('转换失败�? + error.message);
+			showError('转换失败：' + error.message);
 		}
 	}
 
-	// HEX转字�?
+	// HEX转字符
 	function hexToChar() {
 		try {
 			const hexString = document.getElementById('hexInput').value.replace(/\s/g, '');
@@ -368,7 +368,7 @@
 				throw new Error('包含非法HEX字符');
 			}
 			if (hexString.length % 2 !== 0) {
-				throw new Error('HEX长度必须为偶�?);
+				throw new Error('HEX长度必须为偶数');
 			}
 
 			const charArray = [];
@@ -379,7 +379,7 @@
 			document.getElementById('charInput').value = charArray.join('');
 			showError('');
 		} catch (error) {
-			showError('转换失败�? + error.message);
+			showError('转换失败：' + error.message);
 		}
 	}
 

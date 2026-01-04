@@ -332,7 +332,7 @@
 			font-size: 0.9rem;
 		}
 
-		/* 移动端样�?*/
+		/* 移动端样式 */
 		@media (max-width: 768px) {
 			.nav-categories {
 				display: none;
@@ -379,13 +379,13 @@
 	<!-- 添加图片处理所需的库 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
 			crossorigin="anonymous"></script>
@@ -400,14 +400,14 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">🔍 推荐工具</a>
 			<a href="../life.html" class="nav-category">🏠 生活工具</a>
 			<a href="../encry.html" class="nav-category">🔒 加密解密</a>
 			<a href="../code.html" class="nav-category">📝 编码解码</a>
-			<a href="../dev.html" class="nav-category">💻 开发工�?/a>
-			<a href="../image.html" class="nav-category">🖼�?图片处理</a>
+			<a href="../dev.html" class="nav-category">💻 开发工具</a>
+			<a href="../image.html" class="nav-category">🖼️ 图片处理</a>
 			<a href="../game.html" class="nav-category">🎮 娱乐工具</a>
 		</div>
 	</div>
@@ -426,7 +426,7 @@
 
 		<!-- 主内容区 -->
 		<main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-			<!-- 左侧：上传区�?-->
+			<!-- 左侧：上传区域 -->
 			<section class="lg:col-span-1 bg-white rounded-2xl shadow-xl p-6 hover-scale">
 				<div class="text-center mb-6">
 					<i class="fa-solid fa-cloud-upload text-5xl text-primary mb-4"></i>
@@ -449,9 +449,9 @@
 						<div id="image-container" class="relative">
 							<img id="preview-image" src="" alt="Preview image" class="max-w-full h-auto object-contain">
 
-							<!-- 裁剪�?-->
+							<!-- 裁剪框 -->
 							<div id="cropper" class="absolute border-2 border-primary cursor-move hidden">
-								<!-- 裁剪框手�?-->
+								<!-- 裁剪框手柄 -->
 								<div class="cropper-handle cropper-handle-nw"></div>
 								<div class="cropper-handle cropper-handle-ne"></div>
 								<div class="cropper-handle cropper-handle-sw"></div>
@@ -637,7 +637,7 @@
 </footer>
 
 <script>
-	// 初始化变�?
+	// 初始化变量
 	let originalImage = null;
 	let previewImage = null;
 	let isDragging = false;
@@ -732,35 +732,35 @@
 		reader.readAsDataURL(file);
 	}
 
-	// 图片加载完成后初始化裁剪�?
+	// 图片加载完成后初始化裁剪框
 	previewImg.onload = function() {
 		previewImage = this;
 		// 默认不显示裁剪框，等待用户点击自动适配按钮
 		cropper.classList.add('hidden');
 	};
 
-	// 自动适配裁剪�?
+	// 自动适配裁剪框
 	autoCropButton.addEventListener('click', function() {
 		if (!previewImage) return;
 
-		// 获取图片容器尺寸和位�?
+		// 获取图片容器尺寸和位置
 		const container = document.getElementById('image-container');
 		const containerRect = container.getBoundingClientRect();
 		const imgRect = previewImage.getBoundingClientRect();
 
-		// 设置裁剪框初始位置和大小（默认为图片�?0%�?
+		// 设置裁剪框初始位置和大小（默认为图片的80%）
 		const width = imgRect.width * 0.8;
 		const height = imgRect.height * 0.8;
 		const left = imgRect.left + (imgRect.width - width) / 2 - containerRect.left;
 		const top = imgRect.top + (imgRect.height - height) / 2 - containerRect.top;
 
-		// 设置裁剪框样�?
+		// 设置裁剪框样式
 		cropper.style.left = `${left}px`;
 		cropper.style.top = `${top}px`;
 		cropper.style.width = `${width}px`;
 		cropper.style.height = `${height}px`;
 
-		// 显示裁剪�?
+		// 显示裁剪框
 		cropper.classList.remove('hidden');
 		updateOverlays();
 
@@ -768,7 +768,7 @@
 		cropButton.disabled = false;
 	});
 
-	// 裁剪框拖拽功�?
+	// 裁剪框拖拽功能
 	cropper.addEventListener('mousedown', function(e) {
 		// 检查是否点击了手柄
 		if (e.target.classList.contains('cropper-handle')) {
@@ -806,7 +806,7 @@
 		document.body.style.cursor = '';
 	});
 
-	// 拖拽裁剪�?
+	// 拖拽裁剪框
 	function drag(e) {
 		const container = document.getElementById('image-container');
 		const containerRect = container.getBoundingClientRect();
@@ -836,7 +836,7 @@
 		updateOverlays();
 	}
 
-	// 调整裁剪框大�?
+	// 调整裁剪框大小
 	function resize(e) {
 		const container = document.getElementById('image-container');
 		const containerRect = container.getBoundingClientRect();
@@ -850,7 +850,7 @@
 		let newLeft = parseFloat(cropper.style.left);
 		let newTop = parseFloat(cropper.style.top);
 
-		// 根据不同的手柄调整大�?
+		// 根据不同的手柄调整大小
 		if (currentHandle.classList.contains('cropper-handle-se')) {
 			newWidth += dx;
 			newHeight += dy;
@@ -869,7 +869,7 @@
 			newHeight -= dy;
 		}
 
-		// 限制最小尺�?
+		// 限制最小尺寸
 		const minSize = 50;
 		if (newWidth < minSize) {
 			newWidth = minSize;
@@ -925,7 +925,7 @@
 		const cropWidth = cropRect.width;
 		const cropHeight = cropRect.height;
 
-		// 更新覆盖�?
+		// 更新覆盖层
 		overlayTop.style.top = '0px';
 		overlayTop.style.left = '0px';
 		overlayTop.style.width = `${containerRect.width}px`;
@@ -960,13 +960,13 @@
 		const imgRatioX = originalImage.width / previewImage.offsetWidth;
 		const imgRatioY = originalImage.height / previewImage.offsetHeight;
 
-		// 计算裁剪区域在原始图片上的坐�?
+		// 计算裁剪区域在原始图片上的坐标
 		const cropX = (cropRect.left - containerRect.left) * imgRatioX;
 		const cropY = (cropRect.top - containerRect.top) * imgRatioY;
 		const cropWidth = cropRect.width * imgRatioX;
 		const cropHeight = cropRect.height * imgRatioY;
 
-		// 创建canvas并绘制裁剪区�?
+		// 创建canvas并绘制裁剪区域
 		const canvas = document.createElement('canvas');
 		canvas.width = cropWidth;
 		canvas.height = cropHeight;
@@ -981,12 +981,12 @@
 		resultImage.src = canvas.toDataURL('image/png');
 		resultsSection.style.opacity = '1';
 
-		// 保存canvas供下载使�?
+		// 保存canvas供下载使用
 		downloadButton.onclick = function() {
 			downloadCroppedImage(canvas);
 		};
 
-		// 平滑滚动到结果区�?
+		// 平滑滚动到结果区域
 		resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 	});
 
@@ -996,7 +996,7 @@
 		const mimeType = format === 'jpeg' ? 'image/jpeg' :
 				format === 'webp' ? 'image/webp' : 'image/png';
 
-		// 获取质量设置（仅对JPEG和WebP有效�?
+		// 获取质量设置（仅对JPEG和WebP有效）
 		const qualitySetting = (format === 'jpeg' || format === 'webp') ? quality : undefined;
 
 		// 创建下载链接

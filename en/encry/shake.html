@@ -212,7 +212,7 @@
 			padding-left: 1rem;
 		}
 
-		/* 移动端样�?*/
+		/* 移动端样式 */
 		@media (max-width: 768px) {
 			.nav-categories {
 				display: none;
@@ -246,13 +246,13 @@
 	</style>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha3/0.9.0/sha3.min.js"></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
@@ -266,14 +266,14 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">🔍 Recommended</a>
 			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
 			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
 			<a href="../code.html" class="nav-category">📝 Encoding</a>
 			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
-			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../image.html" class="nav-category">🖼️ Image Tools</a>
 			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
 		</div>
 	</div>
@@ -308,18 +308,18 @@
     <h2 class="help-title"><i class="fas fa-question-circle"></i> How to Use</h2>
     <div class="help-content">
         <h3>What this tool does</h3>
-        <p>Computes SHAKE XOF digests (SHAKE�?28 / SHAKE�?56) with a default 512‑bit output length.</p>
+        <p>Computes SHAKE XOF digests (SHAKE‑128 / SHAKE‑256) with a default 512‑bit output length.</p>
 
         <h3>Steps</h3>
         <ol>
             <li>Enter input text.</li>
-            <li>Click SHAKE�?28 or SHAKE�?56 to hash with 512‑bit output.</li>
+            <li>Click SHAKE‑128 or SHAKE‑256 to hash with 512‑bit output.</li>
             <li>Copy the result below.</li>
         </ol>
 
         <h3>Examples</h3>
         <ul>
-            <li>"abc" �?SHAKE�?28 (512‑bit) �?hex string.</li>
+            <li>"abc" → SHAKE‑128 (512‑bit) → hex string.</li>
         </ul>
 
         <h3>Notes</h3>
@@ -340,7 +340,7 @@
     <div class="footeropyright">&copy; 2024 Missionary AI. All rights reserved.</div>
 </div>
 <script>
-	// 默认输出长度设为512位（64字节�?
+	// 默认输出长度设为512位（64字节）
 	const DEFAULT_LENGTH = 512;
 
 	function generateShake(securityStrength) {

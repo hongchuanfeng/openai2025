@@ -234,7 +234,7 @@
             padding-left: 1rem;
         }
 
-        /* 移动端样�?*/
+        /* 移动端样式 */
         @media (max-width: 768px) {
             .nav-categories {
                 display: none;
@@ -348,13 +348,13 @@
         }
     </style>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
@@ -368,14 +368,14 @@
                 <img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
             </a>
         </div>
-        <button class="menu-btn" onclick="toggleMenu()">�?/button>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
         <div class="nav-categories">
             <a href="../index.html" class="nav-category">🔍 Recommended</a>
             <a href="../life.html" class="nav-category">🏠 Life Tools</a>
             <a href="../encry.html" class="nav-category">🔒 Encryption</a>
             <a href="../code.html" class="nav-category">📝 Encoding</a>
             <a href="../dev.html" class="nav-category">💻 Dev Tools</a>
-            <a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+            <a href="../image.html" class="nav-category">🖼️ Image Tools</a>
             <a href="../game.html" class="nav-category">🎮 Games</a>
         </div>
     </div>
@@ -417,7 +417,7 @@
 
     <div class="input-group">
         <div class="input-label">Enter last name</div>
-        <input type="text" class="input-field" id="lastName" value="�?>
+        <input type="text" class="input-field" id="lastName" value="李">
     </div>
 
     <button class="generate-btn" onclick="generateNames()">Generate</button>
@@ -450,33 +450,33 @@
 
     <h3>Name Structure</h3>
     <ul>
-        <li><strong>Last Name (�?:</strong> Family name, usually 1 character</li>
-        <li><strong>Given Name (�?:</strong> Personal name, 1-3 characters</li>
+        <li><strong>Last Name (姓):</strong> Family name, usually 1 character</li>
+        <li><strong>Given Name (名):</strong> Personal name, 1-3 characters</li>
         <li><strong>Total Length:</strong> Last name + given name characters</li>
     </ul>
 
     <h3>Gender-Specific Characters</h3>
     <ul>
-        <li><strong>Male Names:</strong> Characters like �? �? �? �? �? �? �? �? �? �? �? �? �? �? �? �? �?/li>
-        <li><strong>Female Names:</strong> Characters like �? �? 秀, �? �? �? �? �? �? �? �? �? �?/li>
+        <li><strong>Male Names:</strong> Characters like 志, 明, 永, 浩, 宇, 航, 天, 翔, 鸿, 博, 俊, 杰, 华, 伟, 强, 军, 平</li>
+        <li><strong>Female Names:</strong> Characters like 芳, 娟, 秀, 英, 华, 美, 玲, 琳, 雅, 婷, 静, 怡, 雪</li>
         <li><strong>All:</strong> Combines both male and female character sets</li>
     </ul>
 
     <h3>Examples</h3>
     <div class="example">
         <strong>Example 1 - Male Names:</strong><br>
-        Last name: �? Length: 3, Count: 5<br>
-        Results: 李志�? 李永�? 李宇�? 李天�? 李鸿�?br><br>
+        Last name: 李, Length: 3, Count: 5<br>
+        Results: 李志明, 李永浩, 李宇航, 李天翔, 李鸿博<br><br>
         <strong>Example 2 - Female Names:</strong><br>
-        Last name: �? Length: 3, Count: 3<br>
-        Results: 王芳�? 王秀�? 王美�?
+        Last name: 王, Length: 3, Count: 3<br>
+        Results: 王芳娟, 王秀英, 王美玲
     </div>
 
     <h3>Common Chinese Surnames</h3>
     <ul>
-        <li>�?(Li), �?(Wang), �?(Zhang), �?(Liu), �?(Chen)</li>
-        <li>�?(Yang), �?(Huang), �?(Zhao), �?(Zhou), �?(Wu)</li>
-        <li>�?(Xu), �?(Sun), �?(Hu), �?(Zhu), �?(Gao)</li>
+        <li>李 (Li), 王 (Wang), 张 (Zhang), 刘 (Liu), 陈 (Chen)</li>
+        <li>杨 (Yang), 黄 (Huang), 赵 (Zhao), 周 (Zhou), 吴 (Wu)</li>
+        <li>徐 (Xu), 孙 (Sun), 胡 (Hu), 朱 (Zhu), 高 (Gao)</li>
     </ul>
 
     <h3>Use Cases</h3>
@@ -510,7 +510,7 @@
 
 <script>
     // 常用字库
-    const maleChars = '志明永浩宇航天翔鸿博俊杰华伟强军�?;
+    const maleChars = '志明永浩宇航天翔鸿博俊杰华伟强军平';
     const femaleChars = '芳娟秀英华美玲琳雅婷静怡雪';
 
     function generateNames() {
@@ -556,7 +556,7 @@
         result.style.display = 'block';
         result.innerHTML = `
                 <h3 style="color: #00b894; margin-bottom: 10px;">Generated Names:</h3>
-                <div style="line-height: 2;">${names.join('�?)}</div>
+                <div style="line-height: 2;">${names.join('、')}</div>
             `;
     }
 </script>

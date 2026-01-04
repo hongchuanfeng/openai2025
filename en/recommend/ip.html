@@ -335,7 +335,7 @@
             padding-left: 1rem;
         }
 
-        /* 移动端样�?*/
+        /* 移动端样式 */
         @media (max-width: 768px) {
             .nav-categories {
                 display: none;
@@ -458,13 +458,13 @@
     </style>
     <script src="../static/js/jquery-3.6.2.min.js"></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
@@ -478,14 +478,14 @@
                 <img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
             </a>
         </div>
-        <button class="menu-btn" onclick="toggleMenu()">�?/button>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
         <div class="nav-categories">
             <a href="../index.html" class="nav-category">🔍 Recommended</a>
             <a href="../life.html" class="nav-category">🏠 Life Tools</a>
             <a href="../encry.html" class="nav-category">🔒 Encryption</a>
             <a href="../code.html" class="nav-category">📝 Encoding</a>
             <a href="../dev.html" class="nav-category">💻 Dev Tools</a>
-            <a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+            <a href="../image.html" class="nav-category">🖼️ Image Tools</a>
             <a href="../game.html" class="nav-category">🎮 Fun Tools</a>
         </div>
     </div>
@@ -558,7 +558,7 @@
 </body>
 
 <script>
-    // 多个IP获取API，按优先级排�?
+    // 多个IP获取API，按优先级排序
     const IP_APIS = [
         'https://api.ipify.org?format=json',
         'https://api.myip.com',
@@ -573,7 +573,7 @@
         'https://ip-api.com/json/{ip}'
     ];
 
-    // 显示加载状�?
+    // 显示加载状态
     function showLoading(elementId, message = 'Querying...') {
         const element = document.getElementById(elementId);
         element.innerHTML = `<div class="loading"><span class="spinner"></span>${message}</div>`;
@@ -603,7 +603,7 @@
                 const data = await response.json();
                 let ip = null;
                 
-                // 处理不同API的返回格�?
+                // 处理不同API的返回格式
                 if (data.ip) {
                     ip = data.ip;
                 } else if (typeof data === 'string') {
@@ -653,7 +653,7 @@
                 
                 const data = await response.json();
                 
-                // 处理不同API的返回格�?
+                // 处理不同API的返回格式
                 let result = {
                     ip: ip,
                     country: '',
@@ -793,7 +793,7 @@
         }
     }
 
-    // 回车键查�?
+    // 回车键查询
     document.getElementById('ipInput').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             queryIP();
@@ -802,7 +802,7 @@
 
     // 页面加载时自动获取本机IP
     window.onload = function() {
-        // 延迟执行，让页面先加载完�?
+        // 延迟执行，让页面先加载完成
         setTimeout(() => {
             getCurrentIPInfo();
         }, 500);
@@ -827,4 +827,3 @@
 
 
 </html>
-

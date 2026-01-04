@@ -330,7 +330,7 @@
 			padding-left: 1rem;
 		}
 
-		/* 移动端样�?*/
+		/* 移动端样式 */
 		@media (max-width: 768px) {
 			.nav-categories {
 				display: none;
@@ -363,13 +363,13 @@
 		}
 	</style>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
 			crossorigin="anonymous"></script>
@@ -384,14 +384,14 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">🔍 Recommended</a>
 			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
 			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
 			<a href="../code.html" class="nav-category">📝 Encoding</a>
 			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
-			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../image.html" class="nav-category">🖼️ Image Tools</a>
 			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
 		</div>
 	</div>
@@ -399,10 +399,10 @@
 
 <div class="container">
 
-	<!-- 主要内容�?-->
+	<!-- 主要内容区 -->
 	<main class="flex-grow container mx-auto px-4 py-8">
 		<div class="max-w-5xl mx-auto bg-white rounded-xl shadow-soft p-6 md:p-8">
-			<!-- 标题和描�?-->
+			<!-- 标题和描述 -->
 			<div class="text-center mb-8">
 				<h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-gray-800 mb-3">Stitch your images easily</h2>
 				<p class="text-gray-600 max-w-2xl mx-auto">Upload multiple images, choose stitching direction, spacing, and background to generate a single combined image.</p>
@@ -421,7 +421,7 @@
 					<p class="mt-4 text-sm text-gray-500">Supports JPG, PNG, WebP</p>
 				</div>
 
-				<!-- 已上传图片预�?-->
+				<!-- 已上传图片预览 -->
 				<div id="preview-container" class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 hidden">
 					<h4 class="col-span-full text-lg font-medium text-gray-700 mb-2">Uploaded Images</h4>
 					<div id="image-previews" class="col-span-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"></div>
@@ -649,7 +649,7 @@
 </div>
 
 <script>
-	// 存储上传的图�?
+	// 存储上传的图片
 	let uploadedImages = [];
 
 	// DOM 元素
@@ -774,7 +774,7 @@
 		const preview = document.createElement('div');
 		preview.className = 'relative group';
 		preview.innerHTML = `
-                <img src="${src}" alt="预览�? class="w-full h-32 object-cover rounded-lg shadow-sm">
+                <img src="${src}" alt="预览图" class="w-full h-32 object-cover rounded-lg shadow-sm">
                 <button class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-red-500 hover:bg-red-600 text-white p-1 rounded-full">
                     <i class="fa fa-times"></i>
                 </button>
@@ -799,7 +799,7 @@
 		imagePreviews.appendChild(preview);
 	}
 
-	// 清除所有图�?
+	// 清除所有图片
 	clearBtn.addEventListener('click', () => {
 		uploadedImages = [];
 		imagePreviews.innerHTML = '';
@@ -825,7 +825,7 @@
 			return;
 		}
 
-		// 显示加载指示�?
+		// 显示加载指示器
 		resultContainer.classList.remove('hidden');
 		loadingIndicator.classList.remove('hidden');
 		resultImage.style.display = 'none';
@@ -897,12 +897,12 @@
 				loadingIndicator.classList.add('hidden');
 				resultImage.style.display = 'block';
 
-				// 平滑滚动到结果区�?
+				// 平滑滚动到结果区域
 				resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 			} catch (error) {
-				console.error('拼接图片时出�?', error);
-				alert('拼接图片时出错，请重�?);
+				console.error('拼接图片时出错:', error);
+				alert('拼接图片时出错，请重试');
 				loadingIndicator.classList.add('hidden');
 			}
 		}, 100);

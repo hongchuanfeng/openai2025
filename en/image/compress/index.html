@@ -295,7 +295,7 @@
     .file-info { display: none; margin: 12px 0; padding: 12px; background: #f8fafc; border: 1px solid #eef0f2; border-radius: 10px; display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 8px; }
     .file-info span { background: #fff; padding: 2px 8px; border-radius: 6px; border: 1px solid #eef0f2; }
 
-    /* 移动端样�?*/
+    /* 移动端样式 */
     @media (max-width: 768px) {
       .nav-categories {
         display: none;
@@ -332,13 +332,13 @@
   <!-- 添加图片处理所需的库 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
           crossorigin="anonymous"></script>
@@ -351,14 +351,14 @@
         <img src="../../static/images/logo.png" width="50px" style="margin-right: 60px"/>
       </a>
     </div>
-    <button class="menu-btn" onclick="toggleMenu()">�?/button>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
     <div class="nav-categories">
       <a href="../../index.html" class="nav-category">🔍 Recommended</a>
       <a href="../../life.html" class="nav-category">🏠 Life Tools</a>
       <a href="../../encry.html" class="nav-category">🔒 Encryption</a>
       <a href="../../code.html" class="nav-category">📝 Encoding</a>
       <a href="../../dev.html" class="nav-category">💻 Dev Tools</a>
-      <a href="../../image.html" class="nav-category">🖼�?Image Tools</a>
+      <a href="../../image.html" class="nav-category">🖼️ Image Tools</a>
       <a href="../../game.html" class="nav-category">🎮 Fun Tools</a>
     </div>
   </div>
@@ -451,7 +451,7 @@
       <li><strong>Set Scale:</strong> Choose resize percentage (affects width and height).</li>
       <li><strong>Set Quality:</strong> Compression level (for JPEG/WebP).</li>
       <li><strong>Format:</strong> Select output format.</li>
-      <li><strong>Compress:</strong> Click “Compress�?to process.</li>
+      <li><strong>Compress:</strong> Click “Compress” to process.</li>
       <li><strong>Download:</strong> Save the compressed image.</li>
     </ol>
 
@@ -503,7 +503,7 @@
   const preview = document.getElementById("preview");
   const downloadLink = document.getElementById("download");
 
-  // 设置滑块值显�?
+  // 设置滑块值显示
   scaleFactorInput.addEventListener("input", function (e) {
     scaleValue.textContent = e.target.value + "%";
   });
@@ -512,7 +512,7 @@
     qualityValue.textContent = e.target.value + "%";
   });
 
-  // 文件大小格式�?
+  // 文件大小格式化
   function formatFileSize(bytes) {
     if (bytes === 0) return "0 Bytes";
     const k = 1024;
@@ -539,7 +539,7 @@
     progress.style.width = "0%";
   }
 
-  // 文件名清�?
+  // 文件名清理
   function sanitizeFileName(name) {
     return name.replace(/[^a-zA-Z0-9.-]/g, "_").replace(/_{2,}/g, "_");
   }
@@ -600,7 +600,7 @@
     });
   }
 
-  // 图片压缩主函�?
+  // 图片压缩主函数
   async function compressImage() {
     try {
       if (fileInput.files.length === 0) {
@@ -754,7 +754,7 @@
     }
   });
 
-  // 网络状态监�?
+  // 网络状态监控
   window.addEventListener("online", () => {
     document.querySelector(".upload-hint").style.color = "#888";
     document.querySelector(".upload-hint").textContent =

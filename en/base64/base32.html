@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Base32 Encode/Decode - Base64 Tools</title>
+	<meta name="keywords" content="Base64, encode, decode, Chuandao Tools">
+	<meta name="description" content="Encode or decode Base64 strings. Works with UTF-8 text and runs locally in your browser.">		
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.chdaoai.com/base64/base32.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<style>
+		/* Help section and footer */
+		.help-section { background:#f8f9fa; border-radius:8px; padding:2rem; margin:2rem auto; max-width:1100px; border-left:4px solid #007bff; }
+		.help-title { color:#333; font-size:1.5rem; margin-bottom:1rem; display:flex; align-items:center; gap:.5rem; }
+		.help-content { color:#666; line-height:1.6; }
+		.help-content h3 { color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem; }
+		.help-content ul { margin:.5rem 0 1rem 1.5rem; }
+		.help-content li { margin:.35rem 0; }
+		code.wrap { display:block; white-space:pre-wrap; word-break:break-all; overflow-wrap:anywhere; line-break:anywhere; }
+		.footer { background:#333; color:#fff; text-align:center; padding:2rem 1rem; margin-top:3rem; }
+		.footer-links { display:flex; justify-content:center; gap:2rem; margin-bottom:1rem; flex-wrap:wrap; }
+		.footer-links a { color:#ccc; text-decoration:none; transition:color .3s; }
+		.footer-links a:hover { color:#fff; }
+		.footeropyright { color:#999; font-size:.9rem; }
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation bar */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tool card layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V5T0MEEJ0Z');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Featured</a>
+			<a href="../life.html" class="nav-category">🏠 Life</a>
+			<a href="../encry.html" class="nav-category">🔒 Crypto</a>
+			<a href="../code.html" class="nav-category">📝 Encode/Decode</a>
+			<a href="../dev.html" class="nav-category">💻 Developer</a>
+			<a href="../base64.html" class="nav-category">🔐 Base64</a>
+			<a href="../image.html" class="nav-category">🖼️ Image</a>
+			<a href="../game.html" class="nav-category">🎮 Fun</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+
+	<h1>Base32 Encode/Decode</h1>
+
+	<div class="tool-card" style="margin-top: 16px;">
+		<div style="display:flex; gap: 16px; flex-wrap: wrap;">
+			<div style="flex:1; min-width: 280px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">Input</div>
+				<textarea id="b32_input" placeholder="Enter text or Base32..."></textarea>
+				<div style="display:flex; justify-content: space-between; align-items:center; color:#999; font-size:12px;">
+					<span>Length: <span id="b32_in_len">0</span></span>
+					<div class="btn-group" style="margin: 8px 0;">
+						<button id="b32_copyInBtn" style="background:#e5e7eb; color:#111;">Copy Input</button>
+						<button id="b32_clearBtn">Clear</button>
+					</div>
+				</div>
+			</div>
+			<div style="flex:1; min-width: 280px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">Output</div>
+				<textarea id="b32_output" placeholder="Result will appear here..."></textarea>
+				<div style="display:flex; justify-content: space-between; align-items:center; color:#999; font-size:12px;">
+					<span>Length: <span id="b32_out_len">0</span></span>
+					<div class="btn-group" style="margin: 8px 0;">
+						<button id="b32_copyOutBtn" style="background:#e5e7eb; color:#111;">Copy Output</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="btn-group">
+			<button id="b32_encodeBtn">Encode → Base32</button>
+			<button id="b32_decodeBtn">Decode ← Base32</button>
+			<button id="b32_swapBtn" style="background:#2196F3; color:#fff;">Swap</button>
+		</div>
+
+		<div id="b32_error" style="color:#b91c1c; font-size:12px; min-height: 16px;"></div>
+
+		<div class="about-base64" style="margin-top:12px;">
+			<h2>How Base32 works</h2>
+			<ul>
+				<li>Grouping: input bytes are processed into 5-bit groups; every 5 bits map to one character.</li>
+				<li>Alphabet: RFC 4648 uses A–Z and 2–7 (32 symbols); output is uppercase by spec.</li>
+				<li>Padding: output length is a multiple of 8; <code>=</code> is appended when needed.</li>
+				<li>Whitespace: spaces/newlines are often ignored during decoding.</li>
+				<li>Purpose: representation for text channels; not encryption or compression.</li>
+			</ul>
+		</div>
+	</div>
+
+</div>
+
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2 class="help-title">How to Use</h2>
+	<div class="help-content">
+		<h3>What this tool does</h3>
+		<p>Encodes text to Base32 (RFC 4648) and decodes Base32 back to text. Uses the A–Z, 2–7 alphabet and <code>=</code> padding.</p>
+		<h3>Steps</h3>
+		<ol>
+			<li>Enter text → Encode → get Base32.</li>
+			<li>Paste Base32 → Decode → restore text.</li>
+			<li>Swap/Copy/Clear as needed.</li>
+		</ol>
+		<h3>Example</h3>
+		<code class="wrap">Hello → JBSWY3DP</code>
+		<h3>Notes</h3>
+		<ul>
+			<li>Whitespace is typically ignored when decoding.</li>
+			<li>All operations run locally in your browser.</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footeropyright">&copy; 2024 Missionary AI. All rights reserved.</div>
+</div>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+	function $b(id){ return document.getElementById(id); }
+
+	// RFC 4648 Base32 alphabet (no lowercase)
+	const B32_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+
+	function base32Encode(bytes) {
+		let output = '';
+		let buffer = 0;
+		let bitsLeft = 0;
+		for (let i = 0; i < bytes.length; i++) {
+			buffer = (buffer << 8) | bytes[i];
+			bitsLeft += 8;
+			while (bitsLeft >= 5) {
+				const index = (buffer >> (bitsLeft - 5)) & 31;
+				bitsLeft -= 5;
+				output += B32_ALPHABET[index];
+			}
+		}
+		if (bitsLeft > 0) {
+			const index = (buffer << (5 - bitsLeft)) & 31;
+			output += B32_ALPHABET[index];
+		}
+		// Padding to multiple of 8 chars
+		while (output.length % 8 !== 0) output += '=';
+		return output;
+	}
+
+	function base32Decode(str) {
+		const clean = str.replace(/\s+/g, '').toUpperCase();
+		let buffer = 0;
+		let bitsLeft = 0;
+		const out = [];
+		for (let i = 0; i < clean.length; i++) {
+			const c = clean[i];
+			if (c === '=') break;
+			const val = B32_ALPHABET.indexOf(c);
+			if (val === -1) throw new Error('Invalid Base32 character: ' + c);
+			buffer = (buffer << 5) | val;
+			bitsLeft += 5;
+			if (bitsLeft >= 8) {
+				bitsLeft -= 8;
+				out.push((buffer >> bitsLeft) & 0xff);
+			}
+		}
+		return new Uint8Array(out);
+	}
+
+	function encodeTextToBase32(text) {
+		const enc = new TextEncoder();
+		return base32Encode(enc.encode(text));
+	}
+
+	function decodeBase32ToText(b32) {
+		const dec = new TextDecoder();
+		return dec.decode(base32Decode(b32));
+	}
+
+	function updateB32Counts() {
+		$b('b32_in_len').textContent = String($b('b32_input').value.length);
+		$b('b32_out_len').textContent = String($b('b32_output').value.length);
+	}
+
+	function showB32Error(msg){ $b('b32_error').textContent = msg || ''; }
+
+	document.addEventListener('DOMContentLoaded', function(){
+		$b('b32_input').addEventListener('input', updateB32Counts);
+		updateB32Counts();
+
+		$b('b32_encodeBtn').addEventListener('click', function(){
+			showB32Error('');
+			try {
+				$b('b32_output').value = encodeTextToBase32($b('b32_input').value);
+			} catch(e){ showB32Error('Encode failed: ' + e.message); }
+			updateB32Counts();
+		});
+
+		$b('b32_decodeBtn').addEventListener('click', function(){
+			showB32Error('');
+			try {
+				// Decode from right (output) to left (input)
+				$b('b32_input').value = decodeBase32ToText($b('b32_output').value.trim());
+			} catch(e){ showB32Error('Decode failed: ' + e.message + ' (invalid Base32)'); }
+			updateB32Counts();
+		});
+
+		$b('b32_swapBtn').addEventListener('click', function(){
+			const t = $b('b32_input').value;
+			$b('b32_input').value = $b('b32_output').value;
+			$b('b32_output').value = t;
+			updateB32Counts();
+		});
+
+		$b('b32_clearBtn').addEventListener('click', function(){
+			$b('b32_input').value = '';
+			$b('b32_output').value = '';
+			showB32Error('');
+			updateB32Counts();
+		});
+
+		$b('b32_copyInBtn').addEventListener('click', async function(){
+			const text = $b('b32_input').value;
+			try { await navigator.clipboard.writeText(text); } catch(_) { }
+		});
+
+		$b('b32_copyOutBtn').addEventListener('click', async function(){
+			const text = $b('b32_output').value;
+			try { await navigator.clipboard.writeText(text); } catch(_) { }
+		});
+	});
+</script>
+
+</body>
+
+</html>

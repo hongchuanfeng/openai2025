@@ -326,13 +326,13 @@
 	</style>
 	<script src="../static/js/jquery-3.6.2.min.js"></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
 			crossorigin="anonymous"></script>
@@ -345,14 +345,14 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">🔍 Recommended</a>
 			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
 			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
 			<a href="../code.html" class="nav-category">📝 Encoding/Decoding</a>
 			<a href="../dev.html" class="nav-category">💻 Developer Tools</a>
-			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../image.html" class="nav-category">🖼️ Image Tools</a>
 			<a href="../game.html" class="nav-category">🎮 Entertainment</a>
 		</div>
 	</div>
@@ -494,13 +494,13 @@
 			soundWave.style.display = 'block';
 			micButton.querySelector('span').textContent = 'Detecting...';
 
-			// 创建音频分析�?
+			// 创建音频分析器
 			audioContext = new AudioContext();
 			const analyzer = audioContext.createAnalyser();
 			const source = audioContext.createMediaStreamSource(mediaStream);
 			source.connect(analyzer);
 
-			// 实时检测音频输�?
+			// 实时检测音频输入
 			const bufferLength = analyzer.frequencyBinCount;
 			const dataArray = new Uint8Array(bufferLength);
 
@@ -508,7 +508,7 @@
 				analyzer.getByteFrequencyData(dataArray);
 				const average = dataArray.reduce((a, b) => a + b) / bufferLength;
 
-				// 动态调整声波动�?
+				// 动态调整声波动画
 				soundWave.style.transform = `scale(${1 + average/50})`;
 				requestAnimationFrame(detectSound);
 			}
@@ -546,7 +546,7 @@
 		}
 	});
 
-	// 页面关闭时停止检�?
+	// 页面关闭时停止检测
 	window.addEventListener('beforeunload', stopTest);
 </script>
 <script>

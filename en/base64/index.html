@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Base64 Fundamentals - Base64 Tools</title>
+	<meta name="keywords" content="Base64, encode, decode, Chuandao Tools">
+	<meta name="description" content="Encode or decode Base64 strings. Works with UTF-8 text and runs locally in your browser.">		
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.chdaoai.com/base64/index.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation bar */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tool card layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Typography spacing inside content */
+		.container p {
+			margin: 1rem 0;
+			line-height: 1.9;
+		}
+
+		.container li {
+			margin: 0.6rem 0;
+			line-height: 1.9;
+		}
+
+		.container h2 {
+			margin: 1.4rem 0 0.9rem;
+		}
+
+		.container table th,
+		.container table td {
+			padding: 10px 6px;
+		}
+
+		/* Section 5 table coloring */
+		.lang-b64-table table thead th {
+			background: #f3f6f9;
+		}
+		.lang-b64-table table tbody tr:nth-child(odd) {
+			background: #fafbfc;
+		}
+		.lang-b64-table table td:nth-child(1) { /* 语言 */
+			color: #555;
+			white-space: nowrap;
+			font-weight: 600;
+		}
+		.lang-b64-table table td:nth-child(2) { /* 编码 */
+			color: #2e7d32; /* green */
+		}
+		.lang-b64-table table td:nth-child(3) { /* 解码 */
+			color: #1565c0; /* blue */
+		}
+		.lang-b64-table code {
+			font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V5T0MEEJ0Z');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../common.html" class="nav-category">🔍 common</a>
+			<a href="../life.html" class="nav-category">🏠 Life</a>
+			<a href="../encry.html" class="nav-category">🔒 Crypto</a>
+			<a href="../code.html" class="nav-category">📝 Encode/Decode</a>
+			<a href="../dev.html" class="nav-category">💻 Developer</a>
+			<a href="../index.html" class="nav-category">🔐 Base64</a>
+			<a href="../image.html" class="nav-category">🖼️ Image</a>
+			<a href="../game.html" class="nav-category">🎮 Fun</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>Base64 Fundamentals</h1>
+
+	<h2>1. What is Base64 encoding</h2>
+	<p>
+		Base64 is a way to represent binary data using 64 printable characters (A-Z, a-z, 0-9, +, /).
+		Since 2^6 = 64, Base64 encodes data in 6-bit units.
+	</p>
+
+	<h2>2. Why use Base64</h2>
+	<p>
+		In many cases you need to transmit or store binary data as text, for example in URLs, JSON, forms, and emails.
+		Base64 contains only printable characters and avoids the string terminator \0, preventing truncation when binary data is treated as a string.
+	</p>
+
+	<h2>3. Encoding rules (highlights)</h2>
+	<ul>
+		<li>Every 3 bytes (24 bits) become 4 groups of 6 bits, each mapping to one Base64 character.</li>
+		<li>If the input length is not a multiple of 3, pad zeros at the end before encoding and use <code>=</code> as padding:</li>
+		<li>Remainder 1 byte → end with <code>==</code>; remainder 2 bytes → end with <code>=</code>.</li>
+	</ul>
+
+	<div class="about-base64" style="overflow-x:auto">
+		<h2>Base64 index table</h2>
+		<table style="width:100%; border-collapse: collapse; font-size:14px">
+			<thead>
+				<tr>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:6px 4px">Value</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:6px 4px">Char</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:6px 4px">Value</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:6px 4px">Char</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:6px 4px">Value</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:6px 4px">Char</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:6px 4px">Value</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:6px 4px">Char</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>0</td><td>A</td><td>16</td><td>Q</td><td>32</td><td>g</td><td>48</td><td>w</td></tr>
+				<tr><td>1</td><td>B</td><td>17</td><td>R</td><td>33</td><td>h</td><td>49</td><td>x</td></tr>
+				<tr><td>2</td><td>C</td><td>18</td><td>S</td><td>34</td><td>i</td><td>50</td><td>y</td></tr>
+				<tr><td>3</td><td>D</td><td>19</td><td>T</td><td>35</td><td>j</td><td>51</td><td>z</td></tr>
+				<tr><td>4</td><td>E</td><td>20</td><td>U</td><td>36</td><td>k</td><td>52</td><td>0</td></tr>
+				<tr><td>5</td><td>F</td><td>21</td><td>V</td><td>37</td><td>l</td><td>53</td><td>1</td></tr>
+				<tr><td>6</td><td>G</td><td>22</td><td>W</td><td>38</td><td>m</td><td>54</td><td>2</td></tr>
+				<tr><td>7</td><td>H</td><td>23</td><td>X</td><td>39</td><td>n</td><td>55</td><td>3</td></tr>
+				<tr><td>8</td><td>I</td><td>24</td><td>Y</td><td>40</td><td>o</td><td>56</td><td>4</td></tr>
+				<tr><td>9</td><td>J</td><td>25</td><td>Z</td><td>41</td><td>p</td><td>57</td><td>5</td></tr>
+				<tr><td>10</td><td>K</td><td>26</td><td>a</td><td>42</td><td>q</td><td>58</td><td>6</td></tr>
+				<tr><td>11</td><td>L</td><td>27</td><td>b</td><td>43</td><td>r</td><td>59</td><td>7</td></tr>
+				<tr><td>12</td><td>M</td><td>28</td><td>c</td><td>44</td><td>s</td><td>60</td><td>8</td></tr>
+				<tr><td>13</td><td>N</td><td>29</td><td>d</td><td>45</td><td>t</td><td>61</td><td>9</td></tr>
+				<tr><td>14</td><td>O</td><td>30</td><td>e</td><td>46</td><td>u</td><td>62</td><td>+</td></tr>
+				<tr><td>15</td><td>P</td><td>31</td><td>f</td><td>47</td><td>v</td><td>63</td><td>/</td></tr>
+			</tbody>
+		</table>
+		<p style="margin-top:10px">
+			If the number of bytes is not a multiple of 3, pad zeros at the end before encoding:
+			1-byte remainder → append <code>==</code>; 2-byte remainder → append <code>=</code>.
+		</p>
+	</div>
+
+	<h2>4. Examples</h2>
+	<div style="line-height:1.8">
+		<p>
+			<strong>Example 1:</strong> bytes <code>0 1 2</code><br/>
+			Binary: 0011 0000 · 0011 0001 · 0011 0010 → group by 6 bits → 12, 3, 4, 50 → chars <code>M D E y</code><br/>
+			Result: <code>MDEy</code>
+		</p>
+		<p>
+			<strong>Example 2 (with padding):</strong> bytes <code>0 1 2 3</code><br/>
+			Groups: 12, 3, 4, 50, 12, 48 (zero padded at the end) → chars <code>M D E y M w</code><br/>
+			Result: <code>MDEyMw==</code>
+		</p>
+	</div>
+
+	<h2>5. Base64 encode/decode across languages</h2>
+	<div class="lang-b64-table" style="overflow-x:auto">
+		<table style="width:100%; border-collapse: collapse; font-size:14px">
+			<thead>
+				<tr>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:8px 6px">语言</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:8px 6px">Base64 编码</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:8px 6px">Base64 解码</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Java</td>
+					<td><code>base64 = new BASE64Encoder().encode(str.getBytes());</code></td>
+					<td><code>str = new String(new BASE64Decoder().decodeBuffer(base64));</code></td>
+				</tr>
+				<tr>
+					<td>JavaScript</td>
+					<td>
+						<code>base64 = btoa(str);</code> 或<br/>
+						<code>var s = CryptoJS.enc.Utf8.parse(str);</code><br/>
+						<code>base64 = CryptoJS.enc.Base64.stringify(s);</code>
+					</td>
+					<td>
+						<code>str = atob(base64);</code> 或<br/>
+						<code>var s = CryptoJS.enc.Base64.parse(base64);</code><br/>
+						<code>str = s.toString(CryptoJS.enc.Utf8);</code>
+					</td>
+				</tr>
+				<tr>
+					<td>PHP</td>
+					<td><code>$base64 = base64_encode($str);</code></td>
+					<td><code>$str = base64_decode($base64);</code></td>
+				</tr>
+				<tr>
+					<td>C#/.NET</td>
+					<td>
+						<code>byte[] bytes = System.Text.Encoding.UTF8.GetBytes(str);</code><br/>
+						<code>base64 = System.Convert.ToBase64String(bytes);</code>
+					</td>
+					<td>
+						<code>byte[] bytes = System.Convert.FromBase64String(base64);</code><br/>
+						<code>str = System.Text.Encoding.UTF8.GetString(bytes);</code>
+					</td>
+				</tr>
+				<tr>
+					<td>Python</td>
+					<td><code>import base64\nbase64 = base64.b64encode(str)</code></td>
+					<td><code>import base64\nstr = base64.b64decode(base64)</code></td>
+				</tr>
+				<tr>
+					<td>Perl</td>
+					<td><code>use MIME::Base64;\n$base64 = encode_base64($str);</code></td>
+					<td><code>use MIME::Base64;\n$str = decode_base64($base64);</code></td>
+				</tr>
+				<tr>
+					<td>Golang</td>
+					<td><code>import b64 "encoding/base64"</code></td>
+					<td><code>import b64 "encoding/base64"\nstr := b64.StdEncoding.DecodeString(base64)</code></td>
+				</tr>
+				<tr>
+					<td>Ruby</td>
+					<td><code>require "base64"\nbase64 = Base64.encode64(str)</code></td>
+					<td><code>require "base64"\nstr = Base64.decode64(base64)</code></td>
+				</tr>
+				<tr>
+					<td>MySQL/MariaDB</td>
+					<td><code>SELECT TO_BASE64(str);</code></td>
+					<td><code>SELECT FROM_BASE64(base64);</code></td>
+				</tr>
+				<tr>
+					<td>PostgreSQL</td>
+					<td><code>SELECT encode(str, 'base64');</code></td>
+					<td><code>SELECT decode(base64, 'base64');</code></td>
+				</tr>
+				<tr>
+					<td>Linux Shell</td>
+					<td><code>$ echo test | base64</code></td>
+					<td><code>$ echo dGVzdA== | base64 -d</code></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+
+
+</body>
+
+</html>
+
+<!-- Help Section -->
+<div class="help-section" style="background:#f8f9fa; border-radius:8px; padding:2rem; margin:2rem auto; max-width:1100px; border-left:4px solid #007bff;">
+	<h2 class="help-title" style="color:#333; font-size:1.5rem; margin-bottom:1rem; display:flex; align-items:center; gap:.5rem;">How to Use This Guide</h2>
+	<div class="help-content" style="color:#666; line-height:1.6;">
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">What this page covers</h3>
+		<p>A practical overview of Base64: what it is, why it’s used, encoding rules, examples, and snippets across languages.</p>
+
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Quick steps</h3>
+		<ol style="margin:.5rem 0 1rem 1.5rem;">
+			<li>Read sections 1–3 for fundamentals and padding rules.</li>
+			<li>Use section 4 for small, concrete examples.</li>
+			<li>Copy code from section 5 for your target language.</li>
+		</ol>
+
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Examples</h3>
+		<ul style="margin:.5rem 0 1rem 1.5rem;">
+			<li>1 byte remainder → output ends with <code>=</code>; 2 bytes → <code>==</code>.</li>
+			<li>URL‑safe Base64 uses <code>- _</code> instead of <code>+ /</code>; padding may be omitted.</li>
+		</ul>
+
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Notes</h3>
+		<ul style="margin:.5rem 0 1rem 1.5rem;">
+			<li>Base64 increases size by ~33%; consider binary transport when possible.</li>
+			<li>For text, ensure UTF‑8 encoding when converting bytes to strings.</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Footer -->
+<footer class="footer" style="background:#333; color:#fff; text-align:center; padding:2rem 1rem; margin-top:3rem;">
+	<div class="footer-links" style="display:flex; justify-content:center; gap:2rem; margin-bottom:1rem; flex-wrap:wrap;">
+		<a href="../about.html" style="color:#ccc; text-decoration:none; transition:color .3s;">About Us</a>
+		<a href="../contact.html" style="color:#ccc; text-decoration:none; transition:color .3s;">Contact Us</a>
+		<a href="../privacy.html" style="color:#ccc; text-decoration:none; transition:color .3s;">Privacy Policy</a>
+	</div>
+	<div style="color:#aaa; font-size:.9rem;">© <span id="year-index">2025</span> Chuandao Tools. All rights reserved.</div>
+</footer>
+<script>document.getElementById('year-index').textContent = new Date().getFullYear();</script>

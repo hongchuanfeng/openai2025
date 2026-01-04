@@ -335,7 +335,7 @@
 			padding-left: 1rem;
 		}
 
-		/* 移动端样�?*/
+		/* 移动端样式 */
 		@media (max-width: 768px) {
 			.nav-categories {
 				display: none;
@@ -372,13 +372,13 @@
 	<!-- 添加图片处理所需的库 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-HWMGEQS9C0');
+  gtag('config', 'G-V5T0MEEJ0Z');
 </script>
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
 			crossorigin="anonymous"></script>
@@ -393,14 +393,14 @@
 				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
 			</a>
 		</div>
-		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
 		<div class="nav-categories">
 			<a href="../index.html" class="nav-category">🔍 Recommended</a>
 			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
 			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
 			<a href="../code.html" class="nav-category">📝 Encoding</a>
 			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
-			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../image.html" class="nav-category">🖼️ Image Tools</a>
 			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
 		</div>
 	</div>
@@ -419,7 +419,7 @@
 
 		<!-- 主内容区 -->
 		<main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-			<!-- 左侧：上传区�?-->
+			<!-- 左侧：上传区域 -->
 			<section class="lg:col-span-1 bg-white rounded-2xl shadow-xl p-6 hover-scale">
 				<div class="text-center mb-6">
 					<i class="fa-solid fa-cloud-upload text-5xl text-primary mb-4"></i>
@@ -461,7 +461,7 @@
 				</div>
 
 				<div id="grid-container" class="grid grid-cols-3 gap-4 mb-6">
-					<!-- 九宫格图片将在这里动态生�?-->
+					<!-- 九宫格图片将在这里动态生成 -->
 				</div>
 
 				<button id="download-all" class="w-full bg-secondary hover:bg-secondary/90 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
@@ -595,7 +595,7 @@
 </div>
 
 <script>
-	// 初始化变�?
+	// 初始化变量
 	let originalImage = null;
 	let canvasElements = [];
 	let isProcessing = false;
@@ -690,7 +690,7 @@
 			isProcessing = false;
 			loadingOverlay.classList.add('hidden');
 			resultsSection.style.opacity = '1';
-			// 平滑滚动到结果区�?
+			// 平滑滚动到结果区域
 			resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 		}, 800); // 模拟处理延迟
 	});
@@ -706,7 +706,7 @@
 		gridContainer.innerHTML = '';
 		canvasElements = [];
 
-		// 创建9个canvas并绘制切割后的图�?
+		// 创建9个canvas并绘制切割后的图片
 		for (let row = 0; row < 3; row++) {
 			for (let col = 0; col < 3; col++) {
 				const canvas = document.createElement('canvas');
@@ -728,7 +728,7 @@
 				// 保存canvas引用
 				canvasElements.push(canvas);
 
-				// 创建结果�?
+				// 创建结果项
 				const gridItem = document.createElement('div');
 				gridItem.className = 'bg-base-100 rounded-lg shadow-md overflow-hidden hover-scale';
 
@@ -755,7 +755,7 @@
 					downloadCanvas(canvas, `grid_${row * 3 + col + 1}.png`);
 				});
 
-				// 组装结果�?
+				// 组装结果项
 				gridItem.appendChild(imgContainer);
 				gridItem.appendChild(downloadBtn);
 				gridContainer.appendChild(gridItem);
@@ -775,7 +775,7 @@
 	downloadAllButton.addEventListener('click', function() {
 		if (canvasElements.length === 0) return;
 
-		// 逐个下载图片，设置小延迟避免浏览器阻�?
+		// 逐个下载图片，设置小延迟避免浏览器阻止
 		canvasElements.forEach((canvas, index) => {
 			setTimeout(() => {
 				downloadCanvas(canvas, `grid_${index + 1}.png`);

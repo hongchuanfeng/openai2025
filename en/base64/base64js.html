@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JavaScript Base64 - Base64 Tools</title>
+	<meta name="keywords" content="Base64, encode, decode, Chuandao Tools">
+	<meta name="description" content="Encode or decode Base64 strings. Works with UTF-8 text and runs locally in your browser.">		
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.chdaoai.com/base64/base64js.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation bar */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tool card layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V5T0MEEJ0Z');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Featured</a>
+			<a href="../life.html" class="nav-category">🏠 Life</a>
+			<a href="../encry.html" class="nav-category">🔒 Crypto</a>
+			<a href="../code.html" class="nav-category">📝 Encode/Decode</a>
+			<a href="../dev.html" class="nav-category">💻 Developer</a>
+			<a href="../base64.html" class="nav-category">🔐 Base64</a>
+			<a href="../image.html" class="nav-category">🖼️ Image</a>
+			<a href="../game.html" class="nav-category">🎮 Fun</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>JavaScript Base64</h1>
+	<p style="margin-top: 12px; line-height: 1.8; color: #333;">
+		This page summarizes Base64 usage in JavaScript for both browser and Node.js.
+		It covers <code>btoa</code>/<code>atob</code>, UTF-8 safe helpers, URL-safe variant,
+		and examples for strings, binary data, and files.
+	</p>
+
+	<h2 class="category-title">Overview</h2>
+	<p style="line-height: 1.9; color: #444;">
+		Base64 represents binary data using printable characters.
+		In browsers, <code>btoa()</code> encodes a binary string to Base64, and <code>atob()</code> decodes.
+		For non-ASCII text, use <code>TextEncoder</code>/<code>TextDecoder</code> to handle UTF-8 bytes safely.
+		In Node.js, use <code>Buffer</code>.
+	</p>
+
+	<h2 class="category-title">APIs</h2>
+	<ul style="padding-left: 1.2rem; line-height: 1.9;">
+		<li><code>window.btoa(binaryString)</code> → Base64 string (browser)</li>
+		<li><code>window.atob(base64)</code> → binary string (browser)</li>
+		<li><code>TextEncoder</code> / <code>TextDecoder</code> for UTF-8 bytes (browser)</li>
+		<li><code>Buffer.from(data).toString('base64')</code>, <code>Buffer.from(b64, 'base64')</code> (Node.js)</li>
+	</ul>
+
+	<h2 class="category-title">Quick examples</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-code"></i></div>
+			<h3 style="margin-bottom: 8px;">Browser: UTF-8 safe helpers</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>// Encode a JS string (UTF-8) to Base64
+function encodeBase64(text) {
+	const bytes = new TextEncoder().encode(text);
+	let binary = "";
+	for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+	return btoa(binary);
+}
+
+// Decode Base64 to JS string (UTF-8)
+function decodeBase64(b64) {
+	const binary = atob(b64);
+	const bytes = new Uint8Array(binary.length);
+	for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+	return new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+}
+
+console.log(encodeBase64('Hello, 世界')); // SGVsbG8sIOS4lueVjw==
+console.log(decodeBase64('SGVsbG8sIOS4lueVjw=='));</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-server"></i></div>
+			<h3 style="margin-bottom: 8px;">Node.js: Buffer</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>// String → Base64
+const b64 = Buffer.from('Hello, 世界', 'utf8').toString('base64');
+console.log(b64); // SGVsbG8sIOS4lueVjw==
+
+// Base64 → String
+const text = Buffer.from('SGVsbG8sIOS4lueVjw==', 'base64').toString('utf8');
+console.log(text); // Hello, 世界</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-link"></i></div>
+			<h3 style="margin-bottom: 8px;">URL-safe Base64</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>// Replace +/ with -_, optionally remove padding =
+function toUrlSafe(b64, stripPadding = false) {
+	let s = b64.replace(/\+/g, '-').replace(/\//g, '_');
+	return stripPadding ? s.replace(/=+$/g, '') : s;
+}
+
+function fromUrlSafe(urlSafeB64) {
+	let s = urlSafeB64.replace(/-/g, '+').replace(/_/g, '/');
+	// pad to length % 4 === 0
+	while (s.length % 4) s += '=';
+	return s;
+}
+
+const safe = toUrlSafe('YWJj+/==');
+console.log(safe);
+console.log(fromUrlSafe(safe));</code></pre>
+		</div>
+	</div>
+
+	<h2 class="category-title">Binary and files (browser)</h2>
+	<div class="tool-card" style="margin: 0 1rem;">
+		<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>// File → Base64 (data URL or raw Base64)
+function fileToBase64(file, callback) {
+	const reader = new FileReader();
+	reader.onload = () => {
+		const dataUrl = reader.result; // e.g. "data:image/png;base64,iVBORw0KG..."
+		const base64 = String(dataUrl).split(',')[1];
+		callback({ dataUrl, base64 });
+	};
+	reader.readAsDataURL(file);
+}
+
+// Base64 → Blob (download)
+function base64ToBlob(b64, contentType = 'application/octet-stream') {
+	const binary = atob(b64);
+	const bytes = new Uint8Array(binary.length);
+	for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+	return new Blob([bytes], { type: contentType });
+}</code></pre>
+	</div>
+
+	<h2 class="category-title">Notes</h2>
+	<ul style="padding-left: 1.2rem; line-height: 1.9; color:#444;">
+		<li><b>btoa/atob</b> operate on binary strings (Latin-1). Always use <code>TextEncoder/TextDecoder</code> for UTF-8 safety.</li>
+		<li>Padding <code>=</code> may be omitted in URL-safe contexts; restore padding before decoding.</li>
+		<li>In Node.js, prefer <code>Buffer</code> for reliability and performance.</li>
+	</ul>
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+
+<!-- Help Section -->
+<div class="help-section" style="background:#f8f9fa; border-radius:8px; padding:2rem; margin:2rem auto; max-width:1100px; border-left:4px solid #007bff;">
+	<h2 class="help-title" style="color:#333; font-size:1.5rem; margin-bottom:1rem; display:flex; align-items:center; gap:.5rem;">How to Use</h2>
+	<div class="help-content" style="color:#666; line-height:1.6;">
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">What this page provides</h3>
+		<p>Quick reference and examples for Base64 in JavaScript (browser and Node.js), including UTF-8 safe helpers and URL-safe Base64.</p>
+
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Common tasks</h3>
+		<ul style="margin:.5rem 0 1rem 1.5rem;">
+			<li>Encode/decode UTF-8 text using <code>TextEncoder/TextDecoder</code> with <code>btoa/atob</code>.</li>
+			<li>Convert files to Base64 via <code>FileReader</code>; convert Base64 back to <code>Blob</code>.</li>
+			<li>Use URL-safe Base64 by replacing <code>+/</code> with <code>-_</code> and handling padding.</li>
+		</ul>
+
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Examples</h3>
+		<ul style="margin:.5rem 0 1rem 1.5rem;">
+			<li><code class="wrap" style="display:block; white-space:pre-wrap; word-break:break-all; overflow-wrap:anywhere; line-break:anywhere;">encodeBase64('Hello, 世界') → SGVsbG8sIOS4lueVjw==</code></li>
+			<li><code class="wrap" style="display:block; white-space:pre-wrap; word-break:break-all; overflow-wrap:anywhere; line-break:anywhere;">toUrlSafe('YWJj+/==', true) → YWJqLS8</code></li>
+		</ul>
+
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Notes</h3>
+		<ul style="margin:.5rem 0 1rem 1.5rem;">
+			<li><code>btoa/atob</code> operate on binary strings (Latin‑1). For general strings, always go through UTF‑8 bytes.</li>
+			<li>Restore missing padding before decoding URL‑safe Base64.</li>
+			<li>In Node.js, prefer <code>Buffer</code> APIs for reliability and performance.</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Footer -->
+<footer class="footer" style="background:#333; color:#fff; text-align:center; padding:2rem 1rem; margin-top:3rem;">
+	<div class="footer-links" style="display:flex; justify-content:center; gap:2rem; margin-bottom:1rem; flex-wrap:wrap;">
+		<a href="../about.html" style="color:#ccc; text-decoration:none; transition:color .3s;">About Us</a>
+		<a href="../contact.html" style="color:#ccc; text-decoration:none; transition:color .3s;">Contact Us</a>
+		<a href="../privacy.html" style="color:#ccc; text-decoration:none; transition:color .3s;">Privacy Policy</a>
+	</div>
+	<div style="color:#aaa; font-size:.9rem;">© <span id="year-js">2025</span> Chuandao Tools. All rights reserved.</div>
+</footer>
+<script>document.getElementById('year-js').textContent = new Date().getFullYear();</script>
+<script>
+function encodeHex() {
+	const text = document.getElementById('textInput').value;
+	const bytes = new TextEncoder().encode(text);
+	let out = '';
+	for (let i = 0; i < bytes.length; i++) {
+		out += bytes[i].toString(16).padStart(2, '0');
+	}
+	document.getElementById('hexOutput').value = out;
+}
+
+function decodeHex() {
+	const raw = document.getElementById('hexOutput').value;
+	const hex = (raw || '').replace(/[^0-9a-fA-F]/g, '');
+	if (hex.length % 2 !== 0) {
+		alert('Invalid hex: length must be even.');
+		return;
+	}
+	const bytes = new Uint8Array(hex.length / 2);
+	for (let i = 0; i < hex.length; i += 2) {
+		const byte = parseInt(hex.substr(i, 2), 16);
+		if (Number.isNaN(byte)) {
+			alert('Invalid hex content.');
+			return;
+		}
+		bytes[i / 2] = byte;
+	}
+	const text = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+	document.getElementById('textInput').value = text;
+}
+
+function clearAll() {
+	document.getElementById('textInput').value = '';
+	document.getElementById('hexOutput').value = '';
+}
+
+async function copyOutput() {
+	const val = document.getElementById('hexOutput').value;
+	try {
+		if (navigator.clipboard && window.isSecureContext) {
+			await navigator.clipboard.writeText(val);
+		} else {
+			const ta = document.createElement('textarea');
+			ta.value = val; document.body.appendChild(ta); ta.select();
+			document.execCommand('copy'); document.body.removeChild(ta);
+		}
+		alert('Copied');
+	} catch (e) {
+		alert('Copy failed');
+	}
+}
+</script>
+
+
+</body>
+
+</html>

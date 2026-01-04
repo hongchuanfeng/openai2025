@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Base16 Encode/Decode - Base64 Tools</title>
+	<meta name="keywords" content="Base64, encode, decode, Chuandao Tools">
+	<meta name="description" content="Encode or decode Base64 strings. Works with UTF-8 text and runs locally in your browser.">		
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.chdaoai.com/base64/base16.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<style>
+		/* Help section and footer */
+		.help-section { background:#f8f9fa; border-radius:8px; padding:2rem; margin:2rem auto; max-width:1100px; border-left:4px solid #007bff; }
+		.help-title { color:#333; font-size:1.5rem; margin-bottom:1rem; display:flex; align-items:center; gap:.5rem; }
+		.help-content { color:#666; line-height:1.6; }
+		.help-content h3 { color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem; }
+		.help-content ul { margin:.5rem 0 1rem 1.5rem; }
+		.help-content li { margin:.35rem 0; }
+		code.wrap { display:block; white-space:pre-wrap; word-break:break-all; overflow-wrap:anywhere; line-break:anywhere; }
+		.footer { background:#333; color:#fff; text-align:center; padding:2rem 1rem; margin-top:3rem; }
+		.footer-links { display:flex; justify-content:center; gap:2rem; margin-bottom:1rem; flex-wrap:wrap; }
+		.footer-links a { color:#ccc; text-decoration:none; transition:color .3s; }
+		.footer-links a:hover { color:#fff; }
+		.footeropyright { color:#999; font-size:.9rem; }
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation bar */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tool card layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V5T0MEEJ0Z');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Featured</a>
+			<a href="../life.html" class="nav-category">🏠 Life</a>
+			<a href="../encry.html" class="nav-category">🔒 Crypto</a>
+			<a href="../code.html" class="nav-category">📝 Encode/Decode</a>
+			<a href="../dev.html" class="nav-category">💻 Developer</a>
+			<a href="../base64.html" class="nav-category">🔐 Base64</a>
+			<a href="../image.html" class="nav-category">🖼️ Image</a>
+			<a href="../game.html" class="nav-category">🎮 Fun</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>Base16 (Hex) Converter</h1>
+
+	<textarea id="textInput" placeholder="Enter text here (UTF-8)"></textarea>
+
+	<div class="btn-group">
+		<button id="encodeBtn" onclick="encodeHex()">Text → Hex</button>
+		<button id="decodeBtn" onclick="decodeHex()">Hex → Text</button>
+		<button id="clearBtn" onclick="clearAll()">Clear</button>
+		<button id="copyBtn" onclick="copyOutput()">Copy Output</button>
+	</div>
+
+	<textarea id="hexOutput" placeholder="Enter hex here to decode (spaces/newlines allowed)"></textarea>
+
+	<div class="about-base64">
+		<h2>How Base16 (Hex) works</h2>
+		<ul>
+			<li>Base16 uses 16 symbols 0-9 and A-F to represent bytes.</li>
+			<li>Each byte (8 bits) splits into two 4-bit nibbles; each nibble maps to one hex digit.</li>
+			<li>Example: byte 0x4F → binary 0100 1111 → hex "4F".</li>
+			<li>Decoding groups every two hex digits into one byte; spaces/newlines are ignored.</li>
+			<li>Hex is a representation, not encryption; it does not provide confidentiality.</li>
+		</ul>
+	</div>
+
+</div>
+
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2 class="help-title">How to Use</h2>
+	<div class="help-content">
+		<h3>What this tool does</h3>
+		<p>Converts UTF‑8 text to hex and decodes hex back to text. Spaces and newlines are ignored during decoding.</p>
+		<h3>Steps</h3>
+		<ol>
+			<li>Text → Hex: enter text then click Text → Hex.</li>
+			<li>Hex → Text: paste hex then click Hex → Text.</li>
+			<li>Use Copy/ Clear as needed.</li>
+		</ol>
+		<h3>Example</h3>
+		<code class="wrap">Hello → 48656c6c6f</code>
+	</div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footeropyright">&copy; 2024 Missionary AI. All rights reserved.</div>
+</div>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+function encodeHex() {
+	const text = document.getElementById('textInput').value;
+	const bytes = new TextEncoder().encode(text);
+	let out = '';
+	for (let i = 0; i < bytes.length; i++) {
+		out += bytes[i].toString(16).padStart(2, '0');
+	}
+	document.getElementById('hexOutput').value = out;
+}
+
+function decodeHex() {
+	const raw = document.getElementById('hexOutput').value;
+	const hex = (raw || '').replace(/[^0-9a-fA-F]/g, '');
+	if (hex.length % 2 !== 0) {
+		alert('Invalid hex: length must be even.');
+		return;
+	}
+	const bytes = new Uint8Array(hex.length / 2);
+	for (let i = 0; i < hex.length; i += 2) {
+		const byte = parseInt(hex.substr(i, 2), 16);
+		if (Number.isNaN(byte)) {
+			alert('Invalid hex content.');
+			return;
+		}
+		bytes[i / 2] = byte;
+	}
+	const text = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+	document.getElementById('textInput').value = text;
+}
+
+function clearAll() {
+	document.getElementById('textInput').value = '';
+	document.getElementById('hexOutput').value = '';
+}
+
+async function copyOutput() {
+	const val = document.getElementById('hexOutput').value;
+	try {
+		if (navigator.clipboard && window.isSecureContext) {
+			await navigator.clipboard.writeText(val);
+		} else {
+			const ta = document.createElement('textarea');
+			ta.value = val; document.body.appendChild(ta); ta.select();
+			document.execCommand('copy'); document.body.removeChild(ta);
+		}
+		alert('Copied');
+	} catch (e) {
+		alert('Copy failed');
+	}
+}
+</script>
+
+
+</body>
+
+</html>

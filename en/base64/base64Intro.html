@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Base64</title>
+	<meta name="keywords" content="Base64, encode, decode, Chuandao Tools">
+	<meta name="description" content="Encode or decode Base64 strings. Works with UTF-8 text and runs locally in your browser.">		
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.chdaoai.com/base64/base64Intro.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<style>
+		/* Help section and footer */
+		.help-section { background:#f8f9fa; border-radius:8px; padding:2rem; margin:2rem auto; max-width:1100px; border-left:4px solid #007bff; }
+		.help-title { color:#333; font-size:1.5rem; margin-bottom:1rem; display:flex; align-items:center; gap:.5rem; }
+		.help-content { color:#666; line-height:1.6; }
+		.help-content h3 { color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem; }
+		.help-content ul { margin:.5rem 0 1rem 1.5rem; }
+		.help-content li { margin:.35rem 0; }
+		code.wrap { display:block; white-space:pre-wrap; word-break:break-all; overflow-wrap:anywhere; line-break:anywhere; }
+		.footer { background:#333; color:#fff; text-align:center; padding:2rem 1rem; margin-top:3rem; }
+		.footer-links { display:flex; justify-content:center; gap:2rem; margin-bottom:1rem; flex-wrap:wrap; }
+		.footer-links a { color:#ccc; text-decoration:none; transition:color .3s; }
+		.footer-links a:hover { color:#fff; }
+		.footeropyright { color:#999; font-size:.9rem; }
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation bar */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tool card layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Increase vertical spacing within the article content */
+		.container p { margin: 1rem 0; line-height: 1.9; }
+		.container h2 { margin: 1.6rem 0 1rem; }
+		.container h3 { margin: 1.2rem 0 0.8rem; }
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5T0MEEJ0Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V5T0MEEJ0Z');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Featured</a>
+			<a href="../life.html" class="nav-category">🏠 Life</a>
+			<a href="../encry.html" class="nav-category">🔒 Crypto</a>
+			<a href="../code.html" class="nav-category">📝 Encode/Decode</a>
+			<a href="../dev.html" class="nav-category">💻 Developer</a>
+			<a href="../base64.html" class="nav-category">🔐 Base64</a>
+			<a href="../image.html" class="nav-category">🖼️ Image</a>
+			<a href="../game.html" class="nav-category">🎮 Fun</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>Base64</h1>
+
+	<p>In computer programming, <strong>Base64</strong> is a group of <em>binary‑to‑text encoding</em> schemes that transforms <em>binary data</em> into a sequence of <em>printable</em> characters, limited to a set of 64 unique symbols. The source binary data is processed 6 bits at a time; each 6‑bit group is mapped to one of the 64 characters.</p>
+
+	<p>Like other binary‑to‑text encodings, Base64 is designed to carry data stored in binary formats across channels that only reliably support text content. It is particularly prevalent on the web, where it enables embedding of <em>image files</em> or other binary assets inside textual assets such as HTML and CSS.</p>
+
+	<p>Base64 is also widely used for sending <em>e‑mail</em> attachments, because the original SMTP protocol was designed to transport <em>7‑bit ASCII</em> only. Encoding an attachment as Base64 before sending—and decoding when received—ensures older SMTP servers will not interfere with the attachment.</p>
+
+	<p>Base64 encoding introduces size overhead of roughly <strong>33%–37%</strong> relative to the original binary data (about 33% from the encoding itself, up to ~4% more by optional inserted line breaks).</p>
+	
+	<div class="two">
+		<h2>Design</h2>
+		<p>The particular set of 64 characters chosen to represent the 64‑digit values for the base varies between implementations. The general strategy is to choose characters that are common to most encodings and are printable, making the data unlikely to be modified in transit through systems (such as email) that were traditionally not 8‑bit clean. For example, MIME’s Base64 uses A–Z, a–z and 0–9 for the first 62 values; other variants share this property but differ in the symbols chosen for the last two values (e.g., UTF‑7).</p>
+		<p>The earliest instances of this encoding family were created for dial‑up communication between systems running the same OS — for example, uuencode for UNIX and BinHex for the TRS‑80 (later adapted for the Macintosh). These made assumptions about what characters were safe to use; for instance, uuencode uses uppercase letters, digits and many punctuation characters, but no lowercase.</p>
+	</div>
+
+	<div class="three">
+		<h2>Base64 table from RFC 4648</h2>
+		<table style="width:100%; border-collapse: collapse; font-size:14px; margin-top:16px;">
+			<thead>
+				<tr>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Index</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Binary</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Char.</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Index</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Binary</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Char.</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Index</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Binary</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Char.</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Index</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Binary</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Char.</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">0</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">000000</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">A</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">16</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">010000</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">Q</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">32</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">100000</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">g</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">48</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">110000</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">w</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">1</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">000001</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">B</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">17</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">010001</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">R</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">33</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">100001</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">h</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">49</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">110001</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">x</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">2</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">000010</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">C</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">18</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">010010</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">S</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">34</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">100010</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">i</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">50</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">110010</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">y</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">3</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">000011</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">D</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">19</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">010011</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">T</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">35</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">100011</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">j</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">51</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">110011</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">z</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">4</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">000100</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">E</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">20</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">010100</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">U</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">36</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">100100</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">k</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">52</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">110100</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">0</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">5</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">000101</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">F</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">21</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">010101</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">V</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">37</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">100101</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">l</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">53</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">110101</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">1</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">6</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">000110</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">G</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">22</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">010110</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">W</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">38</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">100110</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">m</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">54</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">110110</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">2</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">7</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">000111</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">H</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">23</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">010111</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">X</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">39</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">100111</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">n</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">55</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">110111</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">3</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">8</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">001000</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">I</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">24</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">011000</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">Y</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">40</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">101000</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">o</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">56</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">111000</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">4</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">9</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">001001</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">J</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">25</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">011001</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">Z</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">41</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">101001</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">p</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">57</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">111001</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">5</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">10</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">001010</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">K</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">26</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">011010</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">a</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">42</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">101010</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">q</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">58</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">111010</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">6</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">11</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">001011</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">L</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">27</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">011011</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">b</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">43</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">101011</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">r</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">59</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">111011</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">7</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">12</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">001100</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">M</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">28</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">011100</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">c</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">44</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">101100</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">s</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">60</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">111100</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">8</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">13</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">001101</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">N</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">29</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">011101</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">d</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">45</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">101101</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">t</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">61</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">111101</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">9</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">14</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">001110</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">O</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">30</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">011110</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">e</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">46</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">101110</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">u</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">62</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">111110</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">+</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">15</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">001111</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">P</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">31</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">011111</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">f</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">47</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">101111</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">v</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">63</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">111111</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">/</td></tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="11" style="border:1px solid #cfd8dc; padding:6px 8px; text-align:right; font-weight:600;">Padding</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">=</td>
+				</tr>
+			</tfoot>
+		</table>
+
+	</div>
+
+	<div class="four">
+		<h2>Examples</h2>
+		<p>
+			In the above quote, the encoded value of Man is TWFu. Encoded in ASCII, the characters M, a, and n are stored as the byte values 77, 97, and 110, which are the 8-bit binary values 01001101, 01100001, and 01101110. These three values are joined together into a 24-bit string, producing 010011010110000101101110. Groups of 6 bits (6 bits have a maximum of 26 = 64 different binary values) are converted into individual numbers from start to end (in this case, there are four numbers in a 24-bit string), which are then converted into their corresponding Base64 character values.
+
+As this example illustrates, Base64 encoding converts three octets into four encoded characters.
+		</p>
+	</div>
+
+	<div class="fiver">
+		<h2>Encoding of the source string (Man) in Base64</h2>
+		<table style="width:100%; border-collapse:collapse; font-size:14px; margin:12px 0;">
+			<thead>
+				<tr>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; width:140px;">Source ASCII text</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">M</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">a</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">n</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Character</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">M</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">a</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">n</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Octets</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">77 (0x4d)</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">97 (0x61)</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">110 (0x6e)</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Bits</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">0 1 0 0 1 1 0 1</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">0 1 1 0 0 0 0 1</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">0 1 1 0 1 1 1 0</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Base64 encoded<br/>Sextets</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">19</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">22</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">5&nbsp;&nbsp;&nbsp;46</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Base64 encoded<br/>Character</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">T</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">W</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">F&nbsp;&nbsp;&nbsp;u</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Base64 encoded<br/>Octets</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">84 (0x54)</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">87 (0x57)</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">70 (0x46)&nbsp;&nbsp;&nbsp;117 (0x75)</td>
+				</tr>
+			</tbody>
+		</table>
+		<p style="margin:8px 0;">= padding characters might be added to make the last encoded block contain four Base64 characters.</p>
+		<p>Hexadecimal to octal transformation is useful to convert between binary and Base64. For example, the hexadecimal representation of the 24 bits above is 4D616E, whose octal is 23260556. Split into pairs (23 26 05 56) and map each to decimal (19 22 05 46); using those four decimal numbers as indices for the Base64 alphabet yields the ASCII characters <em>TWFu</em>.</p>
+		<p>If there are only two significant input octets (e.g., "Ma"), or when the last input group contains only two octets, all 16 bits are captured in the first three Base64 digits (18 bits); the two least significant bits of the last 6‑bit block will be zero and are discarded on decoding (along with the succeeding = padding character).</p>
+		<table style="width:100%; border-collapse:collapse; font-size:14px; margin:12px 0;">
+			<thead>
+				<tr>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; width:140px;">Source ASCII text</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">M</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">a</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Character</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">M</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">a</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Octets</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">77 (0x4d)</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">97 (0x61)</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Bits</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">0 1 0 0 1 1 0 1</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">0 1 1 0 0 0 0 1</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">0 0</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Base64 encoded<br/>Sextets</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">19</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">22</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">4</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Base64 encoded<br/>Character</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">T</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">W</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">E</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Base64 encoded<br/>Octets</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">84 (0x54)</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">87 (0x57)</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">69 (0x45)</td>
+				</tr>
+			</tbody>
+			
+		</table>
+	</div>
+
+	<div class="sex">
+		<h2>Output padding</h2>
+		<p>Because Base64 is a six‑bit encoding, and because the decoded values are divided into 8‑bit octets, every four characters of Base64‑encoded text (4 sextets = 4 × 6 = 24 bits) represent three octets of unencoded text or data (3 octets = 3 × 8 = 24 bits). This means that when the length of the unencoded input is not a multiple of three, the encoded output must have padding added so that its length is a multiple of four. The padding character is <code>=</code>, which indicates that no further bits are needed to fully encode the input.</p>
+		<p>The example below illustrates how truncating the input of the quote changes the output padding:</p>
+		<table style="width:100%; border-collapse:collapse; font-size:14px; margin:12px 0;">
+			<thead>
+				<tr>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;" colspan="2">Input</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;" colspan="2">Output</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Padding</th>
+				</tr>
+				<tr>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Text</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Length</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Text</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Length</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light work.</em></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">11</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgd29yay4=</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">16</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">1</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light work</em></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">10</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgd29yaw==</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">16</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">2</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light wor</em></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">9</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgd29y</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">12</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">0</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light wo</em></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">8</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgd28=</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">12</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">1</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light w</em></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">7</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgdw==</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">12</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">2</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>The padding character is not essential for decoding, since the missing bytes can be inferred from the length of the encoded text. Some implementations require padding; others do not. A common exception where padding is required is when multiple Base64‑encoded files have been concatenated.</p>
+	</div>
+
+	<div class="seven">
+		<h2>Decoding Base64 with padding</h2>
+		<p>When decoding Base64 text, four characters are typically converted back to three bytes. The only exceptions are when padding characters exist. A single <code>=</code> indicates that the four characters will decode to only two bytes, while <code>==</code> indicates that the four characters will decode to only a single byte. For example:</p>
+		<table style="width:100%; border-collapse:collapse; font-size:14px; margin:12px 0;">
+			<thead>
+				<tr>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Encoded</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Padding</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Length</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Decoded</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgdw==</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">==</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">1</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light w</em></td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgd28=</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">=</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">2</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light wo</em></td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgd29y</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">None</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">3</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light wor</em></td>
+				</tr>
+			</tbody>
+		</table>
+		<p>Another way to interpret the padding character is to consider it as an instruction to discard trailing bits from the bit string each time a <code>=</code> is encountered. For example, when <code>bGlnaHQgdw==</code> is decoded, we convert each character (except the trailing <code>=</code> signs) into its 6‑bit representation, then discard 2 trailing bits for the first <code>=</code> and another 2 trailing bits for the other <code>=</code>. In this instance, we would get 6 bits from the <code>d</code>, and another 6 bits from the <code>w</code> for a bit string of length 12; removing 2 bits for each <code>=</code> (total 4 bits) leaves 8 bits (1 byte) when decoded.</p>
+	</div>
+
+	<div class="d9">
+		<h2>Decoding Base64 without padding</h2>
+		<p>Without padding, after normal decoding of four characters to three bytes repeatedly, fewer than four encoded characters may remain. In this situation, only two or three characters can remain. A single remaining encoded character is not possible, because a single Base64 character only contains 6 bits, and 8 bits are required to create a byte, so at least two Base64 characters are required: the first contributes 6 bits, and the second contributes its first 2 bits. For example:</p>
+		<table style="width:100%; border-collapse:collapse; font-size:14px; margin:12px 0;">
+			<thead>
+				<tr>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Length</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Encoded</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Length</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Decoded</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">2</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgdw</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">1</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light w</em></td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">3</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgd28</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">2</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light wo</em></td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">4</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgd29y</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">3</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light wor</em></td>
+				</tr>
+			</tbody>
+		</table>
+		<p>Decoding without padding is not performed consistently among decoders. In addition, allowing padless decoding by definition allows multiple strings to decode into the same set of bytes, which can be a security risk.</p>
+	</div>
+</div>
+
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2 class="help-title">How to Use</h2>
+	<div class="help-content">
+		<h3>What this page provides</h3>
+		<p>A practical introduction to Base64 with tables, examples, and padding behavior for quick reference.</p>
+		<h3>Quick checklist</h3>
+		<ul>
+			<li>Alphabet: A–Z a–z 0–9 + / (URL‑safe: - _)</li>
+			<li>Padding: = or == (padless variants exist)</li>
+			<li>Overhead: ~33% size increase</li>
+		</ul>
+		<h3>Example</h3>
+		<code class="wrap">"Man" → TWFu</code>
+	</div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footeropyright">&copy; 2024 Missionary AI. All rights reserved.</div>
+</div>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+
+
+</body>
+
+</html>
