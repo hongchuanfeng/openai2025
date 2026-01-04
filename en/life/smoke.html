@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Smoking Cost Calculator - Chdao Tools</title>
+	<meta name="keywords" content="online tools suite, Chdao Tools">
+	<meta name="description" content="Chdao Tools is an online toolkit with no login or fees. Includes life, developer, encoding/decoding, encryption, image, and entertainment tools.">
+	<link rel="canonical" href="https://www.chdaoai.com/life/smoke.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #8bc34a;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.header-title {
+			font-size: 18px;
+			font-weight: bold;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.heart-icon {
+			color: #ff4757;
+			cursor: pointer;
+		}
+		.rating {
+			display: flex;
+			gap: 5px;
+			color: #ffd700;
+		}
+		.share-icon {
+			margin-left: auto;
+			color: #666;
+			cursor: pointer;
+		}
+		.calculator {
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		.input-group {
+			margin-bottom: 20px;
+			position: relative;
+		}
+		.input-label {
+			color: #00b894;
+			margin-bottom: 8px;
+			font-size: 14px;
+			font-weight: bolder;
+		}
+		.input-field {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #e9ecef;
+			border-radius: 8px;
+			font-size: 16px;
+			outline: none;
+			transition: border-color 0.3s;
+		}
+		.input-field:focus {
+			border-color: #00b894;
+		}
+		.spinner {
+			position: absolute;
+			right: 10px;
+			top: 30px;
+			display: flex;
+			flex-direction: column;
+		}
+		.spinner button {
+			border: none;
+			background: #f8f9fa;
+			color: #666;
+			cursor: pointer;
+			padding: 2px 8px;
+			font-size: 12px;
+		}
+		.spinner button:hover {
+			background: #e9ecef;
+		}
+		.calculate-btn {
+			width: 100%;
+			padding: 12px;
+			background-color: #2196f3;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			font-size: 16px;
+			cursor: pointer;
+			margin-bottom: 20px;
+		}
+		.calculate-btn:hover {
+			background-color: #1976d2;
+		}
+		.result {
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			margin-top: 20px;
+		}
+		.result-item {
+			color: #00b894;
+			margin-bottom: 10px;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+			z-index: 999;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tools grid layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Help Section Styles */
+		.help-section {
+			background: white;
+			border-radius: 8px;
+			padding: 2rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		}
+
+		.help-section h2 {
+			color: #333;
+			margin-bottom: 1rem;
+			font-size: 1.5rem;
+		}
+
+		.help-section h3 {
+			color: #555;
+			margin: 1.5rem 0 0.5rem 0;
+			font-size: 1.2rem;
+		}
+
+		.help-section p {
+			color: #666;
+			line-height: 1.6;
+			margin-bottom: 1rem;
+		}
+
+		.help-section ul, .help-section ol {
+			margin: 0.5rem 0 1rem 1.5rem;
+			color: #666;
+		}
+
+		.help-section li {
+			margin: 0.3rem 0;
+			line-height: 1.5;
+		}
+
+		.help-section strong {
+			color: #333;
+		}
+
+		/* Footer Styles */
+		.footer {
+			background: #333;
+			color: white;
+			padding: 2rem 0;
+			margin-top: 3rem;
+		}
+
+		.footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 1rem;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1rem;
+		}
+
+		.footer-links a {
+			color: white;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #ccc;
+			font-size: 0.9rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.help-section {
+				margin: 1rem;
+				padding: 1.5rem;
+			}
+
+			.footer-links {
+				flex-direction: column;
+				gap: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding/Decoding</a>
+			<a href="../dev.html" class="nav-category">💻 Developer Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Entertainment</a>
+		</div>
+	</div>
+</nav>
+
+
+<h1 style="text-align: center">Smoking Cost Calculator</h1>
+<div class="calculator">
+	<div class="input-group">
+		<div class="input-label">Cigarettes per day</div>
+		<input type="number" class="input-field" id="cigarettesPerDay" value="">
+		<div class="spinner">
+			<button onclick="adjustValue('cigarettesPerDay', 1)">�?/button>
+			<button onclick="adjustValue('cigarettesPerDay', -1)">�?/button>
+		</div>
+	</div>
+
+	<div class="input-group">
+		<div class="input-label">Cigarettes per pack</div>
+		<input type="number" class="input-field" id="cigarettesPerPack" value="">
+		<div class="spinner">
+			<button onclick="adjustValue('cigarettesPerPack', 1)">�?/button>
+			<button onclick="adjustValue('cigarettesPerPack', -1)">�?/button>
+		</div>
+	</div>
+
+	<div class="input-group">
+		<div class="input-label">Price per pack</div>
+		<input type="number" class="input-field" id="pricePerPack" value="">
+		<div class="spinner">
+			<button onclick="adjustValue('pricePerPack', 1)">�?/button>
+			<button onclick="adjustValue('pricePerPack', -1)">�?/button>
+		</div>
+	</div>
+
+	<button class="calculate-btn" onclick="calculate()">Calculate</button>
+
+	<div class="result" id="result">
+		<div class="result-item"></div>
+		<div class="result-item"></div>
+		<div class="result-item"></div>
+	</div>
+</div>
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2>How to Use</h2>
+	<p>This tool calculates the financial cost of smoking based on your daily consumption, pack size, and price per pack. It helps you understand the long-term financial impact of smoking.</p>
+	
+	<h3>Step-by-Step Instructions:</h3>
+	<ol>
+		<li><strong>Set Cigarettes per Day:</strong> Enter how many cigarettes you smoke daily (use +/- buttons or type directly)</li>
+		<li><strong>Set Cigarettes per Pack:</strong> Enter the number of cigarettes in one pack (usually 20)</li>
+		<li><strong>Set Price per Pack:</strong> Enter the cost of one pack in your local currency</li>
+		<li><strong>Calculate:</strong> Click "Calculate" to see your daily, monthly, and yearly costs</li>
+	</ol>
+	
+	<h3>Cost Calculations:</h3>
+	<ul>
+		<li><strong>Daily Cost:</strong> (Cigarettes per day × Price per pack) ÷ Cigarettes per pack</li>
+		<li><strong>Monthly Cost:</strong> Daily cost × 30 days</li>
+		<li><strong>Yearly Cost:</strong> Daily cost × 365 days</li>
+	</ul>
+	
+	<h3>Examples:</h3>
+	<ul>
+		<li><strong>Light Smoker:</strong> 5 cigarettes/day, 20 per pack, $8/pack = $2/day, $60/month, $730/year</li>
+		<li><strong>Moderate Smoker:</strong> 10 cigarettes/day, 20 per pack, $8/pack = $4/day, $120/month, $1,460/year</li>
+		<li><strong>Heavy Smoker:</strong> 20 cigarettes/day, 20 per pack, $8/pack = $8/day, $240/month, $2,920/year</li>
+	</ul>
+	
+	<h3>Cost Comparison Ideas:</h3>
+	<ul>
+		<li><strong>Monthly Cost:</strong> Could pay for gym membership, streaming services, or groceries</li>
+		<li><strong>Yearly Cost:</strong> Could fund vacation, car payment, or home improvement</li>
+		<li><strong>5-Year Cost:</strong> Could be a down payment on a house or car</li>
+		<li><strong>10-Year Cost:</strong> Could be retirement savings or college fund</li>
+	</ul>
+	
+	<h3>Health Cost Considerations:</h3>
+	<ul>
+		<li>Medical expenses for smoking-related illnesses</li>
+		<li>Life insurance premium increases</li>
+		<li>Lost productivity due to health issues</li>
+		<li>Potential disability or early retirement costs</li>
+	</ul>
+	
+	<h3>Common Use Cases:</h3>
+	<ul>
+		<li>Motivation to quit smoking</li>
+		<li>Budget planning and financial awareness</li>
+		<li>Health education and counseling</li>
+		<li>Insurance and financial planning</li>
+		<li>Family discussions about smoking costs</li>
+	</ul>
+	
+	<h3>Tips for Better Results:</h3>
+	<ul>
+		<li>Use accurate daily consumption numbers</li>
+		<li>Include all smoking costs (cigarettes, lighters, etc.)</li>
+		<li>Consider price increases over time</li>
+		<li>Factor in different pack sizes and brands</li>
+	</ul>
+	
+	<h3>Important Notes:</h3>
+	<ul>
+		<li>This tool only calculates financial costs, not health costs</li>
+		<li>Smoking costs vary by location and brand</li>
+		<li>Consider inflation and price increases over time</li>
+		<li>Quitting smoking can save significant money long-term</li>
+	</ul>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+	<div class="footer-content">
+		<div class="footer-links">
+			<a href="../about.html">About Us</a>
+			<a href="../contact.html">Contact Us</a>
+			<a href="../privacy.html">Privacy Policy</a>
+		</div>
+		<div class="footer-copyright">
+			<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+		</div>
+	</div>
+</footer>
+
+<script>
+	function adjustValue(id, delta) {
+		const input = document.getElementById(id);
+		let value = parseInt(input.value) || 0;
+		value = Math.max(0, value + delta);
+		input.value = value;
+	}
+
+	function calculate() {
+		const cigarettesPerDay = parseFloat(document.getElementById('cigarettesPerDay').value) || 0;
+		const cigarettesPerPack = parseFloat(document.getElementById('cigarettesPerPack').value) || 1;
+		const pricePerPack = parseFloat(document.getElementById('pricePerPack').value) || 0;
+
+		const dailyCost = (cigarettesPerDay * pricePerPack / cigarettesPerPack).toFixed(2);
+		const monthlyCost = (dailyCost * 30).toFixed(2);
+		const yearlyCost = (dailyCost * 365).toFixed(2);
+
+		document.getElementById('result').innerHTML = `
+				<div class="result-item">Daily cost: ${dailyCost}</div>
+				<div class="result-item">Monthly cost: ${monthlyCost}</div>
+				<div class="result-item">Yearly cost: ${yearlyCost}</div>
+			`;
+	}
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

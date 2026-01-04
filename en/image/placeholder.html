@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Placeholder Image Generator - Chandao Tools</title>
+	<meta name="keywords" content="online tool collection, Chandao Tools">
+	<meta name="description" content="Chandao Tools is a collection of free, no-login online utilities across life, dev, encoding/decoding, encryption, images, and fun.">
+	<link rel="canonical" href="https://www.chdaoai.com/image/placeholder.html">		
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #c2185b;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.header-title {
+			font-size: 18px;
+			font-weight: bold;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.heart-icon {
+			color: #ff4757;
+			cursor: pointer;
+		}
+		.rating {
+			display: flex;
+			gap: 5px;
+			color: #ffd700;
+		}
+		.share-icon {
+			margin-left: auto;
+			color: #666;
+			cursor: pointer;
+		}
+		.upload-area {
+			max-width: 800px;
+			margin: 0 auto;
+			background-color: white;
+			border-radius: 8px;
+			padding: 40px;
+			text-align: center;
+			border: 2px dashed #ddd;
+			margin-bottom: 20px;
+			cursor: pointer;
+		}
+		.upload-icon {
+			font-size: 48px;
+			color: #999;
+			margin-bottom: 10px;
+		}
+		.upload-text {
+			color: #666;
+		}
+		.size-options {
+			max-width: 800px;
+			margin: 20px auto;
+			display: flex;
+			gap: 20px;
+			align-items: center;
+		}
+		.size-label {
+			color: #666;
+		}
+		.size-radio {
+			display: flex;
+			gap: 15px;
+		}
+		.radio-item {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.radio-item input[type="radio"] {
+			margin: 0;
+		}
+		.generate-btn {
+			display: block;
+			width: 800px;
+			margin: 20px auto;
+			padding: 12px;
+			background-color: #2196f3;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 16px;
+		}
+		.generate-btn:hover {
+			background-color: #1976d2;
+		}
+		.info-box {
+			max-width: 800px;
+			margin: 30px auto;
+			background-color: #fff5f0;
+			border-radius: 4px;
+			padding: 20px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 15px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+		}
+		.info-list li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+		.code-block {
+			background-color: #1e1e1e;
+			border-radius: 4px;
+			padding: 15px;
+			margin: 15px 0;
+			color: #d4d4d4;
+			font-family: monospace;
+			line-height: 1.5;
+		}
+		.code-block .line-number {
+			color: #858585;
+			margin-right: 10px;
+			user-select: none;
+		}
+		.code-block .code-content {
+			color: #d4d4d4;
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			border-radius: 8px;
+			padding: 2rem;
+			max-width: 1100px;
+			margin: 2rem auto;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-title {
+			color: #333;
+			font-size: 1.5rem;
+			margin-bottom: 1rem;
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+
+		.help-content {
+			color: #666;
+			line-height: 1.6;
+		}
+
+		.help-content h3 {
+			color: #444;
+			margin: 1.5rem 0 0.5rem 0;
+			font-size: 1.1rem;
+		}
+
+		.help-content ul {
+			margin: 0.5rem 0 1rem 1.5rem;
+		}
+
+		.help-content li {
+			margin-bottom: 0.5rem;
+		}
+
+		.help-content code {
+			background: #e9ecef;
+			padding: 0.2rem 0.4rem;
+			border-radius: 3px;
+			font-family: monospace;
+			font-size: 0.9rem;
+		}
+
+		.example-box {
+			background: #fff;
+			border: 1px solid #dee2e6;
+			border-radius: 6px;
+			padding: 1rem;
+			margin: 1rem 0;
+		}
+
+		.example-title {
+			font-weight: bold;
+			color: #495057;
+			margin-bottom: 0.5rem;
+		}
+
+		/* Footer styles */
+		.footer {
+			background: #333;
+			color: white;
+			text-align: center;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #ccc;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.footer-links a:hover {
+			color: white;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+
+		@media (max-width: 768px) {
+			.footer-links {
+				flex-direction: column;
+				gap: 1rem;
+			}
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+	<!-- 添加图片处理所需的库 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding</a>
+			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
+		</div>
+	</div>
+</nav>
+
+<h1 style="text-align: center">Placeholder Image Generator</h1>
+<style>
+@media (max-width: 768px) {
+  #phCanvas {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    min-width: 0 !important;
+  }
+  .ph-flex-wrap {
+    flex-direction: column !important;
+    gap: 12px !important;
+    max-width: 98vw !important;
+    width: 100% !important;
+    align-items: stretch !important;
+  }
+  .ph-flex-wrap > div {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+</style>
+<div style="width:100%;display:flex;justify-content:center;">
+  <div class="ph-flex-wrap" style="display:flex; gap:24px; align-items:flex-start; justify-content:center; max-width:1100px; width:100%;">
+    <div style="flex:1; min-width:320px;">
+      <div style="display:flex; gap:16px;">
+        <div style="flex:1;">
+          <label>Width</label><br>
+          <input id="phWidth" type="number" value="879" style="width:95%;margin-bottom:8px;" />
+        </div>
+        <div style="flex:1;">
+          <label>Height</label><br>
+          <input id="phHeight" type="number" value="200" style="width:95%;margin-bottom:8px;" />
+        </div>
+      </div>
+      <div style="margin-bottom:8px;">
+        <label>Text</label><br>
+        <input id="phText" type="text" value="879x200" style="width:100%;margin-bottom:8px;" />
+      </div>
+      <div style="display:flex; gap:16px;">
+        <div style="flex:1;">
+          <label>Text Color</label><br>
+          <input id="phColor" type="color" value="#ff0000" style="width:100%;height:24px;" />
+        </div>
+        <div style="flex:1;">
+          <label>Background Color</label><br>
+          <input id="phBg" type="color" value="#8b0000" style="width:100%;height:24px;" />
+        </div>
+      </div>
+      <div style="margin-top:16px;">
+        <button id="phGenBtn" style="background:#2196F3;color:#fff;padding:8px 18px;border:none;border-radius:3px;">Generate</button>
+        <button id="phDownBtn" style="background:#bbb;color:#222;padding:8px 18px;border:none;border-radius:3px;margin-left:8px;">Download</button>
+      </div>
+    </div>
+    <div style="flex:2;">
+      <canvas id="phCanvas" style="border:2px solid #eee; width:100%; max-width:600px; display:block; background:#fff;" width="879" height="200"></canvas>
+    </div>
+  </div>
+</div>
+<script>
+function drawPlaceholder() {
+  var w = parseInt($('#phWidth').val()) || 300;
+  var h = parseInt($('#phHeight').val()) || 150;
+  var text = $('#phText').val();
+  var color = $('#phColor').val();
+  var bg = $('#phBg').val();
+  var canvas = document.getElementById('phCanvas');
+  canvas.width = w;
+  canvas.height = h;
+  var ctx = canvas.getContext('2d');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0,0,w,h);
+  ctx.font = Math.floor(h/4)+"px Arial";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = color;
+  ctx.fillText(text, w/2, h/2);
+}
+// 事件绑定
+$('#phWidth,#phHeight,#phText,#phColor,#phBg').on('input', function(){
+  // 自动同步显示文字
+  if(this.id==="phWidth"||this.id==="phHeight"){
+    $('#phText').val($('#phWidth').val()+"x"+$('#phHeight').val());
+  }
+  drawPlaceholder();
+});
+$('#phText').on('input', drawPlaceholder);
+$('#phColor,#phBg').on('input', drawPlaceholder);
+$('#phGenBtn').click(drawPlaceholder);
+// 下载图片
+$('#phDownBtn').click(function(){
+  var canvas = document.getElementById('phCanvas');
+  var url = canvas.toDataURL('image/png');
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'placeholder.png';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+});
+// 初始�?
+$(function(){ drawPlaceholder(); });
+</script>
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2 class="help-title">
+		<i class="fas fa-question-circle"></i>
+		How to Use
+	</h2>
+	<div class="help-content">
+		<h3>Step-by-Step Instructions</h3>
+		<ol>
+			<li><strong>Set Dimensions:</strong> Enter width and height values (in pixels)</li>
+			<li><strong>Customize Text:</strong> Enter the text to display on the placeholder</li>
+			<li><strong>Choose Colors:</strong> Select text color and background color</li>
+			<li><strong>Generate:</strong> Click "Generate" to create your placeholder image</li>
+			<li><strong>Download:</strong> Click "Download" to save the image as PNG</li>
+		</ol>
+
+		<h3>What are Placeholder Images?</h3>
+		<p>Placeholder images are temporary images used during web development and design to represent where actual images will be placed. They help visualize layout and spacing before final content is ready.</p>
+
+		<h3>Customization Options</h3>
+		<div class="example-box">
+			<div class="example-title">Dimensions:</div>
+			<ul>
+				<li><strong>Width:</strong> Image width in pixels (1-5000)</li>
+				<li><strong>Height:</strong> Image height in pixels (1-5000)</li>
+				<li>Text automatically updates to show dimensions</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">Text:</div>
+			<ul>
+				<li>Custom text to display on the image</li>
+				<li>Defaults to dimensions (e.g., "300x200")</li>
+				<li>Can include any characters or symbols</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">Colors:</div>
+			<ul>
+				<li><strong>Text Color:</strong> Color of the text on the image</li>
+				<li><strong>Background Color:</strong> Background color of the image</li>
+				<li>Use color picker or enter hex codes</li>
+			</ul>
+		</div>
+
+		<h3>Common Use Cases</h3>
+		<div class="example-box">
+			<div class="example-title">Web Development:</div>
+			<ul>
+				<li>Mockup and wireframe creation</li>
+				<li>Testing responsive layouts</li>
+				<li>Placeholder for missing images</li>
+				<li>Prototype development</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">Design:</div>
+			<ul>
+				<li>Client presentations</li>
+				<li>Layout planning</li>
+				<li>Color scheme testing</li>
+				<li>Template creation</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">Testing:</div>
+			<ul>
+				<li>Image loading performance tests</li>
+				<li>Layout stability testing</li>
+				<li>Responsive design validation</li>
+				<li>Cross-browser compatibility</li>
+			</ul>
+		</div>
+
+		<h3>Text Sizing</h3>
+		<p>The text size is automatically calculated based on the image height:</p>
+		<ul>
+			<li>Font size = Image height ÷ 4</li>
+			<li>Text is centered both horizontally and vertically</li>
+			<li>Uses Arial font for consistency</li>
+		</ul>
+
+		<h3>Color Tips</h3>
+		<div class="example-box">
+			<div class="example-title">High Contrast:</div>
+			<ul>
+				<li>Use dark text on light backgrounds</li>
+				<li>Use light text on dark backgrounds</li>
+				<li>Ensure readability for all users</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">Brand Colors:</div>
+			<ul>
+				<li>Match your brand color scheme</li>
+				<li>Use consistent colors across placeholders</li>
+				<li>Consider accessibility guidelines</li>
+			</ul>
+		</div>
+
+		<h3>Output Format</h3>
+		<ul>
+			<li>PNG format for best quality</li>
+			<li>Supports transparency (if background is transparent)</li>
+			<li>High resolution for crisp text</li>
+			<li>Compatible with all modern browsers</li>
+		</ul>
+
+		<h3>Browser Requirements</h3>
+		<ul>
+			<li>Modern web browser with HTML5 Canvas support</li>
+			<li>JavaScript enabled</li>
+			<li>No additional plugins required</li>
+		</ul>
+
+		<h3>Important Notes</h3>
+		<ul>
+			<li>All image generation is done locally in your browser</li>
+			<li>No data is sent to external servers</li>
+			<li>Images are generated in real-time</li>
+			<li>No file size limits for generated images</li>
+			<li>Perfect for development and testing purposes</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		&copy; 2024 Missionary AI. All rights reserved.
+	</div>
+</footer>
+
+</body>
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+
+
+
+</html>

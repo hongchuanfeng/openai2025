@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Online Brick Breaker - Chuandao Tools</title>
+	<meta name="keywords" content="online tools collection, Chuandao Tools">
+	<meta name="description" content="Chuandao Tools is an online collection of utilities. No login, no fees, just use and go. Includes life tools, developer tools, encoding/decoding, encryption/decryption, image tools, and games.">
+	<link rel="canonical" href="https://www.chdaoai.com/game/blockbreak.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container{
+			margin: auto;
+			width: 1000px;
+		}
+		canvas {
+			border: 1px solid black;
+		}
+	</style>
+	<style>
+		/* Help section styles */
+		.help-section { background: #f8f9fa; border-radius: 8px; padding: 2rem; margin: 2rem auto; max-width: 1100px; border-left: 4px solid #007bff; }
+		.help-title { color: #333; font-size: 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem; }
+		.help-content { color: #666; line-height: 1.6; }
+		.help-content h3 { color: #444; margin: 1.25rem 0 .5rem 0; font-size: 1.1rem; }
+		.help-content ul { margin: .5rem 0 1rem 1.5rem; }
+		.help-content li { margin: .35rem 0; }
+
+		/* Footer */
+		.footer { background: #333; color: #fff; text-align: center; padding: 2rem 1rem; margin-top: 3rem; }
+		.footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; flex-wrap: wrap; }
+		.footer-links a { color: #ccc; text-decoration: none; transition: color .3s; }
+		.footer-links a:hover { color: #fff; }
+		.footer-copyright { color: #999; font-size: .9rem; }
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding</a>
+			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Games</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container">
+
+
+	<canvas id="canvas" width="1100" height="400"></canvas>
+
+	<script>
+		const canvas = document.getElementById("canvas");
+		const context = canvas.getContext("2d");
+
+		const ballRadius = 10;
+		let x = canvas.width / 2;
+		let y = canvas.height - 30;
+		let dx = 3;
+		let dy = -3;
+
+		const paddleHeight = 10;
+		const paddleWidth = 275;
+		let paddleX = (canvas.width - paddleWidth) / 2;
+
+		let rightPressed = false;
+		let leftPressed = false;
+
+		const brickRowCount = 3;
+		const brickColumnCount = 5;
+		const brickWidth = 200;
+		const brickHeight = 30;
+		const brickPadding = 10;
+		const brickOffsetTop = 30;
+		const brickOffsetLeft = 30;
+		const bricks = [];
+
+		for (let c = 0; c < brickColumnCount; c++) {
+			bricks[c] = [];
+			for (let r = 0; r < brickRowCount; r++) {
+				bricks[c][r] = { x: 0, y: 0, status: 1 };
+			}
+		}
+
+		let score = 0;
+		let lives = 3;
+
+		function drawBall() {
+			context.beginPath();
+			context.arc(x, y, ballRadius, 0, Math.PI * 2);
+			context.fillStyle = "#0095DD";
+			context.fill();
+			context.closePath();
+		}
+
+		function drawPaddle() {
+			context.beginPath();
+			context.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+			context.fillStyle = "#0095DD";
+			context.fill();
+			context.closePath();
+		}
+
+		function drawBricks() {
+			for (let c = 0; c < brickColumnCount; c++) {
+				for (let r = 0; r < brickRowCount; r++) {
+					if (bricks[c][r].status == 1) {
+						const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
+						const brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
+						bricks[c][r].x = brickX;
+						bricks[c][r].y = brickY;
+						context.beginPath();
+						context.rect(brickX, brickY, brickWidth, brickHeight);
+						context.fillStyle = "#0095DD";
+						context.fill();
+						context.closePath();
+					}
+				}
+			}
+		}
+
+		function collisionDetection() {
+			for (let c = 0; c < brickColumnCount; c++) {
+				for (let r = 0; r < brickRowCount; r++) {
+					const b = bricks[c][r];
+					if (b.status == 1) {
+						if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
+							dy = -dy;
+							b.status = 0;
+							score++;
+							if (score == brickRowCount * brickColumnCount) {
+								alert("YOU WIN, CONGRATULATIONS!");
+								document.location.reload(); // 页面重新加载
+							}
+						}
+					}
+				}
+			}
+		}
+
+		function drawScore() {
+			context.font = "16px Arial";
+			context.fillStyle = "#0095DD";
+			context.fillText("Score: " + score, 8, 20);
+		}
+
+		function drawLives() {
+			context.font = "16px Arial";
+			context.fillStyle = "#0095DD";
+			context.fillText("Lives: " + lives, canvas.width - 65, 20);
+		}
+
+		function draw() {
+			context.clearRect(0, 0, canvas.width, canvas.height);
+			drawBricks();
+			drawBall();
+			drawPaddle();
+			drawScore();
+			drawLives();
+			collisionDetection();
+
+			if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+				dx = -dx;
+			}
+
+			if (y + dy < ballRadius) {
+				dy = -dy;
+			} else if (y + dy > canvas.height - ballRadius) {
+				if (x > paddleX && x < paddleX + paddleWidth) {
+					dy = -dy;
+				} else {
+					lives--;
+					if (!lives) {
+						alert("GAME OVER");
+						document.location.reload(); // 页面重新加载
+					} else {
+						x = canvas.width / 2;
+						y = canvas.height - 30;
+						dx = 3;
+						dy = -3;
+						paddleX = (canvas.width - paddleWidth) / 2;
+					}
+				}
+			}
+
+			if (rightPressed && paddleX < canvas.width - paddleWidth) {
+				paddleX += 7;
+			} else if (leftPressed && paddleX > 0) {
+				paddleX -= 7;
+			}
+
+			x += dx;
+			y += dy;
+
+			requestAnimationFrame(draw);
+		}
+
+		document.addEventListener("keydown", keyDownHandler);
+		document.addEventListener("keyup", keyUpHandler);
+
+		function keyDownHandler(e) {
+			if (e.keyCode == 39) {
+				rightPressed = true;
+			} else if (e.keyCode == 37) {
+				leftPressed = true;
+			}
+		}
+
+		function keyUpHandler(e) {
+			if (e.keyCode == 39) {
+				rightPressed = false;
+			} else if (e.keyCode == 37) {
+				leftPressed = false;
+			}
+		}
+
+		draw();
+	</script>
+></div>
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2 class="help-title"><i class="fas fa-question-circle"></i> How to Play</h2>
+	<div class="help-content">
+		<h3>Goal</h3>
+		<p>Bounce the ball with the paddle to break all bricks. Don’t let the ball fall below the paddle.</p>
+
+		<h3>Controls</h3>
+		<ul>
+			<li>Keyboard: Left/Right arrow keys move the paddle.</li>
+			<li>Lives: You have 3 lives. Missing the ball loses one life.</li>
+		</ul>
+
+		<h3>Scoring & Win/Lose</h3>
+		<ul>
+			<li>Each brick removal increases score.</li>
+			<li>Break all bricks to win. Lose all lives to end the game.</li>
+		</ul>
+
+		<h3>Tips</h3>
+		<ul>
+			<li>Anticipate ball trajectory; adjust paddle early.</li>
+			<li>Stay near the center to reduce travel time.</li>
+		</ul>
+
+		<h3>Notes</h3>
+		<ul>
+			<li>Runs fully in your browser; no network required.</li>
+			<li>Performance depends on device and browser speed.</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">&copy; 2024 Missionary AI. All rights reserved.</div>
+</div>
+<div style="border: 2px solid orange; background-color: #ffe6cc; padding: 10px;width: 800px;margin: auto; display: none;">
+	<h2 style="color: #ff6600">Game Rules:</h2>
+	<ul style="list-style-type:none">
+		<li>Use the left/right arrow keys to move the paddle and keep the ball from hitting the bottom.</li>
+		<li>When the ball hits a brick, the brick disappears and your score increases.</li>
+		<li>Clear all bricks to win. Lose three lives and it's game over.</li>
+	</ul>
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>QR Code Decoder - Chuandao Tools</title>
+	<meta name="keywords" content="online tools collection, Chuandao Tools">
+	<meta name="description" content="Chuandao Tools is an online collection of utilities. No login, no fees, just use and go. Includes life tools, developer tools, encoding/decoding, encryption/decryption, image tools, and games.">
+	<link rel="canonical" href="https://www.chdaoai.com/recommend/qrcodeana.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #2d3436;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.header-title {
+			font-size: 18px;
+			font-weight: bold;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.rating {
+			display: flex;
+			gap: 5px;
+			color: #ffd700;
+		}
+		.share-icon {
+			margin-left: auto;
+			color: #666;
+			cursor: pointer;
+		}
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		.upload-area {
+			border: 2px dashed #ddd;
+			border-radius: 8px;
+			padding: 40px;
+			text-align: center;
+			background: white;
+			margin-bottom: 20px;
+			cursor: pointer;
+		}
+		.upload-area:hover {
+			border-color: #2196f3;
+		}
+		.upload-icon {
+			font-size: 48px;
+			color: #666;
+			margin-bottom: 10px;
+		}
+		.upload-text {
+			color: #666;
+		}
+		.url-input {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #e9ecef;
+			border-radius: 8px;
+			font-size: 16px;
+			margin-bottom: 20px;
+		}
+		.url-input:focus {
+			border-color: #2196f3;
+			outline: none;
+		}
+		.decode-btn {
+			width: 100%;
+			padding: 12px;
+			background-color: #2196f3;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			font-size: 16px;
+			cursor: pointer;
+			margin-bottom: 20px;
+		}
+		.decode-btn:hover {
+			background-color: #1976d2;
+		}
+		.result {
+			padding: 15px;
+			background: white;
+			border-radius: 8px;
+			margin-bottom: 20px;
+			display: none;
+		}
+		.info-box {
+			background-color: #fff5f0;
+			border-radius: 8px;
+			padding: 20px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 15px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+		}
+		.info-list li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+		#preview {
+			max-width: 100%;
+			display: none;
+			margin: 10px 0;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			padding: 1.5rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			border-radius: 8px;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-section h2 {
+			color: #333;
+			font-size: 1.3rem;
+			margin-bottom: 1rem;
+		}
+
+		.help-section h3 {
+			color: #007bff;
+			font-size: 1.1rem;
+			margin-top: 1rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.help-section p, .help-section ul {
+			color: #666;
+			line-height: 1.8;
+			margin-bottom: 0.8rem;
+		}
+
+		.help-section ul {
+			margin-left: 1.5rem;
+		}
+
+		.help-section ul li {
+			margin-bottom: 0.5rem;
+		}
+
+		.example {
+			background: #e7f3ff;
+			padding: 1rem;
+			border-radius: 5px;
+			margin-top: 1rem;
+		}
+
+		.example strong {
+			color: #007bff;
+		}
+
+		/* Footer styles */
+		footer {
+			background: white;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+			border-top: 1px solid #e0e0e0;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #666;
+			text-decoration: none;
+			transition: color 0.3s;
+			font-size: 0.95rem;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding</a>
+			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Games</a>
+		</div>
+	</div>
+</nav>
+
+
+<h1 style="text-align: center">QR Code Decoder</h1>
+<div class="container">
+	<div class="upload-area" id="dropArea" onclick="document.getElementById('fileInput').click()">
+		<input type="file" id="fileInput" hidden accept="image/*" onchange="handleFile(event)">
+		<div class="upload-icon">☁️</div>
+		<div class="upload-text">Click to upload, or drag an image here</div>
+		<img id="preview" alt="预览�?>
+	</div>
+
+	<input type="text" class="url-input" id="urlInput" placeholder="Enter remote image URL">
+	<button class="decode-btn" onclick="decodeURL()">Decode</button>
+
+	<div class="result" id="result"></div>
+
+	<div class="info-box">
+		<h3 class="info-title">About the QR Code Decoder:</h3>
+		<ul class="info-list">
+			<li>1. Decode QR codes from online or local images into text.</li>
+			<li>2. For remote images, paste the URL or download and upload locally.</li>
+			<li>3. Runs entirely in your browser; images are not uploaded to a server.</li>
+		</ul>
+	</div>
+</div>
+
+<div class="help-section">
+	<h2>How to Use the QR Code Decoder</h2>
+	<p>Decode QR codes from images to extract text content quickly and securely.</p>
+
+	<h3>Instructions</h3>
+	<ul>
+		<li><strong>Upload Image:</strong> Click the upload area or drag and drop an image file</li>
+		<li><strong>Remote URL:</strong> Enter an image URL and click "Decode"</li>
+		<li><strong>Supported Formats:</strong> JPG, PNG, GIF, WebP, and other common image formats</li>
+		<li><strong>View Results:</strong> Decoded text will appear below the upload area</li>
+	</ul>
+
+	<h3>Upload Methods</h3>
+	<ul>
+		<li><strong>Click to Upload:</strong> Click the upload area to select a file from your device</li>
+		<li><strong>Drag & Drop:</strong> Drag an image file directly onto the upload area</li>
+		<li><strong>URL Input:</strong> Paste an image URL in the text field for remote images</li>
+	</ul>
+
+	<h3>What QR Codes Can Contain</h3>
+	<ul>
+		<li><strong>URLs:</strong> Website links and web addresses</li>
+		<li><strong>Text:</strong> Plain text messages and notes</li>
+		<li><strong>Contact Info:</strong> vCard format contact details</li>
+		<li><strong>WiFi:</strong> Network credentials and passwords</li>
+		<li><strong>Email:</strong> Email addresses and messages</li>
+		<li><strong>SMS:</strong> Phone numbers and text messages</li>
+		<li><strong>Location:</strong> GPS coordinates and addresses</li>
+	</ul>
+
+	<h3>Examples</h3>
+	<div class="example">
+		<strong>Example 1 - Website QR Code:</strong><br>
+		Input: QR code image containing "https://www.example.com"<br>
+		Output: https://www.example.com<br><br>
+		<strong>Example 2 - Text QR Code:</strong><br>
+		Input: QR code image containing "Hello World!"<br>
+		Output: Hello World!
+	</div>
+
+	<h3>Tips for Better Decoding</h3>
+	<ul>
+		<li>Use clear, high-resolution images</li>
+		<li>Ensure good lighting and contrast</li>
+		<li>Keep the QR code square and undistorted</li>
+		<li>Avoid blurry or damaged QR codes</li>
+		<li>Make sure the entire QR code is visible in the image</li>
+	</ul>
+
+	<h3>Privacy & Security</h3>
+	<ul>
+		<li>All processing happens in your browser</li>
+		<li>Images are not uploaded to any server</li>
+		<li>Your data stays completely private</li>
+		<li>No registration or login required</li>
+	</ul>
+
+	<h3>Common Issues</h3>
+	<ul>
+		<li><strong>No QR Code Detected:</strong> Check image quality and ensure QR code is clearly visible</li>
+		<li><strong>Failed to Load URL:</strong> Verify the image URL is accessible and contains a valid image</li>
+		<li><strong>Unclear Results:</strong> Try a higher resolution image or better lighting</li>
+	</ul>
+
+	<h3>Use Cases</h3>
+	<ul>
+		<li>Decoding QR codes from screenshots or photos</li>
+		<li>Extracting information from printed QR codes</li>
+		<li>Testing QR code generation tools</li>
+		<li>Converting QR codes to readable text</li>
+		<li>Educational purposes and demonstrations</li>
+	</ul>
+</div>
+
+<footer>
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+	</div>
+</footer>
+
+<script>
+	// 拖拽上传
+	const dropArea = document.getElementById('dropArea');
+
+	dropArea.addEventListener('dragover', (e) => {
+		e.preventDefault();
+		dropArea.style.borderColor = '#2196f3';
+	});
+
+	dropArea.addEventListener('dragleave', (e) => {
+		e.preventDefault();
+		dropArea.style.borderColor = '#ddd';
+	});
+
+	dropArea.addEventListener('drop', (e) => {
+		e.preventDefault();
+		dropArea.style.borderColor = '#ddd';
+		const file = e.dataTransfer.files[0];
+		if (file && file.type.startsWith('image/')) {
+			handleFileUpload(file);
+		}
+	});
+
+	function handleFile(event) {
+		const file = event.target.files[0];
+		if (file) {
+			handleFileUpload(file);
+		}
+	}
+
+	function handleFileUpload(file) {
+		const reader = new FileReader();
+		reader.onload = function(e) {
+			const preview = document.getElementById('preview');
+			preview.src = e.target.result;
+			preview.style.display = 'block';
+			decodeQR(e.target.result);
+		}
+		reader.readAsDataURL(file);
+	}
+
+	function decodeURL() {
+		const url = document.getElementById('urlInput').value.trim();
+		if (!url) {
+			alert('Please enter an image URL!');
+			return;
+		}
+
+		// 创建图片对象
+		const img = new Image();
+		img.crossOrigin = 'Anonymous';
+		img.onload = function() {
+			const canvas = document.createElement('canvas');
+			canvas.width = img.width;
+			canvas.height = img.height;
+			const ctx = canvas.getContext('2d');
+			ctx.drawImage(img, 0, 0);
+			decodeQR(canvas.toDataURL());
+		};
+		img.onerror = function() {
+			alert('Failed to load image!');
+		};
+		img.src = url;
+	}
+
+	function decodeQR(imageData) {
+		const img = new Image();
+		img.onload = function() {
+			const canvas = document.createElement('canvas');
+			canvas.width = img.width;
+			canvas.height = img.height;
+			const ctx = canvas.getContext('2d');
+			ctx.drawImage(img, 0, 0);
+			const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+			const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+			const result = document.getElementById('result');
+			result.style.display = 'block';
+
+			if (code) {
+				result.innerHTML = `
+                        <h3 style="color: #00b894; margin-bottom: 10px;">Decoded Result:</h3>
+                        <p>${code.data}</p>
+                    `;
+			} else {
+				result.innerHTML = 'Could not detect a QR code. Ensure the image is clear and contains a valid QR code.';
+			}
+		};
+		img.src = imageData;
+	}
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JSON �?GET Query Converter - Chandao Tools</title>
+	<meta name="keywords" content="online tool collection, Chandao Tools">
+	<meta name="description" content="Chandao Tools is a collection of free, no-login online utilities across life, dev, encoding/decoding, encryption, images, and fun.">
+	<link rel="canonical" href="https://www.chdaoai.com/dev/getstringbyjson.html">			
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		}
+
+		h2 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 10px;
+		}
+
+		textarea {
+			width: 100%;
+			height: 150px;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			font-family: Consolas, monospace;
+			font-size: 14px;
+			resize: vertical;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			background: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 200px;
+		}
+
+		.btn-group>button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about li {
+			margin: 10px 0;
+			line-height: 1.6;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding</a>
+			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h2>JSON �?GET Query Converter</h2>
+
+	<textarea id="inputArea" placeholder="Enter JSON or GET query...">{
+  "name": "xiaoming",
+  "age": "18"
+}</textarea>
+
+	<div class="btn-group">
+		<button onclick="jsonToGet()">JSON �?GET</button>
+		<button onclick="getToJson()">GET �?JSON</button>
+	</div>
+
+	<textarea id="outputArea" placeholder="Converted result..." readonly></textarea>
+
+	<div class="btn-group">
+		<button onclick="copyResult()">Copy result</button>
+		<button onclick="clearAll()">Clear</button>
+	</div>
+
+	<div class="about">
+		<h3>About this tool:</h3>
+		<ul>
+			<li>JSON is a lightweight data format, language-independent.</li>
+			<li>GET query strings start with ?, key-value pairs separated by &amp;.</li>
+			<li>Automatically encodes/decodes non-ASCII and special characters.</li>
+			<li>Results are ready for web development and debugging.</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+	// JSON转GET参数
+	function jsonToGet() {
+		try {
+			const jsonInput = document.getElementById('inputArea').value;
+			const obj = JSON.parse(jsonInput);
+			let getParams = [];
+
+			for (const [key, value] of Object.entries(obj)) {
+				const encodedValue = encodeURIComponent(value);
+				getParams.push(`${key}=${encodedValue}`);
+			}
+
+			document.getElementById('outputArea').value = getParams.join('&');
+		} catch (error) {
+			alert(`JSON parse error: ${error.message}`);
+		}
+	}
+
+	// GET参数转JSON
+	function getToJson() {
+		try {
+			const getInput = document.getElementById('inputArea').value;
+			const params = new URLSearchParams(getInput);
+			const result = {};
+
+			for (const [key, value] of params) {
+				result[key] = decodeURIComponent(value);
+			}
+
+			document.getElementById('outputArea').value = JSON.stringify(result, null, 2);
+		} catch (error) {
+			alert('GET parse error, please check the format');
+		}
+	}
+
+	// 复制结果
+	function copyResult() {
+		const output = document.getElementById('outputArea');
+		output.select();
+		document.execCommand('copy');
+		alert('Copied to clipboard');
+	}
+
+	// 清空所有内�?
+	function clearAll() {
+		document.getElementById('inputArea').value = '';
+		document.getElementById('outputArea').value = '';
+	}
+
+	// 自动去除URL前缀
+	document.getElementById('inputArea').addEventListener('input', function() {
+		const value = this.value.trim();
+		if (value.startsWith('?')) {
+			this.value = value.slice(1);
+		}
+	});
+</script>
+
+<!-- Help Section -->
+<div class="help-section" style="background:#f8f9fa; border-radius:8px; padding:2rem; margin:2rem auto; max-width:1100px; border-left:4px solid #007bff;">
+	<h2 class="help-title" style="color:#333; font-size:1.5rem; margin-bottom:1rem; display:flex; align-items:center; gap:.5rem;">How to Use</h2>
+	<div class="help-content" style="color:#666; line-height:1.6;">
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">What this tool does</h3>
+		<p>Converts JSON objects to GET query strings and parses GET strings back to JSON, handling URL encoding/decoding.</p>
+
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Steps</h3>
+		<ol style="margin:.5rem 0 1rem 1.5rem;">
+			<li>Paste JSON or a GET query into the top box.</li>
+			<li>Click <b>JSON �?GET</b> or <b>GET �?JSON</b> to convert.</li>
+			<li>Use <b>Copy result</b> or <b>Clear</b> as needed.</li>
+		</ol>
+
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Examples</h3>
+		<ul style="margin:.5rem 0 1rem 1.5rem;">
+			<li>{"name":"小明","age":18} �?name=%E5%B0%8F%E6%98%8E&age=18</li>
+			<li>q=hello%20world&lang=en �?{"q":"hello world","lang":"en"}</li>
+		</ul>
+
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Notes</h3>
+		<ul style="margin:.5rem 0 1rem 1.5rem;">
+			<li>Duplicate keys will be overwritten in simple mode; customize if arrays are needed.</li>
+			<li>All processing runs locally in your browser.</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Footer -->
+<footer class="footer" style="background:#333; color:#fff; text-align:center; padding:2rem 1rem; margin-top:3rem;">
+	<div class="footer-links" style="display:flex; justify-content:center; gap:2rem; margin-bottom:1rem; flex-wrap:wrap;">
+		<a href="../about.html" style="color:#ccc; text-decoration:none; transition:color .3s;">About Us</a>
+		<a href="../contact.html" style="color:#ccc; text-decoration:none; transition:color .3s;">Contact Us</a>
+		<a href="../privacy.html" style="color:#ccc; text-decoration:none; transition:color .3s;">Privacy Policy</a>
+	</div>
+	<div style="color:#aaa; font-size:.9rem;">© <span id="year-dev-get">2025</span> Chuandao Tools. All rights reserved.</div>
+</footer>
+<script>document.getElementById('year-dev-get').textContent = new Date().getFullYear();</script>
+</body>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HTML Minify & Format Tool - Chandao Tools</title>
+	<meta name="keywords" content="online tool collection, Chandao Tools">
+	<meta name="description" content="Chandao Tools is a collection of free, no-login online utilities across life, dev, encoding/decoding, encryption, images, and fun.">
+	<link rel="canonical" href="https://www.chdaoai.com/dev/htmlformat.html">			
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		#editor {
+			width: 100%;
+			height: 400px;
+			padding: 15px;
+			border: 2px solid #4CAF50;
+			border-radius: 8px;
+			font-family: Consolas, monospace;
+			font-size: 14px;
+			resize: vertical;
+			margin-bottom: 15px;
+			tab-size: 4;
+		}
+
+		.button-group {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+			gap: 10px;
+			margin-bottom: 20px;
+		}
+
+		.button-group>button {
+			padding: 10px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			background-color: #4CAF50;
+			color: white;
+			transition: opacity 0.3s;
+		}
+
+		.button-group>button:hover {
+			opacity: 0.9;
+		}
+
+		.instructions {
+			padding: 20px;
+			background-color: #f8f9fa;
+			border-radius: 8px;
+			line-height: 1.6;
+		}
+
+		.line-numbers {
+			position: absolute;
+			left: 10px;
+			color: #666;
+			user-select: none;
+		}
+
+		.editor-wrapper {
+			position: relative;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+			z-index: 999;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+	<script src="https://cdn.jsdelivr.net/npm/xml2js@0.6.2/lib/xml2js.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding</a>
+			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<h2 style="text-align: center">HTML Minify / Format</h2>
+
+	<div class="editor-wrapper">
+		<div class="line-numbers" id="lineNumbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11</div>
+		<textarea id="editor"><!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>网页的标�?/title>
+</head>
+<body>
+<h1>我是HI标题</h1>
+<p>我是一个P段落</p>
+</body>
+</html></textarea>
+	</div>
+
+	<div class="button-group">
+		<button onclick="compressHTML()">Minify</button>
+		<button onclick="formatHTML()">Format</button>
+		<button onclick="setIndent(4)">Indent: 4 spaces</button>
+		<button onclick="uploadHTML()">Upload</button>
+		<button onclick="copyHTML()">Copy</button>
+		<button onclick="clearEditor()">Clear</button>
+	</div>
+
+	<div class="instructions">
+		<h3>About this tool:</h3>
+		<ol>
+			<li>Minify or format HTML instantly.</li>
+			<li>Choose indentation style (e.g., 2 or 4 spaces).</li>
+			<li>Use "Upload" to process a local HTML file.</li>
+			<li>Runs in-browser; no files are uploaded to a server.</li>
+		</ol>
+	</div>
+
+	<script>
+		const editor = document.getElementById('editor');
+		let currentIndent = 4;
+
+		// 压缩HTML
+		function compressHTML() {
+			editor.value = editor.value
+					.replace(/\n/g, '')
+					.replace(/>\s+</g, '><')
+					.replace(/\s{2,}/g, ' ')
+					.trim();
+		}
+
+		// 格式化HTML
+		function formatHTML() {
+			let indentLevel = 0;
+			let formatted = '';
+
+			editor.value
+					.replace(/</g, '\n<')
+					.replace(/>/g, '>\n')
+					.split('\n')
+					.forEach(line => {
+						line = line.trim();
+						if (!line) return;
+
+						if (line.startsWith('</')) indentLevel--;
+						const indent = ' '.repeat(currentIndent * indentLevel);
+						formatted += indent + line + '\n';
+						if (line.startsWith('<') && !line.startsWith('</') && !line.endsWith('/>')) {
+							indentLevel++;
+						}
+					});
+
+			editor.value = formatted;
+		}
+
+		// 设置缩进
+		function setIndent(spaces) {
+			currentIndent = spaces;
+			formatHTML();
+		}
+
+		// 文件上传
+		function uploadHTML() {
+			const input = document.createElement('input');
+			input.type = 'file';
+			input.accept = '.html';
+
+			input.onchange = e => {
+				const file = e.target.files[0];
+				const reader = new FileReader();
+
+				reader.onload = e => {
+					editor.value = e.target.result;
+				};
+
+				reader.readAsText(file);
+			};
+
+			input.click();
+		}
+
+		// 复制内容
+		function copyHTML() {
+			navigator.clipboard.writeText(editor.value)
+					.then(() => alert('Copied to clipboard'))
+					.catch(() => alert('Copy failed'));
+		}
+
+		// 清空编辑�?
+		function clearEditor() {
+			editor.value = '';
+		}
+
+		// 行号动态更�?
+		editor.addEventListener('input', () => {
+			const lines = editor.value.split('\n').length;
+			document.getElementById('lineNumbers').innerHTML =
+					Array(lines).fill().map((_,i) => i+1).join('<br>');
+		});
+	</script>
+ </div>
+
+ <!-- Help Section -->
+ <div class="help-section" style="background:#f8f9fa; border-radius:8px; padding:2rem; margin:2rem auto; max-width:1100px; border-left:4px solid #007bff;">
+ 	<h2 class="help-title" style="color:#333; font-size:1.5rem; margin-bottom:1rem; display:flex; align-items:center; gap:.5rem;">How to Use</h2>
+ 	<div class="help-content" style="color:#666; line-height:1.6;">
+ 		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">What this tool does</h3>
+ 		<p>Formats or minifies HTML markup, adjusts indentation, uploads local files, and supports copying/clearing content. Processing is local.</p>
+
+ 		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Steps</h3>
+ 		<ol style="margin:.5rem 0 1rem 1.5rem;">
+ 			<li>Paste or upload HTML into the editor.</li>
+ 			<li>Click <b>Format</b> for pretty output; <b>Minify</b> to compress.</li>
+ 			<li>Use <b>Indent</b> to change indentation width.</li>
+ 		</ol>
+
+ 		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Examples</h3>
+ 		<ul style="margin:.5rem 0 1rem 1.5rem;">
+ 			<li>Removes redundant whitespace and collapses tags when minifying.</li>
+ 			<li>Adds newlines and indentation between tags when formatting.</li>
+ 		</ul>
+
+ 		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Notes</h3>
+ 		<ul style="margin:.5rem 0 1rem 1.5rem;">
+ 			<li>Heuristics may not perfectly handle embedded JS/CSS; review results.</li>
+ 			<li>No content is uploaded; everything runs in your browser.</li>
+ 		</ul>
+ 	</div>
+ </div>
+
+ <!-- Footer -->
+ <footer class="footer" style="background:#333; color:#fff; text-align:center; padding:2rem 1rem; margin-top:3rem;">
+ 	<div class="footer-links" style="display:flex; justify-content:center; gap:2rem; margin-bottom:1rem; flex-wrap:wrap;">
+ 		<a href="../about.html" style="color:#ccc; text-decoration:none; transition:color .3s;">About Us</a>
+ 		<a href="../contact.html" style="color:#ccc; text-decoration:none; transition:color .3s;">Contact Us</a>
+ 		<a href="../privacy.html" style="color:#ccc; text-decoration:none; transition:color .3s;">Privacy Policy</a>
+ 	</div>
+ 	<div style="color:#aaa; font-size:.9rem;">© <span id="year-dev-htmlfmt">2025</span> Chuandao Tools. All rights reserved.</div>
+ </footer>
+ <script>document.getElementById('year-dev-htmlfmt').textContent = new Date().getFullYear();</script>
+
+ </body>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+ </script>
+ </html>

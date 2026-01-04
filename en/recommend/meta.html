@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Web Meta Tag Generator - Chandao Tools</title>
+	<meta name="keywords" content="online tool collection, Chandao Tools">
+	<meta name="description" content="Chandao Tools is a collection of free, no-login online utilities across life, dev, encoding/decoding, encryption, images, and fun.">
+	<link rel="canonical" href="https://www.chdaoai.com/recommend/meta.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #ff9f43;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 20px;
+		}
+		.form-container {
+			background: white;
+			padding: 20px;
+			border-radius: 8px;
+		}
+		.result-container {
+			background: white;
+			padding: 20px;
+			border-radius: 8px;
+		}
+		.form-group {
+			margin-bottom: 15px;
+		}
+		.form-label {
+			display: block;
+			margin-bottom: 8px;
+			color: #666;
+			font-weight: bold;
+		}
+		.form-input {
+			width: 100%;
+			padding: 8px;
+			border: 2px solid #e9ecef;
+			border-radius: 4px;
+			font-size: 14px;
+		}
+		.form-input:focus {
+			border-color: #2196f3;
+			outline: none;
+		}
+		.generate-btn {
+			width: 100%;
+			padding: 12px;
+			background-color: #2196f3;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			font-size: 16px;
+			cursor: pointer;
+			margin: 20px 0;
+		}
+		.result-textarea {
+			width: 100%;
+			height: 500px;
+			padding: 15px;
+			border: 2px solid #e9ecef;
+			border-radius: 8px;
+			font-family: monospace;
+			font-size: 14px;
+			resize: vertical;
+		}
+		.info-box {
+			background-color: #fff5f0;
+			border-radius: 8px;
+			padding: 20px;
+			grid-column: span 2;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 15px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+		}
+		.info-list li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navbar */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			padding: 1.5rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			border-radius: 8px;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-section h2 {
+			color: #333;
+			font-size: 1.3rem;
+			margin-bottom: 1rem;
+		}
+
+		.help-section h3 {
+			color: #007bff;
+			font-size: 1.1rem;
+			margin-top: 1rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.help-section p, .help-section ul {
+			color: #666;
+			line-height: 1.8;
+			margin-bottom: 0.8rem;
+		}
+
+		.help-section ul {
+			margin-left: 1.5rem;
+		}
+
+		.help-section ul li {
+			margin-bottom: 0.5rem;
+		}
+
+		.example {
+			background: #e7f3ff;
+			padding: 1rem;
+			border-radius: 5px;
+			margin-top: 1rem;
+		}
+
+		.example strong {
+			color: #007bff;
+		}
+
+		/* Footer styles */
+		footer {
+			background: white;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+			border-top: 1px solid #e0e0e0;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #666;
+			text-decoration: none;
+			transition: color 0.3s;
+			font-size: 0.95rem;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding</a>
+			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
+		</div>
+	</div>
+</nav>
+
+
+<h1 style="text-align: center">
+	Web Meta Tag Generator
+</h1>
+<div class="container">
+
+	<div class="form-container">
+
+		<div class="form-group">
+			<label class="form-label">Page title</label>
+			<input type="text" class="form-input" id="title" placeholder="e.g., Tools site">
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">Keywords</label>
+			<input type="text" class="form-input" id="keywords" placeholder="e.g., tags, tools">
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">Description</label>
+			<input type="text" class="form-input" id="description" placeholder="e.g., This is a tools site">
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">Viewport</label>
+			<input type="text" class="form-input" id="viewport" value="width=device-width, initial-scale=1.0">
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">Charset</label>
+			<input type="text" class="form-input" id="charset" value="UTF-8">
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">Cache policy</label>
+			<input type="text" class="form-input" id="cache" value="no-cache">
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">Author</label>
+			<input type="text" class="form-input" id="author" placeholder="e.g., John Doe (optional)">
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">Copyright</label>
+			<input type="text" class="form-input" id="copyright" placeholder="e.g., John Doe (optional)">
+		</div>
+
+		<div class="form-group">
+			<label class="form-label">Designer</label>
+			<input type="text" class="form-input" id="designer" placeholder="e.g., John Doe (optional)">
+		</div>
+
+		<button class="generate-btn" onclick="generateMeta()">Generate</button>
+	</div>
+
+	<div class="result-container">
+		<textarea class="result-textarea" id="result" readonly></textarea>
+	</div>
+
+	<div class="info-box">
+		<h3 class="info-title">About HTML Meta Tags:</h3>
+		<ul class="info-list">
+			<li>1. Meta tags are in the head and provide metadata about the document.</li>
+			<li>2. Metadata is not displayed but helps SEO and browser behavior.</li>
+			<h4 style="margin: 15px 0 10px 0;">Common meta-related tags:</h4>
+			<li>1. Charset: encoding of the page, usually UTF-8.</li>
+			<li>2. Viewport: controls layout on mobile devices.</li>
+			<li>3. Title: not a meta tag, shows the page title.</li>
+			<li>4. Keywords: legacy; most search engines ignore it.</li>
+			<li>5. Description: short summary shown in search results.</li>
+			<li>6. Author: page author (optional).</li>
+			<li>7. Copyright: copyright statement (optional).</li>
+			<li>8. Designer: page designer (rarely used).</li>
+			<li>9. Renderer: browser engine hints.</li>
+			<li>10. Robots: indexing and link-following rules.</li>
+		</ul>
+	</div>
+</div>
+
+<div class="help-section">
+	<h2>How to Use the Web Meta Tag Generator</h2>
+	<p>Generate complete HTML meta tags for your website to improve SEO and browser behavior.</p>
+
+	<h3>Instructions</h3>
+	<ul>
+		<li>Enter your page title (required)</li>
+		<li>Add keywords separated by commas (optional)</li>
+		<li>Write a description for search engines (optional)</li>
+		<li>Customize viewport settings for mobile devices</li>
+		<li>Set charset encoding (usually UTF-8)</li>
+		<li>Configure cache policy for better performance</li>
+		<li>Add author, copyright, and designer information (optional)</li>
+		<li>Click "Generate" to create the HTML code</li>
+	</ul>
+
+	<h3>Essential Meta Tags</h3>
+	<ul>
+		<li><strong>Title:</strong> Page title shown in browser tabs and search results</li>
+		<li><strong>Description:</strong> Summary shown in search engine results</li>
+		<li><strong>Viewport:</strong> Controls mobile device layout and scaling</li>
+		<li><strong>Charset:</strong> Character encoding (UTF-8 recommended)</li>
+		<li><strong>Cache Control:</strong> Browser caching behavior</li>
+	</ul>
+
+	<h3>SEO Best Practices</h3>
+	<ul>
+		<li>Keep title under 60 characters for better display</li>
+		<li>Write descriptions between 150-160 characters</li>
+		<li>Use relevant keywords naturally in title and description</li>
+		<li>Make each page's title and description unique</li>
+		<li>Include your brand name in titles when appropriate</li>
+	</ul>
+
+	<h3>Examples</h3>
+	<div class="example">
+		<strong>Example 1 - Blog Post:</strong><br>
+		Title: "10 Best Web Development Tools 2024"<br>
+		Description: "Discover the top 10 web development tools every developer should know in 2024. From code editors to testing frameworks."<br><br>
+		<strong>Example 2 - Business Page:</strong><br>
+		Title: "Contact Us - Missionary AI"<br>
+		Description: "Get in touch with Missionary AI. We provide free online tools and web utilities. Contact us for support or feedback."
+	</div>
+
+	<h3>Mobile Optimization</h3>
+	<p>The viewport meta tag is crucial for mobile-friendly websites. The default setting "width=device-width, initial-scale=1.0" ensures your site displays properly on all devices.</p>
+
+	<h3>Generated Output</h3>
+	<p>The generator creates a complete HTML structure with proper meta tags that you can copy and paste into your website's &lt;head&gt; section.</p>
+</div>
+
+<footer>
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+	</div>
+</footer>
+
+<script>
+	function generateMeta() {
+		const title = document.getElementById('title').value;
+		const keywords = document.getElementById('keywords').value;
+		const description = document.getElementById('description').value;
+		const viewport = document.getElementById('viewport').value;
+		const charset = document.getElementById('charset').value;
+		const cache = document.getElementById('cache').value;
+		const author = document.getElementById('author').value;
+		const copyright = document.getElementById('copyright').value;
+		const designer = document.getElementById('designer').value;
+
+		let metaTags = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="${charset}">
+    <meta name="viewport" content="${viewport}">
+    <title>${title}</title>`;
+
+		if (keywords) {
+			metaTags += `\n    <meta name="keywords" content="${keywords}">`;
+		}
+		if (description) {
+			metaTags += `\n    <meta name="description" content="${description}">`;
+		}
+		if (author) {
+			metaTags += `\n    <meta name="author" content="${author}">`;
+		}
+		if (copyright) {
+			metaTags += `\n    <meta name="copyright" content="${copyright}">`;
+		}
+		if (designer) {
+			metaTags += `\n    <meta name="designer" content="${designer}">`;
+		}
+
+		metaTags += `\n    <meta http-equiv="cache-control" content="${cache}">`;
+		metaTags += '\n</head>\n<body>\n\n</body>\n</html>';
+
+		document.getElementById('result').value = metaTags;
+	}
+
+	// Generate default meta tags on load
+	window.onload = generateMeta;
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// Auto-close menu after clicking
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

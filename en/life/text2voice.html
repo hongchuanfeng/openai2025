@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Text to Speech - Chdao Tools</title>
+	<meta name="keywords" content="online tools suite, Chdao Tools">
+	<meta name="description" content="Chdao Tools is an online toolkit with no login or fees. Includes life, developer, encoding/decoding, encryption, image, and entertainment tools.">
+	<link rel="canonical" href="https://www.chdaoai.com/life/text2voice.html">	
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background-color: white;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+			border-radius: 4px;
+			overflow: hidden;
+			max-width: 600px;
+			max-width: 100%;
+			margin: auto;
+		}
+
+		.header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 20px;
+			background-color: #008CBA;
+			color: white;
+			font-size: 24px;
+		}
+
+		.header h1 {
+			margin: 0;
+		}
+
+		.options {
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			padding: 10px;
+			font-size: 18px;
+		}
+
+		label {
+			display: inline-flex;
+			align-items: center;
+		}
+
+		input[type="radio"],
+		input[type="checkbox"] {
+			margin-right: 5px;
+		}
+
+		#text {
+			padding: 20px;
+			font-size: 18px;
+			line-height: 1.5;
+			border: none;
+			resize: vertical;
+			min-height: 200px;
+			border: 1px solid #ccc;
+			width: 100%;
+		}
+
+		.buttons {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 20px;
+		}
+
+		.con-btn {
+			font-size: 18px;
+			font-weight: bold;
+			color: white;
+			background-color: #008CBA;
+			border: none;
+			border-radius: 4px;
+			padding: 10px 20px;
+			cursor: pointer;
+			transition: all 0.2s ease-in-out;
+		}
+
+		.con-btn:hover {
+			background-color: #006D9E;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 600px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tools grid layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Help Section Styles */
+		.help-section {
+			background: white;
+			border-radius: 8px;
+			padding: 2rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		}
+
+		.help-section h2 {
+			color: #333;
+			margin-bottom: 1rem;
+			font-size: 1.5rem;
+		}
+
+		.help-section h3 {
+			color: #555;
+			margin: 1.5rem 0 0.5rem 0;
+			font-size: 1.2rem;
+		}
+
+		.help-section p {
+			color: #666;
+			line-height: 1.6;
+			margin-bottom: 1rem;
+		}
+
+		.help-section ul, .help-section ol {
+			margin: 0.5rem 0 1rem 1.5rem;
+			color: #666;
+		}
+
+		.help-section li {
+			margin: 0.3rem 0;
+			line-height: 1.5;
+		}
+
+		.help-section strong {
+			color: #333;
+		}
+
+		/* Footer Styles */
+		.footer {
+			background: #333;
+			color: white;
+			padding: 2rem 0;
+			margin-top: 3rem;
+		}
+
+		.footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 1rem;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1rem;
+		}
+
+		.footer-links a {
+			color: white;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #ccc;
+			font-size: 0.9rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.help-section {
+				margin: 1rem;
+				padding: 1.5rem;
+			}
+
+			.footer-links {
+				flex-direction: column;
+				gap: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding/Decoding</a>
+			<a href="../dev.html" class="nav-category">💻 Developer Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Entertainment</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container">
+	<div class="header">
+		<h3>Text to Speech</h3>
+		<button class="con-btn" id="downloadButton" disabled>Download audio</button>
+	</div>
+	<div class="options">
+		<div>
+			<label><input type="radio" name="language" value="zh-CN" checked>Chinese (China)</label>
+			<label><input type="radio" name="language" value="en-US">English (US)</label>
+		</div>
+		<div>
+			<label><input type="checkbox" id="autoplayCheckbox" checked>Auto play audio</label>
+		</div>
+	</div>
+	<textarea id="text" placeholder="Enter text"></textarea>
+	<div class="buttons">
+		<button class="con-btn" onclick="play()">Play</button>
+		<button class="con-btn" onclick="stop()">Stop</button>
+	</div>
+</div>
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2>How to Use</h2>
+	<p>This tool converts text to speech using your browser's built-in text-to-speech engine. You can choose between Chinese and English voices and download the audio.</p>
+	
+	<h3>Step-by-Step Instructions:</h3>
+	<ol>
+		<li><strong>Select Language:</strong> Choose between Chinese (China) or English (US)</li>
+		<li><strong>Enable Auto Play:</strong> Check "Auto play audio" if you want immediate playback</li>
+		<li><strong>Enter Text:</strong> Type or paste your text in the text area</li>
+		<li><strong>Play Audio:</strong> Click "Play" to start text-to-speech conversion</li>
+		<li><strong>Stop Audio:</strong> Click "Stop" to stop the current playback</li>
+		<li><strong>Download:</strong> Click "Download audio" to save the speech as an MP3 file</li>
+	</ol>
+	
+	<h3>Language Options:</h3>
+	<ul>
+		<li><strong>Chinese (China):</strong> Uses Chinese voice synthesis</li>
+		<li><strong>English (US):</strong> Uses English voice synthesis</li>
+	</ul>
+	
+	<h3>Features:</h3>
+	<ul>
+		<li><strong>Real-time Playback:</strong> Listen to text as it's being converted</li>
+		<li><strong>Auto Play:</strong> Automatically start playback when text is entered</li>
+		<li><strong>Download Support:</strong> Save audio as MP3 files</li>
+		<li><strong>Multiple Languages:</strong> Support for Chinese and English</li>
+		<li><strong>Browser-based:</strong> No external services required</li>
+	</ul>
+	
+	<h3>Examples:</h3>
+	<ul>
+		<li><strong>English:</strong> "Hello, welcome to our text-to-speech tool!"</li>
+		<li><strong>Chinese:</strong> "你好，欢迎使用我们的文字转语音工具！"</li>
+		<li><strong>Mixed Content:</strong> "Today is 2024�?�?�? Happy New Year!"</li>
+	</ul>
+	
+	<h3>Common Use Cases:</h3>
+	<ul>
+		<li>Accessibility for visually impaired users</li>
+		<li>Language learning and pronunciation practice</li>
+		<li>Creating audio content from text</li>
+		<li>Proofreading by listening to text</li>
+		<li>Multitasking while listening to content</li>
+		<li>Creating voiceovers for presentations</li>
+	</ul>
+	
+	<h3>Browser Requirements:</h3>
+	<ul>
+		<li>Modern browser with Web Speech API support</li>
+		<li>Chrome, Firefox, Safari, or Edge</li>
+		<li>Microphone permission may be required</li>
+		<li>Internet connection for voice synthesis</li>
+	</ul>
+	
+	<h3>Tips for Better Results:</h3>
+	<ul>
+		<li>Use proper punctuation for natural pauses</li>
+		<li>Break long texts into smaller chunks</li>
+		<li>Test different languages for your content</li>
+		<li>Use clear, well-formatted text</li>
+		<li>Check audio quality before downloading</li>
+	</ul>
+	
+	<h3>Important Notes:</h3>
+	<ul>
+		<li>Voice quality depends on your browser and system</li>
+		<li>Download feature requires auto-play to be enabled</li>
+		<li>Some browsers may have voice limitations</li>
+		<li>Large texts may take longer to process</li>
+		<li>Audio files are generated locally in your browser</li>
+	</ul>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+	<div class="footer-content">
+		<div class="footer-links">
+			<a href="../about.html">About Us</a>
+			<a href="../contact.html">Contact Us</a>
+			<a href="../privacy.html">Privacy Policy</a>
+		</div>
+		<div class="footer-copyright">
+			<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+		</div>
+	</div>
+</footer>
+
+<script>
+	const downloadButton = document.getElementById('downloadButton');
+	const textInput = document.getElementById('text');
+	const languageRadios = document.querySelectorAll('input[name="language"]');
+	const autoplayCheckbox = document.getElementById('autoplayCheckbox');
+	let utterance = null;
+
+	function play() {
+		const text = textInput.value.trim();
+		if (!text) {
+			return;
+		}
+		const lang = getCheckedLanguage();
+		// Create SpeechSynthesisUtterance
+		utterance = new SpeechSynthesisUtterance(text);
+		utterance.lang = lang;
+		// Play speech
+		window.speechSynthesis.speak(utterance);
+		// On autoplay, enable the Download button
+		if (autoplayCheckbox.checked) {
+			downloadButton.disabled = false;
+		}
+	}
+
+	function stop() {
+		if (utterance) {
+			window.speechSynthesis.cancel(utterance);
+		}
+		// When stopped, disable the Download button
+		downloadButton.disabled = true;
+	}
+
+	function getCheckedLanguage() {
+		for (let radio of languageRadios) {
+			if (radio.checked) {
+				return radio.value;
+			}
+		}
+		// Default to Chinese
+		return 'zh-CN';
+	}
+
+	function downloadAudio() {
+		if (!utterance) {
+			return;
+		}
+		// Convert speech to Blob and create URL
+		const blob = new Blob([new Uint8Array(utterance.audioBuffer)], {
+			type: 'audio/mp3'
+		});
+		const url = URL.createObjectURL(blob);
+		// Create link and simulate click
+		const link = document.createElement('a');
+		link.download = 'speech.mp3';
+		link.href = url;
+		link.click();
+		// Revoke URL
+		URL.revokeObjectURL(url);
+	}
+
+	downloadButton.addEventListener('click', downloadAudio);
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

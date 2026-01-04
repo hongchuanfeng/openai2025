@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Missionary AI</title>
+    <meta name="keywords" content="Contact Us, Missionary AI, support">
+    <meta name="description" content="Contact Missionary AI for business cooperation, technical support, or general inquiries.">
+    <link rel="canonical" href="https://www.chdaoai.com/contact.html">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/css.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Responsive navigation bar */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Contact page content */
+        .page-header {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .page-header h1 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #007bff;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 0.5rem;
+        }
+
+        .section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .info-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item strong {
+            color: #333;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .info-item span {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .email-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .email-link:hover {
+            text-decoration: underline;
+        }
+
+        .hours-item {
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .faq-item {
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+            border-left: 3px solid #007bff;
+            padding-left: 1.5rem;
+        }
+
+        .faq-question {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-answer {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Footer styles */
+        footer {
+            background: white;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: #007bff;
+        }
+
+        .footer-copyright {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .section h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="index.html" class="nav-item">
+                <img src="static/images/logo.png" width="50px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">�?/button>
+        <div class="nav-categories">
+            <a href="index.html" class="nav-category">🔍 Featured</a>
+            <a href="life.html" class="nav-category">🏠 Life</a>
+            <a href="encry.html" class="nav-category">🔒 Crypto</a>
+            <a href="code.html" class="nav-category">📝 Encode/Decode</a>
+            <a href="dev.html" class="nav-category">💻 Developer</a>
+            <a href="base64.html" class="nav-category">🔐 Base64</a>
+            <a href="image.html" class="nav-category">🖼�?Image</a>
+            <a href="game.html" class="nav-category">🎮 Fun</a>
+            <a href="index.html" class="nav-category"><i class="fas fa-earth-americas" aria-hidden="true"></i> English</a>
+            <a href="https://openai2025.com/" class="nav-category"><i class="fas fa-language" aria-hidden="true"></i> 中文</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1>Contact Us</h1>
+    </div>
+
+    <div class="section">
+        <h2>Contact Information</h2>
+        <div class="info-item">
+            <strong>Email:</strong>
+            <span><a href="mailto:hcf@foxmail.com" class="email-link">hcf@foxmail.com</a> (Recommended priority)</span>
+        </div>
+        <div class="info-item">
+            <strong>Address:</strong>
+            <span>130 Longhua Avenue, Longhua District, Shenzhen (Visitors can be accommodated on weekdays, advance email reservation is required)</span>
+        </div>
+        <div class="info-item">
+            <strong>Corporate Cooperation:</strong>
+            <span>Please indicate 'Business Cooperation' in the email subject for quick processing</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Service Hours</h2>
+        <div class="hours-item">
+            <strong>Monday to Friday 09:30-18:30</strong> (postponed for statutory holidays)
+        </div>
+        <p>Please contact us by email during other time periods, and we will reply within 1-2 working days.</p>
+    </div>
+
+    <div class="section">
+        <h2>Location and Navigation</h2>
+        <p>To protect privacy, the map coordinates will not be made public temporarily; If you need to visit, navigation information and visitor registration guidelines will be provided after email confirmation.</p>
+    </div>
+
+    <div class="section">
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question">Has the submitted form been sent to the server?</div>
+            <div class="faq-answer">The current page is a demonstration form and will not be uploaded to the server; Please use email for formal communication.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Does the tool save my data?</div>
+            <div class="faq-answer">The on-site tools should be run on the local browser first. For details, please refer to the Privacy Policy.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Does it support custom development?</div>
+            <div class="faq-answer">Welcome to describe your requirements and scenarios through email, we will evaluate and provide feedback.</div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-copyright">
+            <p>&copy; 2024 Missionary AI. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // Auto close after clicking a menu item
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Province Abbreviations and Capitals - Chuandao Tools</title>
+	<meta name="keywords" content="online tools collection, Chuandao Tools">
+	<meta name="description" content="Chuandao Tools is an online collection of utilities. No login, no fees, just use and go. Includes life tools, developer tools, encoding/decoding, encryption/decryption, image tools, and games.">
+	<link rel="canonical" href="https://www.chdaoai.com/recommend/intro.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #4c6ef5;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.title {
+			text-align: center;
+			margin-bottom: 20px;
+			font-size: 20px;
+			color: #333;
+		}
+		.province-table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		.province-table th,
+		.province-table td {
+			padding: 12px;
+			border: 1px solid #e0e0e0;
+			text-align: left;
+		}
+		.province-table tr:nth-child(even) {
+			background-color: #f8f9fa;
+		}
+		.info-box {
+			margin-top: 20px;
+			padding: 15px;
+			background: #fff5f0;
+			border-radius: 4px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 10px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+			line-height: 1.6;
+		}
+		.info-list li {
+			margin-bottom: 5px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* ÂìçÂ∫îÂºèÂØºËà™Ê†è */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Â∑•ÂÖ∑Âç°ÁâáÂ∏ÉÂ±Ä */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* ÁßªÂä®Á´ØÊ†∑Âº?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			padding: 1.5rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			border-radius: 8px;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-section h2 {
+			color: #333;
+			font-size: 1.3rem;
+			margin-bottom: 1rem;
+		}
+
+		.help-section h3 {
+			color: #007bff;
+			font-size: 1.1rem;
+			margin-top: 1rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.help-section p, .help-section ul {
+			color: #666;
+			line-height: 1.8;
+			margin-bottom: 0.8rem;
+		}
+
+		.help-section ul {
+			margin-left: 1.5rem;
+		}
+
+		.help-section ul li {
+			margin-bottom: 0.5rem;
+		}
+
+		.example {
+			background: #e7f3ff;
+			padding: 1rem;
+			border-radius: 5px;
+			margin-top: 1rem;
+		}
+
+		.example strong {
+			color: #007bff;
+		}
+
+		/* Footer styles */
+		footer {
+			background: white;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+			border-top: 1px solid #e0e0e0;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #666;
+			text-decoration: none;
+			transition: color 0.3s;
+			font-size: 0.95rem;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">‚ò?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">üîç Recommended</a>
+			<a href="../life.html" class="nav-category">üè† Life Tools</a>
+			<a href="../encry.html" class="nav-category">üîí Encryption</a>
+			<a href="../code.html" class="nav-category">üìù Encoding</a>
+			<a href="../dev.html" class="nav-category">üíª Dev Tools</a>
+			<a href="../image.html" class="nav-category">üñºÔ∏?Image Tools</a>
+			<a href="../game.html" class="nav-category">üéÆ Games</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container">
+	<h1 class="title">Province Abbreviations and Capitals</h1>
+	<table class="province-table">
+		<thead>
+		<tr>
+			<th>Province (stroke order)</th>
+			<th>Abbrev.</th>
+			<th>Capital city</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr><td>Beijing</td><td>‰∫?/td><td>Beijing</td></tr>
+		<tr><td>Tianjin</td><td>Ê¥?/td><td>Tianjin</td></tr>
+		<tr><td>Hebei</td><td>ÂÜÄ</td><td>Shijiazhuang</td></tr>
+		<tr><td>Shanxi</td><td>Êô?/td><td>Taiyuan</td></tr>
+		<tr><td>Inner Mongolia</td><td>Ëí?/td><td>Hohhot</td></tr>
+		<tr><td>Liaoning</td><td>Ëæ?/td><td>Shenyang</td></tr>
+		<tr><td>Jilin</td><td>Âê?/td><td>Changchun</td></tr>
+		<tr><td>Heilongjiang</td><td>Èª?/td><td>Harbin</td></tr>
+		<tr><td>Shanghai</td><td>Ê≤?/td><td>Shanghai</td></tr>
+		<tr><td>Jiangsu</td><td>Ëã?/td><td>Nanjing</td></tr>
+		<tr><td>Zhejiang</td><td>Êµ?/td><td>Hangzhou</td></tr>
+		<tr><td>Anhui</td><td>Áö?/td><td>Hefei</td></tr>
+		<tr><td>Fujian</td><td>Èó?/td><td>Fuzhou</td></tr>
+		<tr><td>Jiangxi</td><td>Ëµ?/td><td>Nanchang</td></tr>
+		<tr><td>Shandong</td><td>È≤?/td><td>Jinan</td></tr>
+		<tr><td>Henan</td><td>Ë±?/td><td>Zhengzhou</td></tr>
+		<tr><td>Hubei</td><td>ÈÑ?/td><td>Wuhan</td></tr>
+		<tr><td>Hunan</td><td>Êπ?/td><td>Changsha</td></tr>
+		<tr><td>Guangdong</td><td>Á≤?/td><td>Guangzhou</td></tr>
+		<tr><td>Guangxi</td><td>Ê°?/td><td>Nanning</td></tr>
+		<tr><td>Hainan</td><td>Áê?/td><td>Haikou</td></tr>
+		<tr><td>Chongqing</td><td>Ê∏?/td><td>Chongqing</td></tr>
+		<tr><td>Sichuan</td><td>Â∑?ËúÄ</td><td>Chengdu</td></tr>
+		<tr><td>Guizhou</td><td>Ë¥?Èª?/td><td>Guiyang</td></tr>
+		<tr><td>Yunnan</td><td>‰∫?Êª?/td><td>Kunming</td></tr>
+		<tr><td>Tibet</td><td>Ëó?/td><td>Lhasa</td></tr>
+		<tr><td>Shaanxi</td><td>Èô?Áß?/td><td>Xi'an</td></tr>
+		<tr><td>Gansu</td><td>Áî?Èô?/td><td>Lanzhou</td></tr>
+		<tr><td>Qinghai</td><td>Èù?/td><td>Xining</td></tr>
+		<tr><td>Ningxia</td><td>ÂÆ?/td><td>Yinchuan</td></tr>
+		<tr><td>Xinjiang</td><td>Êñ?/td><td>Urumqi</td></tr>
+		<tr><td>Taiwan</td><td>Âè?/td><td>Taipei</td></tr>
+		<tr><td>Hong Kong SAR</td><td>Ê∏?/td><td>Hong Kong</td></tr>
+		<tr><td>Macao SAR</td><td>Êæ?/td><td>Macao</td></tr>
+		</tbody>
+	</table>
+
+	<div class="info-box">
+		<h3 class="info-title">About this table:</h3>
+		<ul class="info-list">
+			<li>1. China has 23 provinces, 5 autonomous regions, 4 municipalities, and 2 SARs.</li>
+			<li>2. Each region has a capital city.</li>
+			<li>3. Each province/region has a commonly used abbreviation.</li>
+		</ul>
+	</div>
+</div>
+
+<div class="help-section">
+	<h2>How to Use the Province Abbreviations Reference</h2>
+	<p>Quick reference for Chinese provinces, abbreviations, and capital cities.</p>
+
+	<h3>Table Information</h3>
+	<p>This table provides a comprehensive list of all provinces, autonomous regions, municipalities, and special administrative regions of China with their common abbreviations and capital cities.</p>
+
+	<h3>How to Use This Reference</h3>
+	<ul>
+		<li>Browse the table to find any Chinese province or region</li>
+		<li>Check the abbreviation column for shorthand notation</li>
+		<li>Find the capital city for each administrative division</li>
+		<li>Use as a quick lookup reference for educational or business purposes</li>
+	</ul>
+
+	<h3>Administrative Divisions</h3>
+	<ul>
+		<li><strong>Provinces (23):</strong> Regular provincial administrative units</li>
+		<li><strong>Autonomous Regions (5):</strong> Tibet, Xinjiang, Inner Mongolia, Ningxia, Guangxi</li>
+		<li><strong>Municipalities (4):</strong> Beijing, Shanghai, Tianjin, Chongqing</li>
+		<li><strong>Special Administrative Regions (2):</strong> Hong Kong SAR, Macao SAR</li>
+	</ul>
+
+	<h3>Abbreviation System</h3>
+	<ul>
+		<li>Most abbreviations use one Chinese character</li>
+		<li>Some provinces have alternative abbreviations (indicated by "/")</li>
+		<li>Commonly used in postal codes, license plates, and official documents</li>
+		<li>Based on historical regions or geographic features</li>
+	</ul>
+
+	<h3>Example Lookups</h3>
+	<div class="example">
+		<strong>Example 1:</strong> Guangdong (Á≤? - Capital: Guangzhou<br><br>
+		<strong>Example 2:</strong> Sichuan (Â∑?ËúÄ) - Capital: Chengdu
+	</div>
+
+	<h3>Common Abbreviations</h3>
+	<ul>
+		<li><strong>Beijing (‰∫?:</strong> Municipality, Capital: Beijing</li>
+		<li><strong>Shanghai (Ê≤?:</strong> Municipality, Capital: Shanghai</li>
+		<li><strong>Guangdong (Á≤?:</strong> Province, Capital: Guangzhou</li>
+		<li><strong>Zhejiang (Êµ?:</strong> Province, Capital: Hangzhou</li>
+	</ul>
+
+	<h3>Use Cases</h3>
+	<ul>
+		<li>Educational reference for geography and administrative units</li>
+		<li>Business correspondence and address formatting</li>
+		<li>Travel planning and regional navigation</li>
+		<li>Understanding Chinese administrative structure</li>
+	</ul>
+
+	<h3>Note</h3>
+	<p>The table is organized by stroke order (Á¨îÁîªÈ°∫Â∫è). Some abbreviations may have regional variations. All information is accurate as of current administrative divisions.</p>
+</div>
+
+<footer>
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+	</div>
+</footer>
+
+</body>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// ÁÇπÂáªËèúÂçïÈ°πÂêéËá™Âä®ÂÖ≥Èó≠
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+
+</html>

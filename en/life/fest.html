@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>China Holidays Lookup - Chuandao Tools</title>
+	<meta name="keywords" content="China holidays, festivals, Chuandao Tools">
+	<meta name="description" content="Lookup Chinese holidays with dates and English names.">
+	<link rel="canonical" href="https://www.chdaoai.com/life/fest.html">	
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #4285f4;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.header-title {
+			font-size: 18px;
+			font-weight: bold;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.heart-icon {
+			color: #ff4757;
+			cursor: pointer;
+		}
+		.rating {
+			display: flex;
+			gap: 5px;
+			color: #ffd700;
+		}
+		.share-icon {
+			margin-left: auto;
+			color: #666;
+			cursor: pointer;
+		}
+		.tabs {
+			max-width: 800px;
+			margin: 0 auto 20px;
+			display: flex;
+			gap: 10px;
+		}
+		.tab {
+			padding: 6px 16px;
+			border-radius: 20px;
+			cursor: pointer;
+			font-size: 14px;
+		}
+		.tab.active {
+			background-color: #00b894;
+			color: white;
+		}
+		.tab:not(.active) {
+			background-color: #e9ecef;
+			color: #666;
+		}
+		.festival-table {
+			max-width: 800px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.table-header {
+			display: grid;
+			grid-template-columns: 1fr 2fr;
+			background-color: #f8f9fa;
+			padding: 15px 20px;
+			font-weight: bold;
+			color: #666;
+		}
+		.festival-row {
+			display: grid;
+			grid-template-columns: 1fr 2fr;
+			padding: 15px 20px;
+			border-top: 1px solid #eee;
+		}
+		.festival-row:hover {
+			background-color: #f8f9fa;
+		}
+		.date {
+			color: #666;
+		}
+		.festival {
+			color: #333;
+		}
+		.festival-english {
+			color: #666;
+			font-size: 0.9em;
+			margin-left: 8px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation bar */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tool card layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			padding: 1.5rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			border-radius: 8px;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-section h2 {
+			color: #333;
+			font-size: 1.3rem;
+			margin-bottom: 1rem;
+		}
+
+		.help-section h3 {
+			color: #007bff;
+			font-size: 1.1rem;
+			margin-top: 1rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.help-section p, .help-section ul {
+			color: #666;
+			line-height: 1.8;
+			margin-bottom: 0.8rem;
+		}
+
+		.help-section ul {
+			margin-left: 1.5rem;
+		}
+
+		.help-section ul li {
+			margin-bottom: 0.5rem;
+		}
+
+		.example {
+			background: #e7f3ff;
+			padding: 1rem;
+			border-radius: 5px;
+			margin-top: 1rem;
+		}
+
+		.example strong {
+			color: #007bff;
+		}
+
+		/* Footer styles */
+		footer {
+			background: white;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+			border-top: 1px solid #e0e0e0;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #666;
+			text-decoration: none;
+			transition: color 0.3s;
+			font-size: 0.95rem;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Featured</a>
+			<a href="../life.html" class="nav-category">🏠 Life</a>
+			<a href="../encry.html" class="nav-category">🔒 Crypto</a>
+			<a href="../code.html" class="nav-category">📝 Encode/Decode</a>
+			<a href="../dev.html" class="nav-category">💻 Developer</a>
+			<a href="../image.html" class="nav-category">🖼�?Image</a>
+			<a href="../game.html" class="nav-category">🎮 Fun</a>
+		</div>
+	</div>
+</nav>
+
+<h1 style="text-align: center">China Holidays</h1>
+
+<div class="festival-table">
+	<div class="table-header">
+		<div>Date</div>
+		<div>Festival</div>
+	</div>
+	<div class="festival-row">
+		<div class="date">1st day of Lunar Jan</div>
+		<div class="festival">春节<span class="festival-english">(Spring Festival)</span></div>
+	</div>
+	<div class="festival-row">
+		<div class="date">15th day of Lunar Jan</div>
+		<div class="festival">元宵�?span class="festival-english">(Lantern Festival)</span></div>
+	</div>
+	<div class="festival-row">
+		<div class="date">5th day of Lunar May</div>
+		<div class="festival">端午�?span class="festival-english">(Dragon Boat Festival)</span></div>
+	</div>
+	<div class="festival-row">
+		<div class="date">7th day of Lunar July</div>
+		<div class="festival">七夕�?span class="festival-english">(Double Seventh)</span></div>
+	</div>
+	<div class="festival-row">
+		<div class="date">15th day of Lunar Aug</div>
+		<div class="festival">中秋�?span class="festival-english">(Mid-Autumn Festival)</span></div>
+	</div>
+	<div class="festival-row">
+		<div class="date">9th day of Lunar Sep</div>
+		<div class="festival">重阳�?span class="festival-english">(Double Ninth Festival)</span></div>
+	</div>
+	<div class="festival-row">
+		<div class="date">8th day of Lunar Dec</div>
+		<div class="festival">腊八�?span class="festival-english">(Laba Festival)</span></div>
+	</div>
+	<div class="festival-row">
+		<div class="date">24th day of Lunar Dec</div>
+		<div class="festival">House Cleaning Day</div>
+	</div>
+</div>
+
+<div class="help-section">
+	<h2>How to Use the China Holidays Lookup</h2>
+	<p>Quick reference for traditional Chinese holidays and festivals with their dates and English translations.</p>
+
+	<h3>Holiday Information</h3>
+	<p>This table displays major traditional Chinese holidays with their lunar calendar dates and English names.</p>
+
+	<h3>Featured Holidays</h3>
+	<ul>
+		<li><strong>Spring Festival (春节):</strong> Chinese New Year - 1st day of Lunar January</li>
+		<li><strong>Lantern Festival (元宵�?:</strong> 15th day of Lunar January</li>
+		<li><strong>Dragon Boat Festival (端午�?:</strong> 5th day of Lunar May</li>
+		<li><strong>Double Seventh (七夕�?:</strong> 7th day of Lunar July (Chinese Valentine's Day)</li>
+		<li><strong>Mid-Autumn Festival (中秋�?:</strong> 15th day of Lunar August</li>
+		<li><strong>Double Ninth Festival (重阳�?:</strong> 9th day of Lunar September</li>
+		<li><strong>Laba Festival (腊八�?:</strong> 8th day of Lunar December</li>
+		<li><strong>House Cleaning Day:</strong> 24th day of Lunar December</li>
+	</ul>
+
+	<h3>Examples</h3>
+	<div class="example">
+		<strong>Example 1 - Spring Festival:</strong><br>
+		Date: 1st day of Lunar Jan<br>
+		Chinese: 春节<br>
+		English: Spring Festival<br><br>
+		<strong>Example 2 - Mid-Autumn Festival:</strong><br>
+		Date: 15th day of Lunar Aug<br>
+		Chinese: 中秋�?br>
+		English: Mid-Autumn Festival
+	</div>
+
+	<h3>Lunar Calendar System</h3>
+	<ul>
+		<li>Chinese holidays follow the traditional lunar calendar</li>
+		<li>Dates vary each year in the Gregorian calendar</li>
+		<li>Lunar months are approximately 29-30 days long</li>
+		<li>Some years have 13 lunar months (leap year)</li>
+		<li>Holiday dates shift by about 11 days each year</li>
+	</ul>
+
+	<h3>Cultural Significance</h3>
+	<ul>
+		<li><strong>Spring Festival:</strong> Most important holiday, family reunion time</li>
+		<li><strong>Lantern Festival:</strong> End of New Year celebrations, lantern displays</li>
+		<li><strong>Dragon Boat Festival:</strong> Commemorates poet Qu Yuan, dragon boat races</li>
+		<li><strong>Double Seventh:</strong> Romantic holiday, similar to Valentine's Day</li>
+		<li><strong>Mid-Autumn Festival:</strong> Moon viewing, family gatherings, mooncakes</li>
+		<li><strong>Double Ninth:</strong> Respect for elderly, mountain climbing</li>
+		<li><strong>Laba Festival:</strong> Buddhist holiday, eating Laba congee</li>
+	</ul>
+
+	<h3>Common Use Cases</h3>
+	<ul>
+		<li>Planning travel to China during holidays</li>
+		<li>Understanding Chinese cultural events</li>
+		<li>Business planning around Chinese holidays</li>
+		<li>Educational reference for Chinese culture</li>
+		<li>Event planning and scheduling</li>
+		<li>Cultural awareness and appreciation</li>
+	</ul>
+
+	<h3>Holiday Traditions</h3>
+	<ul>
+		<li><strong>Spring Festival:</strong> Red decorations, firecrackers, family dinners</li>
+		<li><strong>Lantern Festival:</strong> Lantern riddles, tangyuan (sweet dumplings)</li>
+		<li><strong>Dragon Boat Festival:</strong> Zongzi (sticky rice dumplings), dragon boat races</li>
+		<li><strong>Double Seventh:</strong> Romantic activities, gift exchanges</li>
+		<li><strong>Mid-Autumn Festival:</strong> Mooncakes, family reunions, moon viewing</li>
+		<li><strong>Double Ninth:</strong> Chrysanthemum viewing, mountain climbing</li>
+		<li><strong>Laba Festival:</strong> Eating Laba congee, temple visits</li>
+	</ul>
+
+	<h3>Important Notes</h3>
+	<ul>
+		<li>Holiday dates change each year in the Gregorian calendar</li>
+		<li>Some holidays are official public holidays in China</li>
+		<li>Regional variations may exist in different parts of China</li>
+		<li>Modern celebrations may differ from traditional customs</li>
+		<li>Check current year calendars for exact dates</li>
+	</ul>
+
+	<h3>Business Considerations</h3>
+	<ul>
+		<li>Many businesses close during major holidays</li>
+		<li>Travel and transportation may be affected</li>
+		<li>Shipping and delivery services may be delayed</li>
+		<li>Banking and government services may be limited</li>
+		<li>Plan business activities accordingly</li>
+	</ul>
+</div>
+
+<footer>
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+	</div>
+</footer>
+
+<script>
+	// 标签切换功能
+	const tabs = document.querySelectorAll('.tab');
+	tabs.forEach(tab => {
+		tab.addEventListener('click', () => {
+			tabs.forEach(t => t.classList.remove('active'));
+			tab.classList.add('active');
+		});
+	});
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

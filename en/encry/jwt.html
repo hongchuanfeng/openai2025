@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JWT Decode - Chdao Tools</title>
+	<meta name="keywords" content="online tools suite, Chdao Tools">
+	<meta name="description" content="Chdao Tools is an online toolkit with no login or fees. Includes life, developer, encoding/decoding, encryption, image, and entertainment tools.">
+	<link rel="canonical" href="https://www.chdaoai.com/encry/jwt.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 1000px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.input-section {
+			margin-bottom: 20px;
+		}
+		.input-header {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 10px;
+			color: #666;
+			font-size: 14px;
+		}
+		.input-area {
+			width: 100%;
+			height: 100px;
+			padding: 15px;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			resize: vertical;
+			font-family: monospace;
+			font-size: 14px;
+			line-height: 1.4;
+		}
+		.button-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+		}
+		.btn {
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 14px;
+			transition: background-color 0.3s;
+		}
+		.decode-btn {
+			background-color: #00c853;
+			color: white;
+		}
+		.decode-btn:hover {
+			background-color: #00b34a;
+		}
+		.clear-btn {
+			background-color: #ff5252;
+			color: white;
+		}
+		.clear-btn:hover {
+			background-color: #ff1744;
+		}
+		.result-section {
+			margin-top: 20px;
+		}
+		.result-header {
+			font-weight: 500;
+			margin-bottom: 10px;
+			color: #333;
+		}
+		.result-content {
+			background-color: #f8f9fa;
+			padding: 15px;
+			border-radius: 8px;
+			font-family: monospace;
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+		.info-box {
+			margin-top: 20px;
+			padding: 15px;
+			background: #fff5f0;
+			border-radius: 4px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 10px;
+		}
+		.info-list {
+			list-style: none;
+			color: #ff6b6b;
+			font-size: 14px;
+			line-height: 1.8;
+		}
+		.info-list li {
+			margin-bottom: 5px;
+		}
+	</style>
+	<style>
+		/* Help section styles */
+		.help-section { background: #f8f9fa; border-radius: 8px; padding: 2rem; margin: 2rem auto; max-width: 1100px; border-left: 4px solid #007bff; }
+		.help-title { color: #333; font-size: 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem; }
+		.help-content { color: #666; line-height: 1.6; }
+		.help-content h3 { color: #444; margin: 1.25rem 0 .5rem 0; font-size: 1.1rem; }
+		.help-content ul { margin: .5rem 0 1rem 1.5rem; }
+		.help-content li { margin: .35rem 0; }
+
+		/* Footer */
+		.footer { background: #333; color: #fff; text-align: center; padding: 2rem 1rem; margin-top: 3rem; }
+		.footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; flex-wrap: wrap; }
+		.footer-links a { color: #ccc; text-decoration: none; transition: color .3s; }
+		.footer-links a:hover { color: #fff; }
+		.footeropyright { color: #999; font-size: .9rem; }
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tools grid layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding/Decoding</a>
+			<a href="../dev.html" class="nav-category">💻 Developer Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Entertainment</a>
+		</div>
+	</div>
+</nav>
+
+<h1 style="text-align: center">JWT Decode</h1>
+<div class="container">
+	<div class="input-section">
+		<div class="input-header">
+			<span>Input token</span>
+			<span>Output</span>
+		</div>
+		<textarea
+				class="input-area"
+				id="jwtInput"
+				placeholder="Enter JWT token..."></textarea>
+	</div>
+
+	<div class="button-group">
+		<button class="btn decode-btn" id="decodeBtn">Decode</button>
+		<button class="btn clear-btn" id="clearBtn">Clear</button>
+	</div>
+
+	<div class="result-section">
+		<div class="result-header">Decoded result:</div>
+		<div class="result-content" id="headerResult">
+			<strong>Header:</strong>
+			<pre id="headerContent"></pre>
+		</div>
+		<br>
+		<div class="result-content" id="payloadResult">
+			<strong>Payload:</strong>
+			<pre id="payloadContent"></pre>
+		</div>
+		<br>
+		<div class="result-content" id="signatureResult">
+			<strong>Signature:</strong>
+			<pre id="signatureContent"></pre>
+		</div>
+	</div>
+
+	<div class="info-box">
+		<div class="info-title">About JWT</div>
+		<ul class="info-list">
+			<li>1) JWT (JSON Web Token) is an open standard for compact, self-contained JSON objects for secure transmission.</li>
+			<li>2) Composed of Header, Payload, and Signature.</li>
+			<li>3) Commonly used for authentication and information exchange.</li>
+			<li>4) Compact, self-contained, and privacy-friendly.</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Help Section -->
+<div class="help-section">
+    <h2 class="help-title"><i class="fas fa-question-circle"></i> How to Use</h2>
+    <div class="help-content">
+        <h3>What this tool does</h3>
+        <p>Decodes a JWT into its Header, Payload, and Signature for inspection. No verification is performed.</p>
+
+        <h3>Steps</h3>
+        <ol>
+            <li>Paste a JWT (three Base64URL parts separated by dots) into the input.</li>
+            <li>Click Decode to view the JSON header and payload, and the signature bytes.</li>
+        </ol>
+
+        <h3>Examples</h3>
+        <ul>
+            <li>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9... �?shows alg: HS256, typ: JWT.</li>
+        </ul>
+
+        <h3>Notes</h3>
+        <ul>
+            <li>This tool does not verify the signature. Use server‑side libraries to verify.</li>
+            <li>Payload may be untrusted; do not rely on it without verification.</li>
+            <li>Processing is local in your browser.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <div class="footer-links">
+        <a href="../about.html">About Us</a>
+        <a href="../contact.html">Contact Us</a>
+        <a href="../privacy.html">Privacy Policy</a>
+    </div>
+    <div class="footeropyright">&copy; 2024 Missionary AI. All rights reserved.</div>
+</div>
+<script>
+	const jwtInput = document.getElementById('jwtInput');
+	const decodeBtn = document.getElementById('decodeBtn');
+	const clearBtn = document.getElementById('clearBtn');
+	const headerContent = document.getElementById('headerContent');
+	const payloadContent = document.getElementById('payloadContent');
+	const signatureContent = document.getElementById('signatureContent');
+
+	function decodeJWT(token) {
+		try {
+			const parts = token.split('.');
+			if (parts.length !== 3) {
+				throw new Error('Invalid JWT format');
+			}
+
+			const header = JSON.parse(atob(parts[0]));
+			const payload = JSON.parse(atob(parts[1]));
+			const signature = parts[2];
+
+			return {
+				header: header,
+				payload: payload,
+				signature: signature
+			};
+		} catch (error) {
+			throw new Error('Failed to parse JWT');
+		}
+	}
+
+	decodeBtn.addEventListener('click', () => {
+		const jwt = jwtInput.value.trim();
+		if (!jwt) {
+			alert('Please enter a JWT token');
+			return;
+		}
+
+		try {
+			const decoded = decodeJWT(jwt);
+			headerContent.textContent = JSON.stringify(decoded.header, null, 2);
+			payloadContent.textContent = JSON.stringify(decoded.payload, null, 2);
+			signatureContent.textContent = decoded.signature;
+		} catch (error) {
+			alert(error.message);
+		}
+	});
+
+	clearBtn.addEventListener('click', () => {
+		jwtInput.value = '';
+		headerContent.textContent = '';
+		payloadContent.textContent = '';
+		signatureContent.textContent = '';
+	});
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

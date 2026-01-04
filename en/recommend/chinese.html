@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simplified/Traditional Chinese Converter - Chandao Tools</title>
+    <meta name="keywords" content="online tool collection, Chandao Tools">
+    <meta name="description" content="Chandao Tools is a collection of free, no-login online utilities across life, dev, encoding/decoding, encryption, images, and fun.">
+    <link rel="canonical" href="https://www.chdaoai.com/recommend/chinese.html">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .nav {
+            display: flex;
+            gap: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+        .header-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #00b894;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto;
+            max-width: 1200px;
+            padding: 10px;
+        }
+        .rating {
+            display: flex;
+            gap: 5px;
+            color: #ffd700;
+        }
+        .share-icon {
+            margin-left: auto;
+            color: #666;
+            cursor: pointer;
+        }
+        .converter {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .text-area {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            resize: vertical;
+        }
+        .text-area:focus {
+            border-color: #00b894;
+            outline: none;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .convert-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            color: white;
+        }
+        .to-traditional {
+            background-color: #00b894;
+        }
+        .to-simplified {
+            background-color: #2196f3;
+        }
+        .clear-btn {
+            background-color: #ff6b6b;
+        }
+        .info-box {
+            background-color: #fff5f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .info-title {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        .info-list {
+            list-style: none;
+            color: #666;
+        }
+        .info-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* 响应式导航栏 */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* 工具卡片布局 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #444;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+        }
+
+        /* 移动端样�?*/
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+        }
+
+        /* Help section styles */
+        .help-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+
+        .help-section h2 {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .help-section h3 {
+            color: #007bff;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .help-section p, .help-section ul {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+
+        .help-section ul {
+            margin-left: 1.5rem;
+        }
+
+        .help-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .example {
+            background: #e7f3ff;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .example strong {
+            color: #007bff;
+        }
+
+        /* Footer styles */
+        footer {
+            background: white;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: #007bff;
+        }
+
+        .footer-copyright {
+            color: #999;
+            font-size: 0.9rem;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/umd/full.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="../index.html" class="nav-item">
+                <img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">�?/button>
+        <div class="nav-categories">
+            <a href="../index.html" class="nav-category">🔍 Recommended</a>
+            <a href="../life.html" class="nav-category">🏠 Life Tools</a>
+            <a href="../encry.html" class="nav-category">🔒 Encryption</a>
+            <a href="../code.html" class="nav-category">📝 Encoding</a>
+            <a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+            <a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+            <a href="../game.html" class="nav-category">🎮 Fun Tools</a>
+        </div>
+    </div>
+</nav>
+
+<div class="header">
+    <div class="header-title">
+        Simplified/Traditional Chinese Converter
+    </div>
+</div>
+
+<div class="converter" >
+    <textarea class="text-area" id="inputText" placeholder="Enter text to convert..."></textarea>
+
+    <div class="button-group">
+        <button class="convert-btn to-traditional" onclick="toTW()">To Traditional Chinese �?/button>
+        <button class="convert-btn to-simplified" onclick="toCN()">To Simplified Chinese �?/button>
+        <button class="convert-btn clear-btn" onclick="clearText()">Clear</button>
+    </div>
+
+    <textarea class="text-area" id="outputText" placeholder="Conversion result..."></textarea>
+
+    <div class="info-box">
+        <h3 class="info-title">About Simplified and Traditional Chinese:</h3>
+        <ul class="info-list">
+            <li>1. Simplified Chinese is a writing system using simplified Chinese characters. It is officially used in Mainland China, Singapore, and Malaysia.</li>
+            <li>2. Traditional Chinese is a writing system using traditional Chinese characters. It is mainly used in Taiwan, Hong Kong, Macau, and overseas Chinese communities.</li>
+            <li>3. This tool converts between Traditional Chinese and Simplified Chinese in both directions.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="help-section">
+    <h2>How to Use Simplified/Traditional Chinese Converter</h2>
+    <p>Convert between Simplified and Traditional Chinese characters instantly.</p>
+
+    <h3>Instructions</h3>
+    <ul>
+        <li>Enter Chinese text in the upper text area</li>
+        <li>Click "To Traditional Chinese" to convert to Traditional</li>
+        <li>Click "To Simplified Chinese" to convert to Simplified</li>
+        <li>Click "Clear" to remove all text</li>
+        <li>Results appear in the lower text area</li>
+    </ul>
+
+    <h3>Features</h3>
+    <ul>
+        <li><strong>Bidirectional conversion:</strong> Convert both ways seamlessly</li>
+        <li><strong>Instant results:</strong> Conversion happens immediately</li>
+        <li><strong>Special character handling:</strong> Properly converts punctuation marks</li>
+        <li><strong>Accurate mapping:</strong> Uses industry-standard conversion tables</li>
+    </ul>
+
+    <h3>Examples</h3>
+    <div class="example">
+        <strong>Example 1 - Simplified to Traditional:</strong><br>
+        Input: "少年强则国强，少年智则国�?<br>
+        Output: "少年強則國強，少年智則國�?<br><br>
+        <strong>Example 2 - Traditional to Simplified:</strong><br>
+        Input: "計算機科�?<br>
+        Output: "计算机科�?
+    </div>
+
+    <h3>Use Cases</h3>
+    <ul>
+        <li>Reading materials from different regions</li>
+        <li>Creating content for international audiences</li>
+        <li>Translation and localization projects</li>
+        <li>Academic research and study</li>
+    </ul>
+
+    <h3>Note</h3>
+    <p>Some characters may have multiple Traditional forms. The converter uses the most common variant. Regional preferences (Taiwan vs Hong Kong Traditional Chinese) may vary slightly.</p>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="../about.html">About Us</a>
+        <a href="../contact.html">Contact Us</a>
+        <a href="../privacy.html">Privacy Policy</a>
+    </div>
+    <div class="footer-copyright">
+        <p>&copy; 2024 Missionary AI. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+
+    const customDict = [
+        ['�?, '�?],
+        ['�?, '�?],
+        ['�?, '�?],
+        ['�?, '�?],
+    ];
+    const converter = OpenCC.ConverterFactory(
+        OpenCC.Locale.from.cn, // 中国大陆 => OpenCC 标准
+        OpenCC.Locale.to.tw,   // OpenCC 标准 => 台湾
+        [customDict]           // 台湾 => 自订
+    );
+    //console.log(converter('悟空道：“师父又来了。怎么叫做‘水中捞月’？�?));
+    // output: 悟空道：「師父又來了。怎麼叫做『水中撈月』？�?
+
+    function toTW(){
+        const inputText = document.getElementById('inputText').value;
+        const outputText = document.getElementById('outputText');
+        const result = converter(inputText);
+        outputText.value = result;
+    }
+
+    function toCN(){
+        // console.log(11);
+        // 将繁体中文（香港）转换为简体中文（中国大陆�?
+        const converter2 = OpenCC.Converter({ from: 'hk', to: 'cn' });
+        // console.log(converter2('漢語')); // output: 汉语
+
+        const outputText = document.getElementById('outputText').value;
+        const inputText = document.getElementById('inputText');
+        const result = converter2(outputText);
+        inputText.value = result;
+    }
+
+    function clearText() {
+        document.getElementById('inputText').value = '';
+        document.getElementById('outputText').value = '';
+    }
+
+    // 示例文本
+    document.getElementById('inputText').value = '少年强则国强，少年智则国智，少年富则国富，少年独立则国独立，少年自由则自由，少年进步则国进步';
+</script>
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // 点击菜单项后自动关闭
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMB Amount to Uppercase Chinese - Chuandao Tools</title>
+    <meta name="keywords" content="online tools collection, Chuandao Tools">
+    <meta name="description" content="Chuandao Tools is an online collection of utilities. No login, no fees, just use and go. Includes life tools, developer tools, encoding/decoding, encryption/decryption, image tools, and games.">
+    <link rel="canonical" href="https://www.chdaoai.com/recommend/rmb.html">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .nav {
+            margin: 0 auto;
+            max-width: 1200px;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .header-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #ff6b6b;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .rating {
+            display: flex;
+            gap: 5px;
+            color: #ffd700;
+        }
+        .share-icon {
+            margin-left: auto;
+            color: #666;
+            cursor: pointer;
+        }
+        .converter {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+        .input-field:focus {
+            border-color: #2196f3;
+        }
+        .convert-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .convert-btn:hover {
+            background-color: #1976d2;
+        }
+        .result {
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            min-height: 50px;
+        }
+        .info-box {
+            margin-top: 20px;
+            background-color: #fff5f0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .info-title {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        .info-list {
+            list-style: none;
+            color: #666;
+        }
+        .info-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .number-map {
+            margin-top: 30px;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .map-title {
+            color: #2196f3;
+            margin-bottom: 20px;
+        }
+        .map-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+        .map-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .chinese-char {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .number-value {
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* ÂìçÂ∫îÂºèÂØºËà™Ê†è */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Â∑•ÂÖ∑Âç°ÁâáÂ∏ÉÂ±Ä */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #444;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+        }
+
+        /* ÁßªÂä®Á´ØÊ†∑Âº?*/
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+        }
+
+        /* Help section styles */
+        .help-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+
+        .help-section h2 {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .help-section h3 {
+            color: #007bff;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .help-section p, .help-section ul {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+
+        .help-section ul {
+            margin-left: 1.5rem;
+        }
+
+        .help-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .example {
+            background: #e7f3ff;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .example strong {
+            color: #007bff;
+        }
+
+        /* Footer styles */
+        footer {
+            background: white;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: #007bff;
+        }
+
+        .footer-copyright {
+            color: #999;
+            font-size: 0.9rem;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="../index.html" class="nav-item">
+                <img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">‚ò?/button>
+        <div class="nav-categories">
+            <a href="../index.html" class="nav-category">üîç Recommended</a>
+            <a href="../life.html" class="nav-category">üè† Life Tools</a>
+            <a href="../encry.html" class="nav-category">üîí Encryption</a>
+            <a href="../code.html" class="nav-category">üìù Encoding</a>
+            <a href="../dev.html" class="nav-category">üíª Dev Tools</a>
+            <a href="../image.html" class="nav-category">üñºÔ∏?Image Tools</a>
+            <a href="../game.html" class="nav-category">üéÆ Games</a>
+        </div>
+    </div>
+</nav>
+
+<h1 style="text-align: center">RMB Amount to Uppercase Chinese</h1>
+<div class="converter">
+    <div class="input-group">
+        <input type="text" class="input-field" id="amount" placeholder="Enter RMB amount, e.g., 19535.65">
+    </div>
+
+    <button class="convert-btn" onclick="convertToChinese()">Convert</button>
+
+    <div class="result" id="result"></div>
+
+    <div class="info-box">
+        <h3 class="info-title">About this converter:</h3>
+        <ul class="info-list">
+            <li>1. In certain formal contexts, RMB amounts are written in uppercase Chinese numerals.</li>
+            <li>2. This tool converts Arabic numeral amounts to uppercase Chinese format.</li>
+            <li>3. Enter an amount and click "Convert".</li>
+        </ul>
+    </div>
+
+    <div class="number-map">
+        <h3 class="map-title">Digit and Chinese unit mapping</h3>
+        <div class="map-grid">
+            <div class="map-item">
+                <div class="chinese-char">Èõ?/div>
+                <div class="number-value">Èõ?= 0</div>
+            </div>
+            <div class="map-item">
+                <div class="chinese-char">Â£?/div>
+                <div class="number-value">Â£?= 1</div>
+            </div>
+            <!-- ÂÖ∂‰ªñÊï∞Â≠óÊò†Â∞Ñ -->
+            <div class="map-item">
+                <div class="chinese-char">‰∏?/div>
+                <div class="number-value">Wan = ten-thousand</div>
+            </div>
+            <div class="map-item">
+                <div class="chinese-char">‰∫?/div>
+                <div class="number-value">Yi = hundred-million</div>
+            </div>
+            <div class="map-item">
+                <div class="chinese-char">ÂÖ?/div>
+                <div class="number-value">Yuan = unit</div>
+            </div>
+            <div class="map-item">
+                <div class="chinese-char">Ëß?/div>
+                <div class="number-value">Jiao = tenth (0.1)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="help-section">
+    <h2>How to Use the RMB Amount to Uppercase Chinese Converter</h2>
+    <p>Convert Arabic numeral amounts to formal Chinese uppercase format for official documents and contracts.</p>
+
+    <h3>Instructions</h3>
+    <ul>
+        <li>Enter a RMB amount in Arabic numerals (e.g., 19535.65)</li>
+        <li>Use decimal point for cents (ËßíÂàÜ)</li>
+        <li>Maximum 2 decimal places supported</li>
+        <li>Click "Convert" to see the Chinese uppercase result</li>
+    </ul>
+
+    <h3>Chinese Number System</h3>
+    <ul>
+        <li><strong>Basic Numbers:</strong> Èõ?0), Â£?1), Ë¥?2), Âè?3), ËÇ?4), ‰º?5), Èô?6), Êü?7), Êç?8), Áé?9)</li>
+        <li><strong>Units:</strong> Êã?10), ‰Ω?100), ‰ª?1,000), ‰∏?10,000), ‰∫?100,000,000)</li>
+        <li><strong>Currency:</strong> ÂÖ?yuan), Ëß?jiao/0.1), Âà?fen/0.01)</li>
+    </ul>
+
+    <h3>Examples</h3>
+    <div class="example">
+        <strong>Example 1:</strong> 1234.56 ‚Ü?Â£π‰ªüË¥∞‰Ω∞ÂèÅÊãæËÇÜÂÖÉ‰ºçËßíÈôÜÂàÜ<br><br>
+        <strong>Example 2:</strong> 10000 ‚Ü?Â£π‰∏áÂÖÉÊï¥<br><br>
+        <strong>Example 3:</strong> 19535.65 ‚Ü?Â£π‰∏áÁéñ‰ªü‰ºç‰Ω∞ÂèÅÊãæ‰ºçÂÖÉÈôÜËßí‰ºçÂàÜ
+    </div>
+
+    <h3>Formal Usage</h3>
+    <ul>
+        <li>Legal documents and contracts</li>
+        <li>Financial statements and invoices</li>
+        <li>Banking and official paperwork</li>
+        <li>Government forms and applications</li>
+        <li>Prevents tampering with amounts</li>
+    </ul>
+
+    <h3>Special Rules</h3>
+    <ul>
+        <li>Zero (Èõ? is used to fill gaps between non-zero digits</li>
+        <li>Multiple zeros are represented by a single Èõ?/li>
+        <li>When no decimal part exists, add Êï?(whole) at the end</li>
+        <li>Amounts must be positive and valid</li>
+    </ul>
+
+    <h3>Input Format</h3>
+    <ul>
+        <li>Only digits and one decimal point allowed</li>
+        <li>Maximum 2 decimal places (ËßíÂàÜ)</li>
+        <li>No spaces or special characters</li>
+        <li>Examples: 1234, 1234.5, 1234.56</li>
+    </ul>
+
+    <h3>Common Use Cases</h3>
+    <ul>
+        <li>Writing checks and payment orders</li>
+        <li>Creating official receipts and invoices</li>
+        <li>Drafting legal contracts and agreements</li>
+        <li>Filling out government forms</li>
+        <li>Banking and financial documentation</li>
+    </ul>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="../about.html">About Us</a>
+        <a href="../contact.html">Contact Us</a>
+        <a href="../privacy.html">Privacy Policy</a>
+    </div>
+    <div class="footer-copyright">
+        <p>&copy; 2024 Missionary AI. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    function convertToChinese() {
+        const amount = document.getElementById('amount').value.trim();
+        const result = document.getElementById('result');
+
+        // Validate input
+        if (!/^\d+(\.\d{1,2})?$/.test(amount)) {
+            alert('Please enter a valid amount format!');
+            return;
+        }
+
+        const numbers = ['Èõ?, 'Â£?, 'Ë¥?, 'Âè?, 'ËÇ?, '‰º?, 'Èô?, 'Êü?, 'Êç?, 'Áé?];
+        const units = ['', 'Êã?, '‰Ω?, '‰ª?, '‰∏?, 'Êã?, '‰Ω?, '‰ª?, '‰∫?];
+
+        // Split integer/decimal parts
+        const parts = amount.split('.');
+        let integer = parts[0];
+        let decimal = parts[1] || '';
+
+        let result_str = '';
+
+        // Integer part
+        for (let i = 0; i < integer.length; i++) {
+            const num = parseInt(integer[i]);
+            const unit = units[integer.length - 1 - i];
+            if (num === 0) {
+                if (result_str[result_str.length - 1] !== 'Èõ? && i !== integer.length - 1) {
+                    result_str += 'Èõ?;
+                }
+            } else {
+                result_str += numbers[num] + unit;
+            }
+        }
+
+        result_str += 'ÂÖ?;
+
+        // Decimal part
+        if (decimal) {
+            if (decimal[0] !== '0') {
+                result_str += numbers[parseInt(decimal[0])] + 'Ëß?;
+            }
+            if (decimal[1] && decimal[1] !== '0') {
+                result_str += numbers[parseInt(decimal[1])] + 'Âà?;
+            }
+        } else {
+            result_str += 'Êï?;
+        }
+
+        result.textContent = result_str;
+    }
+
+    // Allow only digits and one dot
+    document.getElementById('amount').addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^\d.]/g, '');
+        if (this.value.split('.').length > 2) {
+            this.value = this.value.replace(/\.+$/, '');
+        }
+    });
+</script>
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // ÁÇπÂáªËèúÂçïÈ°πÂêéËá™Âä®ÂÖ≥Èó≠
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun and Games - Online Toolkit - Chuandao Tools</title>
+    <meta name="keywords" content="games, fun, tools, Chuandao Tools">
+    <meta name="description" content="Mini-games: minesweeper, rock-paper-scissors, number puzzles, click blocks, jump, mazes and more.">
+    <link rel="canonical" href="https://www.chdaoai.com/game.html">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/css.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Responsive navigation bar */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Tool card layout */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #444;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+        }
+
+        /* Footer styles */
+        footer {
+            background: white;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: #007bff;
+        }
+
+        .footer-copyright {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="index.html" class="nav-item">
+                <img src="static/images/logo.png" width="50px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">�?/button>
+        <div class="nav-categories">
+            <a href="index.html" class="nav-category">🔍 Featured</a>
+            <a href="life.html" class="nav-category">🏠 Life</a>
+            <a href="encry.html" class="nav-category">🔒 Crypto</a>
+            <a href="code.html" class="nav-category">📝 Encode/Decode</a>
+            <a href="dev.html" class="nav-category">💻 Developer</a>
+            <a href="base64.html" class="nav-category">🔐 Base64</a>
+            <a href="image.html" class="nav-category">🖼�?Image</a>
+            <a href="game.html" class="nav-category">🎮 Fun</a>
+            <a href="index.html" class="nav-category"><i class="fas fa-earth-americas" aria-hidden="true"></i> English</a>
+            <a href="https://openai2025.com/" class="nav-category"><i class="fas fa-language" aria-hidden="true"></i> 中文</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Games -->
+    <h2 class="category-title">Games</h2>
+    <div class="tools-grid">
+
+
+        <div class="tool-card">
+            <a href="game/sl.html">
+
+                <img src="static/images/sl.png" class="tool-icon" alt="Minesweeper Online">
+                <div class="tool-info">
+                    <div class="tool-title">Minesweeper</div>
+                    <div class="tool-desc">Play Minesweeper online</div>
+                </div>
+
+            </a>
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="game/guess.html">
+
+                <img src="static/images/guess.png" class="tool-icon" alt="Rock-Paper-Scissors Online">
+                <div class="tool-info">
+                    <div class="tool-title">Rock-Paper-Scissors</div>
+                    <div class="tool-desc">Play RPS online</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="game/road.html">
+
+                <img src="static/images/road.png" class="tool-icon" alt="Number Puzzle Online">
+                <div class="tool-info">
+                    <div class="tool-title">Number Puzzle</div>
+                    <div class="tool-desc">Play number sliding puzzle</div>
+                </div>
+            </a>
+
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="game/block.html">
+
+                <img src="static/images/block.png" class="tool-icon" alt="Click Blocks Game">
+                <div class="tool-info">
+                    <div class="tool-title">Click Blocks</div>
+                    <div class="tool-desc">Click blocks to score</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="game/jump.html">
+
+                <img src="static/images/jump.png" class="tool-icon" alt="Jump Game">
+                <div class="tool-info">
+                    <div class="tool-title">Jump Game</div>
+                    <div class="tool-desc">Casual jumping game</div>
+                </div>
+            </a>
+
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="game/blockbreak.html">
+
+                <img src="static/images/blockbreak.png" class="tool-icon" alt="Breakout Online">
+                <div class="tool-info">
+                    <div class="tool-title">Breakout</div>
+                    <div class="tool-desc">Play brick breaker</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="game/text.html">
+
+                <img src="static/images/text.png" class="tool-icon" alt="Word Game">
+                <div class="tool-info">
+                    <div class="tool-title">Word Game</div>
+                    <div class="tool-desc">Play word-based mini game</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="game/maze.html">
+
+                <img src="static/images/maze.png" class="tool-icon" alt="Maze Online">
+                <div class="tool-info">
+                    <div class="tool-title">Maze</div>
+                    <div class="tool-desc">Solve mazes online</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="game/guessnumber.html">
+
+                <img src="static/images/guessnumber.png" class="tool-icon" alt="Guess the Number Online">
+                <div class="tool-info">
+                    <div class="tool-title">Guess the Number</div>
+                    <div class="tool-desc">Play number guessing game</div>
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-copyright">
+            <p>&copy; 2024 Missionary AI. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // Auto close after clicking a menu item
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>

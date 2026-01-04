@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Periodic Table of Elements - Chuandao Tools</title>
+    <meta name="keywords" content="online tools collection, Chuandao Tools">
+    <meta name="description" content="Chuandao Tools is an online collection of utilities. No login, no fees, just use and go. Includes life tools, developer tools, encoding/decoding, encryption/decryption, image tools, and games.">
+    <link rel="canonical" href="https://www.chdaoai.com/recommend/element.html">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .nav {
+            margin: 0 auto;
+            max-width: 1200px;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .periodic-table {
+            display: grid;
+            grid-template-columns: repeat(18, 1fr);
+            gap: 2px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .element {
+            padding: 8px;
+            text-align: center;
+            border-radius: 3px;
+            min-width: 60px;
+            transition: transform 0.2s;
+        }
+
+        .element:hover {
+            transform: scale(1.1);
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .element-number {
+            font-size: 0.8em;
+            text-align: left;
+        }
+
+        .element-symbol {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin: 3px 0;
+        }
+
+        .element-name {
+            font-size: 0.7em;
+        }
+
+        /* Element group colors */
+        .alkali-metal       { background-color: #FFB266; }  /* Alkali metal */
+        .alkaline-earth     { background-color: #FFE066; } /* Alkaline earth metal */
+        .transition-metal   { background-color: #FF99CC; } /* Transition metal */
+        .post-transition    { background-color: #99CCFF; } /* Post-transition metal */
+        .metalloid          { background-color: #99FF99; }  /* Metalloid */
+        .nonmetal           { background-color: #99FFFF; }  /* Nonmetal */
+        .noble-gas          { background-color: #CC99FF; }  /* Noble gas */
+        /* Lanthanides and Actinides */
+        .lanthanide { background-color: #FFCC99; }  /* Lanthanide */
+        .actinide    { background-color: #FF99CC; }  /* Actinide */
+        .description {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            line-height: 1.6;
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Responsive navbar */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* 工具卡片布局 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #444;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+        }
+
+        /* 移动端样�?*/
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+        }
+
+        /* Help section styles */
+        .help-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+
+        .help-section h2 {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .help-section h3 {
+            color: #007bff;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .help-section p, .help-section ul {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+
+        .help-section ul {
+            margin-left: 1.5rem;
+        }
+
+        .help-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .example {
+            background: #e7f3ff;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .example strong {
+            color: #007bff;
+        }
+
+        /* Footer styles */
+        footer {
+            background: white;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: #007bff;
+        }
+
+        .footer-copyright {
+            color: #999;
+            font-size: 0.9rem;
+        }
+    </style>
+    <link rel="stylesheet" href="../static/css/periodic-table.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="../index.html" class="nav-item">
+                <img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">�?/button>
+        <div class="nav-categories">
+            <a href="../index.html" class="nav-category">🔍 Recommended</a>
+            <a href="../life.html" class="nav-category">🏠 Life Tools</a>
+            <a href="../encry.html" class="nav-category">🔒 Encryption</a>
+            <a href="../code.html" class="nav-category">📝 Encoding</a>
+            <a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+            <a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+            <a href="../game.html" class="nav-category">🎮 Games</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Periodic Table of Elements</h1>
+    <div class="periodic-table">
+        <!-- Period 1 -->
+        <div class="element nonmetal">
+            <span class="atomic-number">1</span>
+            <span class="symbol">H</span>
+            <span class="name">Hydrogen</span>
+        </div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element noble-gas">
+            <span class="atomic-number">2</span>
+            <span class="symbol">He</span>
+            <span class="name">Helium</span>
+        </div>
+
+        <!-- Period 2 -->
+        <div class="element alkali-metal">
+            <span class="atomic-number">3</span>
+            <span class="symbol">Li</span>
+            <span class="name">Lithium</span>
+        </div>
+        <div class="element alkaline-earth">
+            <span class="atomic-number">4</span>
+            <span class="symbol">Be</span>
+            <span class="name">Beryllium</span>
+        </div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element metalloid">
+            <span class="atomic-number">5</span>
+            <span class="symbol">B</span>
+            <span class="name">Boron</span>
+        </div>
+        <div class="element nonmetal">
+            <span class="atomic-number">6</span>
+            <span class="symbol">C</span>
+            <span class="name">Carbon</span>
+        </div>
+        <div class="element nonmetal">
+            <span class="atomic-number">7</span>
+            <span class="symbol">N</span>
+            <span class="name">Nitrogen</span>
+        </div>
+        <div class="element nonmetal">
+            <span class="atomic-number">8</span>
+            <span class="symbol">O</span>
+            <span class="name">Oxygen</span>
+        </div>
+        <div class="element halogen">
+            <span class="atomic-number">9</span>
+            <span class="symbol">F</span>
+            <span class="name">Fluorine</span>
+        </div>
+        <div class="element noble-gas">
+            <span class="atomic-number">10</span>
+            <span class="symbol">Ne</span>
+            <span class="name">Neon</span>
+        </div>
+
+        <!-- Period 3 -->
+        <div class="element alkali-metal">
+            <span class="atomic-number">11</span>
+            <span class="symbol">Na</span>
+            <span class="name">Sodium</span>
+        </div>
+        <div class="element alkaline-earth">
+            <span class="atomic-number">12</span>
+            <span class="symbol">Mg</span>
+            <span class="name">Magnesium</span>
+        </div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element empty"></div>
+        <div class="element post-transition-metal">
+            <span class="atomic-number">13</span>
+            <span class="symbol">Al</span>
+            <span class="name">Aluminum</span>
+        </div>
+        <div class="element metalloid">
+            <span class="atomic-number">14</span>
+            <span class="symbol">Si</span>
+            <span class="name">Silicon</span>
+        </div>
+        <div class="element nonmetal">
+            <span class="atomic-number">15</span>
+            <span class="symbol">P</span>
+            <span class="name">Phosphorus</span>
+        </div>
+        <div class="element nonmetal">
+            <span class="atomic-number">16</span>
+            <span class="symbol">S</span>
+            <span class="name">Sulfur</span>
+        </div>
+        <div class="element halogen">
+            <span class="atomic-number">17</span>
+            <span class="symbol">Cl</span>
+            <span class="name">Chlorine</span>
+        </div>
+        <div class="element noble-gas">
+            <span class="atomic-number">18</span>
+            <span class="symbol">Ar</span>
+            <span class="name">Argon</span>
+        </div>
+
+        <!-- Period 4 -->
+        <div class="element alkali-metal">
+            <span class="atomic-number">19</span>
+            <span class="symbol">K</span>
+            <span class="name">Potassium</span>
+        </div>
+        <div class="element alkaline-earth">
+            <span class="atomic-number">20</span>
+            <span class="symbol">Ca</span>
+            <span class="name">Calcium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">21</span>
+            <span class="symbol">Sc</span>
+            <span class="name">Scandium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">22</span>
+            <span class="symbol">Ti</span>
+            <span class="name">Titanium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">23</span>
+            <span class="symbol">V</span>
+            <span class="name">Vanadium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">24</span>
+            <span class="symbol">Cr</span>
+            <span class="name">Chromium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">25</span>
+            <span class="symbol">Mn</span>
+            <span class="name">Manganese</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">26</span>
+            <span class="symbol">Fe</span>
+            <span class="name">Iron</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">27</span>
+            <span class="symbol">Co</span>
+            <span class="name">Cobalt</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">28</span>
+            <span class="symbol">Ni</span>
+            <span class="name">Nickel</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">29</span>
+            <span class="symbol">Cu</span>
+            <span class="name">Copper</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">30</span>
+            <span class="symbol">Zn</span>
+            <span class="name">Zinc</span>
+        </div>
+        <div class="element post-transition-metal">
+            <span class="atomic-number">31</span>
+            <span class="symbol">Ga</span>
+            <span class="name">Gallium</span>
+        </div>
+        <div class="element metalloid">
+            <span class="atomic-number">32</span>
+            <span class="symbol">Ge</span>
+            <span class="name">Germanium</span>
+        </div>
+        <div class="element metalloid">
+            <span class="atomic-number">33</span>
+            <span class="symbol">As</span>
+            <span class="name">Arsenic</span>
+        </div>
+        <div class="element nonmetal">
+            <span class="atomic-number">34</span>
+            <span class="symbol">Se</span>
+            <span class="name">Selenium</span>
+        </div>
+        <div class="element halogen">
+            <span class="atomic-number">35</span>
+            <span class="symbol">Br</span>
+            <span class="name">Bromine</span>
+        </div>
+        <div class="element noble-gas">
+            <span class="atomic-number">36</span>
+            <span class="symbol">Kr</span>
+            <span class="name">Krypton</span>
+        </div>
+
+        <!-- Period 5 -->
+        <div class="element alkali-metal">
+            <span class="atomic-number">37</span>
+            <span class="symbol">Rb</span>
+            <span class="name">Rubidium</span>
+        </div>
+        <div class="element alkaline-earth">
+            <span class="atomic-number">38</span>
+            <span class="symbol">Sr</span>
+            <span class="name">Strontium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">39</span>
+            <span class="symbol">Y</span>
+            <span class="name">Yttrium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">40</span>
+            <span class="symbol">Zr</span>
+            <span class="name">Zirconium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">41</span>
+            <span class="symbol">Nb</span>
+            <span class="name">Niobium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">42</span>
+            <span class="symbol">Mo</span>
+            <span class="name">Molybdenum</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">43</span>
+            <span class="symbol">Tc</span>
+            <span class="name">Technetium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">44</span>
+            <span class="symbol">Ru</span>
+            <span class="name">Ruthenium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">45</span>
+            <span class="symbol">Rh</span>
+            <span class="name">Rhodium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">46</span>
+            <span class="symbol">Pd</span>
+            <span class="name">Palladium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">47</span>
+            <span class="symbol">Ag</span>
+            <span class="name">Silver</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">48</span>
+            <span class="symbol">Cd</span>
+            <span class="name">Cadmium</span>
+        </div>
+        <div class="element post-transition-metal">
+            <span class="atomic-number">49</span>
+            <span class="symbol">In</span>
+            <span class="name">Indium</span>
+        </div>
+        <div class="element post-transition-metal">
+            <span class="atomic-number">50</span>
+            <span class="symbol">Sn</span>
+            <span class="name">Tin</span>
+        </div>
+        <div class="element metalloid">
+            <span class="atomic-number">51</span>
+            <span class="symbol">Sb</span>
+            <span class="name">Antimony</span>
+        </div>
+        <div class="element metalloid">
+            <span class="atomic-number">52</span>
+            <span class="symbol">Te</span>
+            <span class="name">Tellurium</span>
+        </div>
+        <div class="element halogen">
+            <span class="atomic-number">53</span>
+            <span class="symbol">I</span>
+            <span class="name">Iodine</span>
+        </div>
+        <div class="element noble-gas">
+            <span class="atomic-number">54</span>
+            <span class="symbol">Xe</span>
+            <span class="name">Xenon</span>
+        </div>
+
+        <!-- Period 6 -->
+        <div class="element alkali-metal">
+            <span class="atomic-number">55</span>
+            <span class="symbol">Cs</span>
+            <span class="name">Cesium</span>
+        </div>
+        <div class="element alkaline-earth">
+            <span class="atomic-number">56</span>
+            <span class="symbol">Ba</span>
+            <span class="name">Barium</span>
+        </div>
+        <div class="element lanthanide">
+            <span class="atomic-number">57-71</span>
+            <span class="symbol">La-Lu</span>
+            <span class="name">Lanthanides</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">72</span>
+            <span class="symbol">Hf</span>
+            <span class="name">Hafnium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">73</span>
+            <span class="symbol">Ta</span>
+            <span class="name">Tantalum</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">74</span>
+            <span class="symbol">W</span>
+            <span class="name">Tungsten</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">75</span>
+            <span class="symbol">Re</span>
+            <span class="name">Rhenium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">76</span>
+            <span class="symbol">Os</span>
+            <span class="name">Osmium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">77</span>
+            <span class="symbol">Ir</span>
+            <span class="name">Iridium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">78</span>
+            <span class="symbol">Pt</span>
+            <span class="name">Platinum</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">79</span>
+            <span class="symbol">Au</span>
+            <span class="name">Gold</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">80</span>
+            <span class="symbol">Hg</span>
+            <span class="name">Mercury</span>
+        </div>
+        <div class="element post-transition-metal">
+            <span class="atomic-number">81</span>
+            <span class="symbol">Tl</span>
+            <span class="name">Thallium</span>
+        </div>
+        <div class="element post-transition-metal">
+            <span class="atomic-number">82</span>
+            <span class="symbol">Pb</span>
+            <span class="name">Lead</span>
+        </div>
+        <div class="element post-transition-metal">
+            <span class="atomic-number">83</span>
+            <span class="symbol">Bi</span>
+            <span class="name">Bismuth</span>
+        </div>
+        <div class="element metalloid">
+            <span class="atomic-number">84</span>
+            <span class="symbol">Po</span>
+            <span class="name">Polonium</span>
+        </div>
+        <div class="element halogen">
+            <span class="atomic-number">85</span>
+            <span class="symbol">At</span>
+            <span class="name">Astatine</span>
+        </div>
+        <div class="element noble-gas">
+            <span class="atomic-number">86</span>
+            <span class="symbol">Rn</span>
+            <span class="name">Radon</span>
+        </div>
+
+        <!-- Period 7 -->
+        <div class="element alkali-metal">
+            <span class="atomic-number">87</span>
+            <span class="symbol">Fr</span>
+            <span class="name">Francium</span>
+        </div>
+        <div class="element alkaline-earth">
+            <span class="atomic-number">88</span>
+            <span class="symbol">Ra</span>
+            <span class="name">Radium</span>
+        </div>
+        <div class="element actinide">
+            <span class="atomic-number">89-103</span>
+            <span class="symbol">Ac-Lr</span>
+            <span class="name">Actinides</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">104</span>
+            <span class="symbol">Rf</span>
+            <span class="name">Rutherfordium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">105</span>
+            <span class="symbol">Db</span>
+            <span class="name">Dubnium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">106</span>
+            <span class="symbol">Sg</span>
+            <span class="name">Seaborgium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">107</span>
+            <span class="symbol">Bh</span>
+            <span class="name">Bohrium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">108</span>
+            <span class="symbol">Hs</span>
+            <span class="name">Hassium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">109</span>
+            <span class="symbol">Mt</span>
+            <span class="name">Meitnerium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">110</span>
+            <span class="symbol">Ds</span>
+            <span class="name">Darmstadtium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">111</span>
+            <span class="symbol">Rg</span>
+            <span class="name">Roentgenium</span>
+        </div>
+        <div class="element transition-metal">
+            <span class="atomic-number">112</span>
+            <span class="symbol">Cn</span>
+            <span class="name">Copernicium</span>
+        </div>
+        <div class="element post-transition-metal">
+            <span class="atomic-number">113</span>
+            <span class="symbol">Nh</span>
+            <span class="name">Nihonium</span>
+        </div>
+        <div class="element post-transition-metal">
+            <span class="atomic-number">114</span>
+            <span class="symbol">Fl</span>
+            <span class="name">Flerovium</span>
+        </div>
+        <div class="element post-transition-metal">
+            <span class="atomic-number">115</span>
+            <span class="symbol">Mc</span>
+            <span class="name">Moscovium</span>
+        </div>
+        <div class="element post-transition-metal">
+            <span class="atomic-number">116</span>
+            <span class="symbol">Lv</span>
+            <span class="name">Livermorium</span>
+        </div>
+        <div class="element halogen">
+            <span class="atomic-number">117</span>
+            <span class="symbol">Ts</span>
+            <span class="name">Tennessine</span>
+        </div>
+        <div class="element noble-gas">
+            <span class="atomic-number">118</span>
+            <span class="symbol">Og</span>
+            <span class="name">Oganesson</span>
+        </div>
+
+        <!-- Lanthanides row -->
+        <div class="element lanthanide">
+            <span class="atomic-number">57</span>
+            <span class="symbol">La</span>
+            <span class="name">Lanthanum</span>
+        </div>
+        <div class="element lanthanide">
+            <span class="atomic-number">58</span>
+            <span class="symbol">Ce</span>
+            <span class="name">Cerium</span>
+        </div>
+        <div class="element lanthanide">
+            <span class="atomic-number">59</span>
+            <span class="symbol">Pr</span>
+            <span class="name">Praseodymium</span>
+        </div>
+        <div class="element lanthanide">
+            <span class="atomic-number">60</span>
+            <span class="symbol">Nd</span>
+            <span class="name">Neodymium</span>
+        </div>
+        <div class="element lanthanide">
+            <span class="atomic-number">61</span>
+            <span class="symbol">Pm</span>
+            <span class="name">Promethium</span>
+        </div>
+        <div class="element lanthanide">
+            <span class="atomic-number">62</span>
+            <span class="symbol">Sm</span>
+            <span class="name">Samarium</span>
+        </div>
+        <div class="element lanthanide">
+            <span class="atomic-number">63</span>
+            <span class="symbol">Eu</span>
+            <span class="name">Europium</span>
+        </div>
+        <div class="element lanthanide">
+            <span class="atomic-number">64</span>
+            <span class="symbol">Gd</span>
+            <span class="name">Gadolinium</span>
+        </div>
+        <div class="element lanthanide">
+            <span class="atomic-number">65</span>
+            <span class="symbol">Tb</span>
+            <span class="name">Terbium</span>
+        </div>
+        <div class="element lanthanide">
+            <span class="atomic-number">66</span>
+            <span class="symbol">Dy</span>
+            <span class="name">Dysprosium</span>
+        </div>
+        <div class="element lanthanide">
+            <span class="atomic-number">67</span>
+            <span class="symbol">Ho</span>
+            <span class="name">Holmium</span>
+        </div>
+        <div class="element lanthanide">
+            <span class="atomic-number">68</span>
+            <span class="symbol">Er</span>
+            <span class="name">Erbium</span>
+        </div>
+        <div class="element lanthanide">
+            <span class="atomic-number">69</span>
+            <span class="symbol">Tm</span>
+            <span class="name">Thulium</span>
+        </div>
+        <div class="element lanthanide">
+            <span class="atomic-number">70</span>
+            <span class="symbol">Yb</span>
+            <span class="name">Ytterbium</span>
+        </div>
+        <div class="element lanthanide">
+            <span class="atomic-number">71</span>
+            <span class="symbol">Lu</span>
+            <span class="name">Lutetium</span>
+        </div>
+
+        <!-- Actinides row -->
+        <div class="element actinide">
+            <span class="atomic-number">89</span>
+            <span class="symbol">Ac</span>
+            <span class="name">Actinium</span>
+        </div>
+        <div class="element actinide">
+            <span class="atomic-number">90</span>
+            <span class="symbol">Th</span>
+            <span class="name">Thorium</span>
+        </div>
+        <div class="element actinide">
+            <span class="atomic-number">91</span>
+            <span class="symbol">Pa</span>
+            <span class="name">Protactinium</span>
+        </div>
+        <div class="element actinide">
+            <span class="atomic-number">92</span>
+            <span class="symbol">U</span>
+            <span class="name">Uranium</span>
+        </div>
+        <div class="element actinide">
+            <span class="atomic-number">93</span>
+            <span class="symbol">Np</span>
+            <span class="name">Neptunium</span>
+        </div>
+        <div class="element actinide">
+            <span class="atomic-number">94</span>
+            <span class="symbol">Pu</span>
+            <span class="name">Plutonium</span>
+        </div>
+        <div class="element actinide">
+            <span class="atomic-number">95</span>
+            <span class="symbol">Am</span>
+            <span class="name">Americium</span>
+        </div>
+        <div class="element actinide">
+            <span class="atomic-number">96</span>
+            <span class="symbol">Cm</span>
+            <span class="name">Curium</span>
+        </div>
+        <div class="element actinide">
+            <span class="atomic-number">97</span>
+            <span class="symbol">Bk</span>
+            <span class="name">Berkelium</span>
+        </div>
+        <div class="element actinide">
+            <span class="atomic-number">98</span>
+            <span class="symbol">Cf</span>
+            <span class="name">Californium</span>
+        </div>
+        <div class="element actinide">
+            <span class="atomic-number">99</span>
+            <span class="symbol">Es</span>
+            <span class="name">Einsteinium</span>
+        </div>
+        <div class="element actinide">
+            <span class="atomic-number">100</span>
+            <span class="symbol">Fm</span>
+            <span class="name">Fermium</span>
+        </div>
+        <div class="element actinide">
+            <span class="atomic-number">101</span>
+            <span class="symbol">Md</span>
+            <span class="name">Mendelevium</span>
+        </div>
+        <div class="element actinide">
+            <span class="atomic-number">102</span>
+            <span class="symbol">No</span>
+            <span class="name">Nobelium</span>
+        </div>
+        <div class="element actinide">
+            <span class="atomic-number">103</span>
+            <span class="symbol">Lr</span>
+            <span class="name">Lawrencium</span>
+        </div>
+    </div>
+    <div class="description">
+        <h2>About the periodic table</h2>
+        <p>The periodic table arranges chemical elements by atomic number (proton count). There are 118 confirmed elements organized into 7 periods and 18 groups. It highlights periodic trends in element properties and is an essential tool in chemistry.</p>
+    </div>
+</div>
+
+<div class="help-section">
+    <h2>How to Use the Periodic Table of Elements</h2>
+    <p>Explore all 118 chemical elements in an interactive, color-coded periodic table.</p>
+
+    <h3>Element Organization</h3>
+    <ul>
+        <li><strong>Periods (Rows):</strong> 7 horizontal rows showing energy levels</li>
+        <li><strong>Groups (Columns):</strong> 18 vertical columns showing similar properties</li>
+        <li><strong>Element Box:</strong> Shows atomic number, symbol, and name</li>
+        <li><strong>Color Coding:</strong> Each color represents an element category</li>
+    </ul>
+
+    <h3>Element Categories by Color</h3>
+    <ul>
+        <li><strong>Orange (Alkali Metals):</strong> Highly reactive elements like Li, Na, K</li>
+        <li><strong>Yellow (Alkaline Earth Metals):</strong> Be, Mg, Ca, Sr, Ba, Ra</li>
+        <li><strong>Pink (Transition Metals):</strong> D-block elements including Fe, Cu, Au</li>
+        <li><strong>Light Blue (Post-Transition Metals):</strong> Al, Ga, In, Sn, Pb</li>
+        <li><strong>Green (Metalloids):</strong> B, Si, Ge, As, Sb, Te</li>
+        <li><strong>Cyan (Nonmetals):</strong> C, N, O, P, S, Se</li>
+        <li><strong>Purple (Noble Gases):</strong> He, Ne, Ar, Kr, Xe, Rn</li>
+        <li><strong>Lanthanides & Actinides:</strong> Rare earth elements in separate rows</li>
+    </ul>
+
+    <h3>Reading an Element</h3>
+    <ul>
+        <li><strong>Atomic Number:</strong> Number of protons (top left)</li>
+        <li><strong>Symbol:</strong> Chemical abbreviation (center, large)</li>
+        <li><strong>Name:</strong> Full element name (bottom)</li>
+    </ul>
+
+    <h3>Special Sections</h3>
+    <div class="example">
+        <strong>Lanthanides:</strong> Elements 57-71 (La-Lu) - Rare earth metals<br><br>
+        <strong>Actinides:</strong> Elements 89-103 (Ac-Lr) - Radioactive elements
+    </div>
+
+    <h3>Usage Tips</h3>
+    <ul>
+        <li>Hover over elements to see details</li>
+        <li>Explore similar elements by looking at the same column</li>
+        <li>Study periodic trends across rows and columns</li>
+        <li>Use this as a reference for chemistry studies and research</li>
+    </ul>
+
+    <h3>Examples</h3>
+    <div class="example">
+        <strong>Example 1:</strong> Gold (Au) - Atomic number 79, Transition metal<br><br>
+        <strong>Example 2:</strong> Carbon (C) - Atomic number 6, Nonmetal (forms basis of organic chemistry)
+    </div>
+
+    <h3>Common Patterns</h3>
+    <p>Elements in the same group have similar chemical properties. For example, all alkali metals (Group 1) are highly reactive with water. Moving across a period, elements become less metallic and more nonmetallic.</p>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="../about.html">About Us</a>
+        <a href="../contact.html">Contact Us</a>
+        <a href="../privacy.html">Privacy Policy</a>
+    </div>
+    <div class="footer-copyright">
+        <p>&copy; 2024 Missionary AI. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // 点击菜单项后自动关闭
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>

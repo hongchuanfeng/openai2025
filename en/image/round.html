@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Rounded Corners Tool - Chandao Tools</title>
+	<meta name="keywords" content="online tool collection, Chandao Tools">
+	<meta name="description" content="Chandao Tools is a collection of free, no-login online utilities across life, dev, encoding/decoding, encryption, images, and fun.">
+	<link rel="canonical" href="https://www.chdaoai.com/image/round.html">		
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.image-container {
+			display: flex;
+			gap: 20px;
+			margin-bottom: 20px;
+		}
+		.image-box {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 10px;
+		}
+		.image-preview {
+			width: 100%;
+			height: 300px;
+			border: 2px dashed #ddd;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			background-color: #f8f9fa;
+		}
+		.image-preview img {
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+		}
+		.button {
+			width: 100%;
+			padding: 12px;
+			border: none;
+			border-radius: 4px;
+			font-size: 16px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+		}
+		.upload-btn {
+			background-color: #ff6b6b;
+			color: white;
+		}
+		.upload-btn:hover {
+			background-color: #ff5252;
+		}
+		.download-btn {
+			background-color: #f8f9fa;
+			color: #333;
+			border: 1px solid #ddd;
+		}
+		.download-btn:hover {
+			background-color: #e9ecef;
+		}
+		.info-box {
+			margin-top: 20px;
+			padding: 15px;
+			background: #fff5f0;
+			border-radius: 4px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 10px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+			font-size: 14px;
+			line-height: 1.8;
+		}
+		.info-list li {
+			margin-bottom: 5px;
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			border-radius: 8px;
+			padding: 2rem;
+			max-width: 1100px;
+			margin: 2rem auto;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-title {
+			color: #333;
+			font-size: 1.5rem;
+			margin-bottom: 1rem;
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+
+		.help-content {
+			color: #666;
+			line-height: 1.6;
+		}
+
+		.help-content h3 {
+			color: #444;
+			margin: 1.5rem 0 0.5rem 0;
+			font-size: 1.1rem;
+		}
+
+		.help-content ul {
+			margin: 0.5rem 0 1rem 1.5rem;
+		}
+
+		.help-content li {
+			margin-bottom: 0.5rem;
+		}
+
+		.help-content code {
+			background: #e9ecef;
+			padding: 0.2rem 0.4rem;
+			border-radius: 3px;
+			font-family: monospace;
+			font-size: 0.9rem;
+		}
+
+		.example-box {
+			background: #fff;
+			border: 1px solid #dee2e6;
+			border-radius: 6px;
+			padding: 1rem;
+			margin: 1rem 0;
+		}
+
+		.example-title {
+			font-weight: bold;
+			color: #495057;
+			margin-bottom: 0.5rem;
+		}
+
+		/* Footer styles */
+		.footer {
+			background: #333;
+			color: white;
+			text-align: center;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #ccc;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.footer-links a:hover {
+			color: white;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+
+		@media (max-width: 768px) {
+			.footer-links {
+				flex-direction: column;
+				gap: 1rem;
+			}
+		}
+	</style>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					colors: {
+						primary: '#4F46E5',
+						secondary: '#818CF8',
+						neutral: '#1F2937',
+					},
+					fontFamily: {
+						inter: ['Inter', 'system-ui', 'sans-serif'],
+					},
+				}
+			}
+		}
+	</script>
+	<style type="text/tailwindcss">
+		@layer utilities {
+			.content-auto {
+				content-visibility: auto;
+			}
+			.transition-transform-opacity {
+				transition-property: transform, opacity;
+				transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+				transition-duration: 300ms;
+			}
+			.hover-scale {
+				@apply hover:scale-105 transition-all duration-300;
+			}
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+			z-index: 999;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 推荐工具</a>
+			<a href="../life.html" class="nav-category">🏠 生活工具</a>
+			<a href="../encry.html" class="nav-category">🔒 加密解密</a>
+			<a href="../code.html" class="nav-category">📝 编码解码</a>
+			<a href="../dev.html" class="nav-category">💻 开发工�?/a>
+			<a href="../image.html" class="nav-category">🖼�?图片处理</a>
+			<a href="../game.html" class="nav-category">🎮 娱乐工具</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+
+	<main class="flex-grow container mx-auto px-4 py-8">
+		<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+			<!-- 左侧控制面板 -->
+			<div class="bg-white rounded-xl shadow-lg p-6 transform hover:shadow-xl transition-all duration-300">
+				<h2 class="text-xl font-bold text-neutral mb-4 flex items-center">
+					<i class="fa-solid fa-sliders mr-2 text-primary"></i>Corner Radius Settings
+				</h2>
+
+				<div class="space-y-6">
+					<!-- 上传图片区域 -->
+					<div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-colors duration-300">
+						<input type="file" id="imageUpload" accept="image/*" class="hidden">
+						<label for="imageUpload" class="cursor-pointer block">
+							<i class="fa-solid fa-cloud-arrow-up text-4xl text-gray-400 mb-3"></i>
+							<p class="text-gray-600">Click or drag an image here to upload</p>
+							<p class="text-sm text-gray-400 mt-1">Supports JPG, PNG, WebP</p>
+						</label>
+					</div>
+
+					<!-- 圆角控制滑块 -->
+					<div class="space-y-3">
+						<div class="flex justify-between items-center">
+							<label for="radiusSlider" class="text-gray-700 font-medium">Radius:</label>
+							<span id="radiusValue" class="text-primary font-semibold min-w-[40px] text-center">0px</span>
+						</div>
+						<input type="range" id="radiusSlider" min="0" max="100" value="0"
+							   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+						<div class="flex justify-between text-xs text-gray-500">
+							<span>No radius</span>
+							<span>Circle</span>
+						</div>
+					</div>
+
+					<!-- 预设选项 -->
+					<div>
+						<h3 class="text-sm font-medium text-gray-700 mb-2">Presets:</h3>
+						<div class="flex flex-wrap gap-2">
+							<button class="preset-btn px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-md text-sm transition-colors" data-radius="0">
+								No radius
+							</button>
+							<button class="preset-btn px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-md text-sm transition-colors" data-radius="4">
+								Small
+							</button>
+							<button class="preset-btn px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-md text-sm transition-colors" data-radius="8">
+								Medium
+							</button>
+							<button class="preset-btn px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-md text-sm transition-colors" data-radius="16">
+								Large
+							</button>
+							<button class="preset-btn px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-md text-sm transition-colors" data-radius="50">
+								Circle
+							</button>
+						</div>
+					</div>
+
+					<!-- 操作按钮 -->
+					<div class="flex gap-3">
+						<button id="downloadBtn" class="flex-1 bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
+							<i class="fa-solid fa-download mr-2"></i>Download image
+						</button>
+						<button id="resetBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center">
+							<i class="fa-solid fa-refresh mr-2"></i>Reset
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- 右侧预览区域 -->
+			<div class="bg-white rounded-xl shadow-lg p-6 flex flex-col transform hover:shadow-xl transition-all duration-300">
+				<h2 class="text-xl font-bold text-neutral mb-4 flex items-center">
+					<i class="fa-solid fa-eye mr-2 text-primary"></i>Preview
+				</h2>
+
+				<div class="flex-grow flex flex-col items-center justify-center">
+					<div id="previewContainer" class="w-full max-w-md aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center relative mb-4 shadow-inner">
+						<div id="noImageState" class="text-center p-6">
+							<i class="fa-solid fa-image text-5xl text-gray-300 mb-3"></i>
+							<p class="text-gray-500">Please upload an image to start</p>
+						</div>
+						<img id="previewImage" src="../static/images/preve.jpeg" alt="预览图片" class="max-w-full max-h-full object-contain rounded-[0px] transition-all duration-500 ease-out">
+						<div id="loadingIndicator" class="absolute inset-0 bg-black/50 flex items-center justify-center hidden">
+							<div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+						</div>
+					</div>
+
+					<div class="mt-4 w-full">
+						<div class="grid grid-cols-2 gap-3">
+							<div class="bg-gray-50 p-3 rounded-lg">
+								<p class="text-xs text-gray-500">Original</p>
+								<div id="originalPreview" class="w-full aspect-[4/3] bg-gray-100 rounded overflow-hidden">
+									<img id="originalImage" src="../static/images/preve.jpeg" alt="原始图片" class="w-full h-full object-cover rounded-[0px]">
+								</div>
+							</div>
+							<div class="bg-gray-50 p-3 rounded-lg">
+								<p class="text-xs text-gray-500">Processed</p>
+								<div id="processedPreview" class="w-full aspect-[4/3] bg-gray-100 rounded overflow-hidden">
+									<img id="processedImage" src="../static/images/preve.jpeg" alt="处理后图�? class="w-full h-full object-cover rounded-[0px] transition-all duration-500">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</div>
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2 class="help-title">
+		<i class="fas fa-question-circle"></i>
+		How to Use
+	</h2>
+	<div class="help-content">
+		<h3>Step-by-Step Instructions</h3>
+		<ol>
+			<li><strong>Upload Image:</strong> Click the upload area or drag and drop an image file</li>
+			<li><strong>Adjust Radius:</strong> Use the slider to set the corner radius (0-100px)</li>
+			<li><strong>Use Presets:</strong> Click preset buttons for quick radius settings</li>
+			<li><strong>Preview:</strong> See the rounded corners effect in real-time</li>
+			<li><strong>Download:</strong> Click "Download image" to save the processed image</li>
+		</ol>
+
+		<h3>What are Rounded Corners?</h3>
+		<p>Rounded corners are a design element that softens the sharp edges of rectangular images by applying a circular radius to the corners. This creates a more modern, friendly appearance and is commonly used in web design, mobile apps, and social media.</p>
+
+		<h3>Radius Settings</h3>
+		<div class="example-box">
+			<div class="example-title">Slider Control:</div>
+			<ul>
+				<li><strong>0px:</strong> No rounding (sharp corners)</li>
+				<li><strong>1-20px:</strong> Subtle rounding</li>
+				<li><strong>21-50px:</strong> Moderate rounding</li>
+				<li><strong>51-100px:</strong> Strong rounding</li>
+				<li><strong>100px:</strong> Maximum rounding (circular for square images)</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">Preset Options:</div>
+			<ul>
+				<li><strong>No radius:</strong> 0px - Sharp corners</li>
+				<li><strong>Small:</strong> 4px - Subtle rounding</li>
+				<li><strong>Medium:</strong> 8px - Balanced rounding</li>
+				<li><strong>Large:</strong> 16px - Prominent rounding</li>
+				<li><strong>Circle:</strong> 50px - Maximum rounding</li>
+			</ul>
+		</div>
+
+		<h3>Supported Image Formats</h3>
+		<ul>
+			<li>JPEG (.jpg, .jpeg)</li>
+			<li>PNG (.png)</li>
+			<li>WebP (.webp)</li>
+			<li>GIF (.gif)</li>
+			<li>BMP (.bmp)</li>
+		</ul>
+
+		<h3>Common Use Cases</h3>
+		<div class="example-box">
+			<div class="example-title">Web Design:</div>
+			<ul>
+				<li>Profile pictures and avatars</li>
+				<li>Product images in e-commerce</li>
+				<li>Card layouts and thumbnails</li>
+				<li>Modern UI elements</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">Social Media:</div>
+			<ul>
+				<li>Instagram post images</li>
+				<li>Facebook cover photos</li>
+				<li>Twitter profile pictures</li>
+				<li>LinkedIn post images</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">Mobile Apps:</div>
+			<ul>
+				<li>App icon design</li>
+				<li>User interface elements</li>
+				<li>Image galleries</li>
+				<li>Button backgrounds</li>
+			</ul>
+		</div>
+
+		<h3>Design Tips</h3>
+		<div class="example-box">
+			<div class="example-title">Radius Guidelines:</div>
+			<ul>
+				<li>Use smaller radius (4-8px) for professional designs</li>
+				<li>Use medium radius (8-16px) for modern, friendly designs</li>
+				<li>Use large radius (16-32px) for playful, creative designs</li>
+				<li>Consider image size when choosing radius</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">Best Practices:</div>
+			<ul>
+				<li>Maintain consistency across similar elements</li>
+				<li>Test different radius values to find the right balance</li>
+				<li>Consider the overall design aesthetic</li>
+				<li>Ensure readability and usability</li>
+			</ul>
+		</div>
+
+		<h3>Technical Details</h3>
+		<ul>
+			<li>Radius is calculated as a percentage of the image's smaller dimension</li>
+			<li>Maximum effective radius is 50% of the image's smaller side</li>
+			<li>Output maintains original image quality</li>
+			<li>Processed images are saved as PNG format</li>
+		</ul>
+
+		<h3>Preview Features</h3>
+		<div class="example-box">
+			<div class="example-title">Real-time Preview:</div>
+			<ul>
+				<li>See changes instantly as you adjust the slider</li>
+				<li>Compare original and processed images side by side</li>
+				<li>Large preview for detailed examination</li>
+				<li>Smooth transitions for better user experience</li>
+			</ul>
+		</div>
+
+		<h3>Browser Requirements</h3>
+		<ul>
+			<li>Modern web browser with HTML5 Canvas support</li>
+			<li>JavaScript enabled</li>
+			<li>Sufficient memory for image processing</li>
+		</ul>
+
+		<h3>Important Notes</h3>
+		<ul>
+			<li>All processing is done locally in your browser</li>
+			<li>No images are uploaded to external servers</li>
+			<li>Original image quality is preserved</li>
+			<li>Large images may take longer to process</li>
+			<li>Use "Reset" button to return to original settings</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		&copy; 2024 Missionary AI. All rights reserved.
+	</div>
+</footer>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		// 获取DOM元素
+		const imageUpload = document.getElementById('imageUpload');
+		const radiusSlider = document.getElementById('radiusSlider');
+		const radiusValue = document.getElementById('radiusValue');
+		const previewImage = document.getElementById('previewImage');
+		const processedImage = document.getElementById('processedImage');
+		const originalImage = document.getElementById('originalImage');
+		const downloadBtn = document.getElementById('downloadBtn');
+		const resetBtn = document.getElementById('resetBtn');
+		const noImageState = document.getElementById('noImageState');
+		const loadingIndicator = document.getElementById('loadingIndicator');
+		const presetBtns = document.querySelectorAll('.preset-btn');
+
+		// 初始化状�?
+		let originalImageData = null;
+		let currentRadius = 0;
+		downloadBtn.disabled = true;
+
+		// 监听图片上传
+		imageUpload.addEventListener('change', function(e) {
+			if (e.target.files && e.target.files[0]) {
+				const file = e.target.files[0];
+				if (!file.type.match('image.*')) {
+					alert('Please upload an image file');
+					return;
+				}
+
+				showLoading(true);
+
+				const reader = new FileReader();
+				reader.onload = function(e) {
+					// 设置预览图片
+					previewImage.src = e.target.result;
+					originalImage.src = e.target.result;
+					processedImage.src = e.target.result;
+
+					// 存储原始图片数据
+					originalImageData = e.target.result;
+
+					// 更新UI状�?
+					noImageState.classList.add('hidden');
+					downloadBtn.disabled = false;
+
+					// 应用当前圆角半径
+					applyRadius();
+
+					showLoading(false);
+				};
+				reader.readAsDataURL(file);
+			}
+		});
+
+		// 监听滑块变化
+		radiusSlider.addEventListener('input', function() {
+			currentRadius = parseInt(this.value);
+			updateRadiusDisplay();
+			applyRadius();
+		});
+
+		// 监听预设按钮点击
+		presetBtns.forEach(btn => {
+			btn.addEventListener('click', function() {
+				currentRadius = parseInt(this.dataset.radius);
+				radiusSlider.value = currentRadius;
+				updateRadiusDisplay();
+				applyRadius();
+			});
+		});
+
+		// 监听下载按钮点击
+		downloadBtn.addEventListener('click', function() {
+			if (!previewImage.src) return;
+
+			// 创建一个临时canvas
+			const canvas = document.createElement('canvas');
+			const ctx = canvas.getContext('2d');
+
+			// 创建图片对象
+			const img = new Image();
+			img.onload = function() {
+				// 设置canvas尺寸
+				canvas.width = img.width;
+				canvas.height = img.height;
+
+				// 计算圆角半径（基于图片尺寸的百分比）
+				const radius = (currentRadius / 100) * Math.min(img.width, img.height);
+
+				// 绘制带圆角的图片
+				ctx.beginPath();
+				ctx.moveTo(radius, 0);
+				ctx.lineTo(img.width - radius, 0);
+				ctx.arcTo(img.width, 0, img.width, radius, radius);
+				ctx.lineTo(img.width, img.height - radius);
+				ctx.arcTo(img.width, img.height, img.width - radius, img.height, radius);
+				ctx.lineTo(radius, img.height);
+				ctx.arcTo(0, img.height, 0, img.height - radius, radius);
+				ctx.lineTo(0, radius);
+				ctx.arcTo(0, 0, radius, 0, radius);
+				ctx.closePath();
+				ctx.clip();
+				ctx.drawImage(img, 0, 0, img.width, img.height);
+
+				// 创建下载链接
+				const link = document.createElement('a');
+				link.download = 'rounded_image.png';
+				link.href = canvas.toDataURL('image/png');
+				link.click();
+			};
+			img.src = previewImage.src;
+		});
+
+		// 监听重置按钮点击
+		resetBtn.addEventListener('click', function() {
+			// 重置滑块
+			radiusSlider.value = 0;
+			currentRadius = 0;
+			updateRadiusDisplay();
+			applyRadius();
+
+			// 清除图片（可选）
+			// imageUpload.value = '';
+			// previewImage.src = '';
+			// originalImage.src = '';
+			// processedImage.src = '';
+			// noImageState.classList.remove('hidden');
+			// downloadBtn.disabled = true;
+		});
+
+		// 更新圆角半径显示
+		function updateRadiusDisplay() {
+			radiusValue.textContent = `${currentRadius}px`;
+		}
+
+		// 应用圆角效果
+		function applyRadius() {
+			if (!previewImage.src) return;
+
+			// 为预览图片应用圆�?
+			previewImage.style.borderRadius = `${currentRadius}px`;
+			processedImage.style.borderRadius = `${currentRadius}px`;
+		}
+
+		// 显示/隐藏加载指示�?
+		function showLoading(show) {
+			if (show) {
+				loadingIndicator.classList.remove('hidden');
+			} else {
+				loadingIndicator.classList.add('hidden');
+			}
+		}
+
+		// 初始化显�?
+		updateRadiusDisplay();
+	});
+
+</script>
+</body>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+
+
+</html>

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Generator - Chuandao Tools</title>
+    <meta name="keywords" content="online tools collection, Chuandao Tools">
+    <meta name="description" content="Chuandao Tools is an online collection of utilities. No login, no fees, just use and go. Includes life tools, developer tools, encoding/decoding, encryption/decryption, image tools, and games.">
+    <link rel="canonical" href="https://www.chdaoai.com/recommend/name.html">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .nav {
+            margin: 0 auto;
+            max-width: 1200px;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .header-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #ff9f43;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .rating {
+            display: flex;
+            gap: 5px;
+            color: #ffd700;
+        }
+        .share-icon {
+            margin-left: auto;
+            color: #666;
+            cursor: pointer;
+        }
+        .generator {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .input-group {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .input-label {
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .radio-group {
+            display: flex;
+            gap: 20px;
+        }
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .radio-item input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #00b894;
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 4px;
+            font-size: 16px;
+            outline: none;
+        }
+        .input-field:focus {
+            border-color: #00b894;
+        }
+        .generate-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .generate-btn:hover {
+            background-color: #1976d2;
+        }
+        .result {
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            min-height: 50px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .info-box {
+            background-color: #fff5f0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .info-title {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        .info-list {
+            list-style: none;
+            color: #666;
+        }
+        .info-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* ÂìçÂ∫îÂºèÂØºËà™Ê†è */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Â∑•ÂÖ∑Âç°ÁâáÂ∏ÉÂ±Ä */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #444;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+        }
+
+        /* ÁßªÂä®Á´ØÊ†∑Âº?*/
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+        }
+
+        /* Help section styles */
+        .help-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+
+        .help-section h2 {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .help-section h3 {
+            color: #007bff;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .help-section p, .help-section ul {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+
+        .help-section ul {
+            margin-left: 1.5rem;
+        }
+
+        .help-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .example {
+            background: #e7f3ff;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .example strong {
+            color: #007bff;
+        }
+
+        /* Footer styles */
+        footer {
+            background: white;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: #007bff;
+        }
+
+        .footer-copyright {
+            color: #999;
+            font-size: 0.9rem;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="../index.html" class="nav-item">
+                <img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">‚ò?/button>
+        <div class="nav-categories">
+            <a href="../index.html" class="nav-category">üîç Recommended</a>
+            <a href="../life.html" class="nav-category">üè† Life Tools</a>
+            <a href="../encry.html" class="nav-category">üîí Encryption</a>
+            <a href="../code.html" class="nav-category">üìù Encoding</a>
+            <a href="../dev.html" class="nav-category">üíª Dev Tools</a>
+            <a href="../image.html" class="nav-category">üñºÔ∏?Image Tools</a>
+            <a href="../game.html" class="nav-category">üéÆ Games</a>
+        </div>
+    </div>
+</nav>
+
+
+<h1 style="text-align: center">
+    Name Generator
+</h1>
+
+<div class="generator">
+    <div class="input-group">
+        <div class="input-label">Select gender</div>
+        <div class="radio-group">
+            <label class="radio-item">
+                <input type="radio" name="gender" value="male">
+                Male
+            </label>
+            <label class="radio-item">
+                <input type="radio" name="gender" value="female">
+                Female
+            </label>
+            <label class="radio-item">
+                <input type="radio" name="gender" value="all" checked>
+                All
+            </label>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <div class="input-label">Name length</div>
+        <input type="number" class="input-field" id="nameLength" value="3" min="2" max="4">
+    </div>
+
+    <div class="input-group">
+        <div class="input-label">Count</div>
+        <input type="number" class="input-field" id="generateCount" value="10" min="1" max="50">
+    </div>
+
+    <div class="input-group">
+        <div class="input-label">Enter last name</div>
+        <input type="text" class="input-field" id="lastName" value="Êù?>
+    </div>
+
+    <button class="generate-btn" onclick="generateNames()">Generate</button>
+
+    <div class="result" id="result"></div>
+
+    <div class="info-box">
+        <h3 class="info-title">About the Name Generator:</h3>
+        <ul class="info-list">
+            <li>1. Randomly generates multiple names for reference.</li>
+            <li>2. Enter a last name (single-character surnames supported).</li>
+            <li>3. Name length from 2 to 4 characters (3 recommended).</li>
+            <li>4. Choose how many names to generate.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="help-section">
+    <h2>How to Use the Name Generator</h2>
+    <p>Generate random Chinese names for characters, stories, or creative projects.</p>
+
+    <h3>Instructions</h3>
+    <ul>
+        <li>Select gender preference (Male, Female, or All)</li>
+        <li>Set name length (2-4 characters, 3 recommended)</li>
+        <li>Enter the number of names to generate (1-50)</li>
+        <li>Type your desired last name (surname)</li>
+        <li>Click "Generate" to create names</li>
+    </ul>
+
+    <h3>Name Structure</h3>
+    <ul>
+        <li><strong>Last Name (Âß?:</strong> Family name, usually 1 character</li>
+        <li><strong>Given Name (Âê?:</strong> Personal name, 1-3 characters</li>
+        <li><strong>Total Length:</strong> Last name + given name characters</li>
+    </ul>
+
+    <h3>Gender-Specific Characters</h3>
+    <ul>
+        <li><strong>Male Names:</strong> Characters like Âø? Êò? Ê∞? Êµ? ÂÆ? Ëà? Â§? Áø? È∏? Âç? ‰ø? Êù? Âç? ‰º? Âº? ÂÜ? Âπ?/li>
+        <li><strong>Female Names:</strong> Characters like Ëä? Â®? ÁßÄ, Ëã? Âç? Áæ? Áé? Áê? Èõ? Â©? Èù? ÊÄ? Èõ?/li>
+        <li><strong>All:</strong> Combines both male and female character sets</li>
+    </ul>
+
+    <h3>Examples</h3>
+    <div class="example">
+        <strong>Example 1 - Male Names:</strong><br>
+        Last name: Êù? Length: 3, Count: 5<br>
+        Results: ÊùéÂøóÊò? ÊùéÊ∞∏Êµ? ÊùéÂÆáËà? ÊùéÂ§©Áø? ÊùéÈ∏øÂç?br><br>
+        <strong>Example 2 - Female Names:</strong><br>
+        Last name: Áé? Length: 3, Count: 3<br>
+        Results: ÁéãËä≥Â®? ÁéãÁßÄËã? ÁéãÁæéÁé?
+    </div>
+
+    <h3>Common Chinese Surnames</h3>
+    <ul>
+        <li>Êù?(Li), Áé?(Wang), Âº?(Zhang), Âà?(Liu), Èô?(Chen)</li>
+        <li>Êù?(Yang), Èª?(Huang), Ëµ?(Zhao), Âë?(Zhou), Âê?(Wu)</li>
+        <li>Âæ?(Xu), Â≠?(Sun), ËÉ?(Hu), Êú?(Zhu), È´?(Gao)</li>
+    </ul>
+
+    <h3>Use Cases</h3>
+    <ul>
+        <li>Creating characters for stories or novels</li>
+        <li>Generating names for games or role-playing</li>
+        <li>Finding inspiration for creative writing</li>
+        <li>Learning Chinese name patterns and structures</li>
+        <li>Creating placeholder names for applications</li>
+    </ul>
+
+    <h3>Tips</h3>
+    <ul>
+        <li>3-character names (1 surname + 2 given) are most common</li>
+        <li>Consider the meaning and pronunciation of generated names</li>
+        <li>Some combinations may sound better than others</li>
+        <li>Traditional Chinese names often have cultural significance</li>
+    </ul>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="../about.html">About Us</a>
+        <a href="../contact.html">Contact Us</a>
+        <a href="../privacy.html">Privacy Policy</a>
+    </div>
+    <div class="footer-copyright">
+        <p>&copy; 2024 Missionary AI. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    // Â∏∏Áî®Â≠óÂ∫ì
+    const maleChars = 'ÂøóÊòéÊ∞∏Êµ©ÂÆáËà™Â§©ÁøîÈ∏øÂçö‰øäÊù∞Âçé‰ºüÂº∫ÂÜõÂπ?;
+    const femaleChars = 'Ëä≥Â®üÁßÄËã±ÂçéÁæéÁé≤Áê≥ÈõÖÂ©∑ÈùôÊÄ°Èõ™';
+
+    function generateNames() {
+        const lastName = document.getElementById('lastName').value.trim();
+        const nameLength = parseInt(document.getElementById('nameLength').value);
+        const count = parseInt(document.getElementById('generateCount').value);
+        const gender = document.querySelector('input[name="gender"]:checked').value;
+        const result = document.getElementById('result');
+
+        if (!lastName) {
+            alert('Please enter a last name!');
+            return;
+        }
+
+        if (nameLength < 2 || nameLength > 4) {
+            alert('Name length must be between 2 and 4 characters!');
+            return;
+        }
+
+        if (count < 1 || count > 50) {
+            alert('Count must be between 1 and 50!');
+            return;
+        }
+
+        let chars = '';
+        if (gender === 'male') {
+            chars = maleChars;
+        } else if (gender === 'female') {
+            chars = femaleChars;
+        } else {
+            chars = maleChars + femaleChars;
+        }
+
+        let names = [];
+        for (let i = 0; i < count; i++) {
+            let name = lastName;
+            for (let j = 0; j < nameLength - 1; j++) {
+                name += chars[Math.floor(Math.random() * chars.length)];
+            }
+            names.push(name);
+        }
+
+        result.style.display = 'block';
+        result.innerHTML = `
+                <h3 style="color: #00b894; margin-bottom: 10px;">Generated Names:</h3>
+                <div style="line-height: 2;">${names.join('„Ä?)}</div>
+            `;
+    }
+</script>
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // Auto-close after clicking a menu item
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>

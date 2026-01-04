@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Toolkit Collection - Chuandao Tools & Base64 Tools</title>
+    <meta name="keywords" content="online toolkit, Chuandao Tools">
+    <meta name="description" content="Chuandao Tools is an online toolkit: no login, no cost. Includes life utilities, developer tools, encoding/decoding, encryption/decryption, image tools, and entertainment tools.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="canonical" href="https://www.chdaoai.com/base64.html">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/css.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Responsive navigation bar */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Tool card layout */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #444;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+        }
+
+        /* Footer styles */
+        footer {
+            background: white;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: #007bff;
+        }
+
+        .footer-copyright {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="index.html" class="nav-item">
+                <img src="static/images/logo.png" alt="base64" width="50px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">�?/button>
+        <div class="nav-categories">
+            <a href="index.html" class="nav-category">🔍 Featured</a>
+            <a href="life.html" class="nav-category">🏠 Life</a>
+            <a href="encry.html" class="nav-category">🔒 Crypto</a>
+            <a href="code.html" class="nav-category">📝 Encode/Decode</a>
+            <a href="dev.html" class="nav-category">💻 Developer</a>
+            <a href="base64.html" class="nav-category">🔐 Base64</a>
+            <a href="image.html" class="nav-category">🖼�?Image</a>
+            <a href="game.html" class="nav-category">🎮 Fun</a>
+            <a href="index.html" class="nav-category"><i class="fas fa-earth-americas" aria-hidden="true"></i> English</a>
+            <a href="https://openai2025.com/" class="nav-category"><i class="fas fa-language" aria-hidden="true"></i> 中文</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Featured -->
+    <h2 class="category-title">Base64 Tools</h2>
+    <div class="tools-grid">
+
+        <div class="tool-card">
+            <a href="base64/base64Intro.html">
+                <img src="static/images/base64Intro.png" class="fas fa-search-location tool-icon" alt="Base64" />
+                <div class="tool-title">Base64 </div>
+                <div class="tool-desc">Base64</div>
+            </a>
+        </div>
+
+        <div class="tool-card">
+            <a href="base64/index.html">
+                <img src="static/images/base64f.png" class="fas fa-search-location tool-icon" alt="Base64 Encoding Comparison Table" />
+                <div class="tool-title">Base64 Fundamentals</div>
+                <div class="tool-desc">Base64 Fundamentals</div>
+            </a>
+        </div>
+
+        <div class="tool-card">
+            <a href="base64/base64List.html">
+                <img src="static/images/base64table.png" class="fas fa-search-location tool-icon" alt="Base64 Encoding Comparison Table" />
+                <div class="tool-title">Base64 Encoding Comparison Table</div>
+                <div class="tool-desc">Online Base64 Encoding Comparison Table </div>
+            </a>
+        </div>
+
+        <div class="tool-card">
+            <a href="base64/base64.html">
+                <img src="static/images/base64code.png" class="fas fa-search-location tool-icon" alt="Base64 Encode/Decode" />
+                <div class="tool-title">Base64 Encode/Decode</div>
+                <div class="tool-desc">Online Base64 Encode/Decode</div>
+            </a>
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="base64/image2base64.html">
+
+                <img src="static/images/imagetobase64.png" class="tool-icon" alt="Image to Base64">
+                <div class="tool-info">
+                    <div class="tool-title">Image to Base64</div>
+                    <div class="tool-desc">Online Image to Base64 </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base64ToFile.html">
+
+                <img src="static/images/base64toimage.png" class="tool-icon" alt="base64 to file">
+                <div class="tool-info">
+                    <div class="tool-title">base64 to file</div>
+                    <div class="tool-desc">Online base64 to file </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base16.html">
+
+                <img src="static/images/base16.png" class="tool-icon" alt="Base16 Encode/Decode">
+                <div class="tool-info">
+                    <div class="tool-title">Base16 Encode/Decode</div>
+                    <div class="tool-desc">Online Base16 Encode/Decode </div>
+                </div>
+            </a>
+
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="base64/base32.html">
+
+                <img src="static/images/base32.png" class="tool-icon" alt="Base32 Encode/Decode">
+                <div class="tool-info">
+                    <div class="tool-title">Base32 Encode/Decode</div>
+                    <div class="tool-desc">Online Base32 Encode/Decode </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base58.html">
+
+                <img src="static/images/base58.png" class="tool-icon" alt="Base58 Encode/Decode">
+                <div class="tool-info">
+                    <div class="tool-title">Base58 Encode/Decode</div>
+                    <div class="tool-desc">Online Base58 Encode/Decode </div>
+                </div>
+            </a>
+
+        </div>
+      
+        <div class="tool-card">
+
+            <a href="base64/base62.html">
+
+                <img src="static/images/base62.png" class="tool-icon" alt="Base62 Encode/Decode">
+                <div class="tool-info">
+                    <div class="tool-title">Base62 Encode/Decode</div>
+                    <div class="tool-desc">Online Base62 Encode/Decode </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base100.html">
+
+                <img src="static/images/base100.png" class="tool-icon" alt="Base100 Encode/Decode">
+                <div class="tool-info">
+                    <div class="tool-title">Base100 Encode/Decode</div>
+                    <div class="tool-desc">Online Base100 Encode/Decode </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/baseCust.html">
+
+                <img src="static/images/basecustom.png" class="tool-icon" alt="Custom Base64 Encode/Decode">
+                <div class="tool-info">
+                    <div class="tool-title">Custom Base64 Encode/Decode</div>
+                    <div class="tool-desc">Online Custom Base64 Encode/Decode </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base64java.html">
+
+                <img src="static/images/base64java.png" class="tool-icon" alt="Java Base64">
+                <div class="tool-info">
+                    <div class="tool-title">Java Base64</div>
+                    <div class="tool-desc">Online Java Base64 </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base64python.html">
+
+                <img src="static/images/base64Python.png" class="tool-icon" alt="Python base64 module">
+                <div class="tool-info">
+                    <div class="tool-title">Python base64 module</div>
+                    <div class="tool-desc">Online Python base64 module</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base64js.html">
+
+                <img src="static/images/base64js.png" class="tool-icon" alt="JavaScript Base64">
+                <div class="tool-info">
+                    <div class="tool-title">JavaScript Base64</div>
+                    <div class="tool-desc">Online JavaScript Base64</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base64Go.html">
+
+                <img src="static/images/base64Go.png" class="tool-icon" alt="Go Base64">
+                <div class="tool-info">
+                    <div class="tool-title">Go Base64</div>
+                    <div class="tool-desc">Online Go Base64</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base64Rust.html">
+
+                <img src="static/images/base64Rust.png" class="tool-icon" alt="Rust Base64">
+                <div class="tool-info">
+                    <div class="tool-title">Rust Base64</div>
+                    <div class="tool-desc">Online Rust Base64</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base64Ruby.html">
+
+                <img src="static/images/base64Ruby.png" class="tool-icon" alt="Ruby Base64">
+                <div class="tool-info">
+                    <div class="tool-title">Ruby Base64</div>
+                    <div class="tool-desc">Online Ruby Base64</div>
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-copyright">
+            <p>&copy; 2024 Missionary AI. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // Auto close after clicking a menu item
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GZIP Encoder/Decoder - Chandao Tools</title>
+	<meta name="keywords" content="online tool collection, Chandao Tools">
+	<meta name="description" content="Chandao Tools is a collection of free, no-login online utilities across life, dev, encoding/decoding, encryption, images, and fun.">
+	<link rel="canonical" href="https://www.chdaoai.com/code/gzip.html">				
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		.input-group {
+			margin: 20px 0;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			font-size: 16px;
+			margin-bottom: 15px;
+			resize: vertical;
+			min-height: 100px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		button {
+			padding: 12px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.3s;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+		}
+
+		.about-gzip {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-gzip h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-gzip li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+	</style>
+	<style>
+		/* Help section and footer */
+		.help-section { background:#f8f9fa; border-radius:8px; padding:2rem; margin:2rem auto; max-width:1100px; border-left:4px solid #007bff; }
+		.help-title { color:#333; font-size:1.5rem; margin-bottom:1rem; display:flex; align-items:center; gap:.5rem; }
+		.help-content { color:#666; line-height:1.6; }
+		.help-content h3 { color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem; }
+		.help-content ul { margin:.5rem 0 1rem 1.5rem; }
+		.help-content li { margin:.35rem 0; }
+		code.wrap { display:block; white-space:pre-wrap; word-break:break-all; overflow-wrap:anywhere; line-break:anywhere; }
+		.footer { background:#333; color:#fff; text-align:center; padding:2rem 1rem; margin-top:3rem; }
+		.footer-links { display:flex; justify-content:center; gap:2rem; margin-bottom:1rem; flex-wrap:wrap; }
+		.footer-links a { color:#ccc; text-decoration:none; transition:color .3s; }
+		.footer-links a:hover { color:#fff; }
+		.footeropyright { color:#999; font-size:.9rem; }
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding</a>
+			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>GZIP Encode/Decode</h1>
+
+	<div class="input-group">
+		<textarea id="encodeInput" placeholder="Enter content to GZIP encode..."></textarea>
+		<textarea id="decodeInput" placeholder="Enter content to GZIP decode..."></textarea>
+
+		<div class="btn-group">
+			<button id="encodeBtn" onclick="gzipEncode()">GZIP Encode</button>
+			<button id="decodeBtn" onclick="gzipDecode()">GZIP Decode</button>
+			<button id="clearBtn" onclick="clearAll()">Clear</button>
+		</div>
+	</div>
+
+	<div class="about-gzip">
+		<h2>About GZIP:</h2>
+		<ul>
+			<li>GZIP is a compression format widely used on the web to reduce file size and improve speed.</li>
+			<li>Common for HTML, CSS, JavaScript, images, and more.</li>
+			<li>Achieves 70�?0% compression in many cases to cut transfer time.</li>
+			<li>Uses the DEFLATE algorithm.</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2 class="help-title">How to Use</h2>
+	<div class="help-content">
+		<h3>What this tool does</h3>
+		<p>Compresses input text to GZIP and encodes as Base64; or decodes Base64 GZIP back to text using pako.</p>
+		<h3>Steps</h3>
+		<ol>
+			<li>GZIP Encode: type text at left �?click Encode �?Base64 output appears at right.</li>
+			<li>GZIP Decode: paste Base64 GZIP at right �?click Decode �?original text appears at left.</li>
+		</ol>
+		<h3>Example</h3>
+		<ul>
+			<li><code class="wrap">H4sIAAAAAAAAE8tIzcnJVyjPL8pJAQBWSR9dCgAAAA==</code> �?"hello world"</li>
+		</ul>
+		<h3>Notes</h3>
+		<ul>
+			<li>Input must be valid Base64 GZIP for decoding.</li>
+			<li>All operations run locally in your browser.</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footeropyright">&copy; 2024 Missionary AI. All rights reserved.</div>
+</div>
+<script>
+	// GZIP编码
+	function gzipEncode() {
+		const input = document.getElementById('encodeInput').value;
+		const encoder = new TextEncoder();
+		const data = encoder.encode(input);
+		const compressed = pako.gzip(data);
+		const base64String = btoa(String.fromCharCode(...compressed));
+		document.getElementById('decodeInput').value = base64String;
+	}
+
+	// GZIP解码
+	function gzipDecode() {
+		try {
+			const input = document.getElementById('decodeInput').value;
+			const binaryString = atob(input);
+			const bytes = new Uint8Array(binaryString.length);
+			for (let i = 0; i < binaryString.length; i++) {
+				bytes[i] = binaryString.charCodeAt(i);
+			}
+			const decompressed = pako.ungzip(bytes);
+			const decoder = new TextDecoder();
+			document.getElementById('encodeInput').value = decoder.decode(decompressed);
+		} catch (error) {
+			alert('Decode error: invalid input format');
+		}
+	}
+
+	// 清空所有内�?
+	function clearAll() {
+		document.getElementById('encodeInput').value = '';
+		document.getElementById('decodeInput').value = '';
+	}
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

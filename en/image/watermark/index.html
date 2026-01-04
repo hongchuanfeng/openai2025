@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Image Watermark Tool - Chandao Tools</title>
+    <meta name="keywords" content="online tool collection, Chandao Tools">
+    <meta name="description" content="Chandao Tools is a collection of free, no-login online utilities across life, dev, encoding/decoding, encryption, images, and fun.">
+    <link rel="canonical" href="https://www.chdaoai.com/image/watermark/index.html">  
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.16.13/antd.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/antd/4.16.13/antd.min.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"�?</script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .input-area {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: vertical;
+            font-family: monospace;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .convert-btn {
+            background-color: #00c853;
+            color: white;
+        }
+        .convert-btn:hover {
+            background-color: #00b34a;
+        }
+        .clear-btn {
+            background-color: #ff5252;
+            color: white;
+        }
+        .clear-btn:hover {
+            background-color: #ff1744;
+        }
+        .result-area {
+            width: 100%;
+            min-height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .result-area img {
+            max-width: 100%;
+            max-height: 500px;
+        }
+        .info-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff5f0;
+            border-radius: 4px;
+        }
+        .info-title {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+        .info-list {
+            list-style: none;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .info-list li {
+            margin-bottom: 5px;
+            color: #ff6b6b;
+        }
+        /* Help section styles */
+        .help-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 1100px;
+            border-left: 4px solid #007bff;
+        }
+        .help-title {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+        .help-content { color: #666; line-height: 1.6; }
+        .help-content h3 { color: #444; margin: 1.25rem 0 .5rem 0; font-size: 1.1rem; }
+        .help-content ul { margin: .5rem 0 1rem 1.5rem; }
+        .help-content li { margin: .35rem 0; }
+
+        /* Footer styles */
+        .footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .footer-links a { color: #ccc; text-decoration: none; transition: color .3s; }
+        .footer-links a:hover { color: #fff; }
+        .footer-copyright { color: #999; font-size: .9rem; }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* 响应式导航栏 */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+            z-index: 999;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* 工具卡片布局 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #444;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+        }
+
+        /* 移动端样�?*/
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+        }
+    </style>
+    <script src="../static/js/jquery-3.6.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <!-- 添加图片处理所需的库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
+ <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="../../index.html" class="nav-item">
+                <img src="../../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">�?/button>
+        <div class="nav-categories">
+            <a href="../../index.html" class="nav-category">🔍 Recommended</a>
+            <a href="../../life.html" class="nav-category">🏠 Life Tools</a>
+            <a href="../../encry.html" class="nav-category">🔒 Encryption</a>
+            <a href="../../code.html" class="nav-category">📝 Encoding</a>
+            <a href="../../dev.html" class="nav-category">💻 Dev Tools</a>
+            <a href="../../image.html" class="nav-category">🖼�?Image Tools</a>
+            <a href="../../game.html" class="nav-category">🎮 Fun Tools</a>
+        </div>
+    </div>
+</nav>
+
+<h1 style="text-align: center;font-size: 30px;font-weight: bolder">Online Image Watermark Tool</h1>
+<div class="container">
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <div class="border-4 border-dashed border-gray-200 rounded-lg h-48 md:h-96 mb-4 relative">
+                <div id="dropzone" class="w-full h-full flex items-center justify-center cursor-pointer absolute inset-0">
+                    <div class="text-center">
+                        <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
+                        <p class="text-gray-500">Click or drag image here</p>
+                        <p class="dropzone-info">Supports JPG/PNG up to 5MB</p>
+                        <input type="file" id="imageInput" accept="image/jpeg,image/png" class="hidden" />
+                    </div>
+                </div>
+                <canvas id="imageCanvas" class="hidden w-full h-full object-contain"></canvas>
+                <button id="changeImageButton" class="hidden absolute bottom-2 right-2 text-sm text-gray-500 underline">Replace image</button>
+            </div>
+            <div id="feedback" class="fixed bottom-4 right-4 hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded shadow-lg" role="alert">
+                <span class="block sm:inline" id="feedbackMessage"></span>
+            </div>
+            <div class="mt-5 md:mt-0 md:col-span-2">
+                <form class="ant-form ant-form-horizontal ant-form-default form-container">
+                    <div class="form-row grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="form-item col-span-1 lg:col-span-4">
+                            <label for="watermarkText">Watermark text</label>
+                            <input type="text" name="watermarkText" id="watermarkText" class="ant-input" value="I love you" title="Enter watermark text">
+                        </div>
+                        <div class="form-item col-span-1 lg:col-span-2">
+                            <label for="watermarkColor">Watermark color</label>
+                            <div class="flex items-center">
+                                <input type="color" name="watermarkColor" id="watermarkColor" value="#FFFFFF" class="color-picker" title="选择水印颜色">
+                                <input type="text" name="watermarkColorText" id="watermarkColorText" class="ant-input ml-2" value="#FFFFFF" title="Enter hex color code">
+                            </div>
+                        </div>
+                        <div class="form-item col-span-1 lg:col-span-2">
+                            <label for="watermarkStyle">Watermark style</label>
+                            <div class="flex items-center">
+                                <div class="mr-4">
+                                    <input type="radio" id="striped" name="watermarkStyle" value="STRIPED" checked>
+                                    <label for="striped" title="Diagonal repeat">Diagonal repeat</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="central" name="watermarkStyle" value="CENTRAL">
+                                    <label for="central" title="Centered">Centered</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-item col-span-1 lg:col-span-1">
+                            <label for="watermarkAngle">Rotation angle</label>
+                            <div class="flex items-center">
+                                <input type="range" name="watermarkAngle" id="watermarkAngle" min="0" max="360" value="335" class="ant-slider" title="调整水印的旋转角�?>
+                                <span id="angleValue" class="text-sm text-gray-500">335°</span>
+                            </div>
+                        </div>
+                        <div class="form-item col-span-1 lg:col-span-1">
+                            <label for="watermarkOpacity">Opacity</label>
+                            <div class="flex items-center">
+                                <input type="range" name="watermarkOpacity" id="watermarkOpacity" min="0" max="1" step="0.1" value="0.2" class="ant-slider" title="调整水印的透明�?>
+                                <span id="opacityValue" class="text-sm text-gray-500">0.2</span>
+                            </div>
+                        </div>
+                        <div class="form-item col-span-1 lg:col-span-1">
+                            <label for="watermarkSize">Font size</label>
+                            <div class="flex items-center">
+                                <input type="range" name="watermarkSize" id="watermarkSize" min="10" max="100" value="16" class="ant-slider" title="调整水印的字体大�?>
+                                <span id="sizeValue" class="text-sm text-gray-500">16</span>
+                            </div>
+                        </div>
+                        <div class="form-item col-span-1 lg:col-span-1">
+                            <label for="watermarkSpace">Spacing</label>
+                            <div class="flex items-center">
+                                <input type="range" name="watermarkSpace" id="watermarkSpace" min="0" max="100" value="24" class="ant-slider" title="调整水印的间�?>
+                                <span id="spaceValue" class="text-sm text-gray-500">24</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-buttons px-4 py-3 bg-gray-50 sm:px-6 text-right">
+                        <button type="button" id="applyWatermark" class="ant-btn ant-btn-primary inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Apply watermark
+                        </button>
+                        <button type="button" id="saveImage" class="ant-btn ant-btn-success ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            Save image
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- Help Section -->
+<div class="help-section">
+    <h2 class="help-title"><i class="fas fa-question-circle"></i> How to Use</h2>
+    <div class="help-content">
+        <h3>What this tool does</h3>
+        <p>Add text watermarks to images in your browser. Support diagonal repeating watermark or centered style, with control over text, color, angle, opacity, font size, and spacing.</p>
+
+        <h3>Steps</h3>
+        <ol>
+            <li><strong>Upload Image:</strong> Click or drag a JPG/PNG image into the upload area.</li>
+            <li><strong>Enter Text:</strong> Set the watermark text in the input box.</li>
+            <li><strong>Select Style:</strong> Choose Diagonal repeat or Centered.</li>
+            <li><strong>Tweak Settings:</strong> Adjust color, angle, opacity, font size, and spacing.</li>
+            <li><strong>Apply:</strong> Click “Apply watermark�?to render.</li>
+            <li><strong>Save:</strong> Click “Save image�?to download.</li>
+        </ol>
+
+        <h3>Examples</h3>
+        <ul>
+            <li><strong>Light subtle mark:</strong> Opacity 0.15, size 18, angle 335°, spacing 36.</li>
+            <li><strong>Bold center mark:</strong> Style Centered, size 48, opacity 0.4.</li>
+            <li><strong>Dense protection:</strong> Diagonal repeat, size 16, spacing 20, opacity 0.25.</li>
+        </ul>
+
+        <h3>Tips</h3>
+        <ul>
+            <li>Use semi‑transparent white (#FFFFFF, 0.15�?.3) for general images.</li>
+            <li>For dark images, try light colors; for bright images, try darker gray.</li>
+            <li>Increase spacing for large images to keep the pattern balanced.</li>
+        </ul>
+
+        <h3>Privacy & Security</h3>
+        <ul>
+            <li>All processing is local in your browser; no uploads.</li>
+            <li>Your images and watermark text never leave your device.</li>
+        </ul>
+
+        <h3>Important Notes</h3>
+        <ul>
+            <li>Large files may take longer to render.</li>
+            <li>Output format follows the original image type.</li>
+            <li>Canvas size limits in browsers may affect very large images.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <div class="footer-links">
+        <a href="../../about.html">About Us</a>
+        <a href="../../contact.html">Contact Us</a>
+        <a href="../../privacy.html">Privacy Policy</a>
+    </div>
+    <div class="footer-copyright">&copy; 2024 Missionary AI. All rights reserved.</div>
+</div>
+
+<script src="js/main.js" defer></script>
+</body>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // 点击菜单项后自动关闭
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+</script>
+
+
+
+</html>

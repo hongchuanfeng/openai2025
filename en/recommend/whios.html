@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Domain WHOIS Lookup - Chuandao Tools</title>
+	<meta name="keywords" content="online tools collection, Chuandao Tools">
+	<meta name="description" content="Chuandao Tools is an online collection of utilities. No login, no fees, just use and go. Includes life tools, developer tools, encoding/decoding, encryption/decryption, image tools, and games.">
+	<link rel="canonical" href="https://www.chdaoai.com/recommend/whios.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #21759b;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		.search-container {
+			text-align: center;
+			margin: 40px 0;
+		}
+		.search-title {
+			font-size: 24px;
+			color: #2196f3;
+			margin-bottom: 20px;
+		}
+		.search-box {
+			display: flex;
+			max-width: 600px;
+			margin: 0 auto;
+		}
+		.search-input {
+			flex: 1;
+			padding: 12px 20px;
+			font-size: 16px;
+			border: 2px solid #e9ecef;
+			border-radius: 8px 0 0 8px;
+			border-right: none;
+		}
+		.search-input:focus {
+			outline: none;
+			border-color: #2196f3;
+		}
+		.search-btn {
+			padding: 12px 30px;
+			background-color: #2196f3;
+			color: white;
+			border: none;
+			border-radius: 0 8px 8px 0;
+			font-size: 16px;
+			cursor: pointer;
+		}
+		.search-btn:hover {
+			background-color: #1976d2;
+		}
+		.result-container {
+			background: white;
+			padding: 20px;
+			border-radius: 8px;
+			margin-top: 20px;
+			min-height: 200px;
+		}
+		.info-box {
+			background-color: #fff5f0;
+			border-radius: 8px;
+			padding: 20px;
+			margin-top: 30px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 15px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+		}
+		.info-list li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+		.sub-list {
+			margin-left: 20px;
+			margin-top: 10px;
+		}
+		.history-title {
+			color: #666;
+			margin: 20px 0 10px;
+			padding-left: 10px;
+			border-left: 4px solid #2196f3;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navbar */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			padding: 1.5rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			border-radius: 8px;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-section h2 {
+			color: #333;
+			font-size: 1.3rem;
+			margin-bottom: 1rem;
+		}
+
+		.help-section h3 {
+			color: #007bff;
+			font-size: 1.1rem;
+			margin-top: 1rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.help-section p, .help-section ul {
+			color: #666;
+			line-height: 1.8;
+			margin-bottom: 0.8rem;
+		}
+
+		.help-section ul {
+			margin-left: 1.5rem;
+		}
+
+		.help-section ul li {
+			margin-bottom: 0.5rem;
+		}
+
+		.example {
+			background: #e7f3ff;
+			padding: 1rem;
+			border-radius: 5px;
+			margin-top: 1rem;
+		}
+
+		.example strong {
+			color: #007bff;
+		}
+
+		/* Footer styles */
+		footer {
+			background: white;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+			border-top: 1px solid #e0e0e0;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #666;
+			text-decoration: none;
+			transition: color 0.3s;
+			font-size: 0.95rem;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding</a>
+			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Games</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container">
+	<div class="search-container">
+		<h1 class="search-title">Domain WHOIS Lookup</h1>
+		<div class="search-box">
+			<input type="text" class="search-input" id="domainInput" placeholder="Enter a domain">
+			<button class="search-btn" onclick="searchDomain()">Search</button>
+		</div>
+	</div>
+
+	<div class="result-container" id="resultContainer">
+		<!-- 查询结果将在这里显示 -->
+	</div>
+
+	<div class="info-box">
+		<h3 class="info-title">About WHOIS:</h3>
+		<ul class="info-list">
+			<li>1. Check if a domain is registered/expired and view registration details.</li>
+			<li>2. Learn about handling domain expiration.</li>
+			<li>Generic domains:</li>
+			<ul class="sub-list">
+				<li>(1) After expiry: 30�?5 day grace period; limited changes allowed.</li>
+				<li>(2) Redemption period: ~30 days after grace period.</li>
+				<li>(3) Pending delete: ~5 days; then released to public.</li>
+			</ul>
+			<li>Domestic domains (CN):</li>
+			<ul class="sub-list">
+				<li>(1) 35-day grace renewal window.</li>
+				<li>(2) Then a 15-day redemption period; domain not accessible.</li>
+				<li>(3) After ~48 days, domain may be deleted at any time.</li>
+			</ul>
+		</ul>
+	</div>
+
+	<div class="history-container">
+		<h3 class="history-title">Recent Queries:</h3>
+		<div id="historyList"></div>
+	</div>
+</div>
+
+<div class="help-section">
+	<h2>How to Use the Domain WHOIS Lookup</h2>
+	<p>Check domain registration information, ownership details, and expiration dates for any domain name.</p>
+
+	<h3>Instructions</h3>
+	<ul>
+		<li>Enter a domain name in the search box (e.g., example.com)</li>
+		<li>Click "Search" to retrieve WHOIS information</li>
+		<li>View registration details, ownership, and expiration dates</li>
+		<li>Check recent queries for quick access to previously searched domains</li>
+	</ul>
+
+	<h3>What Information is Displayed</h3>
+	<ul>
+		<li><strong>Domain Name:</strong> The domain being queried</li>
+		<li><strong>Registrar:</strong> Company that registered the domain</li>
+		<li><strong>Created Date:</strong> When the domain was first registered</li>
+		<li><strong>Expires Date:</strong> When the domain registration expires</li>
+		<li><strong>Status:</strong> Current registration status</li>
+		<li><strong>Country:</strong> Country of the registrant</li>
+		<li><strong>State/Province:</strong> State or province of the registrant</li>
+	</ul>
+
+	<h3>Domain Status Types</h3>
+	<ul>
+		<li><strong>Active:</strong> Domain is registered and active</li>
+		<li><strong>Expired:</strong> Domain registration has expired</li>
+		<li><strong>Pending Delete:</strong> Domain is scheduled for deletion</li>
+		<li><strong>Redemption Period:</strong> Domain is in grace period after expiration</li>
+	</ul>
+
+	<h3>Examples</h3>
+	<div class="example">
+		<strong>Example 1 - Active Domain:</strong><br>
+		Domain: google.com<br>
+		Status: Active, Expires: 2025-09-14<br><br>
+		<strong>Example 2 - Expired Domain:</strong><br>
+		Domain: expired-example.com<br>
+		Status: Expired, Available for registration
+	</div>
+
+	<h3>Domain Expiration Process</h3>
+	<ul>
+		<li><strong>Grace Period (30-45 days):</strong> Domain expires but can be renewed</li>
+		<li><strong>Redemption Period (30 days):</strong> Domain requires special recovery process</li>
+		<li><strong>Pending Delete (5 days):</strong> Domain will be released to public</li>
+		<li><strong>Available:</strong> Domain can be registered by anyone</li>
+	</ul>
+
+	<h3>Use Cases</h3>
+	<ul>
+		<li>Check if a domain is available for registration</li>
+		<li>Research domain ownership and contact information</li>
+		<li>Monitor domain expiration dates</li>
+		<li>Investigate domain history and previous owners</li>
+		<li>Verify domain authenticity and legitimacy</li>
+		<li>Plan domain acquisition strategies</li>
+	</ul>
+
+	<h3>Privacy Considerations</h3>
+	<ul>
+		<li>Some registrars offer privacy protection services</li>
+		<li>Personal information may be hidden behind proxy services</li>
+		<li>Contact information shown may be for privacy service providers</li>
+		<li>Not all domains display complete ownership information</li>
+	</ul>
+
+	<h3>Tips for Domain Research</h3>
+	<ul>
+		<li>Check multiple variations of domain names</li>
+		<li>Look for typos and alternative spellings</li>
+		<li>Monitor domains that are close to expiration</li>
+		<li>Use the recent queries feature to track your searches</li>
+		<li>Consider different TLD extensions (.com, .net, .org, etc.)</li>
+	</ul>
+
+	<h3>Important Notes</h3>
+	<ul>
+		<li>WHOIS data may not always be complete or accurate</li>
+		<li>Some domains may have restricted or private registration</li>
+		<li>Information is provided for informational purposes only</li>
+		<li>Always verify information through official channels</li>
+		<li>Respect privacy and don't misuse contact information</li>
+	</ul>
+</div>
+
+<footer>
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+	</div>
+</footer>
+
+<script>
+	function searchDomain() {
+		const domain = document.getElementById('domainInput').value.trim();
+		const resultContainer = document.getElementById('resultContainer');
+
+		if (!domain) {
+			alert('Please enter a domain to look up!');
+			return;
+		}
+
+		// 这里应该调用实际的WHOIS API
+		// 以下为模拟数�?
+		// resultContainer.innerHTML = `
+        //         <h3>查询结果�?/h3>
+        //         <p>域名�?{domain}</p>
+        //         <p>注册商：示例注册�?/p>
+        //         <p>创建时间�?023-01-01</p>
+        //         <p>到期时间�?024-01-01</p>
+        //         <p>状态：已注�?/p>
+        //     `;
+		//
+		// // 添加到历史记�?
+		// addToHistory(domain);
+
+		const data ={
+			"domainName": domain,
+			"apiKey": "at_yEXmjA2f9lr7eFTbg06cHAmYh6WME"
+		};
+		// $.ajax({
+		// 	"url": 'https://www.whoisxmlapi.com/whoisserver/WhoisService',
+		// 	"method": "post",
+		// 	"headers": {
+		// 		"Content-Type":"application/json"
+		// 	},
+		// 	"data":data,
+		// 	"crossDomain": true
+		// })
+		$.ajax({
+			"url": 'https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=at_yEXmjA2f9lr7eFTbg06cHAmYh6WME&domainName='+domain,
+			"method": "get"
+		})
+		.done(function(data){
+
+			console.log(data)
+
+			var createdDate = $(data).find("createdDate").first().text().replace("T"," ").replace("Z"," ");
+			var expiresDate = $(data).find("expiresDate").first().text().replace("T"," ").replace("Z"," ");
+			var registrarName = $(data).find("registrarName").text();
+			var country = $(data).find("country").text();
+			var status = $(data).find("status").first().text();
+			var state = $(data).find("state").text();
+			console.log(createdDate);
+
+			resultContainer.innerHTML = `
+                <h3>Result:</h3>
+                <p>Domain: ${domain}</p>
+                <p>Registrar: ${registrarName}</p>
+                <p>Created: ${createdDate}</p>
+                <p>Expires: ${expiresDate}</p>
+                <p>Status: ${status}</p>
+                <p>Country: ${country}</p>
+                <p>State/Province: ${state}</p>
+            `;
+
+			// 添加到历史记�?
+			addToHistory(domain);
+
+		})
+		.fail(function(jqXHR){
+
+
+		})
+	}
+
+	function addToHistory(domain) {
+		const historyList = document.getElementById('historyList');
+		const historyItem = document.createElement('div');
+		historyItem.textContent = domain;
+		historyItem.style.padding = '10px';
+		historyItem.style.borderBottom = '1px solid #eee';
+		historyList.insertBefore(historyItem, historyList.firstChild);
+	}
+
+
+
+	// $.ajax({
+	// 	url: 'https://whois.arin.net/rest/domain/chdaoai.com', // 替换为实际要查询的域�?
+	// 	type: 'GET',
+	// 	dataType: 'json',
+	// 	headers: {
+	// 		'Accept': 'application/json'
+	// 	},
+	// 	success: function (response) {
+	// 		// 处理成功响应，打印出域名的相关信�?
+	// 		console.log(response);
+	// 	},
+	// 	error: function (xhr, status, error) {
+	// 		// 处理错误
+	// 		console.log('请求失败�? + status + ', 错误�? + error);
+	// 	}
+	// });
+
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

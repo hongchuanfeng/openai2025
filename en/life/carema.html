@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Camera Test - Chdao Tools</title>
+	<meta name="keywords" content="online tools suite, Chdao Tools">
+	<meta name="description" content="Chdao Tools is an online toolkit with no login or fees. Includes life, developer, encoding/decoding, encryption, image, and entertainment tools.">
+	<link rel="canonical" href="https://www.chdaoai.com/life/carema.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background-color: white;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+			border-radius: 4px;
+			overflow: hidden;
+			max-width: 600px;
+			max-width: 100%;
+			margin: auto;
+			padding: 50px;
+		}
+
+		#cameraBtn {
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			padding: 1.5rem 3rem;
+			border-radius: 50px;
+			font-size: 1.2rem;
+			cursor: pointer;
+			transition: background-color 0.3s;
+			margin: 2rem 0;
+			display: inline-flex;
+			align-items: center;
+			gap: 0.8rem;
+		}
+
+		#cameraBtn:hover {
+			background-color: #45a049;
+		}
+
+		.instructions {
+			text-align: left;
+			max-width: 600px;
+			margin: 2rem auto;
+			color: #666;
+			line-height: 1.6;
+		}
+
+		#videoPreview {
+			width: 100%;
+			max-width: 640px;
+			height: auto;
+			border-radius: 8px;
+			display: none;
+			margin: 1rem auto;
+		}
+
+		.test-image {
+			display: none;
+			max-width: 300px;
+			margin: 2rem auto;
+		}
+	</style>
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 600px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tools grid layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			padding: 1.5rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			border-radius: 8px;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-section h2 {
+			color: #333;
+			font-size: 1.3rem;
+			margin-bottom: 1rem;
+		}
+
+		.help-section h3 {
+			color: #007bff;
+			font-size: 1.1rem;
+			margin-top: 1rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.help-section p, .help-section ul {
+			color: #666;
+			line-height: 1.8;
+			margin-bottom: 0.8rem;
+		}
+
+		.help-section ul {
+			margin-left: 1.5rem;
+		}
+
+		.help-section ul li {
+			margin-bottom: 0.5rem;
+		}
+
+		.example {
+			background: #e7f3ff;
+			padding: 1rem;
+			border-radius: 5px;
+			margin-top: 1rem;
+		}
+
+		.example strong {
+			color: #007bff;
+		}
+
+		/* Footer styles */
+		footer {
+			background: white;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+			border-top: 1px solid #e0e0e0;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #666;
+			text-decoration: none;
+			transition: color 0.3s;
+			font-size: 0.95rem;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding/Decoding</a>
+			<a href="../dev.html" class="nav-category">💻 Developer Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Entertainment</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container">
+	<h1>Camera Test</h1>
+
+	<button id="cameraBtn">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+			<path d="M12 2c-2.65 0-5 1.35-6 3.4L4 6H2v12h2l2 2h12l2-2h2V6h-2l-2-2.6C17 3.35 14.65 2 12 2zm0 2c1.5 0 2.85.75 3.6 2H8.4C9.15 4.75 10.5 4 12 4zm6 4v10H6V8h12zM12 10c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z"/>
+		</svg>
+		Click to test camera
+	</button>
+
+	<div class="instructions">
+		<h3>Camera test instructions:</h3>
+		<ol style="margin-left: 10px;">
+			<li>After clicking test, the browser will request camera permission</li>
+			<li>If denied, a test image will be shown</li>
+			<li>Runs locally; no data is saved to a server</li>
+			<li>Supports debugging via browser dev tools</li>
+		</ol>
+	</div>
+
+	<video id="videoPreview" autoplay playsinline></video>
+	<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjQwIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPjxsaW5lIHgxPSIzMCIgeTE9IjUwIiB4Mj0iNzAiIHkyPSI1MCIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4="
+		 class="test-image" alt="Test image">
+</div>
+
+<div class="help-section">
+	<h2>How to Use the Camera Test</h2>
+	<p>Test your device's camera functionality and permissions with this simple camera test tool.</p>
+
+	<h3>Instructions</h3>
+	<ul>
+		<li>Click the "Click to test camera" button</li>
+		<li>Allow camera permission when prompted by your browser</li>
+		<li>If permission is granted, you'll see a live camera feed</li>
+		<li>If permission is denied, a test image will be displayed</li>
+		<li>Click the button again to stop the camera</li>
+	</ul>
+
+	<h3>What This Test Does</h3>
+	<ul>
+		<li>Requests access to your device's camera</li>
+		<li>Displays a live video feed if permission is granted</li>
+		<li>Shows a test image if camera access is denied</li>
+		<li>Tests camera functionality for web applications</li>
+		<li>Helps debug camera-related issues</li>
+	</ul>
+
+	<h3>Browser Requirements</h3>
+	<ul>
+		<li>Modern web browser with camera support</li>
+		<li>HTTPS connection (required for camera access)</li>
+		<li>Camera permission must be granted</li>
+		<li>Compatible with desktop and mobile browsers</li>
+	</ul>
+
+	<h3>Examples</h3>
+	<div class="example">
+		<strong>Example 1 - Successful Test:</strong><br>
+		Click button �?Grant permission �?Live camera feed appears<br><br>
+		<strong>Example 2 - Permission Denied:</strong><br>
+		Click button �?Deny permission �?Test image is shown
+	</div>
+
+	<h3>Common Use Cases</h3>
+	<ul>
+		<li>Testing camera functionality before video calls</li>
+		<li>Debugging web application camera issues</li>
+		<li>Verifying camera permissions work correctly</li>
+		<li>Testing camera quality and performance</li>
+		<li>Checking if camera is working on a device</li>
+	</ul>
+
+	<h3>Privacy & Security</h3>
+	<ul>
+		<li>Camera access is only requested when you click the button</li>
+		<li>No video data is recorded or transmitted</li>
+		<li>Camera feed is only displayed locally in your browser</li>
+		<li>You can revoke camera access at any time</li>
+		<li>No personal data is stored or shared</li>
+	</ul>
+
+	<h3>Troubleshooting</h3>
+	<ul>
+		<li><strong>Camera not working:</strong> Check if another app is using the camera</li>
+		<li><strong>Permission denied:</strong> Check browser settings and allow camera access</li>
+		<li><strong>No video feed:</strong> Ensure camera is not blocked by antivirus software</li>
+		<li><strong>Poor quality:</strong> Check camera settings and lighting conditions</li>
+		<li><strong>Mobile issues:</strong> Try refreshing the page and granting permission again</li>
+	</ul>
+
+	<h3>Browser Compatibility</h3>
+	<ul>
+		<li><strong>Chrome:</strong> Full support with permission prompt</li>
+		<li><strong>Firefox:</strong> Full support with permission prompt</li>
+		<li><strong>Safari:</strong> Full support on macOS and iOS</li>
+		<li><strong>Edge:</strong> Full support with permission prompt</li>
+		<li><strong>Mobile browsers:</strong> Supported on Android and iOS</li>
+	</ul>
+
+	<h3>Technical Notes</h3>
+	<ul>
+		<li>Uses WebRTC getUserMedia API for camera access</li>
+		<li>Camera feed is displayed in real-time</li>
+		<li>No server-side processing or storage</li>
+		<li>Works entirely in your browser</li>
+		<li>Camera stops automatically when you leave the page</li>
+	</ul>
+</div>
+
+<footer>
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+	</div>
+</footer>
+
+<script>
+	const cameraBtn = document.getElementById('cameraBtn');
+	const video = document.getElementById('videoPreview');
+	const testImage = document.querySelector('.test-image');
+
+	// Camera test functionality
+	async function testCamera() {
+		try {
+			const stream = await navigator.mediaDevices.getUserMedia({
+				video: { facingMode: "user" }
+			});
+
+			video.style.display = 'block';
+			testImage.style.display = 'none';
+			video.srcObject = stream;
+
+			cameraBtn.textContent = 'Camera enabled';
+			cameraBtn.disabled = true;
+
+		} catch (error) {
+			console.error('Camera access failed:', error);
+			video.style.display = 'none';
+			testImage.style.display = 'block';
+			alert('Camera access denied. Showing test image');
+		}
+	}
+
+	// Button click event
+	cameraBtn.addEventListener('click', () => {
+		if (video.srcObject) {
+			stopCamera();
+			cameraBtn.innerHTML = `
+                    <svg...> <!-- 保持SVG代码不变 -->
+			</svg>
+			点击测试摄像�?
+			`;
+                return;
+            }
+            testCamera();
+        });
+
+        // Stop camera
+        function stopCamera() {
+            if (video.srcObject) {
+                video.srcObject.getTracks().forEach(track => track.stop());
+                video.srcObject = null;
+                video.style.display = 'none';
+            }
+            cameraBtn.disabled = false;
+        }
+
+        // Stop camera when page leaves
+        window.addEventListener('beforeunload', stopCamera);
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// Auto-close after clicking menu items on mobile
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

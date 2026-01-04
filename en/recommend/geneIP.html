@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Random IP Address Generator - Chuandao Tools</title>
+	<meta name="keywords" content="online tools collection, Chuandao Tools">
+	<meta name="description" content="Chuandao Tools is an online collection of utilities. No login, no fees, just use and go. Includes life tools, developer tools, encoding/decoding, encryption/decryption, image tools, and games.">
+	<link rel="canonical" href="https://www.chdaoai.com/recommend/geneIP.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #e91e63;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			background: white;
+			padding: 20px;
+			border-radius: 8px;
+		}
+		.form-group {
+			margin-bottom: 20px;
+		}
+		.form-label {
+			display: block;
+			margin-bottom: 10px;
+			font-weight: bold;
+			color: #333;
+		}
+		.radio-group {
+			display: flex;
+			gap: 20px;
+		}
+		.radio-item {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.input-number {
+			width: 100px;
+			padding: 8px;
+			border: 2px solid #e9ecef;
+			border-radius: 4px;
+		}
+		.generate-btn {
+			width: 100%;
+			padding: 12px;
+			background-color: #2196f3;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			font-size: 16px;
+			cursor: pointer;
+			margin: 20px 0;
+		}
+		.result-container {
+			margin-top: 20px;
+			padding: 20px;
+			background: #f8f9fa;
+			border-radius: 8px;
+		}
+		.info-box {
+			margin-top: 30px;
+			padding: 20px;
+			background: #fff5f0;
+			border-radius: 8px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 15px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+			line-height: 1.6;
+		}
+		.info-list li {
+			margin-bottom: 8px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			padding: 1.5rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			border-radius: 8px;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-section h2 {
+			color: #333;
+			font-size: 1.3rem;
+			margin-bottom: 1rem;
+		}
+
+		.help-section h3 {
+			color: #007bff;
+			font-size: 1.1rem;
+			margin-top: 1rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.help-section p, .help-section ul {
+			color: #666;
+			line-height: 1.8;
+			margin-bottom: 0.8rem;
+		}
+
+		.help-section ul {
+			margin-left: 1.5rem;
+		}
+
+		.help-section ul li {
+			margin-bottom: 0.5rem;
+		}
+
+		.example {
+			background: #e7f3ff;
+			padding: 1rem;
+			border-radius: 5px;
+			margin-top: 1rem;
+		}
+
+		.example strong {
+			color: #007bff;
+		}
+
+		/* Footer styles */
+		footer {
+			background: white;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+			border-top: 1px solid #e0e0e0;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #666;
+			text-decoration: none;
+			transition: color 0.3s;
+			font-size: 0.95rem;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding</a>
+			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Games</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container">
+	<h1 style="text-align: center">Random IP Address Generator</h1>
+	<div class="form-group">
+		<label class="form-label">Select type</label>
+		<div class="radio-group">
+			<label class="radio-item">
+				<input type="radio" name="ipVersion" value="ipv4" checked> IPv4
+			</label>
+			<label class="radio-item">
+				<input type="radio" name="ipVersion" value="ipv6"> IPv6
+			</label>
+		</div>
+	</div>
+
+	<div class="form-group" id="ipv4ClassGroup">
+		<label class="form-label">IPv4 class</label>
+		<div class="radio-group">
+			<label class="radio-item">
+				<input type="radio" name="ipClass" value="any" checked> Any
+			</label>
+			<label class="radio-item">
+				<input type="radio" name="ipClass" value="a"> Class A
+			</label>
+			<label class="radio-item">
+				<input type="radio" name="ipClass" value="b"> Class B
+			</label>
+			<label class="radio-item">
+				<input type="radio" name="ipClass" value="c"> Class C
+			</label>
+			<label class="radio-item">
+				<input type="radio" name="ipClass" value="d"> Class D
+			</label>
+			<label class="radio-item">
+				<input type="radio" name="ipClass" value="e"> Class E
+			</label>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="form-label">Count</label>
+		<input type="number" class="input-number" id="count" value="10" min="1" max="100">
+	</div>
+
+	<div class="form-group">
+		<label class="form-label">Uniqueness</label>
+		<div class="radio-group">
+			<label class="radio-item">
+				<input type="radio" name="unique" value="false" checked> Allow duplicates
+			</label>
+			<label class="radio-item">
+				<input type="radio" name="unique" value="true"> Ensure unique
+			</label>
+		</div>
+	</div>
+
+	<button class="generate-btn" onclick="generateIPs()">Generate</button>
+
+	<div class="result-container" id="resultContainer">
+		<!-- Generated IP addresses will appear here -->
+	</div>
+
+	<div class="info-box">
+		<h3 class="info-title">About the Random IP Address Generator:</h3>
+		<ul class="info-list">
+			<li>1. Generate IPv4 or IPv6 addresses.</li>
+			<li>2. For IPv4, choose by class (A/B/C/D/E).</li>
+			<li>3. Optionally ensure uniqueness across results.</li>
+			<li>4. IPv4 Class A: 0.0.0.0 �?127.255.255.255</li>
+			<li>5. IPv4 Class B: 128.0.0.0 �?191.255.255.255</li>
+			<li>6. IPv4 Class C: 192.0.0.0 �?223.255.255.255</li>
+			<li>7. IPv4 Class D: 224.0.0.0 �?239.255.255.255</li>
+			<li>8. IPv4 Class E: 240.0.0.0 �?255.255.255.255</li>
+		</ul>
+	</div>
+</div>
+
+<div class="help-section">
+	<h2>How to Use the Random IP Generator</h2>
+	<p>Generate random IP addresses for testing, development, or educational purposes.</p>
+
+	<h3>Instructions</h3>
+	<ul>
+		<li>Select IP version (IPv4 or IPv6)</li>
+		<li>Choose IP class for IPv4 (Class A-E or Any)</li>
+		<li>Enter the number of IPs to generate (1-100)</li>
+		<li>Option to ensure uniqueness or allow duplicates</li>
+		<li>Click "Generate" to create IP addresses</li>
+	</ul>
+
+	<h3>IPv4 Address Classes</h3>
+	<ul>
+		<li><strong>Class A:</strong> 0.0.0.0 - 127.255.255.255 (Large networks)</li>
+		<li><strong>Class B:</strong> 128.0.0.0 - 191.255.255.255 (Medium networks)</li>
+		<li><strong>Class C:</strong> 192.0.0.0 - 223.255.255.255 (Small networks)</li>
+		<li><strong>Class D:</strong> 224.0.0.0 - 239.255.255.255 (Multicast)</li>
+		<li><strong>Class E:</strong> 240.0.0.0 - 255.255.255.255 (Reserved)</li>
+	</ul>
+
+	<h3>IPv6 Format</h3>
+	<p>IPv6 addresses use hexadecimal notation in 8 groups of 4 hex digits, separated by colons (e.g., 2001:0db8:85a3:0000:0000:8a2e:0370:7334).</p>
+
+	<h3>Use Cases</h3>
+	<ul>
+		<li>Testing network configurations</li>
+		<li>Development and debugging</li>
+		<li>Educational purposes and demonstrations</li>
+		<li>Creating test data for applications</li>
+	</ul>
+
+	<h3>Examples</h3>
+	<div class="example">
+		<strong>Example 1:</strong> Generate 10 random Class C IPv4 addresses for local network testing<br><br>
+		<strong>Example 2:</strong> Generate 5 unique IPv6 addresses for modern application development
+	</div>
+
+	<h3>Important Notes</h3>
+	<p>Generated IP addresses are random and may include private, reserved, or invalid ranges. These IPs are for testing purposes only and should not be used for actual network configurations without proper routing configuration.</p>
+</div>
+
+<footer>
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+	</div>
+</footer>
+
+<script>
+	function generateRandomIPv4(ipClass) {
+		let first, second, third, fourth;
+
+		switch(ipClass) {
+			case 'a':
+				first = Math.floor(Math.random() * 127);
+				break;
+			case 'b':
+				first = Math.floor(Math.random() * 64) + 128;
+				break;
+			case 'c':
+				first = Math.floor(Math.random() * 32) + 192;
+				break;
+			case 'd':
+				first = Math.floor(Math.random() * 16) + 224;
+				break;
+			case 'e':
+				first = Math.floor(Math.random() * 16) + 240;
+				break;
+			default:
+				first = Math.floor(Math.random() * 256);
+		}
+
+		second = Math.floor(Math.random() * 256);
+		third = Math.floor(Math.random() * 256);
+		fourth = Math.floor(Math.random() * 256);
+
+		return `${first}.${second}.${third}.${fourth}`;
+	}
+
+	function generateRandomIPv6() {
+		let segments = [];
+		for(let i = 0; i < 8; i++) {
+			let segment = Math.floor(Math.random() * 65536).toString(16);
+			segments.push(segment.padStart(4, '0'));
+		}
+		return segments.join(':');
+	}
+
+	function generateIPs() {
+		const ipVersion = document.querySelector('input[name="ipVersion"]:checked').value;
+		const ipClass = document.querySelector('input[name="ipClass"]:checked').value;
+		const count = parseInt(document.getElementById('count').value);
+		const unique = document.querySelector('input[name="unique"]:checked').value === 'true';
+
+		let ips = new Set();
+		let results = [];
+
+		for(let i = 0; i < count; i++) {
+			let ip = ipVersion === 'ipv4' ? generateRandomIPv4(ipClass) : generateRandomIPv6();
+
+			if(unique) {
+				if(!ips.has(ip)) {
+					ips.add(ip);
+					results.push(ip);
+				} else {
+					i--; // 重试
+				}
+			} else {
+				results.push(ip);
+			}
+		}
+
+		const resultContainer = document.getElementById('resultContainer');
+		resultContainer.innerHTML = `
+                <h3>生成结果�?/h3>
+                <div style="margin-top: 10px; line-height: 1.8;">
+                    ${results.join('<br>')}
+                </div>
+            `;
+	}
+
+	// 页面加载时生成默认IP
+	window.onload = generateIPs;
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

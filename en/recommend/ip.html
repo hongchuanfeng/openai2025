@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Geolocation Lookup - Chandao Tools</title>
+    <meta name="keywords" content="online tool collection, Chandao Tools">
+    <meta name="description" content="Chandao Tools is a collection of free, no-login online utilities across life, dev, encoding/decoding, encryption, images, and fun.">
+    <link rel="canonical" href="https://www.chdaoai.com/recommend/ip.html">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .nav {
+            margin: 0 auto;
+            max-width: 1200px;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #deb887;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .heart-icon {
+            color: #ff4757;
+            cursor: pointer;
+        }
+        .rating {
+            display: flex;
+            gap: 5px;
+            color: #ffd700;
+        }
+        .share-icon {
+            margin-left: auto;
+            color: #666;
+            cursor: pointer;
+        }
+        .section-title {
+            color: #00b894;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .time-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        .country {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .city {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .timezone {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .date {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .time {
+            color: #00b894;
+            font-size: 16px;
+        }
+        .main-title {
+            text-align: center;
+            color: #2196f3;
+            font-size: 24px;
+            margin: 40px 0;
+        }
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+        .search-input:focus {
+            border-color: #2196f3;
+        }
+        .search-btn {
+            padding: 12px 30px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .search-btn:hover {
+            background-color: #1976d2;
+        }
+        .search-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .get-current-btn {
+            padding: 12px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .get-current-btn:hover {
+            background-color: #45a049;
+        }
+        .get-current-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .ip-info {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            min-height: 60px;
+        }
+        .ip-result {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .ip-result h3 {
+            color: #2196f3;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .ip-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .ip-detail:last-child {
+            border-bottom: none;
+        }
+        .ip-label {
+            font-weight: bold;
+            color: #666;
+        }
+        .ip-value {
+            color: #333;
+        }
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+        .error {
+            text-align: center;
+            color: #f44336;
+            background: #ffebee;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2196f3;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .info-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff5f0;
+            border-radius: 4px;
+            padding: 20px;
+        }
+        .info-title {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        .info-list {
+            list-style: none;
+            color: #666;
+        }
+        .info-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* 响应式导航栏 */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* 工具卡片布局 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #444;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+        }
+
+        /* 移动端样�?*/
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+            
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .search-input {
+                min-width: auto;
+            }
+        }
+
+        /* Help section styles */
+        .help-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+
+        .help-section h2 {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .help-section h3 {
+            color: #007bff;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .help-section p, .help-section ul {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+
+        .help-section ul {
+            margin-left: 1.5rem;
+        }
+
+        .help-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .example {
+            background: #e7f3ff;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .example strong {
+            color: #007bff;
+        }
+
+        /* Footer styles */
+        footer {
+            background: white;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: #007bff;
+        }
+
+        .footer-copyright {
+            color: #999;
+            font-size: 0.9rem;
+        }
+    </style>
+    <script src="../static/js/jquery-3.6.2.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="../index.html" class="nav-item">
+                <img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">�?/button>
+        <div class="nav-categories">
+            <a href="../index.html" class="nav-category">🔍 Recommended</a>
+            <a href="../life.html" class="nav-category">🏠 Life Tools</a>
+            <a href="../encry.html" class="nav-category">🔒 Encryption</a>
+            <a href="../code.html" class="nav-category">📝 Encoding</a>
+            <a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+            <a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+            <a href="../game.html" class="nav-category">🎮 Fun Tools</a>
+        </div>
+    </div>
+</nav>
+
+<h1 class="main-title">IP Geolocation Lookup</h1>
+
+<div class="search-container">
+    <input type="text" class="search-input" placeholder="Enter IP address" id="ipInput">
+    <button class="search-btn" onclick="queryIP()" id="queryBtn">Search</button>
+    <button class="get-current-btn" onclick="getCurrentIPInfo()" id="currentBtn">Get My IP</button>
+</div>
+
+<div class="ip-info" id="queryResult">
+    <div class="loading">Enter an IP address to search, or click "Get My IP"</div>
+</div>
+
+<div class="info-box">
+    <h3 class="info-title">About IP Addresses:</h3>
+    <ul class="info-list">
+        <li>1. An IP address (Internet Protocol Address) is a numeric label that identifies devices on the internet.</li>
+        <li>2. IP addresses define how devices address and communicate with each other in packets.</li>
+        <li>3. There are two main types: IPv4 and IPv6.</li>
+        <li>4. This tool looks up the geolocation of an IP. Results are for reference only and not for commercial use.</li>
+    </ul>
+</div>
+
+<div class="help-section">
+    <h2>How to Use IP Geolocation Lookup</h2>
+    <p>Find the geographical location and information for any IP address instantly.</p>
+
+    <h3>Instructions</h3>
+    <ul>
+        <li>Enter an IP address (e.g., 192.168.1.1) in the search box</li>
+        <li>Click "Search" to query the IP location</li>
+        <li>Or click "Get My IP" to automatically look up your current IP address</li>
+        <li>View detailed information including country, city, ISP, timezone, and more</li>
+    </ul>
+
+    <h3>What Information is Displayed?</h3>
+    <ul>
+        <li><strong>Country & City:</strong> Geographic location of the IP</li>
+        <li><strong>ISP:</strong> Internet Service Provider</li>
+        <li><strong>Timezone:</strong> Local time zone information</li>
+        <li><strong>Latitude & Longitude:</strong> Precise coordinates</li>
+        <li><strong>Organization:</strong> Associated organization</li>
+    </ul>
+
+    <h3>Examples</h3>
+    <div class="example">
+        <strong>Example 1:</strong> Query "8.8.8.8" to see Google's DNS server location.<br><br>
+        <strong>Example 2:</strong> Query "1.1.1.1" to see Cloudflare's DNS server location.
+    </div>
+
+    <h3>Privacy Note</h3>
+    <p>IP geolocation is approximate and based on database lookups. Results are for reference only and may not represent the exact physical location of a device. For privacy reasons, we do not store or track any IP addresses used in queries.</p>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="../about.html">About Us</a>
+        <a href="../contact.html">Contact Us</a>
+        <a href="../privacy.html">Privacy Policy</a>
+    </div>
+    <div class="footer-copyright">
+        <p>&copy; 2024 Missionary AI. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+
+<script>
+    // 多个IP获取API，按优先级排�?
+    const IP_APIS = [
+        'https://api.ipify.org?format=json',
+        'https://api.myip.com',
+        'https://api.ip.sb/ip',
+        'https://httpbin.org/ip'
+    ];
+
+    // 多个IP信息查询API
+    const IP_INFO_APIS = [
+        'https://ipapi.co/{ip}/json/',
+        'https://ipapi.com/ip_api.php?ip={ip}',
+        'https://ip-api.com/json/{ip}'
+    ];
+
+    // 显示加载状�?
+    function showLoading(elementId, message = 'Querying...') {
+        const element = document.getElementById(elementId);
+        element.innerHTML = `<div class="loading"><span class="spinner"></span>${message}</div>`;
+    }
+
+    // 显示错误信息
+    function showError(elementId, message) {
+        const element = document.getElementById(elementId);
+        element.innerHTML = `<div class="error">${message}</div>`;
+    }
+
+    // 获取当前IP - 使用多个备用API
+    async function getCurrentIP() {
+        for (let api of IP_APIS) {
+            try {
+                const response = await fetch(api, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const data = await response.json();
+                let ip = null;
+                
+                // 处理不同API的返回格�?
+                if (data.ip) {
+                    ip = data.ip;
+                } else if (typeof data === 'string') {
+                    ip = data.trim();
+                } else if (data.origin) {
+                    ip = data.origin;
+                }
+                
+                if (ip && isValidIP(ip)) {
+                    return ip;
+                }
+            } catch (error) {
+                console.warn(`API ${api} failed:`, error);
+                continue;
+            }
+        }
+        throw new Error('All IP fetch APIs failed');
+    }
+
+    // 验证IP地址格式
+    function isValidIP(ip) {
+        const ipPattern = /^(\d{1,3}\.){3}\d{1,3}$/;
+        if (!ipPattern.test(ip)) return false;
+        
+        const parts = ip.split('.');
+        return parts.every(part => {
+            const num = parseInt(part);
+            return num >= 0 && num <= 255;
+        });
+    }
+
+    // 查询IP信息 - 使用多个备用API
+    async function queryIPInfo(ip) {
+        for (let apiTemplate of IP_INFO_APIS) {
+            try {
+                const api = apiTemplate.replace('{ip}', ip);
+                const response = await fetch(api, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // 处理不同API的返回格�?
+                let result = {
+                    ip: ip,
+                    country: '',
+                    region: '',
+                    city: '',
+                    org: ''
+                };
+                
+                if (api.includes('ipapi.co')) {
+                    result.country = data.country_name || data.country || '';
+                    result.region = data.region || data.regionName || '';
+                    result.city = data.city || '';
+                    result.org = data.org || data.isp || '';
+                } else if (api.includes('ip-api.com')) {
+                    result.country = data.country || '';
+                    result.region = data.regionName || '';
+                    result.city = data.city || '';
+                    result.org = data.isp || data.org || '';
+                } else {
+                    result.country = data.country || '';
+                    result.region = data.region || '';
+                    result.city = data.city || '';
+                    result.org = data.org || data.isp || '';
+                }
+                
+                return result;
+            } catch (error) {
+                console.warn(`IP info API ${apiTemplate} failed:`, error);
+                continue;
+            }
+        }
+        throw new Error('All IP info APIs failed');
+    }
+
+    // 显示IP信息
+    function displayIPInfo(info, elementId) {
+        const element = document.getElementById(elementId);
+        if (!info) {
+            element.innerHTML = '<div class="error">Failed to fetch information. Please try again later.</div>';
+            return;
+        }
+
+        const html = `
+            <div class="ip-result">
+                <h3>📍 IP Information</h3>
+                <div class="ip-detail">
+                    <span class="ip-label">IP:</span>
+                    <span class="ip-value">${info.ip}</span>
+                </div>
+                <div class="ip-detail">
+                    <span class="ip-label">Country/Region:</span>
+                    <span class="ip-value">${info.country || 'Unknown'}</span>
+                </div>
+                <div class="ip-detail">
+                    <span class="ip-label">State/Province:</span>
+                    <span class="ip-value">${info.region || 'Unknown'}</span>
+                </div>
+                <div class="ip-detail">
+                    <span class="ip-label">City:</span>
+                    <span class="ip-value">${info.city || 'Unknown'}</span>
+                </div>
+                <div class="ip-detail">
+                    <span class="ip-label">ISP:</span>
+                    <span class="ip-value">${info.org || 'Unknown'}</span>
+                </div>
+            </div>
+        `;
+        
+        element.innerHTML = html;
+    }
+
+    // 获取本机IP信息
+    async function getCurrentIPInfo() {
+        const queryBtn = document.getElementById('queryBtn');
+        const currentBtn = document.getElementById('currentBtn');
+        const queryResult = document.getElementById('queryResult');
+        
+        // 禁用按钮
+        queryBtn.disabled = true;
+        currentBtn.disabled = true;
+        
+        try {
+            showLoading('queryResult', 'Getting your IP...');
+            
+            const ip = await getCurrentIP();
+            if (ip) {
+                document.getElementById('ipInput').value = ip;
+                showLoading('queryResult', 'Fetching IP details...');
+                
+                const info = await queryIPInfo(ip);
+                displayIPInfo(info, 'queryResult');
+            }
+        } catch (error) {
+            console.error('Failed to get current IP:', error);
+            showError('queryResult', 'Failed to get IP. Check your network and try again.');
+        } finally {
+            // 恢复按钮
+            queryBtn.disabled = false;
+            currentBtn.disabled = false;
+        }
+    }
+
+    // 查询按钮点击事件
+    async function queryIP() {
+        const ipInput = document.getElementById('ipInput');
+        const queryBtn = document.getElementById('queryBtn');
+        const currentBtn = document.getElementById('currentBtn');
+        const ip = ipInput.value.trim();
+        const queryResult = document.getElementById('queryResult');
+
+        if (!ip) {
+            alert('Please enter an IP address');
+            return;
+        }
+
+        // IP地址格式验证
+        if (!isValidIP(ip)) {
+            alert('Please enter a valid IP address (e.g., 192.168.1.1)');
+            return;
+        }
+
+        // 禁用按钮
+        queryBtn.disabled = true;
+        currentBtn.disabled = true;
+
+        try {
+            showLoading('queryResult', 'Querying IP info...');
+            const info = await queryIPInfo(ip);
+            displayIPInfo(info, 'queryResult');
+        } catch (error) {
+            console.error('Failed to query IP info:', error);
+            showError('queryResult', 'Query failed. Please try again later.');
+        } finally {
+            // 恢复按钮
+            queryBtn.disabled = false;
+            currentBtn.disabled = false;
+        }
+    }
+
+    // 回车键查�?
+    document.getElementById('ipInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            queryIP();
+        }
+    });
+
+    // 页面加载时自动获取本机IP
+    window.onload = function() {
+        // 延迟执行，让页面先加载完�?
+        setTimeout(() => {
+            getCurrentIPInfo();
+        }, 500);
+    };
+</script>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // 点击菜单项后自动关闭
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+</script>
+
+
+</html>
+

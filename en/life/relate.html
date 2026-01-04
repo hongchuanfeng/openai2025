@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Kinship Calculator - Chdao Tools</title>
+	<meta name="keywords" content="online tools suite, Chdao Tools">
+	<meta name="description" content="Chdao Tools is an online toolkit with no login or fees. Includes life, developer, encoding/decoding, encryption, image, and entertainment tools.">
+	<link rel="canonical" href="https://www.chdaoai.com/life/relate.html">		
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 600px;
+			margin: 20px auto;
+			padding: 20px;
+			background-color: #fff;
+			border-radius: 5px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		}
+
+		.input-group {
+			margin-bottom: 20px;
+		}
+
+		.input-label {
+			display: block;
+			margin-bottom: 5px;
+			font-size: 16px;
+			font-weight: bold;
+			color: #333;
+		}
+
+		.input-field {
+			display: block;
+			width: 100%;
+			padding: 10px;
+			font-size: 16px;
+			border: none;
+			border-radius: 5px;
+			box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+			background-color: #f9f9f9;
+			color: #333;
+		}
+
+		.btn {
+			display: inline-block;
+			padding: 10px 20px;
+			font-size: 16px;
+			border: none;
+			border-radius: 5px;
+			background-color: #4CAF50;
+			color: #fff;
+			text-align: center;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		.btn:hover {
+			background-color: #3e8e41;
+		}
+
+		.result {
+			margin-top: 20px;
+			padding-bottom: 10px;
+		}
+
+		.result-label {
+			display: block;
+			margin-bottom: 5px;
+			font-size: 16px;
+			font-weight: bold;
+			color: #333;
+		}
+
+		.result-field {
+			display: block;
+			width: 100%;
+			padding: 10px;
+			font-size: 16px;
+			border: none;
+			border-radius: 5px;
+			box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+			background-color: #f9f9f9;
+			color: #333;
+			font-family: monospace;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 600px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tools grid layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Help Section Styles */
+		.help-section {
+			background: white;
+			border-radius: 8px;
+			padding: 2rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		}
+
+		.help-section h2 {
+			color: #333;
+			margin-bottom: 1rem;
+			font-size: 1.5rem;
+		}
+
+		.help-section h3 {
+			color: #555;
+			margin: 1.5rem 0 0.5rem 0;
+			font-size: 1.2rem;
+		}
+
+		.help-section p {
+			color: #666;
+			line-height: 1.6;
+			margin-bottom: 1rem;
+		}
+
+		.help-section ul, .help-section ol {
+			margin: 0.5rem 0 1rem 1.5rem;
+			color: #666;
+		}
+
+		.help-section li {
+			margin: 0.3rem 0;
+			line-height: 1.5;
+		}
+
+		.help-section strong {
+			color: #333;
+		}
+
+		/* Footer Styles */
+		.footer {
+			background: #333;
+			color: white;
+			padding: 2rem 0;
+			margin-top: 3rem;
+		}
+
+		.footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 1rem;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1rem;
+		}
+
+		.footer-links a {
+			color: white;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #ccc;
+			font-size: 0.9rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.help-section {
+				margin: 1rem;
+				padding: 1.5rem;
+			}
+
+			.footer-links {
+				flex-direction: column;
+				gap: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding/Decoding</a>
+			<a href="../dev.html" class="nav-category">💻 Developer Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Entertainment</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>Kinship Calculator</h1>
+
+	<form id="relationship-form" method="POST">
+		<div class="input-group">
+			<label for="person1" class="input-label">First person:</label>
+			<select name="person1" id="person1" class="input-field" required>
+				<option value="">Please select�?/option>
+				<option value="father">Father</option>
+				<option value="mother">Mother</option>
+				<option value="son">Son</option>
+				<option value="daughter">Daughter</option>
+				<option value="grandfather">Grandfather</option>
+				<option value="grandmother">Grandmother</option>
+				<option value="grandson">Grandson</option>
+				<option value="granddaughter">Granddaughter</option>
+				<option value="brother">Brother</option>
+				<option value="sister">Sister</option>
+			</select>
+		</div>
+
+		<div class="input-group">
+			<label for="person2" class="input-label">Second person:</label>
+			<select name="person2" id="person2" class="input-field" required>
+				<option value="">Please select�?/option>
+				<option value="father">Father</option>
+				<option value="mother">Mother</option>
+				<option value="son">Son</option>
+				<option value="daughter">Daughter</option>
+				<option value="grandfather">Grandfather</option>
+				<option value="grandmother">Grandmother</option>
+				<option value="grandson">Grandson</option>
+				<option value="granddaughter">Granddaughter</option>
+				<option value="brother">Brother</option>
+				<option value="sister">Sister</option>
+			</select>
+		</div>
+
+		<button type="submit" class="btn">Calculate Relationship</button>
+	</form>
+
+	<div class="result">
+		<label for="relationship" class="result-label">Relationship:</label>
+		<input type="text" name="relationship" id="relationship" class="result-field" readonly>
+	</div>
+</div>
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2>How to Use</h2>
+	<p>This tool calculates the relationship between two family members based on their roles. It helps you understand how different family members are related to each other.</p>
+	
+	<h3>Step-by-Step Instructions:</h3>
+	<ol>
+		<li><strong>Select First Person:</strong> Choose the first family member from the dropdown menu</li>
+		<li><strong>Select Second Person:</strong> Choose the second family member from the dropdown menu</li>
+		<li><strong>Calculate:</strong> Click "Calculate Relationship" to see how they are related</li>
+		<li><strong>View Result:</strong> The relationship will be displayed in the result field</li>
+	</ol>
+	
+	<h3>Available Family Members:</h3>
+	<ul>
+		<li><strong>Parents:</strong> Father, Mother</li>
+		<li><strong>Children:</strong> Son, Daughter</li>
+		<li><strong>Grandparents:</strong> Grandfather, Grandmother</li>
+		<li><strong>Grandchildren:</strong> Grandson, Granddaughter</li>
+		<li><strong>Siblings:</strong> Brother, Sister</li>
+	</ul>
+	
+	<h3>Examples:</h3>
+	<ul>
+		<li><strong>Father + Son:</strong> "Father and son"</li>
+		<li><strong>Mother + Daughter:</strong> "Mother and daughter"</li>
+		<li><strong>Son + Son:</strong> "Brothers"</li>
+		<li><strong>Daughter + Daughter:</strong> "Sisters"</li>
+		<li><strong>Father + Grandson:</strong> "Grandfather"</li>
+		<li><strong>Mother + Granddaughter:</strong> "Maternal grandmother"</li>
+	</ul>
+	
+	<h3>Relationship Types:</h3>
+	<ul>
+		<li><strong>Direct Relationships:</strong> Parent-child, grandparent-grandchild</li>
+		<li><strong>Sibling Relationships:</strong> Brother-brother, sister-sister, brother-sister</li>
+		<li><strong>Extended Family:</strong> Grandfather, grandmother, maternal/paternal relationships</li>
+	</ul>
+	
+	<h3>Common Use Cases:</h3>
+	<ul>
+		<li>Understanding family tree relationships</li>
+		<li>Educational purposes for learning family structures</li>
+		<li>Genealogy research and family history</li>
+		<li>Cultural studies and anthropology</li>
+		<li>Family counseling and therapy</li>
+	</ul>
+	
+	<h3>Important Notes:</h3>
+	<ul>
+		<li>This tool uses standard family relationship terminology</li>
+		<li>Results are based on traditional family structures</li>
+		<li>Some relationships may vary by cultural context</li>
+		<li>For complex family structures, consider consulting a genealogist</li>
+	</ul>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+	<div class="footer-content">
+		<div class="footer-links">
+			<a href="../about.html">About Us</a>
+			<a href="../contact.html">Contact Us</a>
+			<a href="../privacy.html">Privacy Policy</a>
+		</div>
+		<div class="footer-copyright">
+			<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+		</div>
+	</div>
+</footer>
+
+<script>
+	function calculateRelationship(event) {
+		event.preventDefault();
+
+		const person1 = document.getElementById('person1').value;
+		const person2 = document.getElementById('person2').value;
+
+		let relationship = '';
+
+		if (person1 === 'father' && person2 === 'son') {
+			relationship = 'Father and son';
+		} else if (person1 === 'father' && person2 === 'daughter') {
+			relationship = 'Father and daughter';
+		} else if (person1 === 'mother' && person2 === 'son') {
+			relationship = 'Mother and son';
+		} else if (person1 === 'mother' && person2 === 'daughter') {
+			relationship = 'Mother and daughter';
+		} else if (person1 === 'son' && person2 === 'father') {
+			relationship = 'Father and son';
+		} else if (person1 === 'son' && person2 === 'mother') {
+			relationship = 'Mother and son';
+		} else if (person1 === 'daughter' && person2 === 'father') {
+			relationship = 'Father and daughter';
+		} else if (person1 === 'daughter' && person2 === 'mother') {
+			relationship = 'Mother and daughter';
+		} else if (person1 === 'father' && person2 === 'father') {
+			relationship = 'Grandfather';
+		} else if (person1 === 'father' && person2 === 'mother') {
+			relationship = 'Grandmother';
+		} else if (person1 === 'mother' && person2 === 'father') {
+			relationship = 'Maternal grandfather';
+		} else if (person1 === 'mother' && person2 === 'mother') {
+			relationship = 'Maternal grandmother';
+		} else if (person1 === 'son' && person2 === 'son') {
+			relationship = 'Brothers';
+		} else if (person1 === 'son' && person2 === 'daughter') {
+			relationship = 'Sister and brother';
+		} else if (person1 === 'daughter' && person2 === 'son') {
+			relationship = 'Brother and sister';
+		} else if (person1 === 'daughter' && person2 === 'daughter') {
+			relationship = 'Sisters';
+		} else if (person1 === 'father' && person2 === 'grandson') {
+			relationship = 'Grandfather';
+		} else if (person1 === 'father' && person2 === 'granddaughter') {
+			relationship = 'Grandmother';
+		} else if (person1 === 'mother' && person2 === 'grandson') {
+			relationship = 'Maternal grandfather';
+		} else if (person1 === 'mother' && person2 === 'granddaughter') {
+			relationship = 'Maternal grandmother';
+		} else if (person1 === 'grandfather' && person2 === 'son') {
+			relationship = 'Grandson';
+		} else if (person1 === 'grandfather' && person2 === 'daughter') {
+			relationship = 'Granddaughter';
+		} else if (person1 === 'grandmother' && person2 === 'son') {
+			relationship = 'Grandson';
+		} else if (person1 === 'grandmother' && person2 === 'daughter') {
+			relationship = 'Granddaughter';
+		} else if (person1 === 'son' && person2 === 'grandfather') {
+			relationship = 'Grandson';
+		} else if (person1 === 'son' && person2 === 'grandmother') {
+			relationship = 'Granddaughter';
+		} else if (person1 === 'daughter' && person2 === 'grandfather') {
+			relationship = 'Grandson';
+		} else if (person1 === 'daughter' && person2 === 'grandmother') {
+			relationship = 'Granddaughter';
+		} else if (person1 === 'brother' && person2 === 'brother') {
+			relationship = 'Brothers';
+		} else if (person1 === 'brother' && person2 === 'sister') {
+			relationship = 'Brother and sister';
+		} else if (person1 === 'sister' && person2 === 'brother') {
+			relationship = 'Sister and brother';
+		} else if (person1 === 'sister' && person2 === 'sister') {
+			relationship = 'Sisters';
+		}
+
+		document.getElementById('relationship').value = relationship;
+	}
+
+	document.getElementById('relationship-form').addEventListener('submit', calculateRelationship);
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

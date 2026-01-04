@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Morse Code Encoder & Decoder - Chdao Tools</title>
+	<meta name="keywords" content="online tools suite, Chdao Tools">
+	<meta name="description" content="Chdao Tools is an online toolkit with no login or fees. Includes life, developer, encoding/decoding, encryption, image, and entertainment tools.">
+	<link rel="canonical" href="https://www.chdaoai.com/life/ms.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		h1, h2 {
+			text-align: center;
+		}
+		textarea {
+			width: 100%;
+			height: 200px;
+			margin-top: 20px;
+			border: 1px solid #ccc;
+			padding: 10px;
+			resize: none;
+		}
+		#convert-area>button {
+			padding: 10px 20px;
+			font-size: 18px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			margin: 10px;
+			cursor: pointer;
+		}
+		#convert-area {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tools grid layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Help Section Styles */
+		.help-section {
+			background: white;
+			border-radius: 8px;
+			padding: 2rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		}
+
+		.help-section h2 {
+			color: #333;
+			margin-bottom: 1rem;
+			font-size: 1.5rem;
+		}
+
+		.help-section h3 {
+			color: #555;
+			margin: 1.5rem 0 0.5rem 0;
+			font-size: 1.2rem;
+		}
+
+		.help-section p {
+			color: #666;
+			line-height: 1.6;
+			margin-bottom: 1rem;
+		}
+
+		.help-section ul, .help-section ol {
+			margin: 0.5rem 0 1rem 1.5rem;
+			color: #666;
+		}
+
+		.help-section li {
+			margin: 0.3rem 0;
+			line-height: 1.5;
+		}
+
+		.help-section strong {
+			color: #333;
+		}
+
+		/* Footer Styles */
+		.footer {
+			background: #333;
+			color: white;
+			padding: 2rem 0;
+			margin-top: 3rem;
+		}
+
+		.footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 1rem;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1rem;
+		}
+
+		.footer-links a {
+			color: white;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #ccc;
+			font-size: 0.9rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.help-section {
+				margin: 1rem;
+				padding: 1.5rem;
+			}
+
+			.footer-links {
+				flex-direction: column;
+				gap: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding/Decoding</a>
+			<a href="../dev.html" class="nav-category">💻 Developer Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Entertainment</a>
+		</div>
+	</div>
+</nav>
+
+<h1>Morse Code Encoder & Decoder</h1>
+<div id="convert-area">
+	<textarea id="input-text" placeholder="Enter text to convert"></textarea>
+	<button id="encode-button">Encode to Morse</button>
+	<button id="decode-button">Decode from Morse</button>
+	<textarea id="output-text" placeholder="Converted result"></textarea>
+</div>
+<script>
+	const MORSE_CODE = {
+		'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
+		'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
+		'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
+		'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
+		'Y': '-.--', 'Z': '--..', '0': '-----', '1': '.----', '2': '..---',
+		'3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...',
+		'8': '---..', '9': '----.'
+	};
+
+	const MORSE_CODE_REVERSE = Object.entries(MORSE_CODE).reduce((acc, [key, value]) => {
+		acc[value] = key;
+		return acc;
+	}, {});
+
+	function encode(text) {
+		return text.toUpperCase().split('').map((ch) => {
+			if (/[A-Z0-9]/.test(ch)) {
+				return MORSE_CODE[ch] + ' ';
+			} else if (/\s/.test(ch)) {
+				return '/';
+			} else {
+				return '';
+			}
+		}).join('');
+	}
+
+	function decode(code) {
+		return code.split(/\s/).map((code) => {
+			return MORSE_CODE_REVERSE[code] || '?';
+		}).join('');
+	}
+
+	let inputText = document.getElementById('input-text');
+	let outputText = document.getElementById('output-text');
+	let encodeButton = document.getElementById('encode-button');
+	let decodeButton = document.getElementById('decode-button');
+
+	encodeButton.addEventListener('click', () => {
+		outputText.value = encode(inputText.value);
+	});
+
+	decodeButton.addEventListener('click', () => {
+		outputText.value = decode(inputText.value);
+	});
+</script>
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2>How to Use</h2>
+	<p>This tool converts between regular text and Morse code. Morse code uses dots (.) and dashes (-) to represent letters, numbers, and punctuation.</p>
+	
+	<h3>Step-by-Step Instructions:</h3>
+	<ol>
+		<li><strong>Enter Text:</strong> Type your text in the input field (for encoding) or enter Morse code (for decoding)</li>
+		<li><strong>Choose Action:</strong> Click "Encode to Morse" to convert text to Morse code, or "Decode from Morse" to convert Morse code to text</li>
+		<li><strong>View Result:</strong> The converted result will appear in the output area</li>
+	</ol>
+	
+	<h3>Morse Code Basics:</h3>
+	<ul>
+		<li><strong>Dot (.)</strong> = Short signal</li>
+		<li><strong>Dash (-)</strong> = Long signal</li>
+		<li><strong>Space</strong> = Separates letters</li>
+		<li><strong>Slash (/)</strong> = Separates words</li>
+	</ul>
+	
+	<h3>Examples:</h3>
+	<ul>
+		<li><strong>Text to Morse:</strong> "HELLO" �?".... . .-.. .-.. ---"</li>
+		<li><strong>Morse to Text:</strong> ".... . .-.. .-.. ---" �?"HELLO"</li>
+		<li><strong>With Numbers:</strong> "123" �?".---- ..--- ...--"</li>
+		<li><strong>With Spaces:</strong> "HELLO WORLD" �?".... . .-.. .-.. --- / .-- --- .-. .-.. -.."</li>
+	</ul>
+	
+	<h3>Common Morse Code Patterns:</h3>
+	<ul>
+		<li><strong>SOS:</strong> "... --- ..." (Emergency signal)</li>
+		<li><strong>OK:</strong> "--- -.-"</li>
+		<li><strong>YES:</strong> "-. ---"</li>
+		<li><strong>NO:</strong> "-. ---"</li>
+	</ul>
+	
+	<h3>Tips for Better Results:</h3>
+	<ul>
+		<li>Use proper spacing between letters and words</li>
+		<li>For decoding, ensure Morse code is properly formatted</li>
+		<li>Case doesn't matter for encoding (automatically converts to uppercase)</li>
+		<li>Only letters and numbers are supported in this tool</li>
+	</ul>
+	
+	<h3>Common Use Cases:</h3>
+	<ul>
+		<li>Learning Morse code for amateur radio</li>
+		<li>Emergency communication training</li>
+		<li>Historical communication studies</li>
+		<li>Puzzle solving and cryptography</li>
+		<li>Military and aviation training</li>
+	</ul>
+	
+	<h3>Important Notes:</h3>
+	<ul>
+		<li>This tool uses standard International Morse Code</li>
+		<li>Only letters A-Z and numbers 0-9 are supported</li>
+		<li>For learning purposes, practice with simple words first</li>
+		<li>Real Morse code communication requires proper timing and rhythm</li>
+	</ul>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+	<div class="footer-content">
+		<div class="footer-links">
+			<a href="../about.html">About Us</a>
+			<a href="../contact.html">Contact Us</a>
+			<a href="../privacy.html">Privacy Policy</a>
+		</div>
+		<div class="footer-copyright">
+			<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+		</div>
+	</div>
+</footer>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

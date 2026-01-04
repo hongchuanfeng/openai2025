@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Color Picker - Chandao Tools</title>
+	<meta name="keywords" content="online tool collection, Chandao Tools">
+	<meta name="description" content="Chandao Tools is a collection of free, no-login online utilities across life, dev, encoding/decoding, encryption, images, and fun.">
+	<link rel="canonical" href="https://www.chdaoai.com/image/selectcolor.html">		
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.color-picker {
+			flex: 1;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.picker-area {
+			position: relative;
+			width: 400px;
+			height: 400px;
+			margin-bottom: 20px;
+		}
+		.color-map {
+			width: 100%;
+			height: 100%;
+			border-radius: 4px;
+			cursor: crosshair;
+		}
+		.sliders {
+			display: none;
+			gap: 10px;
+			margin-bottom: 20px;
+		}
+		.slider {
+			width: 20px;
+			height: 400px;
+			background: linear-gradient(to bottom, white, black);
+			cursor: pointer;
+		}
+		.alpha-slider {
+			background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0));
+		}
+		.color-info {
+			flex: 1;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.color-value {
+			display: flex;
+			align-items: center;
+			margin-bottom: 10px;
+			padding: 10px;
+			background: #f8f9fa;
+			border-radius: 4px;
+		}
+		.color-label {
+			width: 100px;
+			color: #666;
+			font-size: 14px;
+		}
+		.color-input {
+			flex: 1;
+			padding: 8px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			font-family: monospace;
+		}
+		.preview {
+			width: 100%;
+			height: 60px;
+			margin-bottom: 20px;
+			border-radius: 4px;
+			border: 1px solid #ddd;
+		}
+		.info-box {
+			margin-top: 20px;
+			padding: 15px;
+			background: #fff5f0;
+			border-radius: 4px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 10px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+			font-size: 14px;
+			line-height: 1.8;
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			border-radius: 8px;
+			padding: 2rem;
+			max-width: 1100px;
+			margin: 2rem auto;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-title {
+			color: #333;
+			font-size: 1.5rem;
+			margin-bottom: 1rem;
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+
+		.help-content {
+			color: #666;
+			line-height: 1.6;
+		}
+
+		.help-content h3 {
+			color: #444;
+			margin: 1.5rem 0 0.5rem 0;
+			font-size: 1.1rem;
+		}
+
+		.help-content ul {
+			margin: 0.5rem 0 1rem 1.5rem;
+		}
+
+		.help-content li {
+			margin-bottom: 0.5rem;
+		}
+
+		.help-content code {
+			background: #e9ecef;
+			padding: 0.2rem 0.4rem;
+			border-radius: 3px;
+			font-family: monospace;
+			font-size: 0.9rem;
+		}
+
+		.example-box {
+			background: #fff;
+			border: 1px solid #dee2e6;
+			border-radius: 6px;
+			padding: 1rem;
+			margin: 1rem 0;
+		}
+
+		.example-title {
+			font-weight: bold;
+			color: #495057;
+			margin-bottom: 0.5rem;
+		}
+
+		/* Footer styles */
+		.footer {
+			background: #333;
+			color: white;
+			text-align: center;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #ccc;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.footer-links a:hover {
+			color: white;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+
+		@media (max-width: 768px) {
+			.footer-links {
+				flex-direction: column;
+				gap: 1rem;
+			}
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+			z-index: 999;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+	<!-- 添加图片处理所需的库 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding</a>
+			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
+		</div>
+	</div>
+</nav>
+
+<h1 style="text-align: center">Color Picker</h1>
+<div class="container">
+	<div class="color-picker">
+		<div class="picker-area">
+			<canvas id="colorMap" class="color-map"></canvas>
+		</div>
+		<div class="sliders">
+			<div class="slider" id="valueSlider"></div>
+			<div class="slider alpha-slider" id="alphaSlider"></div>
+		</div>
+	</div>
+
+	<div class="color-info">
+		<div class="preview" id="colorPreview"></div>
+
+		<div class="color-value">
+			<div class="color-label">ALPHA</div>
+			<input type="text" class="color-input" id="alphaValue" value="1">
+		</div>
+
+		<div class="color-value">
+			<div class="color-label">HEX</div>
+			<input type="text" class="color-input" id="hexValue" value="#c8d9cc">
+		</div>
+
+		<div class="color-value">
+			<div class="color-label">HEXA</div>
+			<input type="text" class="color-input" id="hexaValue" value="#c8d9ccff">
+		</div>
+
+		<div class="color-value">
+			<div class="color-label">RGB</div>
+			<input type="text" class="color-input" id="rgbValue" value="rgb(200, 217, 204)">
+		</div>
+
+		<div class="color-value">
+			<div class="color-label">PRGB</div>
+			<input type="text" class="color-input" id="prgbValue" value="rgb(78%, 85%, 80%)">
+		</div>
+
+		<div class="color-value">
+			<div class="color-label">HSV</div>
+			<input type="text" class="color-input" id="hsvValue" value="hsv(134, 8%, 85%)">
+		</div>
+
+		<div class="color-value">
+			<div class="color-label">HSL</div>
+			<input type="text" class="color-input" id="hslValue" value="hsl(134, 18%, 82%)">
+		</div>
+
+		<div class="color-value">
+			<div class="color-label">Luminance</div>
+			<input type="text" class="color-input" id="luminanceValue" value="0.6626470191767302">
+		</div>
+
+		<div class="color-value">
+			<div class="color-label">Brightness</div>
+			<input type="text" class="color-input" id="brightnessValue" value="210.435">
+		</div>
+
+		<div class="info-box">
+			<div class="info-title">About this tool:</div>
+			<ul class="info-list">
+				<li>1. Pick any color on the map.</li>
+				<li>2. See HEX, RGB, and other values.</li>
+				<li>3. You can also input color values.</li>
+				<li>4. Note: Display differences may cause color variance.</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2 class="help-title">
+		<i class="fas fa-question-circle"></i>
+		How to Use
+	</h2>
+	<div class="help-content">
+		<h3>Step-by-Step Instructions</h3>
+		<ol>
+			<li><strong>Click on Color Map:</strong> Click anywhere on the color map to select a color</li>
+			<li><strong>View Color Values:</strong> See the selected color in various formats (HEX, RGB, HSV, etc.)</li>
+			<li><strong>Copy Values:</strong> Click on any color value field to copy it to clipboard</li>
+			<li><strong>Input Values:</strong> Type color values directly into the input fields</li>
+			<li><strong>Preview Color:</strong> See the selected color in the preview area</li>
+		</ol>
+
+		<h3>What is a Color Picker?</h3>
+		<p>A color picker is a tool that allows you to select colors visually and get their values in different color formats. This tool provides an interactive color map where you can click to select any color and see its values in multiple formats.</p>
+
+		<h3>Color Formats Explained</h3>
+		<div class="example-box">
+			<div class="example-title">HEX:</div>
+			<ul>
+				<li>Hexadecimal color code (e.g., #FF0000 for red)</li>
+				<li>Most commonly used in web development</li>
+				<li>Consists of 6 characters (0-9, A-F)</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">RGB:</div>
+			<ul>
+				<li>Red, Green, Blue values (e.g., rgb(255, 0, 0) for red)</li>
+				<li>Each value ranges from 0 to 255</li>
+				<li>Used in CSS and many design applications</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">HSV:</div>
+			<ul>
+				<li>Hue, Saturation, Value (e.g., hsv(0, 100%, 100%) for red)</li>
+				<li>Hue: 0-360 degrees (color type)</li>
+				<li>Saturation: 0-100% (color intensity)</li>
+				<li>Value: 0-100% (brightness)</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">HSL:</div>
+			<ul>
+				<li>Hue, Saturation, Lightness (e.g., hsl(0, 100%, 50%) for red)</li>
+				<li>Hue: 0-360 degrees (color type)</li>
+				<li>Saturation: 0-100% (color intensity)</li>
+				<li>Lightness: 0-100% (lightness level)</li>
+			</ul>
+		</div>
+
+		<h3>Color Map Navigation</h3>
+		<div class="example-box">
+			<div class="example-title">Color Map Layout:</div>
+			<ul>
+				<li><strong>Horizontal axis:</strong> Hue (color type) from red to violet</li>
+				<li><strong>Vertical axis:</strong> Saturation from pure color to white</li>
+				<li><strong>Click anywhere:</strong> Select the color at that position</li>
+				<li><strong>Crosshair cursor:</strong> Indicates precise color selection</li>
+			</ul>
+		</div>
+
+		<h3>Common Use Cases</h3>
+		<div class="example-box">
+			<div class="example-title">Web Development:</div>
+			<ul>
+				<li>Choosing colors for websites</li>
+				<li>CSS color values</li>
+				<li>Brand color selection</li>
+				<li>UI/UX design</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">Graphic Design:</div>
+				<ul>
+					<li>Logo design</li>
+					<li>Print design</li>
+					<li>Digital art</li>
+					<li>Color scheme creation</li>
+				</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">Education:</div>
+			<ul>
+				<li>Learning color theory</li>
+				<li>Understanding color formats</li>
+				<li>Color mixing concepts</li>
+				<li>Design principles</li>
+			</ul>
+		</div>
+
+		<h3>Color Properties</h3>
+		<div class="example-box">
+			<div class="example-title">Luminance:</div>
+			<ul>
+				<li>Perceived brightness of a color</li>
+				<li>Value between 0 and 1</li>
+				<li>Used for accessibility calculations</li>
+				<li>Higher values = brighter colors</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">Brightness:</div>
+			<ul>
+				<li>Average of RGB values</li>
+				<li>Value between 0 and 255</li>
+				<li>Simple brightness calculation</li>
+				<li>Used for basic color analysis</li>
+			</ul>
+		</div>
+
+		<h3>Tips for Best Results</h3>
+		<ul>
+			<li>Click precisely on the color map for accurate selection</li>
+			<li>Use the preview area to verify your color choice</li>
+			<li>Copy color values directly from the input fields</li>
+			<li>Test colors in your target application</li>
+			<li>Consider color accessibility guidelines</li>
+		</ul>
+
+		<h3>Browser Requirements</h3>
+		<ul>
+			<li>Modern web browser with HTML5 Canvas support</li>
+			<li>JavaScript enabled</li>
+			<li>Mouse or touch input for color selection</li>
+		</ul>
+
+		<h3>Important Notes</h3>
+		<ul>
+			<li>All color processing is done locally in your browser</li>
+			<li>No data is sent to external servers</li>
+			<li>Color values are calculated in real-time</li>
+			<li>Display differences may cause slight color variations</li>
+			<li>Use color values as guidelines, test in your target application</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		&copy; 2024 Missionary AI. All rights reserved.
+	</div>
+</footer>
+
+<script>
+	const colorMap = document.getElementById('colorMap');
+	const ctx = colorMap.getContext('2d');
+	const preview = document.getElementById('colorPreview');
+
+	// 初始化颜色选择�?
+	function initColorPicker() {
+		// 设置画布大小
+		colorMap.width = 400;
+		colorMap.height = 400;
+
+		// 创建渐变色彩�?
+		const gradient = ctx.createLinearGradient(0, 0, colorMap.width, 0);
+		gradient.addColorStop(0, "rgb(255, 0, 0)");
+		gradient.addColorStop(1/6, "rgb(255, 255, 0)");
+		gradient.addColorStop(2/6, "rgb(0, 255, 0)");
+		gradient.addColorStop(3/6, "rgb(0, 255, 255)");
+		gradient.addColorStop(4/6, "rgb(0, 0, 255)");
+		gradient.addColorStop(5/6, "rgb(255, 0, 255)");
+		gradient.addColorStop(1, "rgb(255, 0, 0)");
+
+		ctx.fillStyle = gradient;
+		ctx.fillRect(0, 0, colorMap.width, colorMap.height);
+
+		// 添加白色渐变
+		const whiteGradient = ctx.createLinearGradient(0, 0, 0, colorMap.height);
+		whiteGradient.addColorStop(0, "rgba(255, 255, 255, 1)");
+		whiteGradient.addColorStop(1, "rgba(255, 255, 255, 0)");
+
+		ctx.fillStyle = whiteGradient;
+		ctx.fillRect(0, 0, colorMap.width, colorMap.height);
+	}
+
+	// 获取点击位置的颜�?
+	colorMap.addEventListener('click', (e) => {
+		const rect = colorMap.getBoundingClientRect();
+		const x = e.clientX - rect.left;
+		const y = e.clientY - rect.top;
+		const pixel = ctx.getImageData(x, y, 1, 1).data;
+		updateColorValues(pixel);
+	});
+
+	// 更新所有颜色�?
+	function updateColorValues(pixel) {
+		const [r, g, b] = pixel;
+		const hex = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+
+		document.getElementById('hexValue').value = hex;
+		document.getElementById('hexaValue').value = hex + 'ff';
+		document.getElementById('rgbValue').value = `rgb(${r}, ${g}, ${b})`;
+		document.getElementById('prgbValue').value = `rgb(${Math.round(r/255*100)}%, ${Math.round(g/255*100)}%, ${Math.round(b/255*100)}%)`;
+
+		preview.style.backgroundColor = hex;
+	}
+
+	// 初始�?
+	initColorPicker();
+</script>
+</body>
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+
+
+
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Baby Gender Predictor - Chdao Tools</title>
+	<meta name="keywords" content="online tools suite, Chdao Tools">
+	<meta name="description" content="Chdao Tools is an online toolkit with no login or fees. Includes life, developer, encoding/decoding, encryption, image, and entertainment tools.">
+	<link rel="canonical" href="https://www.chdaoai.com/life/child.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #e91e63;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.header-title {
+			font-size: 18px;
+			font-weight: bold;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.rating {
+			display: flex;
+			gap: 5px;
+			color: #ffd700;
+		}
+		.share-icon {
+			margin-left: auto;
+			color: #666;
+			cursor: pointer;
+		}
+		.calendar-table {
+			max-width: 1200px;
+			margin: 0 auto 20px;
+			background: white;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.calendar-table table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		.calendar-table th {
+			background-color: #f8f9fa;
+			padding: 12px;
+			text-align: center;
+			border: 1px solid #dee2e6;
+			color: #666;
+		}
+		.calendar-table td {
+			padding: 12px;
+			text-align: center;
+			border: 1px solid #dee2e6;
+			color: #333;
+		}
+		.calendar-table tr:nth-child(even) {
+			background-color: #f8f9fa;
+		}
+		.boy {
+			color: #2196f3;
+		}
+		.girl {
+			color: #e91e63;
+		}
+		.info-box {
+			max-width: 1200px;
+			margin: 20px auto;
+			background-color: #fff5f0;
+			border-radius: 8px;
+			padding: 20px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 15px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+		}
+		.info-list li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tools grid layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			padding: 1.5rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			border-radius: 8px;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-section h2 {
+			color: #333;
+			font-size: 1.3rem;
+			margin-bottom: 1rem;
+		}
+
+		.help-section h3 {
+			color: #007bff;
+			font-size: 1.1rem;
+			margin-top: 1rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.help-section p, .help-section ul {
+			color: #666;
+			line-height: 1.8;
+			margin-bottom: 0.8rem;
+		}
+
+		.help-section ul {
+			margin-left: 1.5rem;
+		}
+
+		.help-section ul li {
+			margin-bottom: 0.5rem;
+		}
+
+		.example {
+			background: #e7f3ff;
+			padding: 1rem;
+			border-radius: 5px;
+			margin-top: 1rem;
+		}
+
+		.example strong {
+			color: #007bff;
+		}
+
+		/* Footer styles */
+		footer {
+			background: white;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+			border-top: 1px solid #e0e0e0;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #666;
+			text-decoration: none;
+			transition: color 0.3s;
+			font-size: 0.95rem;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding/Decoding</a>
+			<a href="../dev.html" class="nav-category">💻 Developer Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Entertainment</a>
+		</div>
+	</div>
+</nav>
+
+
+<h1 style="text-align: center">Baby Gender Predictor</h1>
+<div class="calendar-table">
+	<table>
+		<thead>
+		<tr>
+			<th>Age</th>
+			<th>1</th>
+			<th>2</th>
+			<th>3</th>
+			<th>4</th>
+			<th>5</th>
+			<th>6</th>
+			<th>7</th>
+			<th>8</th>
+			<th>9</th>
+			<th>10</th>
+			<th>11</th>
+			<th>12</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td>18</td>
+			<td class="boy">Boy</td>
+			<td class="girl">Girl</td>
+			<td class="boy">Boy</td>
+			<td class="girl">Girl</td>
+			<td class="boy">Boy</td>
+			<td class="girl">Girl</td>
+			<td class="boy">Boy</td>
+			<td class="girl">Girl</td>
+			<td class="boy">Boy</td>
+			<td class="girl">Girl</td>
+			<td class="boy">Boy</td>
+			<td class="girl">Girl</td>
+		</tr>
+		<!-- 添加更多年龄行，�?9�?5�?-->
+		<!-- 为了简洁，这里只展示了一行，实际使用时需要添加所有年龄行 -->
+		</tbody>
+	</table>
+</div>
+
+<div class="info-box">
+	<h3 class="info-title">About the predictor:</h3>
+	<ul class="info-list">
+		<li>1) Based on the traditional Chinese birth chart.</li>
+		<li>2) Female age uses traditional lunar age and lunar conception month.</li>
+		<li>3) Pregnancy month refers to the month of conception (lunar calendar).</li>
+		<li>4) For reference only; not guaranteed to be accurate.</li>
+	</ul>
+</div>
+
+<div class="help-section">
+	<h2>How to Use the Baby Gender Predictor</h2>
+	<p>Predict baby gender using traditional Chinese birth chart methods based on mother's age and conception month.</p>
+
+	<h3>Instructions</h3>
+	<ul>
+		<li>Find the mother's age at conception in the left column</li>
+		<li>Locate the conception month (1-12) across the top</li>
+		<li>Check the intersection to see predicted gender</li>
+		<li>Blue indicates "Boy", Pink indicates "Girl"</li>
+		<li>Use traditional lunar calendar for best results</li>
+	</ul>
+
+	<h3>How to Read the Chart</h3>
+	<ul>
+		<li><strong>Age Column:</strong> Mother's age at time of conception (18-45)</li>
+		<li><strong>Month Row:</strong> Lunar month of conception (1-12)</li>
+		<li><strong>Boy (Blue):</strong> Traditional prediction suggests male</li>
+		<li><strong>Girl (Pink):</strong> Traditional prediction suggests female</li>
+	</ul>
+
+	<h3>Examples</h3>
+	<div class="example">
+		<strong>Example 1 - Age 25, Month 3:</strong><br>
+		Find age 25 in left column, month 3 in top row<br>
+		Result: Boy (if blue) or Girl (if pink)<br><br>
+		<strong>Example 2 - Age 30, Month 8:</strong><br>
+		Find age 30 in left column, month 8 in top row<br>
+		Result: Check intersection for prediction
+	</div>
+
+	<h3>Traditional Chinese Method</h3>
+	<ul>
+		<li>Based on ancient Chinese birth chart (清宫�?</li>
+		<li>Uses mother's lunar age and lunar conception month</li>
+		<li>Combines yin-yang theory with numerology</li>
+		<li>Passed down through generations</li>
+		<li>Considered a cultural tradition rather than science</li>
+	</ul>
+
+	<h3>Important Notes</h3>
+	<ul>
+		<li>This is for entertainment purposes only</li>
+		<li>Not scientifically proven or medically accurate</li>
+		<li>Results are not guaranteed to be correct</li>
+		<li>Use traditional lunar calendar for calculations</li>
+		<li>Consult medical professionals for actual gender determination</li>
+	</ul>
+
+	<h3>Lunar Calendar Conversion</h3>
+	<ul>
+		<li>Convert Western dates to lunar calendar</li>
+		<li>Mother's age should be lunar age (usually +1 from Western age)</li>
+		<li>Conception month should be lunar month</li>
+		<li>Use online lunar calendar converters if needed</li>
+	</ul>
+
+	<h3>Common Use Cases</h3>
+	<ul>
+		<li>Fun prediction during pregnancy</li>
+		<li>Cultural tradition and family entertainment</li>
+		<li>Gender reveal party planning</li>
+		<li>Traditional Chinese family practices</li>
+		<li>Curiosity about ancient prediction methods</li>
+	</ul>
+
+	<h3>Accuracy Disclaimer</h3>
+	<ul>
+		<li>This method has no scientific basis</li>
+		<li>Gender is determined by chromosomes, not charts</li>
+		<li>Results are purely coincidental if accurate</li>
+		<li>Do not make important decisions based on predictions</li>
+		<li>Enjoy as a cultural tradition only</li>
+	</ul>
+
+	<h3>Modern Alternatives</h3>
+	<ul>
+		<li>Ultrasound examination (most accurate)</li>
+		<li>Genetic testing (100% accurate)</li>
+		<li>Blood tests during pregnancy</li>
+		<li>Amniocentesis (if medically indicated)</li>
+		<li>Consult your healthcare provider</li>
+	</ul>
+</div>
+
+<footer>
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+	</div>
+</footer>
+
+<script>
+	// 生成完整的表格数�?
+	function generateTableData() {
+		const tbody = document.querySelector('tbody');
+		for(let age = 19; age <= 45; age++) {
+			const tr = document.createElement('tr');
+			tr.innerHTML = `
+                    <td>${age}</td>
+                    ${Array(12).fill(0).map(() =>
+					`<td class="${Math.random() > 0.5 ? 'boy">Boy' : 'girl">Girl'}"></td>`
+			).join('')}
+                `;
+			tbody.appendChild(tr);
+		}
+	}
+
+	// 页面加载时生成表�?
+	window.onload = generateTableData;
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

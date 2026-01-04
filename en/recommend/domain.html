@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DNS Record Lookup - Chuandao Tools</title>
+	<meta name="keywords" content="online tools collection, Chuandao Tools">
+	<meta name="description" content="Chuandao Tools is an online collection of utilities. No login, no fees, just use and go. Includes life tools, developer tools, encoding/decoding, encryption/decryption, image tools, and games.">
+	<link rel="canonical" href="https://www.chdaoai.com/recommend/domain.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			display: flex;
+			gap: 20px;
+			margin: 0 auto;
+			max-width: 1200px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #4c6ef5;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		.search-container {
+			text-align: center;
+			margin: 40px 0;
+		}
+		.search-title {
+			font-size: 24px;
+			color: #4c6ef5;
+			margin-bottom: 20px;
+		}
+		.search-box {
+			display: flex;
+			max-width: 600px;
+			margin: 0 auto;
+		}
+		.search-input {
+			flex: 1;
+			padding: 12px 20px;
+			font-size: 16px;
+			border: 2px solid #e9ecef;
+			border-radius: 8px 0 0 8px;
+			border-right: none;
+		}
+		.search-input:focus {
+			outline: none;
+			border-color: #4c6ef5;
+		}
+		.search-btn {
+			padding: 12px 30px;
+			background-color: #4c6ef5;
+			color: white;
+			border: none;
+			border-radius: 0 8px 8px 0;
+			font-size: 16px;
+			cursor: pointer;
+		}
+		.search-btn:hover {
+			background-color: #364fc7;
+		}
+		.result-container {
+			background: white;
+			padding: 20px;
+			border-radius: 8px;
+			margin-top: 20px;
+			min-height: 200px;
+		}
+		.info-box {
+			background-color: #fff5f0;
+			border-radius: 8px;
+			padding: 20px;
+			margin-top: 30px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 15px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+		}
+		.info-list li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+		}
+		.history-container {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 8px;
+			margin-top: 20px;
+		}
+		.history-title {
+			color: #666;
+			margin-bottom: 10px;
+		}
+		.history-item {
+			background: white;
+			padding: 10px;
+			margin-bottom: 5px;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+		.history-item:hover {
+			background: #e9ecef;
+		}
+		.record-table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-top: 20px;
+		}
+		.record-table th,
+		.record-table td {
+			padding: 12px;
+			text-align: left;
+			border-bottom: 1px solid #e9ecef;
+		}
+		.record-table th {
+			background-color: #f8f9fa;
+			font-weight: bold;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			padding: 1.5rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			border-radius: 8px;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-section h2 {
+			color: #333;
+			font-size: 1.3rem;
+			margin-bottom: 1rem;
+		}
+
+		.help-section h3 {
+			color: #007bff;
+			font-size: 1.1rem;
+			margin-top: 1rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.help-section p, .help-section ul {
+			color: #666;
+			line-height: 1.8;
+			margin-bottom: 0.8rem;
+		}
+
+		.help-section ul {
+			margin-left: 1.5rem;
+		}
+
+		.help-section ul li {
+			margin-bottom: 0.5rem;
+		}
+
+		.example {
+			background: #e7f3ff;
+			padding: 1rem;
+			border-radius: 5px;
+			margin-top: 1rem;
+		}
+
+		.example strong {
+			color: #007bff;
+		}
+
+		/* Footer styles */
+		footer {
+			background: white;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+			border-top: 1px solid #e0e0e0;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #666;
+			text-decoration: none;
+			transition: color 0.3s;
+			font-size: 0.95rem;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding</a>
+			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Games</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container">
+	<div class="search-container">
+		<h1 class="search-title">DNS Record Lookup</h1>
+		<div class="search-box">
+			<input type="text" class="search-input" id="domainInput" placeholder="Enter a domain">
+			<button class="search-btn" onclick="searchDomain()">Search</button>
+		</div>
+	</div>
+
+	<div class="result-container" id="resultContainer">
+		<!-- 查询结果将在这里显示 -->
+	</div>
+
+	<div class="info-box">
+		<h3 class="info-title">About DNS records:</h3>
+		<ul class="info-list">
+			<li>1. DNS resolves a domain name to its corresponding IP address.</li>
+			<li>2. Common record types:</li>
+			<ul style="margin-left: 20px;">
+				<li>(1) A: maps to an IPv4 address.</li>
+				<li>(2) AAAA: maps to an IPv6 address.</li>
+				<li>(3) CNAME: alias to another domain.</li>
+				<li>(4) MX: mail exchanger record.</li>
+				<li>(5) TXT: text data (e.g., verification, SPF).</li>
+			</ul>
+		</ul>
+	</div>
+
+	<div class="history-container">
+		<h3 class="history-title">Recent Queries:</h3>
+		<div id="historyList">
+			<div class="history-item">openai2025.com</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	function searchDomain() {
+		const domain = document.getElementById('domainInput').value.trim();
+		const resultContainer = document.getElementById('resultContainer');
+
+		if (!domain) {
+			alert('Please enter a domain to look up!');
+			return;
+		}
+
+		// 这里应该调用实际的DNS查询API
+		// 以下为模拟数�?
+		// resultContainer.innerHTML = `
+        //         <h3>查询结果�?{domain}</h3>
+        //         <table class="record-table">
+        //             <thead>
+        //                 <tr>
+        //                     <th>记录类型</th>
+        //                     <th>主机记录</th>
+        //                     <th>记录�?/th>
+        //                     <th>TTL</th>
+        //                 </tr>
+        //             </thead>
+        //             <tbody>
+        //                 <tr>
+        //                     <td>A</td>
+        //                     <td>@</td>
+        //                     <td>192.168.1.1</td>
+        //                     <td>600</td>
+        //                 </tr>
+        //                 <tr>
+        //                     <td>CNAME</td>
+        //                     <td>www</td>
+        //                     <td>${domain}</td>
+        //                     <td>600</td>
+        //                 </tr>
+        //                 <tr>
+        //                     <td>MX</td>
+        //                     <td>@</td>
+        //                     <td>mail.${domain}</td>
+        //                     <td>3600</td>
+        //                 </tr>
+        //             </tbody>
+        //         </table>
+        //     `;
+		//
+		// // 添加到历史记�?
+		// addToHistory(domain);
+		// const data ={
+		// 	"apiKey": "at_yEXmjA2f9lr7eFTbg06cHAmYh6WME",
+		// 	"searchType": "forward",
+		// 	"recordType": "aaaa",
+		// 	"domainName": domain
+		// };
+
+		getData(domain)
+	}
+
+	function addToHistory(domain) {
+		const historyList = document.getElementById('historyList');
+		const historyItem = document.createElement('div');
+		historyItem.className = 'history-item';
+		historyItem.textContent = domain;
+		historyItem.onclick = () => {
+			document.getElementById('domainInput').value = domain;
+			searchDomain();
+		};
+		historyList.insertBefore(historyItem, historyList.firstChild);
+	}
+
+	function getData(domain){
+		$.ajax({
+			url: 'https://dns.google/resolve?name='+domain+'&type=A',
+			method: "get",
+			dataType: "json", // 预期服务器返回的数据类型
+		})
+		.done(function(data1){
+
+
+			$.ajax({
+				url: 'https://dns.google/resolve?name='+domain+'&type=CNAME',
+				method: "get",
+				dataType: "json", // 预期服务器返回的数据类型
+			})
+			.done(function(data2){
+
+				$.ajax({
+					url: 'https://dns.google/resolve?name='+domain+'&type=MX',
+					method: "get",
+					dataType: "json", // 预期服务器返回的数据类型
+				})
+				.done(function(data3){
+
+
+					// 这里应该调用实际的DNS查询API
+					// 以下为模拟数�?
+					resultContainer.innerHTML = `
+								<h3>Results: ${domain}</h3>
+								<table class="record-table">
+									<thead>
+										<tr>
+											<th>Type</th>
+											<th>Host</th>
+											<th>Value</th>
+											<th>TTL</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>A</td>
+											<td>@</td>
+											<td>${data1.Answer[0].data}</td>
+											<td>${data1.Answer[0].TTL}</td>
+										</tr>
+										<tr>
+											<td>CNAME</td>
+											<td>www</td>
+											<td>${data2.Authority[0].data}</td>
+											<td>${data2.Authority[0].TTL}</td>
+										</tr>
+										<tr>
+											<td>MX</td>
+											<td>@</td>
+											<td>${data3.Authority[0].data}</td>
+											<td>${data3.Authority[0].TTL}</td>
+										</tr>
+									</tbody>
+								</table>
+							`;
+
+					addToHistory(domain);
+
+				})
+				.fail(function(jqXHR){
+
+
+				})
+
+
+
+
+
+			})
+			.fail(function(jqXHR){
+
+
+			})
+
+
+
+		})
+		.fail(function(jqXHR){
+
+
+		})
+	}
+</script>
+<div class="help-section">
+	<h2>How to Use DNS Record Lookup</h2>
+	<p>Query and view DNS records for any domain name instantly.</p>
+
+	<h3>Instructions</h3>
+	<ul>
+		<li>Enter a domain name (e.g., example.com) in the search box</li>
+		<li>Click "Search" to query DNS records</li>
+		<li>View results including A, CNAME, and MX records</li>
+		<li>Recent queries are saved in the history section</li>
+	</ul>
+
+	<h3>DNS Record Types Explained</h3>
+	<ul>
+		<li><strong>A Record:</strong> Maps domain to IPv4 address (e.g., 192.168.1.1)</li>
+		<li><strong>AAAA Record:</strong> Maps domain to IPv6 address</li>
+		<li><strong>CNAME Record:</strong> Alias pointing to another domain (e.g., www -> example.com)</li>
+		<li><strong>MX Record:</strong> Mail exchange server for email routing</li>
+		<li><strong>TXT Record:</strong> Text data for verification, SPF, DKIM, etc.</li>
+	</ul>
+
+	<h3>What You'll See</h3>
+	<ul>
+		<li><strong>Type:</strong> DNS record type (A, CNAME, MX, etc.)</li>
+		<li><strong>Host:</strong> Host name or subdomain</li>
+		<li><strong>Value:</strong> The record value (IP address, domain, etc.)</li>
+		<li><strong>TTL:</strong> Time to live in seconds (cache duration)</li>
+	</ul>
+
+	<h3>Examples</h3>
+	<div class="example">
+		<strong>Example 1:</strong> Query "google.com" to see multiple A records for load balancing<br><br>
+		<strong>Example 2:</strong> Query "github.com" to see CNAME records for subdomains
+	</div>
+
+	<h3>Common Use Cases</h3>
+	<ul>
+		<li>Troubleshooting DNS configuration issues</li>
+		<li>Verifying DNS propagation after changes</li>
+		<li>Checking email server configuration (MX records)</li>
+		<li>Understanding domain structure and subdomains</li>
+	</ul>
+
+	<h3>Note</h3>
+	<p>DNS lookup uses Google's public DNS servers. Results are real-time and may vary slightly based on your location. Some domains may not return all record types if they're not configured.</p>
+</div>
+
+<footer>
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+	</div>
+</footer>
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

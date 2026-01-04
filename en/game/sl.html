@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Online Minesweeper - Chuandao Tools</title>
+	<meta name="keywords" content="online tools collection, Chuandao Tools">
+	<meta name="description" content="Chuandao Tools is an online collection of utilities. No login, no fees, just use and go. Includes life tools, developer tools, encoding/decoding, encryption/decryption, image tools, and games.">
+	<link rel="canonical" href="https://www.chdaoai.com/game/sl.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container{
+			margin: auto;
+			text-align: center;
+		}
+		.header-title {
+			align-items: center;
+
+		}
+		.board {
+			display: inline-block;
+			border: 1px solid black;
+		}
+		.cell {
+			width: 30px;
+			height: 30px;
+			border: 1px solid #ccc;
+			background-color: #eee;
+			text-align: center;
+			line-height: 30px;
+			cursor: pointer;
+		}
+	</style>
+	<style>
+		/* Help section styles */
+		.help-section { background: #f8f9fa; border-radius: 8px; padding: 2rem; margin: 2rem auto; max-width: 900px; border-left: 4px solid #007bff; }
+		.help-title { color: #333; font-size: 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem; }
+		.help-content { color: #666; line-height: 1.6; }
+		.help-content h3 { color: #444; margin: 1.25rem 0 .5rem 0; font-size: 1.1rem; }
+		.help-content ul { margin: .5rem 0 1rem 1.5rem; }
+		.help-content li { margin: .35rem 0; }
+
+		/* Footer */
+		.footer { background: #333; color: #fff; text-align: center; padding: 2rem 1rem; margin-top: 3rem; }
+		.footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; flex-wrap: wrap; }
+		.footer-links a { color: #ccc; text-decoration: none; transition: color .3s; }
+		.footer-links a:hover { color: #fff; }
+		.footeropyright { color: #999; font-size: .9rem; }
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding</a>
+			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Games</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container">
+	<header class="header">
+		<h2 class="header-title">
+			Online Minesweeper
+		</h2>
+	</header>
+
+	<div class="board">
+		<table id="gameBoard"></table>
+	</div>
+	<br>
+	<button onclick="resetGame()">Restart</button>
+	<br>
+	<div id="timer">Time: 0s</div>
+	<div id="score">Score: 0</div>
+</div>
+
+
+
+
+
+<script>
+	const boardSize = 15; // 游戏棋盘大小
+	const mineCount = 30; // 地雷数量
+
+	let gameBoard = []; // 游戏棋盘，存储每个格子的内容和状态信�?
+	let startTime;
+	let timerInterval;
+
+	function initGame() {
+		// 初始化游戏棋�?
+		for (let i = 0; i < boardSize; i++) {
+			let row = [];
+			for (let j = 0; j < boardSize; j++) {
+				row.push({ value: 0, revealed: false });
+			}
+			gameBoard.push(row);
+		}
+
+		// 随机布置地雷
+		let placedMines = 0;
+		while (placedMines < mineCount) {
+			let x = Math.floor(Math.random() * boardSize);
+			let y = Math.floor(Math.random() * boardSize);
+			if (gameBoard[x][y].value !== -1) {
+				gameBoard[x][y].value = -1;
+				placedMines++;
+			}
+		}
+
+		// 计算每个格子周围地雷的数�?
+		for (let i = 0; i < boardSize; i++) {
+			for (let j = 0; j < boardSize; j++) {
+				if (gameBoard[i][j].value !== -1) {
+					let count = 0;
+					for (let xOffset = -1; xOffset <= 1; xOffset++) {
+						for (let yOffset = -1; yOffset <= 1; yOffset++) {
+							let newX = i + xOffset;
+							let newY = j + yOffset;
+							if (
+									newX >= 0 && newX < boardSize &&
+									newY >= 0 && newY < boardSize &&
+									gameBoard[newX][newY].value === -1
+							) {
+								count++;
+							}
+						}
+					}
+					gameBoard[i][j].value = count;
+				}
+			}
+		}
+	}
+
+	function revealCell(cell) {
+		let x = parseInt(cell.getAttribute('data-x'));
+		let y = parseInt(cell.getAttribute('data-y'));
+
+		if (gameBoard[x][y].revealed) {
+			return;
+		}
+
+		gameBoard[x][y].revealed = true;
+		cell.classList.add('revealed');
+
+		if (gameBoard[x][y].value === -1) {
+			// 点到地雷，游戏结�?
+			cell.innerHTML = '&#128163;';
+			alert('You lost! Game over.');
+
+			// 停止计时�?
+			stopTimer();
+
+			// 禁用所有格子的点击事件
+			let cells = document.getElementsByClassName('cell');
+			for (let i = 0; i < cells.length; i++) {
+				cells[i].removeEventListener('click', onCellClick);
+			}
+		} else {
+			cell.innerHTML = gameBoard[x][y].value;
+			cell.style.backgroundColor = '#ddd';
+
+			if (gameBoard[x][y].value === 0) {
+				// 展开周围的空白格�?
+				for (let xOffset = -1; xOffset <= 1; xOffset++) {
+					for (let yOffset = -1; yOffset <= 1; yOffset++) {
+						let newX = x + xOffset;
+						let newY = y + yOffset;
+						if (
+								newX >= 0 && newX < boardSize &&
+								newY >= 0 && newY < boardSize
+						) {
+							let adjacentCell = document.querySelector(
+									`#gameBoard tr:nth-child(${newX + 1}) td:nth-child(${newY + 1})`
+							);
+							revealCell(adjacentCell);
+						}
+					}
+				}
+			}
+		}
+
+		// 检查是否已胜利
+		let win = true;
+		for (let i = 0; i < boardSize; i++) {
+			for (let j = 0; j < boardSize; j++) {
+				if (!gameBoard[i][j].revealed && gameBoard[i][j].value !== -1) {
+					win = false;
+					break;
+				}
+			}
+		}
+		if (win) {
+			alert('Congratulations! You win!');
+
+			// 停止计时�?
+			stopTimer();
+
+			// 禁用所有格子的点击事件
+			let cells = document.getElementsByClassName('cell');
+			for (let i = 0; i < cells.length; i++) {
+				cells[i].removeEventListener('click', onCellClick);
+			}
+		}
+
+		// 更新分数
+		let score = calculateScore();
+		let scoreElement = document.getElementById('score');
+		scoreElement.innerText = 'Score: ' + score;
+	}
+
+	function calculateScore() {
+		let revealedCount = 0;
+		for (let i = 0; i < boardSize; i++) {
+			for (let j = 0; j < boardSize; j++) {
+				if (gameBoard[i][j].revealed) {
+					revealedCount++;
+				}
+			}
+		}
+		let maxPossibleScore = boardSize * boardSize - mineCount;
+		return Math.floor((revealedCount / maxPossibleScore) * 100);
+	}
+
+	function updateTimer() {
+		let currentTime = new Date().getTime();
+		let elapsedTime = Math.floor((currentTime - startTime) / 1000);
+		let timerElement = document.getElementById('timer');
+		timerElement.innerText = 'Time: ' + elapsedTime + 's';
+	}
+
+	function startTimer() {
+		timerInterval = setInterval(updateTimer, 1000);
+	}
+
+	function stopTimer() {
+		clearInterval(timerInterval);
+	}
+
+	function resetGame() {
+		gameBoard = [];
+
+		let table = document.getElementById('gameBoard');
+		table.innerHTML = '';
+
+		initGame();
+
+		for (let i = 0; i < boardSize; i++) {
+			let row = document.createElement('tr');
+			for (let j = 0; j < boardSize; j++) {
+				let cell = document.createElement('td');
+				cell.classList.add('cell');
+				cell.setAttribute('data-x', i);
+				cell.setAttribute('data-y', j);
+				cell.addEventListener('click', onCellClick);
+				row.appendChild(cell);
+			}
+			table.appendChild(row);
+		}
+
+		// 停止计时�?
+		stopTimer();
+
+		// 重置时间和分�?
+		startTime = new Date().getTime();
+		updateTimer();
+
+		let scoreElement = document.getElementById('score');
+		scoreElement.innerText = 'Score: 0';
+
+		// 启动计时�?
+		startTimer();
+	}
+
+	function onCellClick() {
+		revealCell(this);
+	}
+
+	initGame();
+	resetGame();
+</script>
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2 class="help-title"><i class="fas fa-question-circle"></i> How to Play</h2>
+	<div class="help-content">
+		<h3>Goal</h3>
+		<p>Reveal all safe cells without clicking any mines. Use numeric clues to deduce mine positions.</p>
+
+		<h3>Controls</h3>
+		<ul>
+			<li>Left click: reveal a cell.</li>
+			<li>Numbers indicate adjacent mine count; 0 auto-expands neighbors.</li>
+		</ul>
+
+		<h3>Win/Lose</h3>
+		<ul>
+			<li>Reveal all non‑mine cells to win.</li>
+			<li>Clicking a mine ends the game.</li>
+		</ul>
+
+		<h3>Timer & Score</h3>
+		<ul>
+			<li>Timer starts at reset and updates every second.</li>
+			<li>Score reflects revealed cells percentage.</li>
+		</ul>
+
+		<h3>Tips</h3>
+		<ul>
+			<li>Use patterns like 1�?�?, corners, and edges.</li>
+			<li>When uncertain, choose the least risky cell.</li>
+		</ul>
+
+		<h3>Notes</h3>
+		<ul>
+			<li>All logic runs locally in your browser.</li>
+			<li>Board: 15×15, Mines: 30.</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footeropyright">&copy; 2024 Missionary AI. All rights reserved.</div>
+</div>
+
+</body>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</html>

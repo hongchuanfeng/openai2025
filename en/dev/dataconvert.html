@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Data Size Converter - Chandao Tools</title>
+	<meta name="keywords" content="online tool collection, Chandao Tools">
+	<meta name="description" content="Chandao Tools is a collection of free, no-login online utilities across life, dev, encoding/decoding, encryption, images, and fun.">
+	<link rel="canonical" href="https://www.chdaoai.com/dev/dataconvert.html">												
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+			max-width: 700px;
+			margin: 0 auto;
+		}
+
+		.header {
+			background-color: #4CAF50;
+			color: white;
+			padding: 20px;
+			border-radius: 8px 8px 0 0;
+		}
+
+		.rating {
+			font-size: 24px;
+			margin-top: 10px;
+		}
+
+		.converter {
+			padding: 20px;
+			border: 2px solid #4CAF50;
+			border-radius: 0 0 8px 8px;
+		}
+
+		.input-group {
+			gap: 15px;
+			margin-bottom: 20px;
+		}
+
+		input, select {
+			padding: 8px;
+			border: 2px solid #4CAF50;
+			border-radius: 4px;
+			font-size: 16px;
+		}
+
+		.con-btn {
+			background-color: #4CAF50;
+			color: white;
+			cursor: pointer;
+
+			padding: 8px;
+			border: 2px solid #4CAF50;
+			border-radius: 4px;
+			font-size: 16px;
+		}
+
+		.result-list {
+			margin: 20px 0;
+			padding-left: 20px;
+		}
+
+		.unit-definition {
+			margin-top: 30px;
+			padding: 20px;
+			background-color: #f8f9fa;
+			border-radius: 8px;
+		}
+
+		.scientific {
+			font-family: Consolas, monospace;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding</a>
+			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="header">
+		<h1>Data Size Converter</h1>
+	</div>
+
+	<div class="converter">
+		<div class="input-group">
+			<input type="number" id="inputValue" value="1" step="any">
+			<select id="unit">
+				<option value="0">bit</option>
+				<option value="1">Byte</option>
+				<option value="2">Kilobyte (KB)</option>
+				<option value="3">Megabyte (MB)</option>
+				<option value="4">Gigabyte (GB)</option>
+				<option value="5">Terabyte (TB)</option>
+			</select>
+			<button class="con-btn" onclick="convert()">Convert</button>
+		</div>
+
+		<div class="result-list" id="result">
+			<h3>Converted results:</h3>
+			<div>1 bit equals:</div>
+		</div>
+
+		<div class="unit-definition">
+			<h3>About data storage units:</h3>
+			<ol>
+				<li>bit: the smallest data unit representing 0 or 1</li>
+				<li>Byte: 1 Byte = 8 bits</li>
+				<li>KB: 1 KB = 2<sup>10</sup> Bytes = 1,024 Bytes</li>
+				<li>MB: 1 MB = 2<sup>20</sup> Bytes = 1,048,576 Bytes</li>
+				<li>GB: 1 GB = 2<sup>30</sup> Bytes = 1,073,741,824 Bytes</li>
+				<li>TB: 1 TB = 2<sup>40</sup> Bytes = 1,099,511,627,776 Bytes</li>
+				<li>PB: 1 PB = 2<sup>50</sup> Bytes</li>
+				<li>EB: 1 EB = 2<sup>60</sup> Bytes</li>
+				<li>ZB: 1 ZB = 2<sup>70</sup> Bytes</li>
+			</ol>
+		</div>
+	</div>
+
+	<script>
+		const units = [
+			{ name: "bit", factor: 1 },
+			{ name: "Byte", factor: 1/8 },
+			{ name: "Kilobyte (KB)", factor: 1/(8 * 1024) },
+			{ name: "Megabyte (MB)", factor: 1/(8 * Math.pow(1024, 2)) },
+		{ name: "Gigabyte (GB)", factor: 1/(8 * Math.pow(1024, 3))},
+		{ name: "Terabyte (TB)", factor: 1/(8 * Math.pow(1024, 4)) },
+		{ name: "Petabyte (PB)", factor: 1/(8 * Math.pow(1024, 5)) },
+		{ name: "Exabyte (EB)", factor: 1/(8 * Math.pow(1024, 6)) },
+		{ name: "Zettabyte (ZB)", factor: 1/(8 * Math.pow(1024, 7)) }
+		];
+
+		function convert() {
+			const input = parseFloat(document.getElementById('inputValue').value);
+			const selectedUnit = parseInt(document.getElementById('unit').value);
+			const bits = input / units[selectedUnit].factor;
+
+			let resultHTML = `<h3>Converted results:</h3>
+                            <div>${input} ${units[selectedUnit].name} equals:</div>`;
+
+			units.forEach(unit => {
+				const value = (bits * unit.factor).toExponential(5);
+				resultHTML += `
+                    <div>
+                        <span class="scientific">${value}</span>
+                        ${unit.name}
+                    </div>`;
+			});
+
+			document.getElementById('result').innerHTML = resultHTML;
+		}
+
+		// 初始化转�?
+		convert();
+	</script>
+</div>
+</body>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</html>
+
+<!-- Help Section -->
+<div class="help-section" style="background:#f8f9fa; border-radius:8px; padding:2rem; margin:2rem auto; max-width:900px; border-left:4px solid #007bff;">
+	<h2 class="help-title" style="color:#333; font-size:1.5rem; margin-bottom:1rem; display:flex; align-items:center; gap:.5rem;">How to Use</h2>
+	<div class="help-content" style="color:#666; line-height:1.6;">
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">What this tool does</h3>
+		<p>Converts between data size units (bit, Byte, KB, MB, GB, TB, �? and shows scientific notation results for precision.</p>
+
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Steps</h3>
+		<ol style="margin:.5rem 0 1rem 1.5rem;">
+			<li>Enter a numeric value and select the unit.</li>
+			<li>Click <b>Convert</b> to see values in all supported units.</li>
+		</ol>
+
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Examples</h3>
+		<ul style="margin:.5rem 0 1rem 1.5rem;">
+			<li>1 Byte = 8 bits; 1 KB = 1024 Bytes; 1 MB = 1024 KB; etc.</li>
+		</ul>
+
+		<h3 style="color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem;">Notes</h3>
+		<ul style="margin:.5rem 0 1rem 1.5rem;">
+			<li>Uses binary prefixes (powers of 1024) for KB/MB/GB/TB conversions.</li>
+			<li>All calculations run in your browser.</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Footer -->
+<footer class="footer" style="background:#333; color:#fff; text-align:center; padding:2rem 1rem; margin-top:3rem;">
+	<div class="footer-links" style="display:flex; justify-content:center; gap:2rem; margin-bottom:1rem; flex-wrap:wrap;">
+		<a href="../about.html" style="color:#ccc; text-decoration:none; transition:color .3s;">About Us</a>
+		<a href="../contact.html" style="color:#ccc; text-decoration:none; transition:color .3s;">Contact Us</a>
+		<a href="../privacy.html" style="color:#ccc; text-decoration:none; transition:color .3s;">Privacy Policy</a>
+	</div>
+	<div style="color:#aaa; font-size:.9rem;">© <span id="year-dev-data">2025</span> Chuandao Tools. All rights reserved.</div>
+</footer>
+<script>document.getElementById('year-dev-data').textContent = new Date().getFullYear();</script>

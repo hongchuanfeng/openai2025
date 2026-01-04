@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Electronic Signature Generator - Chuandao Tools</title>
+	<meta name="keywords" content="online tools collection, Chuandao Tools">
+	<meta name="description" content="Chuandao Tools is an online collection of utilities. No login, no fees, just use and go. Includes life tools, developer tools, encoding/decoding, encryption/decryption, image tools, and games.">
+	<link rel="canonical" href="https://www.chdaoai.com/recommend/sign.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			display: flex;
+			gap: 20px;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			align-items: center;
+			margin: 0 auto;
+			max-width: 1200px;
+			text-align: center;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #2d3436;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 20px;
+		}
+		.toolbar {
+			margin: 20px 0;
+			display: flex;
+			gap: 15px;
+			align-items: center;
+			width: 800px;
+		}
+		.color-picker {
+			display: flex;
+			gap: 10px;
+		}
+		button {
+			padding: 8px 15px;
+			background-color: #f0f0f0;
+			border: 1px solid #ccc;
+			cursor: pointer;
+			border-radius: 4px;
+		}
+		button:hover {
+			background-color: #e0e0e0;
+		}
+		#signatureCanvas {
+			border: 2px solid #ccc;
+			background-color: rgba(0,0,0,0.05);
+			touch-action: none;
+			float: none;
+			width: 800px;
+		}
+		.instructions {
+			margin-top: 20px;
+			color: #666;
+			font-size: 14px;
+			line-height: 1.6;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navbar */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			padding: 1.5rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			border-radius: 8px;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-section h2 {
+			color: #333;
+			font-size: 1.3rem;
+			margin-bottom: 1rem;
+		}
+
+		.help-section h3 {
+			color: #007bff;
+			font-size: 1.1rem;
+			margin-top: 1rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.help-section p, .help-section ul {
+			color: #666;
+			line-height: 1.8;
+			margin-bottom: 0.8rem;
+		}
+
+		.help-section ul {
+			margin-left: 1.5rem;
+		}
+
+		.help-section ul li {
+			margin-bottom: 0.5rem;
+		}
+
+		.example {
+			background: #e7f3ff;
+			padding: 1rem;
+			border-radius: 5px;
+			margin-top: 1rem;
+		}
+
+		.example strong {
+			color: #007bff;
+		}
+
+		/* Footer styles */
+		footer {
+			background: white;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+			border-top: 1px solid #e0e0e0;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #666;
+			text-decoration: none;
+			transition: color 0.3s;
+			font-size: 0.95rem;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding</a>
+			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Games</a>
+		</div>
+	</div>
+</nav>
+
+<div class="header">
+
+	<div class="header-title">
+		<h2>Electronic Signature Generator</h2>
+	</div>
+</div>
+
+<div class="container">
+
+
+	<div class="toolbar">
+		<div class="color-picker">
+			<label>Pen color:
+				<input type="color" id="penColor" value="#000000">
+			</label>
+			<label>Background color:
+				<input type="color" id="bgColor" value="#ffffff">
+			</label>
+		</div>
+		<button onclick="exportBase64()">Base64</button>
+		<button onclick="downloadPNG()">Download PNG</button>
+		<button onclick="downloadSVG()">Download SVG</button>
+		<button onclick="undo()">Undo</button>
+		<button onclick="clearCanvas()">Clear</button>
+	</div>
+
+	<br/>
+	<canvas id="signatureCanvas"></canvas>
+	<br/>
+	<div class="instructions">
+		<h3>Instructions:</h3>
+		<ol>
+			<li>On PC, hold the right mouse button to write</li>
+			<li>On mobile, write by touching the screen</li>
+			<li>Download PNG to save with transparent background</li>
+			<li>Base64 can be embedded into web pages</li>
+		</ol>
+		<p>Tip: Default background is semi-transparent; you can customize it.</p>
+		<p>Note: In dark mode, adjust pen or background color accordingly.</p>
+	</div>
+</div>
+
+<div class="help-section">
+	<h2>How to Use the Electronic Signature Generator</h2>
+	<p>Create digital signatures for documents, contracts, and official paperwork with this interactive tool.</p>
+
+	<h3>Instructions</h3>
+	<ul>
+		<li><strong>PC Users:</strong> Hold right mouse button and drag to write your signature</li>
+		<li><strong>Mobile Users:</strong> Touch and drag on the screen to create your signature</li>
+		<li>Use the toolbar to customize colors and export options</li>
+		<li>Clear the canvas to start over if needed</li>
+	</ul>
+
+	<h3>Toolbar Functions</h3>
+	<ul>
+		<li><strong>Pen Color:</strong> Choose the color for your signature</li>
+		<li><strong>Background Color:</strong> Set the background color for exported images</li>
+		<li><strong>Base64:</strong> Copy the signature as Base64 encoded data</li>
+		<li><strong>Download PNG:</strong> Save signature as PNG image file</li>
+		<li><strong>Download SVG:</strong> Save signature as scalable vector graphics</li>
+		<li><strong>Undo:</strong> Remove the last stroke you drew</li>
+		<li><strong>Clear:</strong> Erase the entire signature</li>
+	</ul>
+
+	<h3>Export Formats</h3>
+	<ul>
+		<li><strong>PNG:</strong> Raster image with transparent or colored background</li>
+		<li><strong>SVG:</strong> Vector format that scales without quality loss</li>
+		<li><strong>Base64:</strong> Text format for embedding in web pages or documents</li>
+	</ul>
+
+	<h3>Examples</h3>
+	<div class="example">
+		<strong>Example 1 - Business Document:</strong><br>
+		Create signature �?Download PNG �?Insert into Word/PDF document<br><br>
+		<strong>Example 2 - Web Form:</strong><br>
+		Create signature �?Copy Base64 �?Paste into HTML form field
+	</div>
+
+	<h3>Best Practices</h3>
+	<ul>
+		<li>Use a consistent signature style for professional documents</li>
+		<li>Choose appropriate colors that contrast well with backgrounds</li>
+		<li>Test your signature on different background colors</li>
+		<li>Keep signatures simple and readable</li>
+		<li>Save multiple versions for different use cases</li>
+	</ul>
+
+	<h3>Use Cases</h3>
+	<ul>
+		<li>Digital contracts and agreements</li>
+		<li>Email signatures and correspondence</li>
+		<li>Official forms and applications</li>
+		<li>Business documents and invoices</li>
+		<li>Personal documents and letters</li>
+		<li>Online forms and registrations</li>
+	</ul>
+
+	<h3>Technical Notes</h3>
+	<ul>
+		<li>All processing happens in your browser (no server upload)</li>
+		<li>Signatures are not stored or transmitted</li>
+		<li>Works on both desktop and mobile devices</li>
+		<li>Supports touch and mouse input</li>
+		<li>Right-click is disabled to prevent context menu</li>
+	</ul>
+
+	<h3>Tips for Better Results</h3>
+	<ul>
+		<li>Use a stylus or finger for smoother lines on touch devices</li>
+		<li>Practice your signature a few times before finalizing</li>
+		<li>Adjust pen color for better visibility on different backgrounds</li>
+		<li>Use the undo function to correct mistakes</li>
+		<li>Clear and retry if you're not satisfied with the result</li>
+	</ul>
+</div>
+
+<footer>
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+	</div>
+</footer>
+
+<script>
+	const canvas = document.getElementById('signatureCanvas');
+	const ctx = canvas.getContext('2d');
+	let paths = [];
+	let currentPath = [];
+	let isDrawing = false;
+
+	// 初始化画�?
+	function initCanvas() {
+		canvas.width = 800;
+		canvas.height = 300;
+		ctx.strokeStyle = '#000000';
+		ctx.lineWidth = 2;
+		ctx.lineCap = 'round';
+	}
+
+	// 绘制功能
+	canvas.addEventListener('mousedown', startDrawing);
+	canvas.addEventListener('mousemove', draw);
+	canvas.addEventListener('mouseup', endDrawing);
+	canvas.addEventListener('mouseleave', endDrawing);
+	canvas.addEventListener('touchstart', (e) => {
+		e.preventDefault();
+		startDrawing(e.touches[0]);
+	});
+	canvas.addEventListener('touchmove', (e) => {
+		e.preventDefault();
+		draw(e.touches[0]);
+	});
+	canvas.addEventListener('touchend', endDrawing);
+
+	function startDrawing(e) {
+		if (e.button === 2 || e.type === 'touchstart') {
+			isDrawing = true;
+			const rect = canvas.getBoundingClientRect();
+			currentPath = [{
+				x: e.clientX - rect.left,
+				y: e.clientY - rect.top,
+				color: document.getElementById('penColor').value
+			}];
+			ctx.beginPath();
+			ctx.moveTo(currentPath[0].x, currentPath[0].y);
+		}
+	}
+
+	function draw(e) {
+		if (!isDrawing) return;
+		const rect = canvas.getBoundingClientRect();
+		const x = e.clientX - rect.left;
+		const y = e.clientY - rect.top;
+
+		ctx.strokeStyle = document.getElementById('penColor').value;
+		ctx.lineTo(x, y);
+		ctx.stroke();
+
+		currentPath.push({x, y});
+	}
+
+	function endDrawing() {
+		if (isDrawing) {
+			paths.push(currentPath);
+		}
+		isDrawing = false;
+		ctx.beginPath();
+	}
+
+	// 清空画布
+	function clearCanvas() {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		paths = [];
+	}
+
+	// 撤销功能
+	function undo() {
+		if (paths.length > 0) {
+			paths.pop();
+			redrawCanvas();
+		}
+	}
+
+	// 重绘画布
+	function redrawCanvas() {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		paths.forEach(path => {
+			ctx.beginPath();
+			ctx.moveTo(path[0].x, path[0].y);
+			path.forEach(point => ctx.lineTo(point.x, point.y));
+			ctx.strokeStyle = path[0].color;
+			ctx.stroke();
+		});
+	}
+
+	// 文件导出功能
+	function downloadPNG() {
+		const tempCanvas = createTempCanvas();
+		const link = document.createElement('a');
+		link.download = 'signature.png';
+		link.href = tempCanvas.toDataURL();
+		link.click();
+	}
+
+	function exportBase64() {
+		const tempCanvas = createTempCanvas();
+		prompt('Base64编码:', tempCanvas.toDataURL());
+	}
+
+	function downloadSVG() {
+		const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${canvas.width}" height="${canvas.height}">
+                ${paths.map(path => `
+                    <path d="M ${path.map(p => `${p.x} ${p.y}`).join(' L ')}"
+                          stroke="${path[0].color}"
+                          fill="none"
+                          stroke-width="2"/>
+                `).join('')}
+            </svg>`;
+		const blob = new Blob([svg], {type: 'image/svg+xml'});
+		const link = document.createElement('a');
+		link.download = 'signature.svg';
+		link.href = URL.createObjectURL(blob);
+		link.click();
+	}
+
+	// 创建临时画布
+	function createTempCanvas() {
+		const tempCanvas = document.createElement('canvas');
+		const tempCtx = tempCanvas.getContext('2d');
+		tempCanvas.width = canvas.width;
+		tempCanvas.height = canvas.height;
+
+		// 添加背景颜色
+		tempCtx.fillStyle = document.getElementById('bgColor').value;
+		tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+
+		// 绘制签名
+		tempCtx.drawImage(canvas, 0, 0);
+		return tempCanvas;
+	}
+
+	// 初始�?
+	initCanvas();
+	// 阻止右键菜单
+	canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

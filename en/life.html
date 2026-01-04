@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Utilities - Online Toolkit - Chuandao Tools</title>
+    <meta name="keywords" content="life utilities, calculator, timer, qrcode, Chuandao Tools">
+    <meta name="description" content="Everyday utilities: holidays, kinship calculator, countdown, unit converter, password generator, Morse, TTS, Pomodoro, calculator, bank card type, QR code, height predictor, gender predictor, smoking cost, camera and microphone tests.">
+    <link rel="canonical" href="https://www.chdaoai.com/life.html">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/css.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Responsive navigation bar */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Tool card layout */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #444;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+        }
+
+        /* Footer styles */
+        footer {
+            background: white;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: #007bff;
+        }
+
+        .footer-copyright {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="index.html" class="nav-item">
+                <img src="static/images/logo.png" width="50px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">�?/button>
+        <div class="nav-categories">
+            <a href="index.html" class="nav-category">🔍 Featured</a>
+            <a href="life.html" class="nav-category">🏠 Life</a>
+            <a href="encry.html" class="nav-category">🔒 Crypto</a>
+            <a href="code.html" class="nav-category">📝 Encode/Decode</a>
+            <a href="dev.html" class="nav-category">💻 Developer</a>
+            <a href="base64.html" class="nav-category">🔐 Base64</a>
+            <a href="image.html" class="nav-category">🖼�?Image</a>
+            <a href="game.html" class="nav-category">🎮 Fun</a>
+            <a href="index.html" class="nav-category"><i class="fas fa-earth-americas" aria-hidden="true"></i> English</a>
+            <a href="https://openai2025.com/" class="nav-category"><i class="fas fa-language" aria-hidden="true"></i> 中文</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Life Utilities -->
+    <h2 class="category-title">Life Utilities</h2>
+    <div class="tools-grid">
+
+
+        <div class="tool-card">
+            <a href="life/fest.html">
+
+                <img src="static/images/fest.png" class="tool-icon" alt="China Holidays Lookup">
+                <div class="tool-info">
+                    <div class="tool-title">China Holidays</div>
+                    <div class="tool-desc">Lookup solar, lunar and world holidays</div>
+                </div>
+
+            </a>
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="life/relate.html">
+
+                <img src="static/images/time.png" class="tool-icon" alt="Kinship Calculator">
+                <div class="tool-info">
+                    <div class="tool-title">Kinship Calculator</div>
+                    <div class="tool-desc">Calculate family relations</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="life/countdown.html">
+
+                <img src="static/images/countdown.png" class="tool-icon" alt="Countdown Timer">
+                <div class="tool-info">
+                    <div class="tool-title">Countdown</div>
+                    <div class="tool-desc">Online countdown timer</div>
+                </div>
+            </a>
+
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="life/unit.html">
+
+                <img src="static/images/unit.png" class="tool-icon" alt="Unit Converter">
+                <div class="tool-info">
+                    <div class="tool-title">Unit Converter</div>
+                    <div class="tool-desc">Convert between units</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="life/pwd.html">
+
+                <img src="static/images/pwd.png" class="tool-icon" alt="Password Generator">
+                <div class="tool-info">
+                    <div class="tool-title">Password Generator</div>
+                    <div class="tool-desc">Generate secure passwords</div>
+                </div>
+            </a>
+
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="life/ms.html">
+
+                <img src="static/images/ms.png" class="tool-icon" alt="Morse Code">
+                <div class="tool-info">
+                    <div class="tool-title">Morse Code</div>
+                    <div class="tool-desc">Encode/decode Morse code</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="life/text2voice.html">
+
+                <img src="static/images/voice.png" class="tool-icon" alt="Text to Speech">
+                <div class="tool-info">
+                    <div class="tool-title">Text to Speech</div>
+                    <div class="tool-desc">Convert text to speech</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="life/tomato.html">
+
+                <img src="static/images/tomato.png" class="tool-icon" alt="Pomodoro Timer">
+                <div class="tool-info">
+                    <div class="tool-title">Pomodoro Timer</div>
+                    <div class="tool-desc">Focus with Pomodoro technique</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="life/cal.html">
+
+                <img src="static/images/cal.png" class="tool-icon" alt="Calculator">
+                <div class="tool-info">
+                    <div class="tool-title">Calculator</div>
+                    <div class="tool-desc">Calculate online</div>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- <div class="tool-card">
+
+            <a href="life/bank.html">
+
+                <img src="static/images/bank.png" class="tool-icon" alt="Bank Card Type Lookup">
+                <div class="tool-info">
+                    <div class="tool-title">Bank Card Type</div>
+                    <div class="tool-desc">Check bank card type</div>
+                </div>
+            </a>
+
+        </div> -->
+
+        <div class="tool-card">
+
+            <a href="life/qrcode.html">
+
+                <img src="static/images/qrcode.png" class="tool-icon" alt="QR Code Generator">
+                <div class="tool-info">
+                    <div class="tool-title">QR Code Generator</div>
+                    <div class="tool-desc">Generate QR codes online</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="life/hei.html">
+
+                <img src="static/images/hei.png" class="tool-icon" alt="Child Height Predictor">
+                <div class="tool-info">
+                    <div class="tool-title">Child Height Predictor</div>
+                    <div class="tool-desc">Predict child height from parents' height</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="life/child.html">
+
+                <img src="static/images/child.png" class="tool-icon" alt="Gender Predictor">
+                <div class="tool-info">
+                    <div class="tool-title">Gender Predictor</div>
+                    <div class="tool-desc">Traditional baby gender prediction chart</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="life/smoke.html">
+
+                <img src="static/images/smoke.png" class="tool-icon" alt="Smoking Cost Calculator">
+                <div class="tool-info">
+                    <div class="tool-title">Smoking Cost Calculator</div>
+                    <div class="tool-desc">Estimate smoking cost to help quit</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="life/carema.html">
+
+                <img src="static/images/carema.png" class="tool-icon" alt="Camera Test">
+                <div class="tool-info">
+                    <div class="tool-title">Camera Test</div>
+                    <div class="tool-desc">Test your camera online</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="life/voice.html">
+
+                <img src="static/images/pcvoice.png" class="tool-icon" alt="Microphone Test">
+                <div class="tool-info">
+                    <div class="tool-title">Microphone Test</div>
+                    <div class="tool-desc">Test your microphone online</div>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- <div class="tool-card">
+            <a href="life/express.html">
+                <img src="static/images/express.png" class="tool-icon" alt="Express delivery tracking">
+                <div class="tool-info">
+                    <div class="tool-title">Express delivery tracking
+                    </div>
+                    <div class="tool-desc">Express delivery tracking
+                    </div>
+                </div>
+            </a>
+        </div> -->
+
+        <div class="tool-card">
+            <a href="life/color_blindness.html">
+                <img src="static/images/color_blindness.png" class="tool-icon" alt="color blindness test">
+                <div class="tool-info">
+                    <div class="tool-title">color blindness test</div>
+                    <div class="tool-desc">color blindness test</div>
+                </div>
+            </a>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-copyright">
+            <p>&copy; 2024 Missionary AI. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // Auto close after clicking a menu item
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Calculator - Chdao Tools</title>
+	<meta name="keywords" content="online tools suite, Chdao Tools">
+	<meta name="description" content="Chdao Tools is an online toolkit with no login or fees. Includes life, developer, encoding/decoding, encryption, image, and entertainment tools.">
+	<link rel="canonical" href="https://www.chdaoai.com/life/cal.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background-color: #FDF5E6;
+			font-family: Arial, sans-serif;
+			color: #A0522D;
+			text-align: center;
+		}
+		h1, h2 {
+			text-align: center;
+		}
+		#calculator {
+			margin: 20px auto;
+			width: 300px;
+			border: 1px solid #ccc;
+			padding: 10px;
+			background-color: #fff;
+			box-shadow: 0px 1px 5px 0px #00000026;
+		}
+		input[type="text"] {
+			display: block;
+			margin: 10px auto;
+			padding: 5px;
+			width: 80%;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			font-size: 16px;
+			text-align: right;
+		}
+		input[type="button"] {
+			display: inline-block;
+			margin: 5px;
+			padding: 10px;
+			width: 50px;
+			background-color: #e6e6e6;
+			border: none;
+			border-radius: 3px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+		input[type="button"]:hover {
+			background-color: #d2d2d2;
+		}
+		#clear {
+			background-color: #ffcccc;
+		}
+		#equals {
+			background-color: #b3ffb3;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tools grid layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			padding: 1.5rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			border-radius: 8px;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-section h2 {
+			color: #333;
+			font-size: 1.3rem;
+			margin-bottom: 1rem;
+		}
+
+		.help-section h3 {
+			color: #007bff;
+			font-size: 1.1rem;
+			margin-top: 1rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.help-section p, .help-section ul {
+			color: #666;
+			line-height: 1.8;
+			margin-bottom: 0.8rem;
+		}
+
+		.help-section ul {
+			margin-left: 1.5rem;
+		}
+
+		.help-section ul li {
+			margin-bottom: 0.5rem;
+		}
+
+		.example {
+			background: #e7f3ff;
+			padding: 1rem;
+			border-radius: 5px;
+			margin-top: 1rem;
+		}
+
+		.example strong {
+			color: #007bff;
+		}
+
+		/* Footer styles */
+		footer {
+			background: white;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+			border-top: 1px solid #e0e0e0;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #666;
+			text-decoration: none;
+			transition: color 0.3s;
+			font-size: 0.95rem;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding/Decoding</a>
+			<a href="../dev.html" class="nav-category">💻 Developer Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Entertainment</a>
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<h1>Calculator</h1>
+	<div id="calculator">
+		<input type="text" id="output" readonly>
+		<input type="button" value="1" onclick="appendToOutput('1')">
+		<input type="button" value="2" onclick="appendToOutput('2')">
+		<input type="button" value="3" onclick="appendToOutput('3')">
+		<input type="button" value="/" onclick="appendToOutput('/')">
+		<br>
+		<input type="button" value="4" onclick="appendToOutput('4')">
+		<input type="button" value="5" onclick="appendToOutput('5')">
+		<input type="button" value="6" onclick="appendToOutput('6')">
+		<input type="button" value="*" onclick="appendToOutput('*')">
+		<br>
+		<input type="button" value="7" onclick="appendToOutput('7')">
+		<input type="button" value="8" onclick="appendToOutput('8')">
+		<input type="button" value="9" onclick="appendToOutput('9')">
+		<input type="button" value="-" onclick="appendToOutput('-')">
+		<br>
+		<input type="button" value="0" onclick="appendToOutput('0')">
+		<input type="button" value="." onclick="appendToOutput('.')">
+		<input type="button" value="C" id="clear" onclick="clearOutput()">
+		<input type="button" value="+" onclick="appendToOutput('+')">
+		<br>
+		<input type="button" value="=" id="equals" onclick="calculate()">
+	</div>
+</div>
+
+<div class="help-section">
+	<h2>How to Use the Calculator</h2>
+	<p>Perform basic arithmetic calculations with this simple and easy-to-use calculator.</p>
+
+	<h3>Instructions</h3>
+	<ul>
+		<li>Click number buttons (0-9) to enter numbers</li>
+		<li>Click operation buttons (+, -, *, /) to select operations</li>
+		<li>Click the decimal point (.) for decimal numbers</li>
+		<li>Click "C" to clear the display</li>
+		<li>Click "=" to calculate the result</li>
+	</ul>
+
+	<h3>Supported Operations</h3>
+	<ul>
+		<li><strong>Addition (+):</strong> Add two or more numbers</li>
+		<li><strong>Subtraction (-):</strong> Subtract one number from another</li>
+		<li><strong>Multiplication (*):</strong> Multiply two or more numbers</li>
+		<li><strong>Division (/):</strong> Divide one number by another</li>
+		<li><strong>Decimal Numbers:</strong> Use the decimal point for precise calculations</li>
+	</ul>
+
+	<h3>Examples</h3>
+	<div class="example">
+		<strong>Example 1 - Basic Addition:</strong><br>
+		Input: 25 + 17 =<br>
+		Result: 42<br><br>
+		<strong>Example 2 - Decimal Calculation:</strong><br>
+		Input: 3.14 * 2 =<br>
+		Result: 6.28
+	</div>
+
+	<h3>Button Functions</h3>
+	<ul>
+		<li><strong>Number Buttons (0-9):</strong> Input digits</li>
+		<li><strong>Operation Buttons (+, -, *, /):</strong> Select mathematical operations</li>
+		<li><strong>Decimal Point (.):</strong> Add decimal places to numbers</li>
+		<li><strong>Clear (C):</strong> Erase all input and start over</li>
+		<li><strong>Equals (=):</strong> Calculate and display the result</li>
+	</ul>
+
+	<h3>Calculation Order</h3>
+	<ul>
+		<li>Operations are performed in standard mathematical order</li>
+		<li>Multiplication and division are performed before addition and subtraction</li>
+		<li>Use parentheses in complex expressions for specific order</li>
+		<li>Decimal calculations maintain precision</li>
+	</ul>
+
+	<h3>Common Use Cases</h3>
+	<ul>
+		<li>Quick arithmetic calculations</li>
+		<li>Budget and financial calculations</li>
+		<li>Percentage calculations</li>
+		<li>Unit conversions</li>
+		<li>Basic math homework</li>
+		<li>Shopping and price calculations</li>
+	</ul>
+
+	<h3>Tips for Better Results</h3>
+	<ul>
+		<li>Double-check your input before pressing equals</li>
+		<li>Use the clear button to start fresh calculations</li>
+		<li>For complex calculations, break them into smaller steps</li>
+		<li>Verify results with mental math when possible</li>
+	</ul>
+
+	<h3>Error Handling</h3>
+	<ul>
+		<li>Invalid expressions will show an error message</li>
+		<li>Division by zero is not allowed</li>
+		<li>Clear the display and try again if errors occur</li>
+		<li>Check for typos in your input</li>
+	</ul>
+
+	<h3>Keyboard Shortcuts</h3>
+	<ul>
+		<li>Use your keyboard number pad for faster input</li>
+		<li>Press Enter or = key to calculate</li>
+		<li>Use Escape or C key to clear</li>
+		<li>Arrow keys can be used for navigation</li>
+	</ul>
+</div>
+
+<footer>
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+	</div>
+</footer>
+
+<script>
+	let outputEl = document.getElementById('output');
+
+	function appendToOutput(str) {
+		outputEl.value += str;
+	}
+
+	function clearOutput() {
+		outputEl.value = '';
+	}
+
+	function calculate() {
+		let expression = outputEl.value;
+		if (expression) {
+			try {
+				let result = eval(expression);
+				outputEl.value = result;
+			} catch (err) {
+				alert('Invalid expression!');
+			}
+		}
+	}
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Color Vision Test - Chdao Tools</title>
+	<meta name="keywords" content="online tools suite, Chdao Tools">
+	<meta name="description" content="Chdao Tools is an online toolkit with no login or fees. Includes life, developer, encoding/decoding, encryption, image, and entertainment tools.">
+	<link rel="canonical" href="https://www.chdaoai.com/life/color_blindness.html">	
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+		}
+		.header-icon {
+			width: 48px;
+			height: 48px;
+			background-color: #4285f4;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.header-title {
+			font-size: 18px;
+			font-weight: bold;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.heart-icon {
+			color: #ff4757;
+			cursor: pointer;
+		}
+		.rating {
+			display: flex;
+			gap: 5px;
+			color: #ffd700;
+		}
+		.share-icon {
+			margin-left: auto;
+			color: #666;
+			cursor: pointer;
+		}
+		.tabs {
+			max-width: 800px;
+			margin: 0 auto 20px;
+			display: flex;
+			gap: 10px;
+		}
+		.tab {
+			padding: 6px 16px;
+			border-radius: 20px;
+			cursor: pointer;
+			font-size: 14px;
+		}
+		.tab.active {
+			background-color: #00b894;
+			color: white;
+		}
+		.tab:not(.active) {
+			background-color: #e9ecef;
+			color: #666;
+		}
+		.festival-table {
+			max-width: 800px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.table-header {
+			display: grid;
+			grid-template-columns: 1fr 2fr;
+			background-color: #f8f9fa;
+			padding: 15px 20px;
+			font-weight: bold;
+			color: #666;
+		}
+		.festival-row {
+			display: grid;
+			grid-template-columns: 1fr 2fr;
+			padding: 15px 20px;
+			border-top: 1px solid #eee;
+		}
+		.festival-row:hover {
+			background-color: #f8f9fa;
+		}
+		.date {
+			color: #666;
+		}
+		.festival {
+			color: #333;
+		}
+		.festival-english {
+			color: #666;
+			font-size: 0.9em;
+			margin-left: 8px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tools grid layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			padding: 1.5rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			border-radius: 8px;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-section h2 {
+			color: #333;
+			font-size: 1.3rem;
+			margin-bottom: 1rem;
+		}
+
+		.help-section h3 {
+			color: #007bff;
+			font-size: 1.1rem;
+			margin-top: 1rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.help-section p, .help-section ul {
+			color: #666;
+			line-height: 1.8;
+			margin-bottom: 0.8rem;
+		}
+
+		.help-section ul {
+			margin-left: 1.5rem;
+		}
+
+		.help-section ul li {
+			margin-bottom: 0.5rem;
+		}
+
+		.example {
+			background: #e7f3ff;
+			padding: 1rem;
+			border-radius: 5px;
+			margin-top: 1rem;
+		}
+
+		.example strong {
+			color: #007bff;
+		}
+
+		/* Footer styles */
+		footer {
+			background: white;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+			border-top: 1px solid #e0e0e0;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #666;
+			text-decoration: none;
+			transition: color 0.3s;
+			font-size: 0.95rem;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding/Decoding</a>
+			<a href="../dev.html" class="nav-category">💻 Developer Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Entertainment</a>
+		</div>
+	</div>
+</nav>
+
+<h1 style="text-align: center">Color Vision Test</h1>
+<div class="container" style="max-width:1000px;margin:30px auto;background:#fff;padding:30px 20px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+  <h2 style="text-align:center;margin-bottom:20px;">Ishihara Color Plates</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+    <div style="text-align:center;">
+      <img src="../static/images/1.jpg" alt="Plate 1" style="width:120px;height:120px;border-radius:50%;border:1px solid #eee;"> 
+      <div style="font-size:13px;">Plate 1<br>Normal vision: 45; Color blind: no number
+
+	  </div>
+    </div>
+    <div style="text-align:center;">
+      <img src="../static/images/2.jpg" alt="Plate 2" style="width:120px;height:120px;border-radius:50%;border:1px solid #eee;">
+      <div style="font-size:13px;">Plate 2<br>Normal: 29; Color blind: 70
+
+	  </div>
+    </div>
+    <div style="text-align:center;">
+      <img src="../static/images/3.jpg" alt="Plate 3" style="width:120px;height:120px;border-radius:50%;border:1px solid #eee;">
+      <div style="font-size:13px;">Plate 3<br>Normal: no number; Color blind: 5
+
+	  </div>
+    </div>
+    <div style="text-align:center;">
+      <img src="../static/images/4.jpg" alt="Plate 4" style="width:120px;height:120px;border-radius:50%;border:1px solid #eee;">
+      <div style="font-size:13px;">Plate 4<br>Normal: 26; Protanopia: 6; Deuteranopia: 2
+
+	  </div>
+    </div>
+  </div>
+  <div style="margin:30px 0 10px 0;font-weight:bold;">Comprehensive color vision test plates: detect protanopia, deuteranopia, red-green color blindness, protanomaly, deuteranomaly.</div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+    <div style="display:flex;gap:10px;width:100%;justify-content:center;flex-wrap:wrap;">
+      <div style="display:flex;gap:10px;width:100%;justify-content:center;">
+        <img src="../static/images/5.jpg" style="border:1px solid #eee;"> 
+        <img src="../static/images/6.jpg" style="border:1px solid #eee;"> 
+      </div>
+      <div style="display:flex;gap:10px;width:100%;justify-content:center;">
+        <img src="../static/images/7.jpg" style="border:1px solid #eee;"> 
+        <img src="../static/images/8.jpg" style="border:1px solid #eee;"> 
+      </div>
+      <div style="display:flex;gap:10px;width:100%;justify-content:center;">
+        <img src="../static/images/9.jpg" style="border:1px solid #eee;"> 
+        <img src="../static/images/10.jpg" style="border:1px solid #eee;">
+      </div>
+    
+  </div>
+  <div style="width:1000px; margin:30px 0 10px 0;font-weight:bold;word-break:break-all;text-align:left;white-space:pre-line;">Color vision results reference table</div>
+  <div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;background:#fafafa;border:2px solid #bbb;">
+      <thead>
+        <tr style="background:#e9ecef;">
+          <th style="padding:12px 8px;border:1.5px solid #888;line-height:2;">Plate</th>
+          <th style="padding:12px 8px;border:1.5px solid #888;line-height:2;">Normal result</th>
+          <th style="padding:12px 8px;border:1.5px solid #888;line-height:2;">Color blind result</th>
+          <th style="padding:12px 8px;border:1.5px solid #888;line-height:2;">Type</th>
+          <th style="padding:12px 8px;border:1.5px solid #888;line-height:2;">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">�?-1</td><td style="border:1.5px solid #888;padding:12px 8px;">6</td><td style="border:1.5px solid #888;padding:12px 8px;">6</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td><td style="border:1.5px solid #888;padding:12px 8px;">示例�?/td></tr>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">�?-2</td><td style="border:1.5px solid #888;padding:12px 8px;">6,9,8</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td></tr>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">�?-3</td><td style="border:1.5px solid #888;padding:12px 8px;">3,6</td><td style="border:1.5px solid #888;padding:12px 8px;">不能�?/td><td style="border:1.5px solid #888;padding:12px 8px;">红色�?/td><td style="border:1.5px solid #888;padding:12px 8px;">检出红色盲 </td></tr>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">�?-4</td><td style="border:1.5px solid #888;padding:12px 8px;">6,6</td><td style="border:1.5px solid #888;padding:12px 8px;">不能�?/td><td style="border:1.5px solid #888;padding:12px 8px;">红绿色盲</td><td style="border:1.5px solid #888;padding:12px 8px;">检出红绿色�?/td></tr>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">�?-5</td><td style="border:1.5px solid #888;padding:12px 8px;">6</td><td style="border:1.5px solid #888;padding:12px 8px;">全不能或都部分不能读</td><td style="border:1.5px solid #888;padding:12px 8px;">绿色�?/td><td style="border:1.5px solid #888;padding:12px 8px;">绿色弱分类总图</td></tr>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">�?-6</td><td style="border:1.5px solid #888;padding:12px 8px;">9</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td></tr>
+		<tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">�?-1</td><td style="border:1.5px solid #888;padding:12px 8px;">8�?�?</td><td style="border:1.5px solid #888;padding:12px 8px;">不能�?/td><td style="border:1.5px solid #888;padding:12px 8px;">红色�?/td><td style="border:1.5px solid #888;padding:12px 8px;">红色盲检出图 </td></tr>
+		<tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">�?-2</td><td style="border:1.5px solid #888;padding:12px 8px;">3</td><td style="border:1.5px solid #888;padding:12px 8px;">不能�?/td><td style="border:1.5px solid #888;padding:12px 8px;">红色�?</td><td style="border:1.5px solid #888;padding:12px 8px;">红色弱分类总图 </td></tr>
+		<tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">�?-3</td><td style="border:1.5px solid #888;padding:12px 8px;">5</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td></tr>
+		<tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">�?-4</td><td style="border:1.5px solid #888;padding:12px 8px;">6,8,9</td><td style="border:1.5px solid #888;padding:12px 8px;">不能�?/td><td style="border:1.5px solid #888;padding:12px 8px;">绿色�?/td><td style="border:1.5px solid #888;padding:12px 8px;">绿色盲检出总图 </td></tr>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">�?-5</td><td style="border:1.5px solid #888;padding:12px 8px;">金鱼</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td><td style="border:1.5px solid #888;padding:12px 8px;">-</td></tr>
+        <tr style="line-height:2.2;"><td style="border:1.5px solid #888;padding:12px 8px;">�?-6</td><td style="border:1.5px solid #888;padding:12px 8px;">鸭，�?</td><td style="border:1.5px solid #888;padding:12px 8px;">�?/td><td style="border:1.5px solid #888;padding:12px 8px;">红绿色觉异常 </td><td style="border:1.5px solid #888;padding:12px 8px;">检出红色盲，部分色�?</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="margin:30px 0 10px 0;font-weight:bold;width:1000px; ">If you are identified as color blind/weak, don't be discouraged. Genetics determine it. Use the following to further determine the type.</div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+	<div style="text-align:center;width:45%;min-width:180px;">
+	  <img src="../static/images/12.jpg" style="width:100px;height:100px;border:1px solid #eee;">
+	  <div style="font-size:13px;">In this plate, A indicates protanopia</div>
+	</div>
+	<div style="text-align:center;width:45%;min-width:180px;">
+	  <img src="../static/images/13.jpg" style="width:100px;height:100px;border:1px solid #eee;">
+	  <div style="font-size:13px;">In this plate, C indicates deuteranopia</div>
+	</div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+    <div style="text-align:center;width:45%;min-width:180px;">
+      <img src="../static/images/13.jpg" style="width:100px;height:100px;border:1px solid #eee;">
+      <div style="font-size:13px;">Here, protanopes find only the purple line; deuteranopes only the red line; others can find both.</div>
+    </div>
+    <div style="text-align:center;width:45%;min-width:180px;">
+      <img src="../static/images/14.jpg" style="width:100px;height:100px;border:1px solid #eee;">
+      <div style="font-size:13px;">Here, protanopes read 6; deuteranopes read 2; others read both.</div>
+    </div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px;">
+    <div style="text-align:center;width:45%;min-width:180px;">
+      <img src="../static/images/15.jpg" style="width:100px;height:100px;border:1px solid #eee;">
+      <div style="font-size:13px;">Normal vision: sees a cow. Seeing a dog may indicate deficiency.</div>
+    </div>
+    <div style="text-align:center;width:45%;min-width:180px;">
+      <img src="../static/images/16.jpg" style="width:100px;height:100px;border:1px solid #eee;">
+      <div style="font-size:13px;">Normal: 6; Red-green deficiencies: 5; Achromatopsia: no digits.</div>
+    </div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px;">
+    <div style="text-align:center;width:45%;min-width:180px;">
+      <img src="../static/images/17.jpg" style="width:100px;height:100px;border:1px solid #eee;">
+      <div style="font-size:13px;">Red-green deficiencies: often 5; Achromatopsia/normal: often none.</div>
+    </div>
+    <div style="text-align:center;width:45%;min-width:180px;">
+      <img src="../static/images/18.jpg" style="width:100px;height:100px;border:1px solid #eee;">
+      <div style="font-size:13px;">Red-green deficiencies: often 6; Normal/achromatopsia: often none.</div>
+    </div>
+  </div>
+</div>
+
+<div class="help-section">
+	<h2>How to Use the Color Vision Test</h2>
+	<p>Test your color vision using Ishihara color plates to detect various types of color blindness and color vision deficiencies.</p>
+
+	<h3>Instructions</h3>
+	<ul>
+		<li>Look at each color plate carefully</li>
+		<li>Try to identify the numbers or patterns in each plate</li>
+		<li>Compare your results with the reference table</li>
+		<li>Note any plates where you see different numbers than expected</li>
+		<li>Use the results to understand your color vision type</li>
+	</ul>
+
+	<h3>Test Plates Overview</h3>
+	<ul>
+		<li><strong>Basic Plates (1-4):</strong> Initial screening for color vision issues</li>
+		<li><strong>Comprehensive Plates (5-18):</strong> Detailed testing for specific color deficiencies</li>
+		<li><strong>Classification Plates:</strong> Determine specific types of color blindness</li>
+		<li><strong>Reference Table:</strong> Compare your results with expected outcomes</li>
+	</ul>
+
+	<h3>Color Vision Types</h3>
+	<ul>
+		<li><strong>Normal Vision:</strong> Can see all numbers and patterns correctly</li>
+		<li><strong>Protanopia:</strong> Red-blind, cannot distinguish red from green</li>
+		<li><strong>Deuteranopia:</strong> Green-blind, cannot distinguish green from red</li>
+		<li><strong>Protanomaly:</strong> Red-weak, reduced sensitivity to red</li>
+		<li><strong>Deuteranomaly:</strong> Green-weak, reduced sensitivity to green</li>
+		<li><strong>Tritanopia:</strong> Blue-blind, cannot distinguish blue from yellow</li>
+	</ul>
+
+	<h3>Examples</h3>
+	<div class="example">
+		<strong>Example 1 - Plate 1:</strong><br>
+		Normal vision: sees "45"<br>
+		Color blind: sees no number<br><br>
+		<strong>Example 2 - Plate 4:</strong><br>
+		Normal vision: sees "26"<br>
+		Protanopia: sees "6"<br>
+		Deuteranopia: sees "2"
+	</div>
+
+	<h3>How to Interpret Results</h3>
+	<ul>
+		<li>Compare what you see with the reference table</li>
+		<li>Note any discrepancies between your vision and normal results</li>
+		<li>Look for patterns in which plates you can/cannot see</li>
+		<li>Use the classification plates to determine specific type</li>
+		<li>Consult an eye care professional for official diagnosis</li>
+	</ul>
+
+	<h3>Common Use Cases</h3>
+	<ul>
+		<li>Self-assessment of color vision</li>
+		<li>Pre-employment screening for color-dependent jobs</li>
+		<li>Educational purposes and awareness</li>
+		<li>Family history of color vision issues</li>
+		<li>Curiosity about personal color perception</li>
+	</ul>
+
+	<h3>Important Notes</h3>
+	<ul>
+		<li>This is a screening test, not a medical diagnosis</li>
+		<li>Results may vary based on screen settings and lighting</li>
+		<li>Consult an eye care professional for official testing</li>
+		<li>Some conditions may not be detected by this test</li>
+		<li>Color vision can change over time</li>
+	</ul>
+
+	<h3>Factors Affecting Results</h3>
+	<ul>
+		<li>Screen brightness and contrast settings</li>
+		<li>Room lighting conditions</li>
+		<li>Eye fatigue or strain</li>
+		<li>Age-related changes in vision</li>
+		<li>Medications that affect color perception</li>
+	</ul>
+
+	<h3>Professional Testing</h3>
+	<ul>
+		<li>Comprehensive eye examination</li>
+		<li>Specialized color vision testing equipment</li>
+		<li>Genetic testing for inherited conditions</li>
+		<li>Assessment of impact on daily activities</li>
+		<li>Recommendations for accommodations if needed</li>
+	</ul>
+
+	<h3>Living with Color Vision Differences</h3>
+	<ul>
+		<li>Most people adapt well to color vision differences</li>
+		<li>Technology can help with color identification</li>
+		<li>Certain careers may have restrictions</li>
+		<li>Support groups and resources are available</li>
+		<li>Focus on abilities rather than limitations</li>
+	</ul>
+</div>
+
+<footer>
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+	</div>
+</footer>
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>
+

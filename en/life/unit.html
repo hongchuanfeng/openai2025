@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Online Unit Converter - Chdao Tools</title>
+	<meta name="keywords" content="online tools suite, Chdao Tools">
+	<meta name="description" content="Chdao Tools is an online toolkit with no login or fees. Includes life, developer, encoding/decoding, encryption, image, and entertainment tools.">
+	<link rel="canonical" href="https://www.chdaoai.com/life/unit.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.wrapper {
+			width: 90%;
+			max-width: 800px;
+			background-color: #fff;
+			border-radius: 10px;
+			padding: 30px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+			justify-content: center;
+			align-items: center;
+			margin: auto;
+		}
+
+		h1 {
+			text-align: center;
+			font-size: 36px;
+			margin-bottom: 20px;
+			color: #00a854;
+		}
+
+		form {
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		label {
+			font-size: 18px;
+			margin-right: 10px;
+		}
+
+		input[type=number] {
+			padding: 10px;
+			font-size: 18px;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			margin-right: 10px;
+			margin-bottom: 10px;
+		}
+
+		select {
+			padding: 10px;
+			font-size: 18px;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			margin-bottom: 10px;
+		}
+
+		.con-btn {
+			padding: 10px 20px;
+			font-size: 18px;
+			color: #fff;
+			background-color: #00a854;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-top: 10px;
+		}
+
+		.con-btn:hover {
+			background-color: #009645;
+		}
+
+		.result {
+			text-align: center;
+			font-size: 24px;
+			margin-top: 30px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tools grid layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Help Section Styles */
+		.help-section {
+			background: white;
+			border-radius: 8px;
+			padding: 2rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		}
+
+		.help-section h2 {
+			color: #333;
+			margin-bottom: 1rem;
+			font-size: 1.5rem;
+		}
+
+		.help-section h3 {
+			color: #555;
+			margin: 1.5rem 0 0.5rem 0;
+			font-size: 1.2rem;
+		}
+
+		.help-section p {
+			color: #666;
+			line-height: 1.6;
+			margin-bottom: 1rem;
+		}
+
+		.help-section ul, .help-section ol {
+			margin: 0.5rem 0 1rem 1.5rem;
+			color: #666;
+		}
+
+		.help-section li {
+			margin: 0.3rem 0;
+			line-height: 1.5;
+		}
+
+		.help-section strong {
+			color: #333;
+		}
+
+		/* Footer Styles */
+		.footer {
+			background: #333;
+			color: white;
+			padding: 2rem 0;
+			margin-top: 3rem;
+		}
+
+		.footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 1rem;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1rem;
+		}
+
+		.footer-links a {
+			color: white;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #ccc;
+			font-size: 0.9rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.help-section {
+				margin: 1rem;
+				padding: 1.5rem;
+			}
+
+			.footer-links {
+				flex-direction: column;
+				gap: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding/Decoding</a>
+			<a href="../dev.html" class="nav-category">💻 Developer Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Entertainment</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="wrapper">
+	<h1>Unit Converter</h1>
+	<form>
+		<div>
+			<label for="speed">Speed</label>
+			<input type="number" id="speed" placeholder="Enter a value">
+			<select id="speedFrom">
+				<option value="mps">meters/second (m/s)</option>
+				<option value="kph">kilometers/hour (km/h)</option>
+				<option value="mph">miles/hour (mph)</option>
+			</select>
+			<select id="speedTo">
+				<option value="mps">meters/second (m/s)</option>
+				<option value="kph">kilometers/hour (km/h)</option>
+				<option value="mph">miles/hour (mph)</option>
+			</select>
+		</div>
+		<div>
+			<label for="gravity">Acceleration</label>
+			<input type="number" id="gravity" placeholder="Enter a value">
+			<select id="gravityFrom">
+				<option value="m/s2">meters/second²</option>
+				<option value="g">standard gravity (g)</option>
+				<option value="ft/s2">feet/second²</option>
+			</select>
+			<select id="gravityTo">
+				<option value="m/s2">meters/second²</option>
+				<option value="g">standard gravity (g)</option>
+				<option value="ft/s2">feet/second²</option>
+			</select>
+		</div>
+		<div>
+			<label for="volume">Volume</label>
+			<input type="number" id="volume" placeholder="Enter a value">
+			<select id="volumeFrom">
+				<option value="m3">cubic meters (m³)</option>
+				<option value="L">liters (L)</option>
+				<option value="gal">gallons (gal)</option>
+			</select>
+			<select id="volumeTo">
+				<option value="m3">cubic meters (m³)</option>
+				<option value="L">liters (L)</option>
+				<option value="gal">gallons (gal)</option>
+			</select>
+		</div>
+		<div>
+			<label for="time">Time</label>
+			<input type="number" id="time" placeholder="Enter a value">
+			<select id="timeFrom">
+				<option value="s">seconds (s)</option>
+				<option value="min">minutes (min)</option>
+				<option value="h">hours (h)</option>
+			</select>
+			<select id="timeTo">
+				<option value="s">seconds (s)</option>
+				<option value="min">minutes (min)</option>
+				<option value="h">hours (h)</option>
+			</select>
+		</div>
+	</form>
+
+	<button class="con-btn" onclick="convertUnits()">Convert</button>
+
+	<div class="result" id="result"></div>
+</div>
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2>How to Use</h2>
+	<p>This tool converts between different units of measurement for speed, acceleration, volume, and time. Simply enter a value and select the units to convert from and to.</p>
+	
+	<h3>Step-by-Step Instructions:</h3>
+	<ol>
+		<li><strong>Enter Value:</strong> Type the number you want to convert in the input field</li>
+		<li><strong>Select From Unit:</strong> Choose the unit you're converting from</li>
+		<li><strong>Select To Unit:</strong> Choose the unit you want to convert to</li>
+		<li><strong>Convert:</strong> Click "Convert" to see the result</li>
+		<li><strong>View Result:</strong> The converted value will be displayed below</li>
+	</ol>
+	
+	<h3>Supported Unit Types:</h3>
+	<ul>
+		<li><strong>Speed:</strong> meters/second (m/s), kilometers/hour (km/h), miles/hour (mph)</li>
+		<li><strong>Acceleration:</strong> meters/second², standard gravity (g), feet/second²</li>
+		<li><strong>Volume:</strong> cubic meters (m³), liters (L), gallons (gal)</li>
+		<li><strong>Time:</strong> seconds (s), minutes (min), hours (h)</li>
+	</ul>
+	
+	<h3>Conversion Examples:</h3>
+	<ul>
+		<li><strong>Speed:</strong> 100 km/h = 27.78 m/s = 62.14 mph</li>
+		<li><strong>Acceleration:</strong> 9.8 m/s² = 1 g = 32.17 ft/s²</li>
+		<li><strong>Volume:</strong> 1 m³ = 1000 L = 264.17 gal</li>
+		<li><strong>Time:</strong> 3600 s = 60 min = 1 h</li>
+	</ul>
+	
+	<h3>Common Use Cases:</h3>
+	<ul>
+		<li>Scientific calculations and research</li>
+		<li>Engineering and construction projects</li>
+		<li>International travel and navigation</li>
+		<li>Cooking and recipe conversions</li>
+		<li>Sports and fitness measurements</li>
+		<li>Educational and learning purposes</li>
+	</ul>
+	
+	<h3>Conversion Formulas:</h3>
+	<ul>
+		<li><strong>Speed:</strong> km/h = m/s × 3.6, mph = km/h ÷ 1.609</li>
+		<li><strong>Acceleration:</strong> g = m/s² ÷ 9.80665, ft/s² = m/s² × 3.28084</li>
+		<li><strong>Volume:</strong> L = m³ × 1000, gal = L × 0.264172</li>
+		<li><strong>Time:</strong> min = s ÷ 60, h = min ÷ 60</li>
+	</ul>
+	
+	<h3>Tips for Better Results:</h3>
+	<ul>
+		<li>Enter only numeric values (no units in the input field)</li>
+		<li>Use decimal points for precise measurements</li>
+		<li>Check your unit selections before converting</li>
+		<li>Verify results with known conversion factors</li>
+		<li>Use appropriate precision for your needs</li>
+	</ul>
+	
+	<h3>Accuracy and Precision:</h3>
+	<ul>
+		<li>Results are rounded to 2 decimal places</li>
+		<li>Conversion factors are based on international standards</li>
+		<li>Some conversions may have slight rounding errors</li>
+		<li>For critical applications, verify with official sources</li>
+	</ul>
+	
+	<h3>Important Notes:</h3>
+	<ul>
+		<li>This tool only converts between the listed unit types</li>
+		<li>All conversions are based on metric and imperial standards</li>
+		<li>Results are for reference and educational purposes</li>
+		<li>For professional use, consult official conversion tables</li>
+		<li>Some unit conversions may vary by region or context</li>
+	</ul>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+	<div class="footer-content">
+		<div class="footer-links">
+			<a href="../about.html">About Us</a>
+			<a href="../contact.html">Contact Us</a>
+			<a href="../privacy.html">Privacy Policy</a>
+		</div>
+		<div class="footer-copyright">
+			<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+		</div>
+	</div>
+</footer>
+
+<script>
+	function convertUnits() {
+		var speed = document.getElementById("speed").value;
+		var speedFrom = document.getElementById("speedFrom").value;
+		var speedTo = document.getElementById("speedTo").value;
+		var gravity = document.getElementById("gravity").value;
+		var gravityFrom = document.getElementById("gravityFrom").value;
+		var gravityTo = document.getElementById("gravityTo").value;
+		var volume = document.getElementById("volume").value;
+		var volumeFrom = document.getElementById("volumeFrom").value;
+		var volumeTo = document.getElementById("volumeTo").value;
+		var time = document.getElementById("time").value;
+		var timeFrom = document.getElementById("timeFrom").value;
+		var timeTo = document.getElementById("timeTo").value;
+
+		// Speed unit conversion
+		var speedResult;
+		if (speedFrom == "mps" && speedTo == "kph") {
+			speedResult = speed * 3.6;
+		} else if (speedFrom == "mps" && speedTo == "mph") {
+			speedResult = speed * 2.23694;
+		} else if (speedFrom == "kph" && speedTo == "mps") {
+			speedResult = speed / 3.6;
+		} else if (speedFrom == "kph" && speedTo == "mph") {
+			speedResult = speed / 1.609344;
+		} else if (speedFrom == "mph" && speedTo == "mps") {
+			speedResult = speed / 2.23694;
+		} else if (speedFrom == "mph" && speedTo == "kph") {
+			speedResult = speed * 1.609344;
+		}
+
+		// Acceleration unit conversion
+		var gravityResult;
+		if (gravityFrom == "m/s2" && gravityTo == "g") {
+			gravityResult = gravity / 9.80665;
+		} else if (gravityFrom == "m/s2" && gravityTo == "ft/s2") {
+			gravityResult = gravity / 0.3048;
+		} else if (gravityFrom == "g" && gravityTo == "m/s2") {
+			gravityResult = gravity * 9.80665;
+		} else if (gravityFrom == "g" && gravityTo == "ft/s2") {
+			gravityResult = gravity * 32.174;
+		} else if (gravityFrom == "ft/s2" && gravityTo == "m/s2") {
+			gravityResult = gravity * 0.3048;
+		} else if (gravityFrom == "ft/s2" && gravityTo == "g") {
+			gravityResult = gravity / 32.174;
+		}
+
+		// Volume unit conversion
+		var volumeResult;
+		if (volumeFrom == "m3" && volumeTo == "L") {
+			volumeResult = volume * 1000;
+		} else if (volumeFrom == "m3" && volumeTo == "gal") {
+			volumeResult = volume * 264.1720524;
+		} else if (volumeFrom == "L" && volumeTo == "m3") {
+			volumeResult = volume / 1000;
+		} else if (volumeFrom == "L" && volumeTo == "gal") {
+			volumeResult = volume * 0.2641720524;
+		} else if (volumeFrom == "gal" && volumeTo == "m3") {
+			volumeResult = volume / 264.1720524;
+		} else if (volumeFrom == "gal" && volumeTo == "L") {
+			volumeResult = volume / 0.2641720524;
+		}
+
+		// Time unit conversion
+		var timeResult;
+		if (timeFrom == "s" && timeTo == "min") {
+			timeResult = time / 60;
+		} else if (timeFrom == "s" && timeTo == "h") {
+			timeResult = time / 3600;
+		} else if (timeFrom == "min" && timeTo == "s") {
+			timeResult = time * 60;
+		} else if (timeFrom == "min" && timeTo == "h") {
+			timeResult = time / 60;
+		} else if (timeFrom == "h" && timeTo == "s") {
+			timeResult = time * 3600;
+		} else if (timeFrom == "h" && timeTo == "min") {
+			timeResult = time * 60;
+		}
+
+		// Show results
+		document.getElementById("result").innerHTML = "";
+		if (speed) {
+			var speedResultText = speed + " " + speedFrom + " = " + speedResult.toFixed(2) + " " + speedTo;
+			var speedResultNode = document.createElement("p");
+			speedResultNode.textContent = speedResultText;
+			document.getElementById("result").appendChild(speedResultNode);
+		}
+		if (gravity) {
+			var gravityResultText = gravity + " " + gravityFrom + " = " + gravityResult.toFixed(2) + " " + gravityTo;
+			var gravityResultNode = document.createElement("p");
+			gravityResultNode.textContent = gravityResultText;
+			document.getElementById("result").appendChild(gravityResultNode);
+		}
+		if (volume) {
+			var volumeResultText = volume + " " + volumeFrom + " = " + volumeResult.toFixed(2) + " " + volumeTo;
+			var volumeResultNode = document.createElement("p");
+			volumeResultNode.textContent = volumeResultText;
+			document.getElementById("result").appendChild(volumeResultNode);
+		}
+		if (time) {
+			var timeResultText = time + " " + timeFrom + " = " + timeResult.toFixed(2) + " " + timeTo;
+			var timeResultNode = document.createElement("p");
+			timeResultNode.textContent = timeResultText;
+			document.getElementById("result").appendChild(timeResultNode);
+		}
+	}
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Grid Splitter (3x3) - Chandao Tools</title>
+	<meta name="keywords" content="online tool collection, Chandao Tools">
+	<meta name="description" content="Chandao Tools is a collection of free, no-login online utilities across life, dev, encoding/decoding, encryption, images, and fun.">
+	<link rel="canonical" href="https://www.chdaoai.com/image/ninegrid.html">				
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.image-container {
+			display: flex;
+			gap: 20px;
+			margin-bottom: 20px;
+		}
+		.image-box {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 10px;
+		}
+		.image-preview {
+			width: 100%;
+			height: 300px;
+			border: 2px dashed #ddd;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			background-color: #f8f9fa;
+		}
+		.image-preview img {
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+		}
+		.button {
+			width: 100%;
+			padding: 12px;
+			border: none;
+			border-radius: 4px;
+			font-size: 16px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+		}
+		.upload-btn {
+			background-color: #ff6b6b;
+			color: white;
+		}
+		.upload-btn:hover {
+			background-color: #ff5252;
+		}
+		.download-btn {
+			background-color: #f8f9fa;
+			color: #333;
+			border: 1px solid #ddd;
+		}
+		.download-btn:hover {
+			background-color: #e9ecef;
+		}
+		.info-box {
+			margin-top: 20px;
+			padding: 15px;
+			background: #fff5f0;
+			border-radius: 4px;
+		}
+		.info-title {
+			color: #ff6b6b;
+			margin-bottom: 10px;
+		}
+		.info-list {
+			list-style: none;
+			color: #666;
+			font-size: 14px;
+			line-height: 1.8;
+		}
+		.info-list li {
+			margin-bottom: 5px;
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			border-radius: 8px;
+			padding: 2rem;
+			max-width: 1100px;
+			margin: 2rem auto;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-title {
+			color: #333;
+			font-size: 1.5rem;
+			margin-bottom: 1rem;
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+
+		.help-content {
+			color: #666;
+			line-height: 1.6;
+		}
+
+		.help-content h3 {
+			color: #444;
+			margin: 1.5rem 0 0.5rem 0;
+			font-size: 1.1rem;
+		}
+
+		.help-content ul {
+			margin: 0.5rem 0 1rem 1.5rem;
+		}
+
+		.help-content li {
+			margin-bottom: 0.5rem;
+		}
+
+		.help-content code {
+			background: #e9ecef;
+			padding: 0.2rem 0.4rem;
+			border-radius: 3px;
+			font-family: monospace;
+			font-size: 0.9rem;
+		}
+
+		.example-box {
+			background: #fff;
+			border: 1px solid #dee2e6;
+			border-radius: 6px;
+			padding: 1rem;
+			margin: 1rem 0;
+		}
+
+		.example-title {
+			font-weight: bold;
+			color: #495057;
+			margin-bottom: 0.5rem;
+		}
+
+		/* Footer styles */
+		.footer {
+			background: #333;
+			color: white;
+			text-align: center;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #ccc;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.footer-links a:hover {
+			color: white;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+
+		@media (max-width: 768px) {
+			.footer-links {
+				flex-direction: column;
+				gap: 1rem;
+			}
+		}
+	</style>
+
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					colors: {
+						primary: '#3B82F6',
+						secondary: '#6366F1',
+						accent: '#8B5CF6',
+						neutral: '#1F2937',
+						'base-100': '#F3F4F6',
+					},
+					fontFamily: {
+						inter: ['Inter', 'sans-serif'],
+					},
+				}
+			}
+		}
+	</script>
+	<style type="text/tailwindcss">
+		@layer utilities {
+			.content-auto {
+				content-visibility: auto;
+			}
+			.text-shadow {
+				text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+			}
+			.transition-all-300 {
+				transition: all 300ms ease-in-out;
+			}
+			.hover-scale {
+				@apply hover:scale-105 transition-all duration-300;
+			}
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+	<!-- 添加图片处理所需的库 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding</a>
+			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+
+	<div class="container mx-auto px-4 py-8 max-w-6xl">
+		<!-- 头部 -->
+		<header class="text-center mb-12">
+			<h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-neutral mb-4 text-shadow bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+				3x3 Grid Splitter
+			</h1>
+			<p class="text-gray-600 text-lg max-w-2xl mx-auto">Upload an image to split it into 9 equal pieces, creating a 3x3 grid.</p>
+		</header>
+
+		<!-- 主内容区 -->
+		<main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+			<!-- 左侧：上传区�?-->
+			<section class="lg:col-span-1 bg-white rounded-2xl shadow-xl p-6 hover-scale">
+				<div class="text-center mb-6">
+					<i class="fa-solid fa-cloud-upload text-5xl text-primary mb-4"></i>
+					<h2 class="text-xl font-bold text-neutral mb-2">Upload Image</h2>
+					<p class="text-gray-500">Select an image to begin splitting</p>
+				</div>
+
+				<div id="drop-area" class="border-2 border-dashed border-primary/30 rounded-xl p-8 text-center cursor-pointer hover:border-primary transition-all duration-300 mb-6">
+					<input type="file" id="file-input" accept="image/*" class="hidden">
+					<label for="file-input" class="cursor-pointer">
+						<i class="fa-solid fa-image text-4xl text-primary/60 mb-3"></i>
+						<p class="text-gray-600 mb-2">Click or drag an image here</p>
+						<p class="text-sm text-gray-400">Supports JPG, PNG, GIF</p>
+					</label>
+				</div>
+
+				<div id="preview-container" class="hidden mb-6">
+					<h3 class="text-lg font-semibold text-neutral mb-3">Preview</h3>
+					<div class="relative overflow-hidden rounded-lg border border-gray-200">
+						<img id="preview-image" src="" alt="Preview image" class="max-w-full h-auto object-contain">
+						<div id="loading-overlay" class="absolute inset-0 bg-black/50 flex items-center justify-center hidden">
+							<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+						</div>
+					</div>
+				</div>
+
+				<button id="slice-button" class="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
+					<i class="fa-solid fa-scissors mr-2"></i>
+						Start splitting
+				</button>
+			</section>
+
+			<!-- 右侧：结果展示区 -->
+			<section id="results-section" class="lg:col-span-2 bg-white rounded-2xl shadow-xl p-6 opacity-0 transition-opacity duration-500">
+				<div class="text-center mb-6">
+					<i class="fa-solid fa-th text-5xl text-accent mb-4"></i>
+					<h2 class="text-xl font-bold text-neutral mb-2">Result</h2>
+					<p class="text-gray-500">Click download on each piece to save</p>
+				</div>
+
+				<div id="grid-container" class="grid grid-cols-3 gap-4 mb-6">
+					<!-- 九宫格图片将在这里动态生�?-->
+				</div>
+
+				<button id="download-all" class="w-full bg-secondary hover:bg-secondary/90 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+					<i class="fa-solid fa-download mr-2"></i>
+						Download all
+				</button>
+			</section>
+		</main>
+
+	</div>
+</div>
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2 class="help-title">
+		<i class="fas fa-question-circle"></i>
+		How to Use
+	</h2>
+	<div class="help-content">
+		<h3>Step-by-Step Instructions</h3>
+		<ol>
+			<li><strong>Upload Image:</strong> Click the upload area or drag and drop an image file</li>
+			<li><strong>Preview:</strong> Review your uploaded image in the preview section</li>
+			<li><strong>Start Splitting:</strong> Click "Start splitting" to divide the image into 9 pieces</li>
+			<li><strong>Download Individual Pieces:</strong> Click "Download" on each piece to save it</li>
+			<li><strong>Download All:</strong> Use "Download all" to save all 9 pieces at once</li>
+		</ol>
+
+		<h3>What is 3x3 Grid Splitting?</h3>
+		<p>This tool divides any image into 9 equal rectangular pieces arranged in a 3x3 grid. Each piece is numbered from 1 to 9, making it easy to identify and download individual sections.</p>
+
+		<h3>Supported Image Formats</h3>
+		<ul>
+			<li>JPEG (.jpg, .jpeg)</li>
+			<li>PNG (.png)</li>
+			<li>GIF (.gif)</li>
+			<li>BMP (.bmp)</li>
+			<li>WebP (.webp)</li>
+		</ul>
+
+		<h3>Grid Layout</h3>
+		<div class="example-box">
+			<div class="example-title">3x3 Grid Structure:</div>
+			<ul>
+				<li><strong>Row 1:</strong> Pieces 1, 2, 3 (top row)</li>
+				<li><strong>Row 2:</strong> Pieces 4, 5, 6 (middle row)</li>
+				<li><strong>Row 3:</strong> Pieces 7, 8, 9 (bottom row)</li>
+			</ul>
+		</div>
+
+		<h3>Common Use Cases</h3>
+		<div class="example-box">
+			<div class="example-title">Social Media:</div>
+			<ul>
+				<li>Create Instagram 3x3 grid posts</li>
+				<li>Split large images for Twitter threads</li>
+				<li>Create Facebook photo collages</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">Art & Design:</div>
+			<ul>
+				<li>Create puzzle pieces from images</li>
+				<li>Split artwork for printing on multiple pages</li>
+				<li>Create mosaic-style displays</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">Education:</div>
+			<ul>
+				<li>Create learning materials with image sections</li>
+				<li>Split diagrams for step-by-step explanations</li>
+				<li>Create interactive image puzzles</li>
+			</ul>
+		</div>
+
+		<h3>Download Options</h3>
+		<div class="example-box">
+			<div class="example-title">Individual Download:</div>
+			<ul>
+				<li>Click "Download" on any piece to save it</li>
+				<li>Files are named: grid_1.png, grid_2.png, etc.</li>
+				<li>Perfect for selective use</li>
+			</ul>
+		</div>
+
+		<div class="example-box">
+			<div class="example-title">Download All:</div>
+			<ul>
+				<li>Downloads all 9 pieces at once</li>
+				<li>Files are automatically numbered</li>
+				<li>Convenient for complete sets</li>
+			</ul>
+		</div>
+
+		<h3>Image Quality & Sizing</h3>
+		<ul>
+			<li>Each piece maintains the original image quality</li>
+			<li>Pieces are sized proportionally (1/3 width × 1/3 height)</li>
+			<li>Output format is PNG for best quality</li>
+			<li>No compression or quality loss during splitting</li>
+		</ul>
+
+		<h3>Tips for Best Results</h3>
+		<ul>
+			<li>Use square images for perfect 3x3 grids</li>
+			<li>High-resolution images work best</li>
+			<li>Consider the final layout when choosing images</li>
+			<li>Test with different image orientations</li>
+			<li>Save original images before splitting</li>
+		</ul>
+
+		<h3>Browser Requirements</h3>
+		<ul>
+			<li>Modern web browser with HTML5 Canvas support</li>
+			<li>JavaScript enabled</li>
+			<li>Sufficient memory for image processing</li>
+		</ul>
+
+		<h3>Important Notes</h3>
+		<ul>
+			<li>All processing is done locally in your browser</li>
+			<li>No images are uploaded to external servers</li>
+			<li>Large images may take longer to process</li>
+			<li>Each piece is a separate downloadable file</li>
+			<li>Original image aspect ratio is preserved</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+	// 初始化变�?
+	let originalImage = null;
+	let canvasElements = [];
+	let isProcessing = false;
+
+	// DOM 元素
+	const dropArea = document.getElementById('drop-area');
+	const fileInput = document.getElementById('file-input');
+	const previewContainer = document.getElementById('preview-container');
+	const previewImage = document.getElementById('preview-image');
+	const sliceButton = document.getElementById('slice-button');
+	const resultsSection = document.getElementById('results-section');
+	const gridContainer = document.getElementById('grid-container');
+	const downloadAllButton = document.getElementById('download-all');
+	const loadingOverlay = document.getElementById('loading-overlay');
+
+	// 拖拽上传功能
+	['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+		dropArea.addEventListener(eventName, preventDefaults, false);
+	});
+
+	function preventDefaults(e) {
+		e.preventDefault();
+		e.stopPropagation();
+	}
+
+	['dragenter', 'dragover'].forEach(eventName => {
+		dropArea.addEventListener(eventName, highlight, false);
+	});
+
+	['dragleave', 'drop'].forEach(eventName => {
+		dropArea.addEventListener(eventName, unhighlight, false);
+	});
+
+	function highlight() {
+		dropArea.classList.add('border-primary');
+		dropArea.classList.add('bg-primary/5');
+	}
+
+	function unhighlight() {
+		dropArea.classList.remove('border-primary');
+		dropArea.classList.remove('bg-primary/5');
+	}
+
+	dropArea.addEventListener('drop', handleDrop, false);
+
+	function handleDrop(e) {
+		const dt = e.dataTransfer;
+		const file = dt.files[0];
+		handleFile(file);
+	}
+
+	// 文件选择
+	fileInput.addEventListener('change', function() {
+		handleFile(this.files[0]);
+	});
+
+	// 处理文件
+	function handleFile(file) {
+		if (!file) return;
+		if (!file.type.match('image.*')) {
+			alert('Please choose an image file');
+			return;
+		}
+
+		const reader = new FileReader();
+		reader.onload = function(e) {
+			previewImage.src = e.target.result;
+			previewContainer.classList.remove('hidden');
+			previewContainer.classList.add('animate-fadeIn');
+
+			// 加载原始图片用于切割
+			const img = new Image();
+			img.onload = function() {
+				originalImage = img;
+				sliceButton.disabled = false;
+			};
+			img.src = e.target.result;
+		};
+		reader.readAsDataURL(file);
+	}
+
+	// 切割图片
+	sliceButton.addEventListener('click', function() {
+		if (!originalImage || isProcessing) return;
+
+		isProcessing = true;
+		loadingOverlay.classList.remove('hidden');
+		sliceButton.disabled = true;
+
+		setTimeout(() => {
+			sliceImage();
+			isProcessing = false;
+			loadingOverlay.classList.add('hidden');
+			resultsSection.style.opacity = '1';
+			// 平滑滚动到结果区�?
+			resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}, 800); // 模拟处理延迟
+	});
+
+	// 执行图片切割
+	function sliceImage() {
+		const imgWidth = originalImage.width;
+		const imgHeight = originalImage.height;
+		const pieceWidth = Math.floor(imgWidth / 3);
+		const pieceHeight = Math.floor(imgHeight / 3);
+
+		// 清空结果容器
+		gridContainer.innerHTML = '';
+		canvasElements = [];
+
+		// 创建9个canvas并绘制切割后的图�?
+		for (let row = 0; row < 3; row++) {
+			for (let col = 0; col < 3; col++) {
+				const canvas = document.createElement('canvas');
+				canvas.width = pieceWidth;
+				canvas.height = pieceHeight;
+				const ctx = canvas.getContext('2d');
+
+				// 计算源图片的位置
+				const sx = col * pieceWidth;
+				const sy = row * pieceHeight;
+
+				// 绘制图片到canvas
+				ctx.drawImage(
+						originalImage,
+						sx, sy, pieceWidth, pieceHeight,
+						0, 0, pieceWidth, pieceHeight
+				);
+
+				// 保存canvas引用
+				canvasElements.push(canvas);
+
+				// 创建结果�?
+				const gridItem = document.createElement('div');
+				gridItem.className = 'bg-base-100 rounded-lg shadow-md overflow-hidden hover-scale';
+
+				// 添加图片预览
+				const imgContainer = document.createElement('div');
+				imgContainer.className = 'relative aspect-square overflow-hidden';
+				const img = document.createElement('img');
+				img.src = canvas.toDataURL('image/png');
+				img.alt = `Image piece ${row * 3 + col + 1}`;
+				img.className = 'w-full h-full object-cover transition-transform duration-500 hover:scale-110';
+				imgContainer.appendChild(img);
+
+				// 添加序号
+				const numberBadge = document.createElement('div');
+				numberBadge.className = 'absolute top-2 left-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded-full shadow';
+				numberBadge.textContent = `${row * 3 + col + 1}`;
+				imgContainer.appendChild(numberBadge);
+
+				// 添加下载按钮
+				const downloadBtn = document.createElement('button');
+				downloadBtn.className = 'w-full bg-accent hover:bg-accent/90 text-white font-medium py-2 px-4 transition-all duration-300 flex items-center justify-center';
+				downloadBtn.innerHTML = '<i class="fa-solid fa-download mr-2"></i> Download';
+				downloadBtn.addEventListener('click', function() {
+					downloadCanvas(canvas, `grid_${row * 3 + col + 1}.png`);
+				});
+
+				// 组装结果�?
+				gridItem.appendChild(imgContainer);
+				gridItem.appendChild(downloadBtn);
+				gridContainer.appendChild(gridItem);
+			}
+		}
+	}
+
+	// 下载单个canvas图片
+	function downloadCanvas(canvas, filename) {
+		const link = document.createElement('a');
+		link.download = filename;
+		link.href = canvas.toDataURL('image/png');
+		link.click();
+	}
+
+	// 下载全部图片
+	downloadAllButton.addEventListener('click', function() {
+		if (canvasElements.length === 0) return;
+
+		// 逐个下载图片，设置小延迟避免浏览器阻�?
+		canvasElements.forEach((canvas, index) => {
+			setTimeout(() => {
+				downloadCanvas(canvas, `grid_${index + 1}.png`);
+			}, index * 200);
+		});
+	});
+
+	// 添加淡入动画
+	document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                .animate-fadeIn {
+                    animation: fadeIn 0.5s ease-out forwards;
+                }
+            </style>
+        `);
+</script>
+</body>
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+
+<!-- Footer -->
+<footer class="footer">
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		&copy; 2024 Missionary AI. All rights reserved.
+	</div>
+</footer>
+
+</html>

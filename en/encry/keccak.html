@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Keccak Hash - Chdao Tools</title>
+	<meta name="keywords" content="online tools suite, Chdao Tools">
+	<meta name="description" content="Chdao Tools is an online toolkit with no login or fees. Includes life, developer, encoding/decoding, encryption, image, and entertainment tools.">
+	<link rel="canonical" href="https://www.chdaoai.com/encry/keccak.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 1000px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.header {
+			color: #2ecc71;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			margin-bottom: 20px;
+		}
+
+		.title {
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.rating {
+			color: #f39c12;
+			font-size: 24px;
+		}
+
+		textarea {
+			width: 100%;
+			height: 100px;
+			padding: 10px;
+			margin: 10px 0;
+			border: 2px solid #2ecc71;
+			border-radius: 5px;
+		}
+
+		.button-group {
+			display: flex;
+			gap: 10px;
+			flex-wrap: wrap;
+			margin: 15px 0;
+		}
+
+		button {
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+		}
+
+		.encrypt-btn {
+			background: #2ecc71;
+			color: white;
+		}
+
+		.clear-btn {
+			background: #e74c3c;
+			color: white;
+		}
+
+		#result {
+			background: white;
+			padding: 15px;
+			border-radius: 5px;
+			margin: 20px 0;
+			min-height: 60px;
+			border: 1px solid #ddd;
+		}
+
+		.introduction {
+			background: #fff;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+	</style>
+	<style>
+		/* Help section styles */
+		.help-section { background: #f8f9fa; border-radius: 8px; padding: 2rem; margin: 2rem auto; max-width: 1100px; border-left: 4px solid #007bff; }
+		.help-title { color: #333; font-size: 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem; }
+		.help-content { color: #666; line-height: 1.6; }
+		.help-content h3 { color: #444; margin: 1.25rem 0 .5rem 0; font-size: 1.1rem; }
+		.help-content ul { margin: .5rem 0 1rem 1.5rem; }
+		.help-content li { margin: .35rem 0; }
+
+		/* Footer */
+		.footer { background: #333; color: #fff; text-align: center; padding: 2rem 1rem; margin-top: 3rem; }
+		.footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; flex-wrap: wrap; }
+		.footer-links a { color: #ccc; text-decoration: none; transition: color .3s; }
+		.footer-links a:hover { color: #fff; }
+		.footeropyright { color: #999; font-size: .9rem; }
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tools grid layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha3/0.9.0/sha3.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding/Decoding</a>
+			<a href="../dev.html" class="nav-category">💻 Developer Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Entertainment</a>
+		</div>
+	</div>
+</nav>
+<h1 style="text-align: center">Keccak Hash</h1>
+<div class="container">
+
+
+	<textarea id="input" placeholder="Enter text..."></textarea>
+
+	<div class="button-group">
+		<button class="encrypt-btn" onclick="encrypt(224)">keccak-224</button>
+		<button class="encrypt-btn" onclick="encrypt(256)">keccak-256</button>
+		<button class="encrypt-btn" onclick="encrypt(384)">keccak-384</button>
+		<button class="encrypt-btn" onclick="encrypt(512)">keccak-512</button>
+		<button class="clear-btn" onclick="clearAll()">Clear</button>
+	</div>
+
+	<div id="result">Output...</div>
+
+	<div class="introduction">
+		<h3>About Keccak</h3>
+		<p>1) Keccak is a cryptographic hash function designed by Guido Bertoni, Joan Daemen, et al.</p>
+		<p>2) Supports custom output length, capacity, and rate for diverse scenarios.</p>
+		<p>3) Performs well across platforms, especially in hardware.</p>
+		<p>4) Output length can be extended/compressed without affecting security.</p>
+		<p>5) Used for integrity checks, password storage, signatures, RNG, and protocols.</p>
+	</div>
+
+	<script>
+		function encrypt(bits) {
+			const input = document.getElementById('input').value;
+			if (!input) {
+				alert('Please enter text');
+				return;
+			}
+
+			let hash;
+			switch(bits) {
+				case 224:
+					hash = sha3_224(input);
+					break;
+				case 256:
+					hash = sha3_256(input);
+					break;
+				case 384:
+					hash = sha3_384(input);
+					break;
+				case 512:
+					hash = sha3_512(input);
+					break;
+				default:
+					hash = 'Unsupported bit length';
+			}
+
+			document.getElementById('result').innerHTML =
+					`keccak-${bits} result:<br><strong>${hash}</strong>`;
+		}
+
+		function clearAll() {
+			document.getElementById('input').value = '';
+			document.getElementById('result').innerHTML = 'Output...';
+		}
+	</script>
+</div>
+
+<!-- Help Section -->
+<div class="help-section">
+    <h2 class="help-title"><i class="fas fa-question-circle"></i> How to Use</h2>
+    <div class="help-content">
+        <h3>What this tool does</h3>
+        <p>Computes Keccak hash digests (224/256/384/512) of input text in your browser.</p>
+
+        <h3>Steps</h3>
+        <ol>
+            <li>Enter text into the input box.</li>
+            <li>Click the desired bit length (224/256/384/512) to generate the hash.</li>
+            <li>Copy the result from the output area.</li>
+        </ol>
+
+        <h3>Examples</h3>
+        <ul>
+            <li>Input: "hello" �?keccak-256 �?0x... (hex string).</li>
+        </ul>
+
+        <h3>Notes</h3>
+        <ul>
+            <li>Keccak is the basis for SHA�?; implementations may differ slightly by padding/domain.</li>
+            <li>Processing is local; nothing is uploaded.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <div class="footer-links">
+        <a href="../about.html">About Us</a>
+        <a href="../contact.html">Contact Us</a>
+        <a href="../privacy.html">Privacy Policy</a>
+    </div>
+    <div class="footeropyright">&copy; 2024 Missionary AI. All rights reserved.</div>
+</div>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+
+</body>
+
+</html>

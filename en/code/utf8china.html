@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>UTF-8 �?Chinese Converter - Chandao Tools</title>
+	<meta name="keywords" content="online tool collection, Chandao Tools">
+	<meta name="description" content="Chandao Tools is a collection of free, no-login online utilities across life, dev, encoding/decoding, encryption, images, and fun.">
+	<link rel="canonical" href="https://www.chdaoai.com/code/utf8china.html">	
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		.input-group {
+			margin: 15px 0;
+		}
+
+		textarea {
+			width: 100%;
+			height: 100px;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 8px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.button-group {
+			display: flex;
+			gap: 10px;
+			justify-content: center;
+			margin: 15px 0;
+		}
+
+		button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 6px;
+			cursor: pointer;
+			font-weight: 500;
+			transition: all 0.3s ease;
+		}
+
+		.primary-btn {
+			background-color: #4CAF50;
+			color: white;
+		}
+
+		.secondary-btn {
+			background-color: #FF9800;
+			color: white;
+		}
+
+		.clear-btn {
+			background-color: #9E9E9E;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.instructions {
+			margin-top: 30px;
+			padding: 20px;
+			background-color: #f8f9fa;
+			border-radius: 8px;
+			line-height: 1.8;
+		}
+
+		.error {
+			color: #f44336;
+			text-align: center;
+			display: none;
+		}
+	</style>
+	<style>
+		/* Help section and footer */
+		.help-section { background:#f8f9fa; border-radius:8px; padding:2rem; margin:2rem auto; max-width:1100px; border-left:4px solid #007bff; }
+		.help-title { color:#333; font-size:1.5rem; margin-bottom:1rem; display:flex; align-items:center; gap:.5rem; }
+		.help-content { color:#666; line-height:1.6; }
+		.help-content h3 { color:#444; margin:1.25rem 0 .5rem; font-size:1.1rem; }
+		.help-content ul { margin:.5rem 0 1rem 1.5rem; }
+		.help-content li { margin:.35rem 0; }
+		.footer { background:#333; color:#fff; text-align:center; padding:2rem 1rem; margin-top:3rem; }
+		.footer-links { display:flex; justify-content:center; gap:2rem; margin-bottom:1rem; flex-wrap:wrap; }
+		.footer-links a { color:#ccc; text-decoration:none; transition:color .3s; }
+		.footer-links a:hover { color:#fff; }
+		.footeropyright { color:#999; font-size:.9rem; }
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样�?*/
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="https://cdn.jsdelivr.net/npm/punycode@2.1.0/punycode.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding</a>
+			<a href="../dev.html" class="nav-category">💻 Dev Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Fun Tools</a>
+		</div>
+	</div>
+</nav>
+<div class="container">
+	<h1>UTF-8 �?Chinese</h1>
+
+	<div class="input-group">
+		<textarea id="chineseInput" placeholder="Enter Chinese text..."></textarea>
+	</div>
+
+	<div class="button-group">
+		<button class="primary-btn" onclick="chineseToUtf8()">Chinese �?UTF-8</button>
+		<button class="secondary-btn" onclick="utf8ToChinese()">UTF-8 �?Chinese</button>
+		<button class="clear-btn" onclick="clearAll()">Clear</button>
+	</div>
+
+	<div class="input-group">
+		<textarea id="utf8Input" placeholder="Enter UTF-8 hex bytes (no spaces)..."></textarea>
+	</div>
+
+	<div class="error" id="errorMsg"></div>
+
+	<div class="instructions">
+		<h3>About UTF-8:</h3>
+		<ol>
+			<li>UTF-8 is a variable-length encoding for Unicode characters.</li>
+			<li>It’s the most widely used Unicode form on the internet.</li>
+			<li>Used in networking, OSes, files, databases, and programming languages.</li>
+			<li>Supports virtually all characters, including Chinese, Cyrillic, etc.</li>
+		</ol>
+	</div>
+</div>
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2 class="help-title">How to Use</h2>
+	<div class="help-content">
+		<h3>What this tool does</h3>
+		<p>Converts between Chinese text and its UTF�? hex bytes (percent-encoding without %).</p>
+		<h3>Steps</h3>
+		<ol>
+			<li>Chinese �?UTF�?: input Chinese, click the first button.</li>
+			<li>UTF�? �?Chinese: paste hex bytes, click the second button.</li>
+		</ol>
+		<h3>Examples</h3>
+		<ul>
+			<li>"中文" �?E4B8ADE69687</li>
+			<li>E4B8ADE69687 �?中文</li>
+		</ul>
+		<h3>Notes</h3>
+		<ul>
+			<li>UTF�? hex must be a continuous string with only 0-9 A-F.</li>
+			<li>Everything runs locally in your browser.</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footeropyright">&copy; 2024 Missionary AI. All rights reserved.</div>
+</div>
+
+<script>
+	// 中文转UTF8
+	function chineseToUtf8() {
+		try {
+			const input = document.getElementById('chineseInput').value;
+			const encoded = encodeURIComponent(input).replace(/%/g, '');
+			document.getElementById('utf8Input').value = encoded;
+			showError('');
+		} catch (error) {
+			showError('Conversion failed: ' + error.message);
+		}
+	}
+
+	// UTF8转中�?
+	function utf8ToChinese() {
+		try {
+			const input = document.getElementById('utf8Input').value;
+			if (!/^[0-9A-Fa-f]+$/.test(input)) {
+				throw new Error('Invalid UTF-8 encoding');
+			}
+			const decoded = decodeURIComponent('%' + input.match(/.{1,2}/g).join('%'));
+			document.getElementById('chineseInput').value = decoded;
+			showError('');
+		} catch (error) {
+			showError('Conversion failed: ' + error.message);
+		}
+	}
+
+	// Clear
+	function clearAll() {
+		document.getElementById('chineseInput').value = '';
+		document.getElementById('utf8Input').value = '';
+		showError('');
+	}
+
+	// Error message
+	function showError(message) {
+		const errorElem = document.getElementById('errorMsg');
+		errorElem.textContent = message;
+		errorElem.style.display = message ? 'block' : 'none';
+	}
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

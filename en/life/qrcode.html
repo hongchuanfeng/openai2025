@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>QR Code Generator - Chdao Tools</title>
+	<meta name="keywords" content="online tools suite, Chdao Tools">
+	<meta name="description" content="Chdao Tools is an online toolkit with no login or fees. Includes life, developer, encoding/decoding, encryption, image, and entertainment tools.">
+	<link rel="canonical" href="https://www.chdaoai.com/life/qrcode.html">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background-color: white;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+			border-radius: 4px;
+			overflow: hidden;
+			max-width: 600px;
+			max-width: 100%;
+			margin: auto;
+		}
+
+		h1 {
+			text-align: center;
+			color: #333;
+		}
+
+		.qr-code-generator {
+			max-width: 400px;
+			margin: 0 auto;
+			background-color: #fff;
+			border-radius: 10px;
+			padding: 20px;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+			text-align: center;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 10px;
+			color: #555;
+		}
+
+		input[type="text"] {
+			width: 100%;
+			padding: 10px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			font-size: 16px;
+		}
+
+		.qr-code {
+			margin-top: 20px;
+			text-align: center;
+		}
+
+		.qr-code img {
+			max-width: 200px;
+		}
+
+		.hint-box {
+			background-color: #f2f2f2;
+			padding: 10px;
+			text-align: center;
+			margin-top: 10px;
+		}
+
+		.con-btn {
+			background-color: #4caf50;
+			color: #fff;
+			border: none;
+			border-radius: 4px;
+			padding: 10px 20px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+
+		.con-btn:hover {
+			background-color: #45a049;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 600px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tools grid layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Help Section Styles */
+		.help-section {
+			background: white;
+			border-radius: 8px;
+			padding: 2rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		}
+
+		.help-section h2 {
+			color: #333;
+			margin-bottom: 1rem;
+			font-size: 1.5rem;
+		}
+
+		.help-section h3 {
+			color: #555;
+			margin: 1.5rem 0 0.5rem 0;
+			font-size: 1.2rem;
+		}
+
+		.help-section p {
+			color: #666;
+			line-height: 1.6;
+			margin-bottom: 1rem;
+		}
+
+		.help-section ul, .help-section ol {
+			margin: 0.5rem 0 1rem 1.5rem;
+			color: #666;
+		}
+
+		.help-section li {
+			margin: 0.3rem 0;
+			line-height: 1.5;
+		}
+
+		.help-section strong {
+			color: #333;
+		}
+
+		/* Footer Styles */
+		.footer {
+			background: #333;
+			color: white;
+			padding: 2rem 0;
+			margin-top: 3rem;
+		}
+
+		.footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 1rem;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1rem;
+		}
+
+		.footer-links a {
+			color: white;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #ccc;
+			font-size: 0.9rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.help-section {
+				margin: 1rem;
+				padding: 1.5rem;
+			}
+
+			.footer-links {
+				flex-direction: column;
+				gap: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding/Decoding</a>
+			<a href="../dev.html" class="nav-category">💻 Developer Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Entertainment</a>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container">
+	<h1>QR Code Generator</h1>
+
+	<div class="qr-code-generator">
+		<label>Enter content:</label>
+		<input type="text" id="content">
+
+		<button class="con-btn" onclick="generateQRCode()">Generate QR Code</button>
+
+		<div id="qrCode" class="qr-code"></div>
+
+		<div id="hintBox" class="hint-box" onclick="downloadDiagram()">Tip: Long press the image to save/share</div>
+	</div>
+
+</div>
+
+<!-- Help Section -->
+<div class="help-section">
+	<h2>How to Use</h2>
+	<p>This tool generates QR codes from text, URLs, or other data. QR codes are two-dimensional barcodes that can be scanned by smartphones and other devices to quickly access information.</p>
+	
+	<h3>Step-by-Step Instructions:</h3>
+	<ol>
+		<li><strong>Enter Content:</strong> Type or paste your text, URL, or data into the input field</li>
+		<li><strong>Generate:</strong> Click "Generate QR Code" to create the QR code</li>
+		<li><strong>View Result:</strong> The generated QR code will appear below the button</li>
+		<li><strong>Download:</strong> Long press the image to save or share it</li>
+	</ol>
+	
+	<h3>QR Code Basics:</h3>
+	<ul>
+		<li><strong>QR Code:</strong> Quick Response code - a type of matrix barcode</li>
+		<li><strong>Scanning:</strong> Use any smartphone camera or QR code scanner app</li>
+		<li><strong>Content Types:</strong> Text, URLs, contact info, WiFi credentials, and more</li>
+		<li><strong>Size:</strong> Automatically adjusts based on content length</li>
+	</ul>
+	
+	<h3>Examples:</h3>
+	<ul>
+		<li><strong>Website URL:</strong> "https://www.example.com"</li>
+		<li><strong>Contact Info:</strong> "BEGIN:VCARD\nFN:John Doe\nTEL:+1234567890\nEND:VCARD"</li>
+		<li><strong>WiFi:</strong> "WIFI:T:WPA;S:NetworkName;P:password;H:false;"</li>
+		<li><strong>Plain Text:</strong> "Hello, World!"</li>
+	</ul>
+	
+	<h3>Common Use Cases:</h3>
+	<ul>
+		<li>Sharing website URLs</li>
+		<li>Contact information exchange</li>
+		<li>WiFi network sharing</li>
+		<li>Event information</li>
+		<li>Product information</li>
+		<li>Social media profiles</li>
+	</ul>
+	
+	<h3>Tips for Better Results:</h3>
+	<ul>
+		<li>Use high contrast colors for better scanning</li>
+		<li>Ensure adequate white space around the QR code</li>
+		<li>Test the QR code with different scanning apps</li>
+		<li>Consider the viewing distance when choosing size</li>
+		<li>Keep content concise for better readability</li>
+	</ul>
+	
+	<h3>Important Notes:</h3>
+	<ul>
+		<li>QR codes are generated using a third-party API</li>
+		<li>Ensure your content is appropriate and legal</li>
+		<li>Test QR codes before printing or sharing</li>
+		<li>Some QR code scanners may have different capabilities</li>
+		<li>Keep backup copies of important QR codes</li>
+	</ul>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+	<div class="footer-content">
+		<div class="footer-links">
+			<a href="../about.html">About Us</a>
+			<a href="../contact.html">Contact Us</a>
+			<a href="../privacy.html">Privacy Policy</a>
+		</div>
+		<div class="footer-copyright">
+			<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+		</div>
+	</div>
+</footer>
+
+<script>
+	function generateQRCode() {
+		var contentInput = document.getElementById("content");
+		var qrCodeDiv = document.getElementById("qrCode");
+		var hintBox = document.getElementById("hintBox");
+
+		var content = contentInput.value;
+
+		// Use API to generate QR code
+		var apiUrl = "https://api.vvhan.com/api/qr?text=" + encodeURIComponent(content);
+
+		// Create img element and set src to API URL
+		var qrCodeImg = document.createElement("img");
+		qrCodeImg.src = apiUrl;
+
+		// Clear container and append generated QR image
+		qrCodeDiv.innerHTML = "";
+		qrCodeDiv.appendChild(qrCodeImg);
+
+		// Show hint box
+		hintBox.style.display = "block";
+	}
+
+	// Enhanced image download function
+	async function downloadDiagram() {
+		const img = document.getElementById('targetImage');
+
+		try {
+			// Phase 1: validate image accessibility
+			if (!await validateImage(img)) {
+				throw new Error('Image failed to load. Please check your network connection');
+			}
+
+			// Phase 2: draw into Canvas
+			const canvas = document.createElement('canvas');
+			canvas.width = img.naturalWidth;
+			canvas.height = img.naturalHeight;
+
+			const ctx = canvas.getContext('2d');
+			ctx.drawImage(img, 0, 0);
+
+			// Phase 3: trigger download
+			canvas.toBlob(blob => {
+				const link = document.createElement('a');
+				link.download = `format-converter-${new Date().toISOString().slice(0,10)}.png`;
+				link.href = URL.createObjectURL(blob);
+				link.click();
+
+				// 内存清理
+				setTimeout(() => {
+					URL.revokeObjectURL(link.href);
+					canvas.remove();
+				}, 100);
+			}, 'image/png', 1);
+
+		} catch (error) {
+			handleError(error);
+			console.error('Download failed:', error.stack);
+		}
+	}
+
+	// Image validation
+	function validateImage(img) {
+		return new Promise((resolve, reject) => {
+			if (img.complete && img.naturalWidth > 0) {
+				resolve(true);
+				return;
+			}
+
+			img.onload = () => resolve(true);
+			img.onerror = () => reject(new Error('Image load blocked (possibly due to CORS)'));
+
+			// Timeout handling
+			setTimeout(() => reject(new Error('Image load timed out')), 5000);
+		});
+	}
+
+	// Error handling
+	function handleError(error) {
+		alert(`Download failed: ${error.message}\nSuggestions: 1. Check network 2. Try right-click Save As`);
+	}
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>

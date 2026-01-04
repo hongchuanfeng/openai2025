@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Online Countdown - Chdao Tools</title>
+	<meta name="keywords" content="online tools suite, Chdao Tools">
+	<meta name="description" content="Chdao Tools is an online toolkit with no login or fees. Includes life, developer, encoding/decoding, encryption, image, and entertainment tools.">
+	<link rel="canonical" href="https://www.chdaoai.com/life/countdown.html">	
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		h1 {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		form {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		label {
+			font-size: 18px;
+			margin-right: 10px;
+		}
+
+		#minutes {
+			width: 180px;
+			padding: 5px;
+			font-size: 14px;
+		}
+
+		.con-btn {
+			padding: 10px 20px;
+			font-size: 16px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		#countdown {
+			font-size: 64px;
+			text-align: center;
+			margin-top: 40px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tools grid layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+
+		/* Help section styles */
+		.help-section {
+			background: #f8f9fa;
+			padding: 1.5rem;
+			margin: 2rem auto;
+			max-width: 800px;
+			border-radius: 8px;
+			border-left: 4px solid #007bff;
+		}
+
+		.help-section h2 {
+			color: #333;
+			font-size: 1.3rem;
+			margin-bottom: 1rem;
+		}
+
+		.help-section h3 {
+			color: #007bff;
+			font-size: 1.1rem;
+			margin-top: 1rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.help-section p, .help-section ul {
+			color: #666;
+			line-height: 1.8;
+			margin-bottom: 0.8rem;
+		}
+
+		.help-section ul {
+			margin-left: 1.5rem;
+		}
+
+		.help-section ul li {
+			margin-bottom: 0.5rem;
+		}
+
+		.example {
+			background: #e7f3ff;
+			padding: 1rem;
+			border-radius: 5px;
+			margin-top: 1rem;
+		}
+
+		.example strong {
+			color: #007bff;
+		}
+
+		/* Footer styles */
+		footer {
+			background: white;
+			padding: 2rem 1rem;
+			margin-top: 3rem;
+			border-top: 1px solid #e0e0e0;
+			text-align: center;
+		}
+
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+
+		.footer-links a {
+			color: #666;
+			text-decoration: none;
+			transition: color 0.3s;
+			font-size: 0.95rem;
+		}
+
+		.footer-links a:hover {
+			color: #007bff;
+		}
+
+		.footer-copyright {
+			color: #999;
+			font-size: 0.9rem;
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWMGEQS9C0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HWMGEQS9C0');
+</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="50px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">�?/button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🔍 Recommended</a>
+			<a href="../life.html" class="nav-category">🏠 Life Tools</a>
+			<a href="../encry.html" class="nav-category">🔒 Encryption</a>
+			<a href="../code.html" class="nav-category">📝 Encoding/Decoding</a>
+			<a href="../dev.html" class="nav-category">💻 Developer Tools</a>
+			<a href="../image.html" class="nav-category">🖼�?Image Tools</a>
+			<a href="../game.html" class="nav-category">🎮 Entertainment</a>
+		</div>
+	</div>
+</nav>
+
+
+<form style="padding-bottom: 10px;padding-top: 10px;">
+	<label for="minutes">Countdown time (minutes):</label>
+	<input type="number" id="minutes" name="minutes" placeholder="Enter countdown time (minutes)" required>
+	<br>
+	<button class="con-btn" type="button" onclick="startCountdown()">Start Countdown</button>
+</form>
+
+<div id="countdown"></div>
+
+<div class="help-section">
+	<h2>How to Use the Online Countdown Timer</h2>
+	<p>Set a countdown timer for any duration in minutes to track time for activities, breaks, or events.</p>
+
+	<h3>Instructions</h3>
+	<ul>
+		<li>Enter the countdown duration in minutes (1-999)</li>
+		<li>Click "Start Countdown" to begin the timer</li>
+		<li>Watch the countdown display in real-time</li>
+		<li>Timer will show "Time's up!" when finished</li>
+		<li>Enter a new duration to start another countdown</li>
+	</ul>
+
+	<h3>Features</h3>
+	<ul>
+		<li><strong>Real-time Display:</strong> Shows minutes and seconds remaining</li>
+		<li><strong>Large Font:</strong> Easy to read from a distance</li>
+		<li><strong>Automatic Completion:</strong> Stops automatically when time expires</li>
+		<li><strong>Flexible Duration:</strong> Set any duration from 1 minute to several hours</li>
+		<li><strong>Simple Interface:</strong> Easy to use with minimal setup</li>
+	</ul>
+
+	<h3>Examples</h3>
+	<div class="example">
+		<strong>Example 1 - 5 Minute Break:</strong><br>
+		Enter: 5 minutes<br>
+		Display: "5 minutes 0 seconds" �?"4 minutes 59 seconds" �?... �?"Time's up!"<br><br>
+		<strong>Example 2 - 30 Minute Work Session:</strong><br>
+		Enter: 30 minutes<br>
+		Display: Counts down from 30:00 to 0:00
+	</div>
+
+	<h3>Common Use Cases</h3>
+	<ul>
+		<li>Pomodoro Technique work sessions (25 minutes)</li>
+		<li>Break timers (5-15 minutes)</li>
+		<li>Cooking and baking timers</li>
+		<li>Exercise and workout intervals</li>
+		<li>Study session timers</li>
+		<li>Meeting and presentation timers</li>
+		<li>Meditation and mindfulness sessions</li>
+	</ul>
+
+	<h3>Timer Display Format</h3>
+	<ul>
+		<li><strong>Format:</strong> "X minutes Y seconds"</li>
+		<li><strong>Updates:</strong> Every second in real-time</li>
+		<li><strong>Completion:</strong> Shows "Time's up!" when finished</li>
+		<li><strong>Large Text:</strong> 64px font size for visibility</li>
+	</ul>
+
+	<h3>Tips for Best Results</h3>
+	<ul>
+		<li>Keep the browser tab active for accurate timing</li>
+		<li>Don't close the browser during countdown</li>
+		<li>Use for activities where you can see the screen</li>
+		<li>Set realistic durations for your activities</li>
+		<li>Use in combination with other productivity methods</li>
+	</ul>
+
+	<h3>Browser Requirements</h3>
+	<ul>
+		<li>Modern web browser with JavaScript enabled</li>
+		<li>No additional plugins or downloads required</li>
+		<li>Works on desktop and mobile devices</li>
+		<li>Requires active browser tab for accuracy</li>
+	</ul>
+
+	<h3>Limitations</h3>
+	<ul>
+		<li>Timer stops if browser tab becomes inactive</li>
+		<li>Timer resets if page is refreshed</li>
+		<li>No sound notification when timer expires</li>
+		<li>No pause/resume functionality</li>
+		<li>Maximum duration is limited by browser capabilities</li>
+	</ul>
+
+	<h3>Productivity Techniques</h3>
+	<ul>
+		<li><strong>Pomodoro Technique:</strong> 25-minute work sessions with 5-minute breaks</li>
+		<li><strong>Time Blocking:</strong> Allocate specific time slots for tasks</li>
+		<li><strong>Focus Sessions:</strong> Work without distractions for set periods</li>
+		<li><strong>Break Reminders:</strong> Regular breaks to prevent burnout</li>
+		<li><strong>Deadline Awareness:</strong> Visual countdown to important events</li>
+	</ul>
+
+	<h3>Alternative Uses</h3>
+	<ul>
+		<li>Countdown to events or deadlines</li>
+		<li>Exercise interval timing</li>
+		<li>Cooking and food preparation</li>
+		<li>Gaming and entertainment</li>
+		<li>Educational activities and quizzes</li>
+		<li>Meditation and relaxation sessions</li>
+	</ul>
+</div>
+
+<footer>
+	<div class="footer-links">
+		<a href="../about.html">About Us</a>
+		<a href="../contact.html">Contact Us</a>
+		<a href="../privacy.html">Privacy Policy</a>
+	</div>
+	<div class="footer-copyright">
+		<p>&copy; 2024 Missionary AI. All rights reserved.</p>
+	</div>
+</footer>
+
+<script>
+	function startCountdown() {
+		var minutes = parseInt(document.getElementById("minutes").value);
+		if (isNaN(minutes) || minutes <= 0) {
+			alert("Please enter a valid countdown time (minutes)!");
+			return;
+		}
+
+		var count = minutes * 60;
+		var countdownElem = document.getElementById("countdown");
+		var updateCountdown = setInterval(function() {
+			var minutesLeft = Math.floor(count / 60);
+			var secondsLeft = count % 60;
+			countdownElem.innerHTML = minutesLeft + " minutes " + secondsLeft + " seconds";
+
+			count--;
+			if (count < 0) {
+				clearInterval(updateCountdown);
+				countdownElem.innerHTML = "Time's up!";
+			}
+		}, 1000);
+	}
+</script>
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+</body>
+
+</html>
